@@ -293,11 +293,10 @@
   }
 
   /* ----------------------------------------------------------------------
-     Particles — subtle theme-colored dots on hover (build up the longer you
-     stay) and a small burst on click. Disabled for reduced-motion / touch.
+     Particles — a generous burst of theme-colored dots when you click
+     something interactive. Disabled for reduced-motion users.
   ---------------------------------------------------------------------- */
-  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  if (!prefersReduced && finePointer) {
+  if (!prefersReduced) {
     const sparkLayer = document.createElement("div");
     sparkLayer.className = "spark-layer";
     document.body.appendChild(sparkLayer);
@@ -306,59 +305,33 @@
     const SEL = ".btn, .nav a, .socials a, .to-top, .carousel__btn, .carousel__dots button, " +
                 ".info-list a, .dropzone, .file-pill, .footer-links a, .footer-contact a, .adu-card, .brand";
 
-    function makeDot(x, y, burst) {
+    function makeDot(x, y) {
       const d = document.createElement("span");
       d.className = "spark";
-      const size = 2 + Math.random() * 3.5;
+      const size = 2 + Math.random() * 4;
       const c = COLORS[(Math.random() * COLORS.length) | 0];
       d.style.cssText =
         `width:${size}px;height:${size}px;left:${x}px;top:${y}px;` +
-        `background:${c};box-shadow:0 0 ${4 + size}px ${c};`;
+        `background:${c};box-shadow:0 0 ${5 + size}px ${c};`;
       sparkLayer.appendChild(d);
-      const ang = burst ? Math.random() * Math.PI * 2 : (-Math.PI / 2) + (Math.random() - .5) * 1.1;
-      const dist = burst ? 18 + Math.random() * 30 : 14 + Math.random() * 30;
+      const ang = Math.random() * Math.PI * 2;
+      const dist = 22 + Math.random() * 50;
       const dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist;
       d.animate(
         [
           { transform: "translate(-50%,-50%) scale(.3)", opacity: 0 },
-          { opacity: burst ? .9 : .8, offset: .25 },
+          { opacity: .95, offset: .2 },
           { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1)`, opacity: 0 }
         ],
-        { duration: burst ? 700 + Math.random() * 400 : 1000 + Math.random() * 800, easing: "cubic-bezier(.22,.61,.36,1)" }
+        { duration: 750 + Math.random() * 550, easing: "cubic-bezier(.22,.61,.36,1)" }
       ).onfinish = () => d.remove();
     }
 
-    let hoverEl = null, hoverTimer = null, lastX = 0, lastY = 0;
-    document.addEventListener("pointermove", (e) => { lastX = e.clientX; lastY = e.clientY; }, { passive: true });
-
-    document.addEventListener("pointerover", (e) => {
-      const el = e.target.closest(SEL);
-      if (!el || el === hoverEl) return;
-      hoverEl = el;
-      clearInterval(hoverTimer);
-      hoverTimer = setInterval(() => {
-        if (hoverEl !== el || !el.isConnected) { clearInterval(hoverTimer); return; }
-        const r = el.getBoundingClientRect();
-        let x, y;
-        if (lastX >= r.left && lastX <= r.right && lastY >= r.top && lastY <= r.bottom) {
-          x = lastX + (Math.random() - .5) * 12; y = lastY + (Math.random() - .5) * 12;
-        } else {
-          x = r.left + Math.random() * r.width; y = r.top + Math.random() * r.height;
-        }
-        makeDot(x, y, false);
-      }, 150);
-    });
-
-    document.addEventListener("pointerout", (e) => {
-      const el = e.target.closest(SEL);
-      if (!el) return;
-      if (e.relatedTarget && el.contains(e.relatedTarget)) return;
-      if (hoverEl === el) { hoverEl = null; clearInterval(hoverTimer); }
-    });
-
+    // Burst only on click of an interactive element
     document.addEventListener("pointerdown", (e) => {
       if (!e.target.closest(SEL)) return;
-      for (let i = 0; i < 9; i++) makeDot(e.clientX, e.clientY, true);
+      const n = 28 + ((Math.random() * 8) | 0); // generous burst
+      for (let i = 0; i < n; i++) makeDot(e.clientX, e.clientY);
     });
   }
 
