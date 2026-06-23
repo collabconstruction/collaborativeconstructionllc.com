@@ -334,30 +334,34 @@
       for (let i = 0; i < n; i++) makeDot(e.clientX, e.clientY);
     });
 
-    // Wind streaks — very transparent, appear on fast scroll & back-to-top
-    function makeWind(dir) {
-      const w = document.createElement("span");
-      w.className = "wind";
-      const len = 40 + Math.random() * 95;
+    // Dust motes — soft floating specks across the screen on fast scroll & back-to-top
+    function makeDust(driftBias) {
+      const d = document.createElement("span");
+      d.className = "dust";
+      const size = 2 + Math.random() * 5;
       const x = Math.random() * window.innerWidth;
       const y = Math.random() * window.innerHeight;
-      const tint = Math.random() < 0.5 ? "232,214,163" : "255,255,255"; // gold / white
-      w.style.cssText =
-        `left:${x}px; top:${y}px; width:2px; height:${len}px;` +
-        `background:linear-gradient(180deg, transparent, rgba(${tint},.7), transparent);`;
-      sparkLayer.appendChild(w);
-      const dist = (180 + Math.random() * 250) * dir;
-      w.animate(
+      const tints = ["232,214,163", "205,141,5", "255,255,255", "204,184,121"]; // gold / amber / white
+      const c = tints[(Math.random() * tints.length) | 0];
+      d.style.cssText =
+        `left:${x}px; top:${y}px; width:${size}px; height:${size}px;` +
+        `background:radial-gradient(circle, rgba(${c},.95), rgba(${c},0) 70%);`;
+      sparkLayer.appendChild(d);
+      const ang = Math.random() * Math.PI * 2;
+      const dist = 26 + Math.random() * 72;
+      const dx = Math.cos(ang) * dist;
+      const dy = Math.sin(ang) * dist + (driftBias || 0); // gentle directional drift
+      d.animate(
         [
-          { transform: "translateY(0)", opacity: 0 },
-          { opacity: .42, offset: .25 },                // a touch more visible
-          { transform: `translateY(${dist}px)`, opacity: 0 }
+          { transform: "translate(0,0) scale(.4)", opacity: 0 },
+          { opacity: .5, offset: .3 },
+          { transform: `translate(${dx}px, ${dy}px) scale(1)`, opacity: 0 }
         ],
-        { duration: 600 + Math.random() * 460, easing: "cubic-bezier(.4,0,.2,1)" }
-      ).onfinish = () => w.remove();
+        { duration: 1400 + Math.random() * 1300, easing: "ease-out" }
+      ).onfinish = () => d.remove();
     }
 
-    // detect fast scrolling (px per ms) and emit streaks opposite to travel
+    // emit dust only past a higher scroll speed
     let wY = window.scrollY, wT = performance.now(), wThrottle = 0;
     window.addEventListener("scroll", () => {
       const now = performance.now();
@@ -365,21 +369,21 @@
       const dt = (now - wT) || 16;
       const v = Math.abs(dy) / dt;
       wY = window.scrollY; wT = now;
-      if (v > 0.6 && now - wThrottle > 45) {        // triggers sooner / at lower speed
+      if (v > 1.8 && now - wThrottle > 45) {          // appears only at higher scroll speed
         wThrottle = now;
-        const dir = dy > 0 ? -1 : 1; // scrolling down -> streaks rise
-        const n = Math.min(16, 5 + ((v * 2) | 0));  // more streaks -> full-screen coverage
-        for (let i = 0; i < n; i++) makeWind(dir);
+        const bias = dy > 0 ? -24 : 24;               // drift opposite to travel
+        const n = Math.min(18, 6 + ((v * 2) | 0));
+        for (let i = 0; i < n; i++) makeDust(bias);
       }
     }, { passive: true });
 
-    // extra sustained gust while the back-to-top button flies the page up
+    // sustained dust cloud while the back-to-top button flies the page up
     const topBtn = document.querySelector(".to-top");
     if (topBtn) topBtn.addEventListener("click", () => {
       let i = 0;
-      const gust = setInterval(() => {
-        for (let k = 0; k < 14; k++) makeWind(1); // page rushes up -> streaks fall
-        if (++i > 6) clearInterval(gust);
+      const cloud = setInterval(() => {
+        for (let k = 0; k < 14; k++) makeDust(24);
+        if (++i > 6) clearInterval(cloud);
       }, 60);
     });
 

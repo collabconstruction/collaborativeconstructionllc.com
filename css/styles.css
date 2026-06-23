@@ -519,7 +519,7 @@ body.is-leaving .page-main {
    ========================================================================== */
 .spark-layer { position: fixed; inset: 0; pointer-events: none; z-index: 9000; overflow: hidden; }
 .spark { position: fixed; border-radius: 50%; pointer-events: none; will-change: transform, opacity; }
-.wind { position: fixed; border-radius: 2px; pointer-events: none; will-change: transform, opacity; }
+.dust { position: fixed; border-radius: 50%; pointer-events: none; will-change: transform, opacity; }
 
 /* ==========================================================================
    BACK TO TOP
