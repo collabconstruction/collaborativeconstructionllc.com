@@ -1,0 +1,12 @@
+{
+  // The "name" MUST match your Worker's name in the Cloudflare dashboard
+  // (Workers & Pages -> your project). Cloudflare can't use dots, so a repo
+  // called "collaborativeconstructionllc.com" usually becomes the name below.
+  // If your Worker is named differently, change this line to match.
+  "name": "collaborativeconstructionllc-com",
+  "compatibility_date": "2025-06-01",
+  // Serve the whole repo as a static site (no build step, no Worker code).
+  "assets": {
+    "directory": "./"
+  }
+}
