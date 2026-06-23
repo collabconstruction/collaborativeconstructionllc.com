@@ -20,6 +20,7 @@
   --cream:       #f7f3ec;
   --cream-2:     #efe7d9;
   --cream-3:     #e7dcc8;
+  --stone:       #e7e1d4;
   --white:       #ffffff;
   --line:        rgba(31, 27, 24, .12);
 
@@ -43,7 +44,7 @@ body {
   margin: 0;
   font-family: var(--font-body);
   color: var(--body);
-  background: var(--cream);
+  background: var(--stone);
   line-height: 1.65;
   font-size: 17px;
   -webkit-font-smoothing: antialiased;
@@ -131,13 +132,13 @@ p { margin: 0 0 1.1em; }
    ========================================================================== */
 .site-header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(247, 243, 236, .82);
+  background: rgba(231, 225, 212, .82);
   backdrop-filter: saturate(140%) blur(12px);
   -webkit-backdrop-filter: saturate(140%) blur(12px);
   border-bottom: 1px solid transparent;
   transition: box-shadow .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
 }
-.site-header.scrolled { box-shadow: var(--shadow-sm); border-bottom-color: var(--line); background: rgba(247, 243, 236, .94); }
+.site-header.scrolled { box-shadow: var(--shadow-sm); border-bottom-color: var(--line); background: rgba(231, 225, 212, .94); }
 .header-inner {
   height: var(--header-h);
   display: flex; align-items: center; justify-content: space-between; gap: 20px;
@@ -266,7 +267,7 @@ body.is-leaving .page-main {
 /* ==========================================================================
    ABOUT (home two-column)
    ========================================================================== */
-.about { background: var(--cream); }
+.about { background: var(--stone); }
 .two-col {
   display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
 }
@@ -291,7 +292,7 @@ body.is-leaving .page-main {
 /* ==========================================================================
    CONTACT
    ========================================================================== */
-.contact { background: var(--cream-2); position: relative; }
+.contact { background: var(--stone); position: relative; }
 .contact-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: start; }
 
 .form-card { background: #fff; border-radius: var(--radius); padding: 34px; box-shadow: var(--shadow-md); border: 1px solid var(--line); }
@@ -351,7 +352,7 @@ body.is-leaving .page-main {
 /* ==========================================================================
    GALLERY
    ========================================================================== */
-.gallery-intro { background: var(--cream); padding-top: 70px; padding-bottom: 36px; }
+.gallery-intro { background: var(--stone); padding-top: 70px; padding-bottom: 36px; }
 .gallery-intro .two-col { grid-template-columns: auto 1fr; gap: 40px; align-items: center; }
 .gallery-intro .mark { width: 120px; height: auto; }
 .gallery-intro h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin-bottom: .25em; }
@@ -414,7 +415,7 @@ body.is-leaving .page-main {
 /* ==========================================================================
    ABOUT PAGE
    ========================================================================== */
-.about-page-hero { background: var(--cream); text-align: center; padding: 78px 0 30px; }
+.about-page-hero { background: var(--stone); text-align: center; padding: 78px 0 30px; }
 .about-page-hero h1 { font-size: clamp(2.2rem, 5vw, 3.3rem); }
 .about-page-body { padding: 30px 0 100px; }
 .owner-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 56px; align-items: start; }
@@ -590,7 +591,7 @@ body.is-leaving .page-main {
   :root { --header-h: 78px; }
   .nav {
     position: fixed; inset: var(--header-h) 0 auto 0; flex-direction: column; align-items: stretch;
-    background: rgba(247,243,236,.98); backdrop-filter: blur(12px);
+    background: rgba(231,225,212,.98); backdrop-filter: blur(12px);
     padding: 14px 20px 22px; gap: 4px; box-shadow: var(--shadow-md);
     transform: translateY(-130%); transition: transform .4s var(--ease); border-bottom: 1px solid var(--line);
   }
