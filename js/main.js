@@ -338,22 +338,22 @@
     function makeWind(dir) {
       const w = document.createElement("span");
       w.className = "wind";
-      const len = 30 + Math.random() * 70;
+      const len = 40 + Math.random() * 95;
       const x = Math.random() * window.innerWidth;
       const y = Math.random() * window.innerHeight;
       const tint = Math.random() < 0.5 ? "232,214,163" : "255,255,255"; // gold / white
       w.style.cssText =
         `left:${x}px; top:${y}px; width:2px; height:${len}px;` +
-        `background:linear-gradient(180deg, transparent, rgba(${tint},.5), transparent);`;
+        `background:linear-gradient(180deg, transparent, rgba(${tint},.7), transparent);`;
       sparkLayer.appendChild(w);
-      const dist = (150 + Math.random() * 210) * dir;
+      const dist = (180 + Math.random() * 250) * dir;
       w.animate(
         [
           { transform: "translateY(0)", opacity: 0 },
-          { opacity: .26, offset: .3 },                 // very transparent
+          { opacity: .42, offset: .25 },                // a touch more visible
           { transform: `translateY(${dist}px)`, opacity: 0 }
         ],
-        { duration: 600 + Math.random() * 480, easing: "cubic-bezier(.4,0,.2,1)" }
+        { duration: 600 + Math.random() * 460, easing: "cubic-bezier(.4,0,.2,1)" }
       ).onfinish = () => w.remove();
     }
 
@@ -365,10 +365,10 @@
       const dt = (now - wT) || 16;
       const v = Math.abs(dy) / dt;
       wY = window.scrollY; wT = now;
-      if (v > 1.4 && now - wThrottle > 55) {
+      if (v > 0.6 && now - wThrottle > 45) {        // triggers sooner / at lower speed
         wThrottle = now;
         const dir = dy > 0 ? -1 : 1; // scrolling down -> streaks rise
-        const n = Math.min(5, 1 + (v | 0));
+        const n = Math.min(16, 5 + ((v * 2) | 0));  // more streaks -> full-screen coverage
         for (let i = 0; i < n; i++) makeWind(dir);
       }
     }, { passive: true });
@@ -378,9 +378,9 @@
     if (topBtn) topBtn.addEventListener("click", () => {
       let i = 0;
       const gust = setInterval(() => {
-        for (let k = 0; k < 6; k++) makeWind(1); // page rushes up -> streaks fall
-        if (++i > 5) clearInterval(gust);
-      }, 70);
+        for (let k = 0; k < 14; k++) makeWind(1); // page rushes up -> streaks fall
+        if (++i > 6) clearInterval(gust);
+      }, 60);
     });
 
     // Motto domino effect on load
