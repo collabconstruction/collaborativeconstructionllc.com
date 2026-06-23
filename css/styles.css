@@ -439,7 +439,13 @@ body.is-leaving .page-main {
 /* ==========================================================================
    FOOTER
    ========================================================================== */
-.site-footer { background: var(--maroon-900); color: rgba(255,255,255,.78); }
+.site-footer { position: relative; background: var(--maroon-900); color: rgba(255,255,255,.78); }
+.site-footer::before { /* animated accent line, mirrors the header */
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; z-index: 2;
+  background: linear-gradient(90deg, var(--maroon), var(--amber) 28%, var(--gold-1) 50%, var(--amber) 72%, var(--maroon));
+  background-size: 200% 100%;
+  animation: headerFlow 7s linear infinite;
+}
 .footer-top { padding: 66px 0 30px; display: grid; grid-template-columns: 1.5fr 1fr 1.1fr; gap: 44px; }
 .footer-logo { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
 .footer-logo .c-badge { width: 50px; height: 50px; flex: 0 0 auto; position: relative; top: 5px; }
@@ -513,6 +519,7 @@ body.is-leaving .page-main {
    ========================================================================== */
 .spark-layer { position: fixed; inset: 0; pointer-events: none; z-index: 9000; overflow: hidden; }
 .spark { position: fixed; border-radius: 50%; pointer-events: none; will-change: transform, opacity; }
+.wind { position: fixed; border-radius: 2px; pointer-events: none; will-change: transform, opacity; }
 
 /* ==========================================================================
    BACK TO TOP

@@ -334,6 +334,55 @@
       for (let i = 0; i < n; i++) makeDot(e.clientX, e.clientY);
     });
 
+    // Wind streaks — very transparent, appear on fast scroll & back-to-top
+    function makeWind(dir) {
+      const w = document.createElement("span");
+      w.className = "wind";
+      const len = 30 + Math.random() * 70;
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+      const tint = Math.random() < 0.5 ? "232,214,163" : "255,255,255"; // gold / white
+      w.style.cssText =
+        `left:${x}px; top:${y}px; width:2px; height:${len}px;` +
+        `background:linear-gradient(180deg, transparent, rgba(${tint},.5), transparent);`;
+      sparkLayer.appendChild(w);
+      const dist = (150 + Math.random() * 210) * dir;
+      w.animate(
+        [
+          { transform: "translateY(0)", opacity: 0 },
+          { opacity: .26, offset: .3 },                 // very transparent
+          { transform: `translateY(${dist}px)`, opacity: 0 }
+        ],
+        { duration: 600 + Math.random() * 480, easing: "cubic-bezier(.4,0,.2,1)" }
+      ).onfinish = () => w.remove();
+    }
+
+    // detect fast scrolling (px per ms) and emit streaks opposite to travel
+    let wY = window.scrollY, wT = performance.now(), wThrottle = 0;
+    window.addEventListener("scroll", () => {
+      const now = performance.now();
+      const dy = window.scrollY - wY;
+      const dt = (now - wT) || 16;
+      const v = Math.abs(dy) / dt;
+      wY = window.scrollY; wT = now;
+      if (v > 1.4 && now - wThrottle > 55) {
+        wThrottle = now;
+        const dir = dy > 0 ? -1 : 1; // scrolling down -> streaks rise
+        const n = Math.min(5, 1 + (v | 0));
+        for (let i = 0; i < n; i++) makeWind(dir);
+      }
+    }, { passive: true });
+
+    // extra sustained gust while the back-to-top button flies the page up
+    const topBtn = document.querySelector(".to-top");
+    if (topBtn) topBtn.addEventListener("click", () => {
+      let i = 0;
+      const gust = setInterval(() => {
+        for (let k = 0; k < 6; k++) makeWind(1); // page rushes up -> streaks fall
+        if (++i > 5) clearInterval(gust);
+      }, 70);
+    });
+
     // Motto domino effect on load
     const mottoWords = $$("#hero-motto .motto-word");
     if (mottoWords.length > 0) {
