@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Collaborative Construction, LLC — site behavior
+   Collaborative Construction, LLC site behavior
    ========================================================================== */
 (function () {
   "use strict";
@@ -103,7 +103,7 @@
   }
 
   /* ----------------------------------------------------------------------
-     Carousel(s) — auto-advance, dots, arrows, progress, swipe, pause-on-hover
+     Carousel(s) auto-advance, dots, arrows, progress, swipe, pause-on-hover
   ---------------------------------------------------------------------- */
   $$(".carousel").forEach((root) => {
     const track  = $(".carousel__track", root);
@@ -185,7 +185,7 @@
   });
 
   /* ----------------------------------------------------------------------
-     Contact form — file count indicator + submit
+     Contact form file count indicator + submit
      To enable real delivery (incl. attachments): create a free access key at
      https://web3forms.com (uses wes@collaborativeconstructionllc.com) and paste
      it into ACCESS_KEY below. Until then, the button opens the visitor's email
@@ -256,7 +256,7 @@
         const n = store.files.length;
         const body =
           `Name: ${name}\nEmail: ${email}\n\n${message}` +
-          (n ? `\n\n(${n} file${n > 1 ? "s" : ""} selected — please attach them to this email before sending.)` : "");
+          (n ? `\n\n(${n} file${n > 1 ? "s" : ""} selected please attach them to this email before sending.)` : "");
         window.location.href =
           `mailto:wes@collaborativeconstructionllc.com?subject=${encodeURIComponent("Website inquiry from " + name)}&body=${encodeURIComponent(body)}`;
         status.classList.add("ok");
@@ -278,7 +278,7 @@
         const data = await res.json();
         if (data.success) {
           status.classList.add("ok");
-          status.textContent = "Thank you! Your message has been sent — we'll be in touch shortly.";
+          status.textContent = "Thank you! Your message has been sent we'll be in touch shortly.";
           form.reset(); store = new DataTransfer(); syncFiles();
         } else {
           throw new Error(data.message || "Submission failed");
@@ -293,7 +293,7 @@
   }
 
   /* ----------------------------------------------------------------------
-     Particles — a generous burst of theme-colored dots when you click
+     Particles a generous burst of theme-colored dots when you click
      something interactive. Disabled for reduced-motion users.
   ---------------------------------------------------------------------- */
   if (!prefersReduced) {
@@ -333,6 +333,26 @@
       const n = 28 + ((Math.random() * 8) | 0); // generous burst
       for (let i = 0; i < n; i++) makeDot(e.clientX, e.clientY);
     });
+
+    // Motto domino effect on load
+    const mottoWords = $$("#hero-motto .motto-word");
+    if (mottoWords.length > 0) {
+      mottoWords.forEach((word, index) => {
+        setTimeout(() => {
+          word.classList.add("animate");
+          // Trigger a tiny particle spark from the word's center
+          const rect = word.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const n = 10 + ((Math.random() * 5) | 0); // tiny burst
+          for (let i = 0; i < n; i++) makeDot(cx, cy);
+        }, 500 + index * 400); // Wait 500ms initially, then stagger by 400ms
+      });
+    }
+  } else {
+    // Fallback for reduced motion: just show them immediately
+    const mottoWords = $$("#hero-motto .motto-word");
+    mottoWords.forEach(w => { w.style.opacity = "1"; w.style.transform = "translateY(0)"; });
   }
 
   /* ----------------------------------------------------------------------

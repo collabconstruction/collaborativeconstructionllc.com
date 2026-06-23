@@ -3,3 +3,6 @@
 
 # Editor / tooling
 .claude/
+
+# one-off local utility scripts
+remove_dashes.py

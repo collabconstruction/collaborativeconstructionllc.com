@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Collaborative Construction, LLC — site styles
+   Collaborative Construction, LLC site styles
    Palette sampled from brand logo: maroon #821d1d, amber #cd8d05, gold #ccb879
    ========================================================================== */
 
@@ -66,7 +66,40 @@ p { margin: 0 0 1.1em; }
   font-size: .74rem;
   color: var(--maroon);
 }
+.eyebrow.motto-words {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  letter-spacing: .15em;
+  display: block;
+  margin-bottom: 12px;
+}
+.eyebrow.motto-words .dot {
+  margin: 0 .25em;
+}
 .eyebrow .dot { color: var(--amber); margin: 0 .35em; }
+
+/* Motto Domino Effect */
+.motto-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(15px);
+}
+@keyframes popAndSettle {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.95);
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.08); /* Pop up */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1); /* Settle nice and slowly */
+  }
+}
+.motto-word.animate {
+  animation: popAndSettle 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
 
 /* section heading block */
 .section { padding: 96px 0; }
@@ -334,7 +367,14 @@ body.is-leaving .page-main {
 }
 
 /* carousel */
-.carousel { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); background: #000; }
+.carousel {
+  position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md);
+  border: 3px solid transparent;
+  background:
+    linear-gradient(#000, #000) padding-box,
+    conic-gradient(from var(--bd-angle, 0deg), var(--gold-2), var(--amber), var(--maroon-600), var(--gold-1), var(--gold-2)) border-box;
+  animation: frameSpin 14s linear infinite;
+}
 .carousel__track { display: flex; transition: transform .8s var(--ease); will-change: transform; }
 .carousel__slide { min-width: 100%; position: relative; }
 .carousel__slide img { width: 100%; height: clamp(320px, 56vw, 620px); object-fit: cover; }
@@ -380,7 +420,12 @@ body.is-leaving .page-main {
 .owner-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 56px; align-items: start; }
 .owner-photo {
   position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md);
-  background: var(--cream-2); aspect-ratio: 4/5; display: grid; place-items: center;
+  aspect-ratio: 4/5;
+  border: 4px solid transparent;
+  background:
+    linear-gradient(var(--cream-2), var(--cream-2)) padding-box,
+    conic-gradient(from var(--bd-angle, 0deg), var(--gold-2), var(--amber), var(--maroon-600), var(--gold-1), var(--gold-2)) border-box;
+  animation: frameSpin 12s linear infinite;
 }
 .owner-photo img { width: 100%; height: 100%; object-fit: cover; }
 .owner-photo.placeholder { border: 2px dashed var(--cream-3); }
@@ -482,6 +527,54 @@ body.is-leaving .page-main {
 }
 .to-top.show { opacity: 1; visibility: visible; transform: none; }
 .to-top:hover { background: var(--amber); color: var(--maroon-900); transform: translateY(-3px); }
+
+/* ==========================================================================
+   ANIMATED FRAMES (about photo + gallery carousels)
+   ========================================================================== */
+@property --bd-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+@keyframes frameSpin { to { --bd-angle: 360deg; } }
+
+/* ==========================================================================
+   HEADER ACCENT LINE (animated, multi-color)
+   ========================================================================== */
+.site-header::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; z-index: 2;
+  background: linear-gradient(90deg, var(--maroon), var(--amber) 28%, var(--gold-1) 50%, var(--amber) 72%, var(--maroon));
+  background-size: 200% 100%;
+  animation: headerFlow 7s linear infinite;
+}
+@keyframes headerFlow { from { background-position: 0 0; } to { background-position: -200% 0; } }
+
+/* ==========================================================================
+   SECTION DIVIDERS (fancy gold line that draws in on scroll)
+   ========================================================================== */
+.section-divider {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  padding: 26px 0; overflow: hidden;
+}
+.section-divider[data-reveal] { opacity: 1 !important; transform: none !important; } /* inner pieces animate instead */
+.section-divider .line {
+  height: 2px; width: 0; transition: width 1.2s var(--ease);
+  background: linear-gradient(90deg, transparent, var(--gold-3), var(--amber));
+  box-shadow: 0 0 10px rgba(205, 141, 5, .25);
+}
+.section-divider .line.r { background: linear-gradient(90deg, var(--amber), var(--gold-3), transparent); }
+.section-divider.is-visible .line { width: clamp(70px, 26vw, 280px); }
+.section-divider .gem {
+  width: 13px; height: 13px; margin: 0 16px; flex: 0 0 auto; border-radius: 3px;
+  background: linear-gradient(135deg, var(--gold-1), var(--amber));
+  transform: rotate(45deg) scale(0); transition: transform .7s .25s var(--ease);
+}
+.section-divider.is-visible .gem { transform: rotate(45deg) scale(1); animation: gemGlow 3.6s ease-in-out 1.1s infinite; }
+@keyframes gemGlow {
+  0%, 100% { box-shadow: 0 0 8px rgba(205, 141, 5, .4); }
+  50%      { box-shadow: 0 0 20px rgba(205, 141, 5, .8); }
+}
+
+/* mobile: center the footer copyright row instead of left-aligning */
+@media (max-width: 600px) {
+  .footer-bottom .container { justify-content: center !important; text-align: center; }
+}
 
 /* ==========================================================================
    RESPONSIVE
