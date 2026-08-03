@@ -123,9 +123,9 @@ p { margin: 0 0 1.1em; }
   cursor: pointer; transition: all .28s var(--ease); position: relative; overflow: hidden;
 }
 .btn-primary { background: var(--maroon); color: #fff; box-shadow: var(--shadow-sm); }
-.btn-primary:hover { background: var(--amber); color: var(--maroon-900); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.btn-primary:hover { background: var(--amber); color: var(--maroon-900); transform: translateY(-2px); box-shadow: var(--shadow-md), 0 0 18px 4px rgba(205, 141, 5, .35), 0 0 40px 8px rgba(205, 141, 5, .15); }
 .btn-ghost { background: transparent; color: var(--maroon); border-color: var(--maroon); }
-.btn-ghost:hover { background: var(--maroon); color: #fff; transform: translateY(-2px); }
+.btn-ghost:hover { background: var(--maroon); color: #fff; transform: translateY(-2px); box-shadow: var(--shadow-md), 0 0 18px 4px rgba(130, 29, 29, .38), 0 0 40px 8px rgba(130, 29, 29, .16); }
 
 /* ==========================================================================
    HEADER
@@ -295,7 +295,7 @@ body.is-leaving .page-main {
 .contact { background: var(--stone); position: relative; }
 .contact-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: start; }
 
-.form-card { background: #fff; border-radius: var(--radius); padding: 34px; box-shadow: var(--shadow-md); border: 1px solid var(--line); }
+.form-card { background: #fff; border-radius: var(--radius); padding: 34px; box-shadow: var(--shadow-md); border: 1px solid var(--line); position: relative; }
 .field { margin-bottom: 18px; }
 .field label { display: block; font-weight: 600; font-size: .9rem; color: var(--ink); margin-bottom: 7px; }
 .field input, .field textarea {
@@ -348,6 +348,14 @@ body.is-leaving .page-main {
 .info-list .value { font-weight: 600; color: var(--ink); font-size: 1.05rem; overflow-wrap: anywhere; }
 .info-list a { color: inherit; }
 .info-list a:hover .value { color: var(--maroon); }
+.email-toast {
+  position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(12px);
+  z-index: 10001; max-width: min(92vw, 420px); padding: 12px 18px; border-radius: 999px;
+  background: var(--maroon-900); color: #fff; font-size: .92rem; font-weight: 600;
+  box-shadow: var(--shadow-md); opacity: 0; pointer-events: none;
+  transition: opacity .25s var(--ease), transform .25s var(--ease);
+}
+.email-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 /* ==========================================================================
    GALLERY
@@ -403,14 +411,9 @@ body.is-leaving .page-main {
 .carousel__dots button.active { background: var(--amber); width: 26px; border-radius: 6px; }
 .carousel__bar { position: absolute; top: 0; left: 0; height: 3px; background: var(--amber); z-index: 3; width: 0; }
 
-/* divider between projects */
-.project-divider { display: flex; align-items: center; gap: 20px; padding: 22px 0; }
-.project-divider::before, .project-divider::after {
-  content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--cream-3), transparent);
-}
-.project-divider .gem {
-  width: 34px; height: 34px; flex: 0 0 auto; opacity: .9;
-}
+/* divider between projects — inherits .section-divider styles */
+.project-divider { padding: 28px 0; }
+.project-divider::before { display: none; } /* section-divider handles layout */
 
 /* ==========================================================================
    ABOUT PAGE
@@ -516,6 +519,74 @@ body.is-leaving .page-main {
 .adu-llc { text-align: center; margin: 16px 0 0; font-family: var(--font-head); color: var(--maroon); font-weight: 600; font-size: .98rem; }
 
 /* ==========================================================================
+   AMBIENT SPOTLIGHTS (soft radial glows on light-background cards)
+   ========================================================================== */
+
+@keyframes spotDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(12px, -18px) scale(1.08); }
+  66%       { transform: translate(-8px, 10px) scale(.94); }
+}
+@keyframes spotDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%       { transform: translate(-14px, 12px) scale(1.1); }
+  75%       { transform: translate(10px, -8px) scale(.92); }
+}
+@keyframes spotDrift3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(8px, 16px) scale(1.06); }
+}
+
+/* form-card spotlights */
+.form-card { overflow: hidden; } /* clip the blobs */
+.form-card::before {
+  content: ""; pointer-events: none;
+  position: absolute; top: -60px; right: -40px;
+  width: 260px; height: 260px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(205, 141, 5, .13) 0%, transparent 68%);
+  animation: spotDrift1 11s ease-in-out infinite;
+  z-index: 0;
+}
+.form-card::after {
+  content: ""; pointer-events: none;
+  position: absolute; bottom: -50px; left: -30px;
+  width: 220px; height: 220px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(130, 29, 29, .09) 0%, transparent 68%);
+  animation: spotDrift2 14s ease-in-out infinite;
+  z-index: 0;
+}
+/* extra amber spot center-right */
+.form-card .spot-extra {
+  pointer-events: none; position: absolute; top: 38%; right: -20px;
+  width: 170px; height: 170px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232, 214, 163, .18) 0%, transparent 70%);
+  animation: spotDrift3 9s ease-in-out infinite;
+  z-index: 0;
+}
+/* make sure form content sits above the blobs */
+.form-card form { position: relative; z-index: 1; }
+
+/* adu-card spotlights */
+.adu-card { overflow: hidden; }
+.adu-card::before {
+  content: ""; pointer-events: none;
+  position: absolute; top: -50px; right: -30px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(205, 141, 5, .12) 0%, transparent 68%);
+  animation: spotDrift2 13s ease-in-out infinite;
+  z-index: 0;
+}
+.adu-card::after {
+  content: ""; pointer-events: none;
+  position: absolute; bottom: -40px; left: -20px;
+  width: 180px; height: 180px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(204, 184, 121, .14) 0%, transparent 68%);
+  animation: spotDrift1 16s ease-in-out infinite;
+  z-index: 0;
+}
+.adu-card > * { position: relative; z-index: 1; }
+
+/* ==========================================================================
    PARTICLES (subtle theme dots on hover / click)
    ========================================================================== */
 .spark-layer { position: fixed; inset: 0; pointer-events: none; z-index: 9000; overflow: hidden; }
@@ -528,13 +599,23 @@ body.is-leaving .page-main {
 .to-top {
   position: fixed; right: 26px; bottom: 26px; z-index: 90;
   width: 50px; height: 50px; border-radius: 50%; border: 0; cursor: pointer;
-  background: var(--maroon); color: var(--gold-1); font-size: 1.3rem;
+  background: var(--maroon); color: #fff; font-size: 1.3rem;
   box-shadow: var(--shadow-md); display: grid; place-items: center;
   opacity: 0; visibility: hidden; transform: translateY(16px) scale(.9);
   transition: all .35s var(--ease);
 }
 .to-top.show { opacity: 1; visibility: visible; transform: none; }
 .to-top:hover { background: var(--amber); color: var(--maroon-900); transform: translateY(-3px); }
+/* overlap the clock fill and the arrow in the same grid cell */
+.to-top > svg, .to-top__clock { grid-area: 1 / 1; }
+.to-top > svg { position: relative; z-index: 1; }
+/* inner "clock" circle: gold pie fill growing over a faint maroon base */
+.to-top__clock {
+  width: 30px; height: 30px; border-radius: 50%; z-index: 0; pointer-events: none;
+  background: conic-gradient(var(--gold-2) calc(var(--p, 0) * 360deg), rgba(42, 7, 7, .55) 0);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .18);
+}
+.to-top:hover .to-top__clock { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .28); }
 
 /* ==========================================================================
    ANIMATED FRAMES (about photo + gallery carousels)
@@ -558,13 +639,14 @@ body.is-leaving .page-main {
    ========================================================================== */
 .section-divider {
   position: relative; display: flex; align-items: center; justify-content: center;
-  padding: 26px 0; overflow: hidden;
+  padding: 26px 0; overflow: visible;
 }
-.section-divider[data-reveal] { opacity: 1 !important; transform: none !important; } /* inner pieces animate instead */
+.section-divider[data-reveal] { opacity: 1 !important; transform: none !important; }
 .section-divider .line {
   height: 2px; width: 0; transition: width 1.2s var(--ease);
   background: linear-gradient(90deg, transparent, var(--gold-3), var(--amber));
-  box-shadow: 0 0 10px rgba(205, 141, 5, .25);
+  box-shadow: none;
+  position: relative; z-index: 1;
 }
 .section-divider .line.r { background: linear-gradient(90deg, var(--amber), var(--gold-3), transparent); }
 .section-divider.is-visible .line { width: clamp(70px, 26vw, 280px); }
@@ -572,11 +654,70 @@ body.is-leaving .page-main {
   width: 13px; height: 13px; margin: 0 16px; flex: 0 0 auto; border-radius: 3px;
   background: linear-gradient(135deg, var(--gold-1), var(--amber));
   transform: rotate(45deg) scale(0); transition: transform .7s .25s var(--ease);
+  position: relative; z-index: 1;
 }
 .section-divider.is-visible .gem { transform: rotate(45deg) scale(1); animation: gemGlow 3.6s ease-in-out 1.1s infinite; }
 @keyframes gemGlow {
-  0%, 100% { box-shadow: 0 0 8px rgba(205, 141, 5, .4); }
-  50%      { box-shadow: 0 0 20px rgba(205, 141, 5, .8); }
+  0%, 100% { box-shadow: 0 0 8px rgba(205, 141, 5, .5), 0 0 20px rgba(205, 141, 5, .2); }
+  50%       { box-shadow: 0 0 22px rgba(205, 141, 5, .9), 0 0 44px rgba(205, 141, 5, .35); }
+}
+
+/* ==========================================================================
+   FULL-PAGE AMBIENT GLOW LAYER (fixed, behind everything)
+   ========================================================================== */
+.page-glow {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  overflow: hidden;
+}
+.page-glow span {
+  position: absolute; border-radius: 50%; pointer-events: none;
+}
+@keyframes pgFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(30px, -40px) scale(1.15); }
+  66%  { transform: translate(-20px, 25px) scale(.88); }
+}
+@keyframes pgFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%  { transform: translate(-35px, 30px) scale(1.2); }
+  75%  { transform: translate(22px, -18px) scale(.9); }
+}
+@keyframes pgFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(18px, 35px) scale(1.1); }
+}
+@keyframes pgFloat4 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  30%  { transform: translate(-25px, -30px) scale(1.18); }
+  70%  { transform: translate(15px, 20px) scale(.85); }
+}
+
+/* make sure page content sits above glow layer.
+   NOTE: .site-header is intentionally excluded — it keeps its own
+   position:sticky / z-index:100 so the fixed mobile nav (a header child)
+   paints above main content instead of behind it. */
+main, footer { position: relative; z-index: 1; }
+
+/* ==========================================================================
+   AMBIENT SPOTLIGHT ORBS (auto-injected by JS into sections)
+   ========================================================================== */
+.amb-spot {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  will-change: transform, opacity;
+}
+@keyframes ambFloat1 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  35%       { transform: translate(calc(-50% + 16px), calc(-50% - 22px)) scale(1.12); }
+  70%       { transform: translate(calc(-50% - 12px), calc(-50% + 14px)) scale(.92); }
+}
+@keyframes ambFloat2 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  40%       { transform: translate(calc(-50% - 20px), calc(-50% + 16px)) scale(1.14); }
+  75%       { transform: translate(calc(-50% + 14px), calc(-50% - 12px)) scale(.9); }
+}
+@keyframes ambFloat3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50%       { transform: translate(calc(-50% + 12px), calc(-50% + 20px)) scale(1.1); }
 }
 
 /* mobile: center the footer copyright row instead of left-aligning */
@@ -636,4 +777,88 @@ body.is-leaving .page-main {
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
   [data-reveal] { opacity: 1 !important; transform: none !important; }
   .hero__bg { transform: none; }
+}
+
+/* ==========================================================================
+   CONSTRUCTION ADVISORY PAGE
+   (service phase cards, project credentials, CTA band)
+   ========================================================================== */
+
+/* hero lede + section ledes */
+.about-page-hero .hero-lede {
+  max-width: 62ch; margin: 18px auto 0; color: var(--body);
+  font-size: clamp(1.02rem, 2.2vw, 1.16rem);
+}
+.advisory-lede {
+  max-width: 74ch; margin: 0 auto; text-align: center;
+  font-size: 1.1rem; color: var(--body);
+}
+
+/* ---- service phase cards (Owner's Project Management) ---- */
+.svc-grid {
+  display: grid; gap: 26px; margin-top: 46px; align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.svc-card {
+  position: relative;
+  background: var(--cream); color: var(--body);
+  border-radius: var(--radius); padding: 28px;
+  box-shadow: var(--shadow-md); border-top: 5px solid var(--gold-2);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+  will-change: transform;
+}
+.svc-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.svc-card__head {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line);
+}
+.svc-card__head h3 { color: var(--maroon); font-size: 1.24rem; margin: 0; }
+.svc-card .num {
+  width: 44px; height: 44px; flex: 0 0 auto; border-radius: 10px;
+  display: grid; place-items: center;
+  background: var(--maroon); color: var(--gold-1);
+  font-family: var(--font-head); font-weight: 700; font-size: 1.2rem;
+  box-shadow: var(--shadow-sm); transition: all .3s var(--ease);
+}
+.svc-card:hover .num { background: var(--amber); color: var(--maroon-900); }
+.svc-card .adu-points { margin-bottom: 0; }
+
+/* ---- current & completed projects ---- */
+.proj-block { margin-top: 66px; }
+.proj-head { text-align: center; margin-bottom: 40px; }
+.proj-head h3 { font-size: clamp(1.5rem, 3.2vw, 2.05rem); margin-bottom: 0; }
+.proj-head .rule { margin: 18px auto 0; }
+.proj-grid {
+  display: grid; gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.proj-card {
+  background: var(--cream); border-radius: var(--radius);
+  padding: 22px 24px; box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--gold-2);
+  transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+}
+.proj-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-left-color: var(--amber); }
+.proj-card__name { font-family: var(--font-head); font-weight: 700; color: var(--ink); font-size: 1.14rem; line-height: 1.25; margin: 0 0 8px; }
+.proj-card__loc { display: block; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--amber-600); }
+.proj-card__meta { color: var(--muted); font-size: .94rem; margin: 10px 0 0; }
+
+/* ---- clerk-of-the-works card (wide, 2-column checklist) ---- */
+.clerk-card { max-width: 900px; margin: 46px auto 0; }
+.adu-points.cols-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px 44px; }
+.adu-points.cols-2 li { border-bottom: 0; padding: 9px 0; }
+
+/* ---- CTA band (reuses .adu maroon gradient) ---- */
+.svc-cta { text-align: center; }
+.svc-cta .container { max-width: 780px; }
+.svc-cta .eyebrow { color: var(--gold-1); display: inline-block; margin-bottom: 14px; }
+.svc-cta h2 { color: #fff; font-size: clamp(1.8rem, 3.8vw, 2.6rem); margin-bottom: 12px; }
+.svc-cta p { color: rgba(255,255,255,.82); max-width: 54ch; margin: 0 auto 28px; }
+.svc-cta .btn-primary { background: var(--gold-1); color: var(--maroon-900); }
+.svc-cta .btn-primary:hover { background: #fff; color: var(--maroon-900); transform: translateY(-2px); box-shadow: var(--shadow-md), 0 0 18px 4px rgba(232,214,163,.42), 0 0 40px 8px rgba(232,214,163,.18); }
+
+/* ---- advisory responsive ---- */
+@media (max-width: 640px) {
+  .adu-points.cols-2 { grid-template-columns: 1fr; }
+  .svc-card { padding: 24px; }
 }

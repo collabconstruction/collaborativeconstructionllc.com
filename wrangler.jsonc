@@ -4,9 +4,10 @@
   // called "collaborativeconstructionllc.com" usually becomes the name below.
   // If your Worker is named differently, change this line to match.
   "name": "collaborativeconstructionllc-com",
+  "main": "src/worker.js",
   "compatibility_date": "2025-06-01",
-  // Serve the whole repo as a static site (no build step, no Worker code).
   "assets": {
-    "directory": "./"
+    "directory": "./",
+    "binding": "ASSETS"
   }
 }

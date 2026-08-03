@@ -1,0 +1,14 @@
+{
+  "name": "collaborativeconstructionllc-com",
+  "version": "1.0.0",
+  "description": "Collaborative Construction LLC website",
+  "main": "index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241227.0",
+    "wrangler": "^4.104.0"
+  }
+}

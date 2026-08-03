@@ -3,6 +3,13 @@
 
 # Editor / tooling
 .claude/
+.dev.vars
+
+# Dependencies
+node_modules/
+
+# Cloudflare Wrangler local state
+.wrangler/
 
 # one-off local utility scripts
 remove_dashes.py

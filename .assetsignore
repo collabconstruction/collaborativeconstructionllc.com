@@ -1,10 +1,13 @@
-# Files NOT to upload to Cloudflare as public assets (gitignore-style)
+src/
+node_modules/
 .git/
 .claude/
 .wrangler/
-node_modules/
-.DS_Store
-.gitignore
-.assetsignore
+package.json
+package-lock.json
 wrangler.jsonc
-remove_dashes.py
+.assetsignore
+.gitignore
+.dev.vars.example
+.DS_Store
+**/.DS_Store

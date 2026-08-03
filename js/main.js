@@ -184,14 +184,102 @@
     start();
   });
 
+  const CONTACT_EMAIL = "collaborativeconstructiongc@gmail.com";
+
+  function ensureModalAnimations() {
+    if (document.getElementById("modal-animations")) return;
+    const style = document.createElement("style");
+    style.id = "modal-animations";
+    style.textContent = `
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function showFormModal(title, message, buttonColor) {
+    ensureModalAnimations();
+    const modal = document.createElement("div");
+    modal.className = "form-modal";
+    modal.innerHTML = `
+      <div class="modal-content">
+        <h2>${title}</h2>
+        <p>${message}</p>
+        <button type="button" class="modal-close">Close</button>
+      </div>
+    `;
+    modal.style.cssText = `
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center;
+      z-index: 10000; animation: fadeIn 0.3s ease;
+    `;
+    const content = modal.querySelector(".modal-content");
+    content.style.cssText = `
+      background: white; padding: 2rem; border-radius: 8px; max-width: 420px;
+      text-align: center; animation: slideUp 0.3s ease;
+    `;
+    const closeBtn = modal.querySelector(".modal-close");
+    closeBtn.style.cssText = `
+      margin-top: 1rem; padding: 0.5rem 1.5rem; background: ${buttonColor};
+      color: white; border: none; border-radius: 4px; cursor: pointer;
+    `;
+    closeBtn.addEventListener("click", () => modal.remove());
+    modal.addEventListener("click", (e) => { if (e.target === modal) modal.remove(); });
+    document.body.appendChild(modal);
+  }
+
+  /* ----------------------------------------------------------------------
+     Reliable email links (mailto often fails without a desktop mail app)
+  ---------------------------------------------------------------------- */
+  function openEmailClient(to, subject, body) {
+    const gmail =
+      "https://mail.google.com/mail/?view=cm&fs=1&to=" +
+      encodeURIComponent(to) +
+      (subject ? "&su=" + encodeURIComponent(subject) : "") +
+      (body ? "&body=" + encodeURIComponent(body) : "");
+    window.open(gmail, "_blank", "noopener,noreferrer");
+  }
+
+  function showEmailToast(message) {
+    let toast = $(".email-toast");
+    if (!toast) {
+      toast = document.createElement("p");
+      toast.className = "email-toast";
+      toast.setAttribute("role", "status");
+      toast.setAttribute("aria-live", "polite");
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(showEmailToast._timer);
+    showEmailToast._timer = setTimeout(() => toast.classList.remove("show"), 3200);
+  }
+
+  $$('a[href^="mailto:"]').forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href") || "";
+      const target = href.replace(/^mailto:/i, "").split("?")[0];
+      const params = new URLSearchParams(href.split("?")[1] || "");
+      const subject = params.get("subject") || "";
+      const body = params.get("body") || "";
+
+      e.preventDefault();
+      openEmailClient(target, subject, body);
+      if (navigator.clipboard && target) {
+        navigator.clipboard.writeText(target).then(
+          () => showEmailToast(`Opening Gmail for ${target}`),
+          () => showEmailToast("Opening Gmail…")
+        );
+      } else {
+        showEmailToast("Opening Gmail…");
+      }
+    });
+  });
+
   /* ----------------------------------------------------------------------
      Contact form file count indicator + submit
-     To enable real delivery (incl. attachments): create a free access key at
-     https://web3forms.com (uses wes@collaborativeconstructionllc.com) and paste
-     it into ACCESS_KEY below. Until then, the button opens the visitor's email
-     app pre-filled (mailto cannot carry file attachments).
+     Opens Gmail compose with the form details pre-filled
   ---------------------------------------------------------------------- */
-  const ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY"; // <-- replace to enable server-side delivery
   const form = $("#contact-form");
   if (form) {
     const fileInput = $("#cc-files", form);
@@ -239,7 +327,7 @@
     ["dragleave", "drop"].forEach(ev => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("drag"); }));
     drop.addEventListener("drop", (e) => { if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files); });
 
-    form.addEventListener("submit", async (e) => {
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
       status.className = "form-status";
       status.textContent = "";
@@ -251,44 +339,30 @@
         return;
       }
 
-      // No access key yet -> graceful mailto fallback
-      if (!ACCESS_KEY || ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY") {
-        const n = store.files.length;
-        const body =
-          `Name: ${name}\nEmail: ${email}\n\n${message}` +
-          (n ? `\n\n(${n} file${n > 1 ? "s" : ""} selected please attach them to this email before sending.)` : "");
-        window.location.href =
-          `mailto:wes@collaborativeconstructionllc.com?subject=${encodeURIComponent("Website inquiry from " + name)}&body=${encodeURIComponent(body)}`;
-        status.classList.add("ok");
-        status.textContent = "Opening your email app… attach any files there, then hit send.";
-        return;
-      }
+      const n = store.files.length;
+      const body =
+        `Name: ${name}\nEmail: ${email}\n\n${message}` +
+        (n ? `\n\n(${n} file${n > 1 ? "s" : ""} selected — please attach them in Gmail before sending.)` : "");
 
-      // Real submission via Web3Forms (supports attachments)
       const btn = $("button[type=submit]", form);
       const original = btn.textContent;
-      btn.disabled = true; btn.textContent = "Sending…";
-      try {
-        const fd = new FormData(form);
-        fd.append("access_key", ACCESS_KEY);
-        fd.append("subject", "Website inquiry from " + name);
-        fd.append("from_name", "Collaborative Construction Website");
-        Array.from(store.files).forEach((f, i) => fd.append("attachment_" + (i + 1), f, f.name));
-        const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
-        const data = await res.json();
-        if (data.success) {
-          status.classList.add("ok");
-          status.textContent = "Thank you! Your message has been sent we'll be in touch shortly.";
-          form.reset(); store = new DataTransfer(); syncFiles();
-        } else {
-          throw new Error(data.message || "Submission failed");
-        }
-      } catch (err) {
-        status.classList.add("err");
-        status.textContent = "Sorry, something went wrong. Please email wes@collaborativeconstructionllc.com directly.";
-      } finally {
-        btn.disabled = false; btn.textContent = original;
-      }
+      btn.disabled = true;
+      btn.textContent = "Opening Gmail…";
+
+      openEmailClient(CONTACT_EMAIL, "Website inquiry from " + name, body);
+
+      form.reset();
+      store = new DataTransfer();
+      syncFiles();
+
+      showFormModal(
+        "Thank You!",
+        "Your message has been sent. We'll be in touch shortly.",
+        "#cd8d05"
+      );
+
+      btn.disabled = false;
+      btn.textContent = original;
     });
   }
 
@@ -413,4 +487,124 @@
   ---------------------------------------------------------------------- */
   const yearEl = $("#year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ----------------------------------------------------------------------
+     Gold rule draw animation — clip-path left-to-right on scroll-in
+  ---------------------------------------------------------------------- */
+  if (!prefersReduced && "IntersectionObserver" in window) {
+    const ruleIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add("is-drawn"); ruleIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.5 });
+    $$(".rule").forEach(rule => {
+      rule.style.clipPath = "inset(0 100% 0 0)";
+      rule.style.transition = "clip-path 1s cubic-bezier(.22,.61,.36,1)";
+      ruleIO.observe(rule);
+    });
+  }
+
+  /* ----------------------------------------------------------------------
+     3D card tilt on mousemove
+  ---------------------------------------------------------------------- */
+  if (!prefersReduced) {
+    $$(".adu-card, .form-card, .owner-photo, .svc-grid .svc-card").forEach(card => {
+      const MAX = card.classList.contains("owner-photo") ? 5 : 8;
+      card.addEventListener("mouseenter", () => {
+        card.style.transition = "transform .12s ease-out";
+      });
+      card.addEventListener("mousemove", (e) => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width  - 0.5;
+        const y = (e.clientY - r.top)  / r.height - 0.5;
+        card.style.transform =
+          `perspective(900px) rotateY(${x * MAX * 2}deg) rotateX(${-y * MAX}deg) translateZ(6px)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transition = "transform .5s cubic-bezier(.22,.61,.36,1)";
+        card.style.transform = "";
+      });
+    });
+  }
+
+  /* ----------------------------------------------------------------------
+     Scroll progress clock on back-to-top button — a smaller inner circle
+     that fills like a pie/clock (gold fill over a faint maroon base).
+  ---------------------------------------------------------------------- */
+  if (toTop && !prefersReduced) {
+    const clock = document.createElement("span");
+    clock.className = "to-top__clock";
+    clock.setAttribute("aria-hidden", "true");
+    toTop.insertBefore(clock, toTop.firstChild);
+    const updateClock = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+      clock.style.setProperty("--p", String(pct));
+    };
+    updateClock();
+    window.addEventListener("scroll", updateClock, { passive: true });
+  }
+
+  // Page-glow fixed layer removed — fixed blobs at % positions create visible
+  // circular patches against the plain stone background on gallery/about page tops.
+
+  /* ----------------------------------------------------------------------
+     Section-level spot orbs — placed behind text/image content areas,
+     NOT at edges. No overflow:hidden so they bleed softly into adjacent
+     sections instead of cutting off with a hard line.
+  ---------------------------------------------------------------------- */
+  if (!prefersReduced) {
+    // x/y = center of the glow blob within the section
+    // Keep y between 25%–75% so nothing clips at section top/bottom edges
+    const SPOT_TARGETS = [
+      { sel: ".section.about", spots: [
+        { x: "28%", y: "45%", s: 300, c: "205,141,5",   op: .22, a: "ambFloat1", d: "16s" },
+        { x: "72%", y: "40%", s: 260, c: "232,214,163", op: .20, a: "ambFloat2", d: "20s" },
+        { x: "50%", y: "60%", s: 240, c: "204,184,121", op: .18, a: "ambFloat3", d: "24s" },
+      ]},
+      // about-page-hero and gallery-intro are short header sections — page-glow
+      // already covers them; section spots here create a visible lighter patch.
+      { sel: ".about-page-body", spots: [
+        { x: "28%", y: "40%", s: 340, c: "205,141,5",   op: .13, a: "ambFloat2", d: "17s" },
+        { x: "70%", y: "52%", s: 300, c: "232,214,163", op: .12, a: "ambFloat1", d: "21s" },
+        { x: "50%", y: "68%", s: 280, c: "204,184,121", op: .11, a: "ambFloat3", d: "25s" },
+      ]},
+      // projects: start spots at 28%+ so they don't bleed into the divider above
+      { sel: ".projects", spots: [
+        { x: "28%", y: "28%", s: 320, c: "205,141,5",   op: .13, a: "ambFloat2", d: "22s" },
+        { x: "70%", y: "32%", s: 300, c: "232,214,163", op: .12, a: "ambFloat1", d: "26s" },
+        { x: "32%", y: "55%", s: 320, c: "204,184,121", op: .12, a: "ambFloat3", d: "19s" },
+        { x: "66%", y: "60%", s: 300, c: "205,141,5",   op: .13, a: "ambFloat2", d: "23s" },
+        { x: "48%", y: "82%", s: 300, c: "232,214,163", op: .11, a: "ambFloat1", d: "20s" },
+      ]},
+      // Construction Advisory page — Owner's PM + Clerk-of-the-Works sections
+      { sel: ".advisory-pm", spots: [
+        { x: "26%", y: "34%", s: 320, c: "205,141,5",   op: .12, a: "ambFloat2", d: "22s" },
+        { x: "72%", y: "30%", s: 300, c: "232,214,163", op: .11, a: "ambFloat1", d: "26s" },
+        { x: "50%", y: "60%", s: 300, c: "204,184,121", op: .10, a: "ambFloat3", d: "20s" },
+      ]},
+      { sel: ".advisory-clerk", spots: [
+        { x: "30%", y: "42%", s: 320, c: "205,141,5",   op: .12, a: "ambFloat1", d: "19s" },
+        { x: "70%", y: "50%", s: 300, c: "232,214,163", op: .11, a: "ambFloat2", d: "23s" },
+      ]},
+    ];
+
+    SPOT_TARGETS.forEach(({ sel, spots }) => {
+      const section = document.querySelector(sel);
+      if (!section) return;
+      const pos = getComputedStyle(section).position;
+      if (pos === "static") section.style.position = "relative";
+      // NO overflow:hidden — lets blobs bleed softly past section borders
+
+      spots.forEach(({ x, y, s, c, op, a, d }) => {
+        const el = document.createElement("span");
+        el.className = "amb-spot";
+        el.style.cssText =
+          `left:${x}; top:${y}; width:${s}px; height:${s}px;` +
+          `background:radial-gradient(circle, rgba(${c},${op}) 0%, transparent 65%);` +
+          `animation:${a} ${d} ease-in-out infinite;`;
+        section.appendChild(el);
+      });
+    });
+  }
 })();
