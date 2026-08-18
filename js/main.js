@@ -60,11 +60,17 @@
   }
 
   /* ----------------------------------------------------------------------
-     Page transitions (woosh veil on leave + fade entrance via CSS)
+     Page transitions — smooth directional slide + gold particle shift.
+     No color veil; the fixed background stays put so nothing flashes.
+     Direction tracks the site's nav order (moving left / right).
   ---------------------------------------------------------------------- */
-  const veil = document.createElement("div");
-  veil.className = "page-veil";
-  document.body.appendChild(veil);
+  const NAV_ORDER = ["index.html", "gallery.html", "construction-advisory.html", "about.html"];
+  const pageIndex = (url) => {
+    let file = (url.split("#")[0].split("?")[0].split("/").pop() || "index.html");
+    if (file === "") file = "index.html";
+    const i = NAV_ORDER.indexOf(file);
+    return i < 0 ? 0 : i;
+  };
 
   const isInternal = (a) => {
     const href = a.getAttribute("href") || "";
@@ -74,6 +80,41 @@
     return /\.html(\?|#|$)/.test(href) || href === "/" || href.startsWith("./");
   };
 
+  // Soft gold particles that drift in the travel direction during a page shift
+  function emitShiftParticles(forward) {
+    let layer = document.querySelector(".spark-layer");
+    if (!layer) {
+      layer = document.createElement("div");
+      layer.className = "spark-layer";
+      document.body.appendChild(layer);
+    }
+    const tints = ["232,214,163", "205,141,5", "255,255,255", "204,184,121"]; // gold / amber / white
+    const dirX = forward ? -1 : 1;
+    for (let i = 0; i < 26; i++) {
+      const d = document.createElement("span");
+      d.className = "dust";
+      const size = 3 + Math.random() * 5;
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+      const c = tints[(Math.random() * tints.length) | 0];
+      d.style.cssText =
+        `left:${x}px; top:${y}px; width:${size}px; height:${size}px;` +
+        `background:radial-gradient(circle, rgba(${c},.9), rgba(${c},0) 70%);`;
+      layer.appendChild(d);
+      const dx = dirX * (60 + Math.random() * 130);
+      const dy = (Math.random() - 0.5) * 44;
+      d.animate(
+        [
+          { transform: "translate(0,0) scale(.5)", opacity: 0 },
+          { opacity: .55, offset: .25 },
+          { transform: `translate(${dx}px, ${dy}px) scale(1)`, opacity: 0 }
+        ],
+        { duration: 520 + Math.random() * 380, easing: "cubic-bezier(.22,.61,.36,1)" }
+      ).onfinish = () => d.remove();
+    }
+  }
+
+  let leaving = false;
   document.addEventListener("click", (e) => {
     const a = e.target.closest("a");
     if (!a || !isInternal(a)) return;
@@ -81,14 +122,24 @@
     if (dest === location.href) return;
     if (prefersReduced) return; // let it navigate normally
     e.preventDefault();
-    // gradual cross-fade: dim & lift current page while the veil eases in, then go
-    document.body.classList.add("is-leaving");
-    veil.classList.add("show");
-    setTimeout(() => { window.location.href = dest; }, 560);
+    if (leaving) return;
+    leaving = true;
+
+    const forward = pageIndex(new URL(dest, location.href).pathname) > pageIndex(location.pathname);
+    // remember which way to enter on the next page
+    try { sessionStorage.setItem("navDir", forward ? "right" : "left"); } catch (_) {}
+
+    document.body.classList.add("is-leaving", forward ? "leave-fwd" : "leave-back");
+    emitShiftParticles(forward);
+    setTimeout(() => { window.location.href = dest; }, 320);
   });
+
   // restore on bfcache back-navigation
   window.addEventListener("pageshow", (e) => {
-    if (e.persisted) { veil.classList.remove("show"); document.body.classList.remove("is-leaving"); }
+    if (e.persisted) {
+      leaving = false;
+      document.body.classList.remove("is-leaving", "leave-fwd", "leave-back");
+    }
   });
 
   /* ----------------------------------------------------------------------

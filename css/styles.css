@@ -39,16 +39,42 @@
 
 /* ---------- reset / base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--stone); }
 body {
   margin: 0;
   font-family: var(--font-body);
   color: var(--body);
-  background: var(--stone);
+  background: transparent;
   line-height: 1.65;
   font-size: 17px;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+}
+
+/* ---------- global animated gold/white background (identical on every page) ----------
+   Fixed layer behind all content. Because it is fixed and the same on every page,
+   it stays perfectly still during navigation, so page transitions never flash. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--stone);
+  background-image:
+    radial-gradient(38% 38% at 22% 28%, rgba(232, 214, 163, .55), transparent 62%),
+    radial-gradient(34% 34% at 78% 22%, rgba(255, 255, 255, .50), transparent 60%),
+    radial-gradient(44% 44% at 68% 72%, rgba(205, 141, 5, .28), transparent 66%),
+    radial-gradient(40% 40% at 28% 78%, rgba(255, 255, 255, .45), transparent 64%),
+    radial-gradient(30% 30% at 50% 50%, rgba(204, 184, 121, .28), transparent 68%);
+  background-repeat: no-repeat;
+  animation: bgDrift 44s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes bgDrift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(2.5%, -2%, 0) scale(1.08) rotate(.5deg); }
+  100% { transform: translate3d(-2%, 2.5%, 0) scale(1.05) rotate(-.5deg); }
 }
 img { max-width: 100%; display: block; }
 a { color: var(--maroon); text-decoration: none; transition: color .25s var(--ease); }
@@ -183,26 +209,39 @@ p { margin: 0 0 1.1em; }
 /* ==========================================================================
    PAGE TRANSITION (woosh) + entrance
    ========================================================================== */
-.page-veil {
-  position: fixed; inset: 0; z-index: 9999; pointer-events: none;
-  background:
-    radial-gradient(130% 130% at 50% 50%, rgba(205, 141, 5, .20), transparent 62%),
-    linear-gradient(125deg, var(--maroon-900), var(--maroon) 60%, var(--maroon-700));
-  opacity: 0; visibility: hidden;
-  transition: opacity .6s var(--ease), visibility .6s var(--ease);
-  will-change: opacity;
-}
-.page-veil.show { opacity: 1; visibility: visible; }
-
-/* whole-page entrance + gentle leave (gradual cross-fade, no snap) */
-.page-main { animation: pageIn .95s var(--ease) both; }
+/* Smooth content transitions — quick slide + fade, no color veil.
+   The fixed background layer stays put, so nothing flashes between pages.
+   Direction tracks the site's nav order (moving left vs. right). */
+.page-main { animation: pageIn .5s var(--ease) both; }
 @keyframes pageIn {
-  from { opacity: 0; transform: translateY(20px) scale(.994); filter: blur(3px); }
-  to   { opacity: 1; transform: none; filter: none; }
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
 }
+/* direction-aware entrance (class set before first paint by an inline head script) */
+html.enter-right .page-main { animation: pageInRight .5s var(--ease) both; }
+html.enter-left  .page-main { animation: pageInLeft  .5s var(--ease) both; }
+@keyframes pageInRight {
+  from { opacity: 0; transform: translateX(46px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes pageInLeft {
+  from { opacity: 0; transform: translateX(-46px); }
+  to   { opacity: 1; transform: none; }
+}
+/* quick directional exit */
 body.is-leaving .page-main {
-  opacity: 0; transform: translateY(-14px) scale(.994);
-  transition: opacity .55s var(--ease), transform .55s var(--ease);
+  opacity: 0;
+  transition: opacity .32s var(--ease), transform .32s var(--ease);
+}
+body.is-leaving.leave-fwd  .page-main { transform: translateX(-46px); }
+body.is-leaving.leave-back .page-main { transform: translateX(46px); }
+
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
+  .page-main,
+  html.enter-right .page-main,
+  html.enter-left .page-main { animation: none; }
+  body.is-leaving .page-main { transition: none; }
 }
 
 /* ---------- scroll reveal ---------- */
@@ -232,11 +271,23 @@ body.is-leaving .page-main {
   position: absolute; inset: 0; background: url('../assets/img/belmont-pond.jpg') center/cover no-repeat;
   transform: scale(1.08); will-change: transform; z-index: 0;
 }
+/* looping background video sits over the fallback image */
+.hero__video {
+  position: absolute; inset: 0; z-index: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  pointer-events: none;
+}
 .hero__overlay {
   position: absolute; inset: 0; z-index: 1;
+  /* very low red tint over the video, with a gentle darken at the base
+     so the white headline + buttons stay readable */
   background:
-    linear-gradient(180deg, rgba(56,11,11,.42) 0%, rgba(56,11,11,.30) 40%, rgba(56,11,11,.72) 100%),
-    linear-gradient(90deg, rgba(56,11,11,.30), rgba(31,27,24,.20));
+    linear-gradient(rgba(130, 29, 29, .10), rgba(130, 29, 29, .10)),
+    linear-gradient(180deg, rgba(56,11,11,.10) 0%, rgba(56,11,11,.08) 45%, rgba(56,11,11,.40) 100%);
+}
+/* respect reduced-motion: hide the video, show the still image */
+@media (prefers-reduced-motion: reduce) {
+  .hero__video { display: none; }
 }
 .hero .container { position: relative; z-index: 2; padding-top: 70px; padding-bottom: 70px; }
 .hero .eyebrow { color: var(--gold-1); }
@@ -267,7 +318,7 @@ body.is-leaving .page-main {
 /* ==========================================================================
    ABOUT (home two-column)
    ========================================================================== */
-.about { background: var(--stone); }
+.about { background: transparent; }
 .two-col {
   display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
 }
@@ -292,7 +343,7 @@ body.is-leaving .page-main {
 /* ==========================================================================
    CONTACT
    ========================================================================== */
-.contact { background: var(--stone); position: relative; }
+.contact { background: transparent; position: relative; }
 .contact-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: start; }
 
 .form-card { background: #fff; border-radius: var(--radius); padding: 34px; box-shadow: var(--shadow-md); border: 1px solid var(--line); position: relative; }
@@ -360,7 +411,7 @@ body.is-leaving .page-main {
 /* ==========================================================================
    GALLERY
    ========================================================================== */
-.gallery-intro { background: var(--stone); padding-top: 70px; padding-bottom: 36px; }
+.gallery-intro { background: transparent; padding-top: 70px; padding-bottom: 36px; }
 .gallery-intro .two-col { grid-template-columns: auto 1fr; gap: 40px; align-items: center; }
 .gallery-intro .mark { width: 120px; height: auto; }
 .gallery-intro h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin-bottom: .25em; }
@@ -418,7 +469,7 @@ body.is-leaving .page-main {
 /* ==========================================================================
    ABOUT PAGE
    ========================================================================== */
-.about-page-hero { background: var(--stone); text-align: center; padding: 78px 0 30px; }
+.about-page-hero { background: transparent; text-align: center; padding: 78px 0 30px; }
 .about-page-hero h1 { font-size: clamp(2.2rem, 5vw, 3.3rem); }
 .about-page-body { padding: 30px 0 100px; }
 .owner-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 56px; align-items: start; }
