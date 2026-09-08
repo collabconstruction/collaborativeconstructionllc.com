@@ -299,6 +299,18 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   text-shadow: 0 2px 24px rgba(0,0,0,.35);
 }
 .hero__motto .accent { color: var(--gold-1); }
+/* The h1 is the motto plus this line. The motto carries the brand, this
+   carries what the company actually does and where, which is what a search
+   engine and a first-time visitor both need. */
+.hero__sub {
+  display: block;
+  font-family: var(--font-body); font-style: normal; font-weight: 600;
+  font-size: clamp(.95rem, 1.6vw, 1.15rem);
+  letter-spacing: .04em; line-height: 1.4;
+  color: var(--gold-1);
+  margin-top: 18px; max-width: 34ch; margin-inline: auto;
+  text-shadow: 0 1px 12px rgba(0,0,0,.45);
+}
 .hero__cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 .hero .btn-ghost { color: #fff; border-color: rgba(255,255,255,.7); }
 .hero .btn-ghost:hover { background: #fff; color: var(--maroon); border-color: #fff; }

@@ -6,6 +6,22 @@
   <title>Gallery | Collaborative Construction, LLC</title>
   <meta name="description" content="A showcase of completed projects by Collaborative Construction, LLC residential construction, kitchen & bath remodels, custom home renovations, and commercial tenant fit-outs.">
   <meta name="theme-color" content="#821d1d">
+  <link rel="canonical" href="https://collaborativeconstructionllc.com/gallery">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Collaborative Construction, LLC">
+  <meta property="og:url" content="https://collaborativeconstructionllc.com/gallery">
+  <meta property="og:title" content="Project Gallery | Collaborative Construction, LLC">
+  <meta property="og:description" content="Completed residential and commercial projects on Cape Cod and the South Shore: whole-home renovations, kitchens and baths, additions, and tenant fit-outs.">
+  <meta property="og:image" content="https://collaborativeconstructionllc.com/assets/img/belmont-hero.jpg">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="837">
+  <meta property="og:image:alt" content="A completed Collaborative Construction renovation project">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Project Gallery | Collaborative Construction, LLC">
+  <meta name="twitter:description" content="Completed residential and commercial projects on Cape Cod and the South Shore.">
+  <meta name="twitter:image" content="https://collaborativeconstructionllc.com/assets/img/belmont-hero.jpg">
+
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/c-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,13 +40,37 @@
       } catch (e) {}
     })();
   </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": "https://collaborativeconstructionllc.com/gallery#webpage",
+        "url": "https://collaborativeconstructionllc.com/gallery",
+        "name": "Project Gallery",
+        "about": { "@id": "https://collaborativeconstructionllc.com/#business" },
+        "breadcrumb": { "@id": "https://collaborativeconstructionllc.com/gallery#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://collaborativeconstructionllc.com/gallery#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://collaborativeconstructionllc.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Gallery" }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
   <!-- ============================ HEADER ============================ -->
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="index.html" aria-label="Collaborative Construction home">
+      <a class="brand" href="/" aria-label="Collaborative Construction home">
         <img class="c-badge" src="assets/c-icon.png" alt="">
         <img class="logo" src="assets/logo.png" alt="Collaborative Construction">
       </a>
@@ -38,10 +78,10 @@
         <span></span><span></span><span></span>
       </button>
       <nav class="nav" id="primary-nav">
-        <a href="index.html">Home</a>
-        <a href="gallery.html" class="active">Gallery</a>
-        <a href="construction-advisory.html">Construction Management</a>
-        <a href="about.html">About</a>
+        <a href="/">Home</a>
+        <a href="/gallery" class="active">Gallery</a>
+        <a href="/construction-advisory">Construction Management</a>
+        <a href="/about">About</a>
       </nav>
     </div>
   </header>
@@ -392,11 +432,11 @@
       <div class="footer-col">
         <h4>Explore</h4>
         <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="construction-advisory.html">Construction Management</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/construction-advisory">Construction Management</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/#contact">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">

@@ -64,11 +64,21 @@
      No color veil; the fixed background stays put so nothing flashes.
      Direction tracks the site's nav order (moving left / right).
   ---------------------------------------------------------------------- */
-  const NAV_ORDER = ["index.html", "gallery.html", "construction-advisory.html", "about.html"];
-  const pageIndex = (url) => {
-    let file = (url.split("#")[0].split("?")[0].split("/").pop() || "index.html");
-    if (file === "") file = "index.html";
-    const i = NAV_ORDER.indexOf(file);
+  /* Links are extensionless ("/about"), because Cloudflare serves them that
+     way and 307-redirects the ".html" form. The ".html" handling below is
+     kept so any old bookmark or stray link still animates correctly. */
+  const NAV_ORDER = ["", "gallery", "construction-advisory", "about"];
+
+  const pageSlug = (pathname) => {
+    let s = (pathname || "").split("#")[0].split("?")[0];
+    s = s.replace(/\/+$/, "");              // drop trailing slash
+    s = s.split("/").pop() || "";           // last path segment
+    s = s.replace(/\.html$/i, "");          // tolerate the legacy form
+    return s === "index" ? "" : s;
+  };
+
+  const pageIndex = (pathname) => {
+    const i = NAV_ORDER.indexOf(pageSlug(pathname));
     return i < 0 ? 0 : i;
   };
 
@@ -76,8 +86,15 @@
     const href = a.getAttribute("href") || "";
     if (a.target === "_blank" || a.hasAttribute("download")) return false;
     if (/^(mailto:|tel:|#)/.test(href)) return false;
-    if (/^https?:\/\//i.test(href) && a.host !== location.host) return false;
-    return /\.html(\?|#|$)/.test(href) || href === "/" || href.startsWith("./");
+    // Covers absolute, root-relative, and relative hrefs in one check.
+    return a.origin === location.origin;
+  };
+
+  // A link that only changes the hash is not a page change. Let the browser
+  // jump to the anchor instead of playing an exit animation and reloading.
+  const isSameDocument = (dest) => {
+    const u = new URL(dest, location.href);
+    return u.pathname === location.pathname && u.search === location.search;
   };
 
   // Soft gold particles that drift in the travel direction during a page shift
@@ -120,6 +137,7 @@
     if (!a || !isInternal(a)) return;
     const dest = a.href;
     if (dest === location.href) return;
+    if (isSameDocument(dest)) return;   // in-page anchor, not a navigation
     if (prefersReduced) return; // let it navigate normally
     e.preventDefault();
     if (leaving) return;

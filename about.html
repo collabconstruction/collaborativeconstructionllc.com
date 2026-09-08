@@ -6,6 +6,20 @@
   <title>About | Collaborative Construction, LLC</title>
   <meta name="description" content="About Collaborative Construction, LLC and owner Wesleigh Behn, over 30 years of residential and commercial construction experience serving Cape Cod & the South Shore.">
   <meta name="theme-color" content="#821d1d">
+  <link rel="canonical" href="https://collaborativeconstructionllc.com/about">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="Collaborative Construction, LLC">
+  <meta property="og:url" content="https://collaborativeconstructionllc.com/about">
+  <meta property="og:title" content="About Wesleigh Behn | Collaborative Construction, LLC">
+  <meta property="og:description" content="Over 30 years of residential and commercial construction experience, an active Massachusetts CSL since 2000, serving Cape Cod and the South Shore.">
+  <meta property="og:image" content="https://collaborativeconstructionllc.com/assets/img/wesleigh-behn.jpg">
+  <meta property="og:image:alt" content="Wesleigh Behn, Owner and Founder of Collaborative Construction">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Wesleigh Behn | Collaborative Construction, LLC">
+  <meta name="twitter:description" content="Over 30 years of residential and commercial construction experience serving Cape Cod and the South Shore.">
+  <meta name="twitter:image" content="https://collaborativeconstructionllc.com/assets/img/wesleigh-behn.jpg">
+
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/c-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,13 +38,68 @@
       } catch (e) {}
     })();
   </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://collaborativeconstructionllc.com/about#wesleigh-behn",
+        "name": "Wesleigh Behn",
+        "jobTitle": "Owner and Founder",
+        "image": "https://collaborativeconstructionllc.com/assets/img/wesleigh-behn.jpg",
+        "url": "https://collaborativeconstructionllc.com/about",
+        "description": "Massachusetts native with over 30 years of experience in residential and commercial construction, holding an active Massachusetts Construction Supervisor License since 2000.",
+        "worksFor": { "@id": "https://collaborativeconstructionllc.com/#business" },
+        "knowsAbout": [
+          "Residential construction",
+          "Commercial construction",
+          "Owner's project management",
+          "Clerk of the Works",
+          "Construction advisory"
+        ],
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "Boston University" },
+          { "@type": "CollegeOrUniversity", "name": "Boston Architectural College" }
+        ],
+        "hasCredential": {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "license",
+          "name": "Massachusetts Construction Supervisor License (CSL)",
+          "recognizedBy": {
+            "@type": "GovernmentOrganization",
+            "name": "Commonwealth of Massachusetts"
+          }
+        },
+        "sameAs": ["https://www.linkedin.com/in/wesleigh-behn-a5b925187"]
+      },
+      {
+        "@type": "AboutPage",
+        "@id": "https://collaborativeconstructionllc.com/about#webpage",
+        "url": "https://collaborativeconstructionllc.com/about",
+        "name": "About Collaborative Construction",
+        "mainEntity": { "@id": "https://collaborativeconstructionllc.com/about#wesleigh-behn" },
+        "breadcrumb": { "@id": "https://collaborativeconstructionllc.com/about#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://collaborativeconstructionllc.com/about#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://collaborativeconstructionllc.com/" },
+          { "@type": "ListItem", "position": 2, "name": "About" }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
   <!-- ============================ HEADER ============================ -->
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="index.html" aria-label="Collaborative Construction home">
+      <a class="brand" href="/" aria-label="Collaborative Construction home">
         <img class="c-badge" src="assets/c-icon.png" alt="">
         <img class="logo" src="assets/logo.png" alt="Collaborative Construction">
       </a>
@@ -38,10 +107,10 @@
         <span></span><span></span><span></span>
       </button>
       <nav class="nav" id="primary-nav">
-        <a href="index.html">Home</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="construction-advisory.html">Construction Management</a>
-        <a href="about.html" class="active">About</a>
+        <a href="/">Home</a>
+        <a href="/gallery">Gallery</a>
+        <a href="/construction-advisory">Construction Management</a>
+        <a href="/about" class="active">About</a>
       </nav>
     </div>
   </header>
@@ -71,7 +140,7 @@
           </div>
 
           <div class="owner-bio" data-reveal="right">
-            <h2>Wesleigh Behn</h2>
+            <h2 id="wesleigh-behn">Wesleigh Behn</h2>
             <p class="eyebrow" style="display:block;margin-bottom:18px">Owner &amp; Founder</p>
             <p>Collaborative Construction was founded by Wesleigh Behn, a Massachusetts native with over 30 years of experience in both residential and commercial construction. Wesleigh holds a Bachelor's degree from Boston University and completed postgraduate studies at the Boston Architectural Center.</p>
             <p>He has maintained an active CSL license since 2000 and brings deep expertise in all phases of building. He is committed to building Collaborative Construction into a trusted name for high-quality construction across Cape Cod and the South Shore.</p>
@@ -96,11 +165,11 @@
       <div class="footer-col">
         <h4>Explore</h4>
         <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="construction-advisory.html">Construction Management</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/construction-advisory">Construction Management</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/#contact">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">

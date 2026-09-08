@@ -6,9 +6,22 @@
   <title>Collaborative Construction, LLC Residential Construction & Renovation | Cape Cod & South Shore</title>
   <meta name="description" content="Collaborative Construction, LLC professional, client-centered residential construction and renovation. New construction, additions, ADUs, and remodels serving Cape Cod & the Islands and the South Shore.">
   <meta name="theme-color" content="#821d1d">
-  <meta property="og:title" content="Collaborative Construction, LLC">
-  <meta property="og:description" content="Working together, working collaboratively, to produce the highest quality construction and renovation projects.">
+  <link rel="canonical" href="https://collaborativeconstructionllc.com/">
+
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Collaborative Construction, LLC">
+  <meta property="og:url" content="https://collaborativeconstructionllc.com/">
+  <meta property="og:title" content="Residential Construction &amp; Renovation | Cape Cod &amp; South Shore">
+  <meta property="og:description" content="Working together, working collaboratively, to produce the highest quality construction and renovation projects. New construction, additions, ADUs, and remodels.">
+  <meta property="og:image" content="https://collaborativeconstructionllc.com/assets/img/belmont-hero.jpg">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="837">
+  <meta property="og:image:alt" content="Custom home built by Collaborative Construction">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Residential Construction &amp; Renovation | Cape Cod &amp; South Shore">
+  <meta name="twitter:description" content="Working together, working collaboratively, to produce the highest quality construction and renovation projects.">
+  <meta name="twitter:image" content="https://collaborativeconstructionllc.com/assets/img/belmont-hero.jpg">
+
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/c-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,13 +40,67 @@
       } catch (e) {}
     })();
   </script>
+
+  <!-- Structured data. Every fact here is also stated in visible page copy.
+       Do not add claims (street address, license number, hours, reviews)
+       until they are confirmed AND appear on the page. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["GeneralContractor", "HomeAndConstructionBusiness"],
+        "@id": "https://collaborativeconstructionllc.com/#business",
+        "name": "Collaborative Construction, LLC",
+        "url": "https://collaborativeconstructionllc.com/",
+        "image": "https://collaborativeconstructionllc.com/assets/img/belmont-hero.jpg",
+        "logo": "https://collaborativeconstructionllc.com/assets/logo.png",
+        "email": "collaborativeconstructiongc@gmail.com",
+        "telephone": "+1-508-440-6981",
+        "slogan": "Experience, Quality, Trust",
+        "description": "Residential construction and renovation built on a professional, client-centered approach, serving Cape Cod and the Islands and the South Shore of Massachusetts.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "East Falmouth",
+          "addressRegion": "MA",
+          "postalCode": "02536",
+          "addressCountry": "US"
+        },
+        "areaServed": [
+          { "@type": "AdministrativeArea", "name": "Cape Cod, Massachusetts" },
+          { "@type": "AdministrativeArea", "name": "South Shore, Massachusetts" }
+        ],
+        "founder": { "@id": "https://collaborativeconstructionllc.com/about#wesleigh-behn" },
+        "sameAs": [
+          "https://www.facebook.com/share/14koskagbeC/?mibextid=wwXIfr",
+          "https://www.linkedin.com/in/wesleigh-behn-a5b925187"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://collaborativeconstructionllc.com/#website",
+        "url": "https://collaborativeconstructionllc.com/",
+        "name": "Collaborative Construction, LLC",
+        "publisher": { "@id": "https://collaborativeconstructionllc.com/#business" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://collaborativeconstructionllc.com/#webpage",
+        "url": "https://collaborativeconstructionllc.com/",
+        "name": "Collaborative Construction, LLC",
+        "isPartOf": { "@id": "https://collaborativeconstructionllc.com/#website" },
+        "about": { "@id": "https://collaborativeconstructionllc.com/#business" }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
   <!-- ============================ HEADER ============================ -->
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="index.html" aria-label="Collaborative Construction home">
+      <a class="brand" href="/" aria-label="Collaborative Construction home">
         <img class="c-badge" src="assets/c-icon.png" alt="">
         <img class="logo" src="assets/logo.png" alt="Collaborative Construction">
       </a>
@@ -41,10 +108,10 @@
         <span></span><span></span><span></span>
       </button>
       <nav class="nav" id="primary-nav">
-        <a href="index.html" class="active">Home</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="construction-advisory.html">Construction Management</a>
-        <a href="about.html">About</a>
+        <a href="/" class="active">Home</a>
+        <a href="/gallery">Gallery</a>
+        <a href="/construction-advisory">Construction Management</a>
+        <a href="/about">About</a>
       </nav>
     </div>
   </header>
@@ -65,11 +132,12 @@
           <span class="motto-word">Quality</span> <span class="dot">·</span> 
           <span class="motto-word">Trust</span>
         </p>
-        <p class="hero__motto" data-reveal data-delay="1">
+        <h1 class="hero__motto" data-reveal data-delay="1">
           <em>Working together, working <span class="accent">collaboratively</span>, to produce the highest quality construction and renovation projects.</em>
-        </p>
+          <span class="hero__sub">Residential Construction &amp; Renovation on Cape Cod and the South Shore</span>
+        </h1>
         <div class="hero__cta" data-reveal data-delay="2">
-          <a href="gallery.html" class="btn btn-primary">View Our Work</a>
+          <a href="/gallery" class="btn btn-primary">View Our Work</a>
           <a href="#contact" class="btn btn-ghost">Get in Touch</a>
         </div>
       </div>
@@ -255,11 +323,11 @@
       <div class="footer-col">
         <h4>Explore</h4>
         <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="construction-advisory.html">Construction Management</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/construction-advisory">Construction Management</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/#contact">Contact</a></li>
         </ul>
       </div>
 
