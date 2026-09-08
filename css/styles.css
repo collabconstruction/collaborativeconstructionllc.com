@@ -231,7 +231,8 @@ html.enter-left  .page-main { animation: pageInLeft  .5s var(--ease) both; }
 /* quick directional exit */
 body.is-leaving .page-main {
   opacity: 0;
-  transition: opacity .32s var(--ease), transform .32s var(--ease);
+  /* Kept in step with the navigation delay in js/main.js. Change both. */
+  transition: opacity .18s var(--ease), transform .18s var(--ease);
 }
 body.is-leaving.leave-fwd  .page-main { transform: translateX(-46px); }
 body.is-leaving.leave-back .page-main { transform: translateX(46px); }
@@ -383,6 +384,17 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 .form-status { margin-top: 14px; font-weight: 600; font-size: .94rem; min-height: 1.2em; }
 .form-status.ok { color: #2e7d32; }
 .form-status.err { color: var(--maroon); }
+.form-status a { color: inherit; text-decoration: underline; }
+
+/* Honeypot. Hidden from people without using display:none or [hidden], since
+   some bots skip those. Kept out of the tab order and off screen instead. */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 
 /* contact info panel */
 .contact-info h3 { font-size: 1.7rem; }

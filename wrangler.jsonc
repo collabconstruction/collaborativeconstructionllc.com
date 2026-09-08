@@ -9,5 +9,45 @@
   "assets": {
     "directory": "./",
     "binding": "ASSETS"
+  },
+
+  // Lead records. Schema lives in schema.sql:
+  //   npx wrangler d1 execute cc-leads --file=schema.sql --remote
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "cc-leads",
+      "database_id": "7e094c32-e89e-4efa-95ce-1133a9b4293c"
+    }
+  ],
+
+  // Lead notification email. Cloudflare Email Routing is already enabled on
+  // this zone (MX points at route*.mx.cloudflare.net), so the native binding
+  // sends for free with no API key and no extra DNS records.
+  // LEAD_INBOX must be a VERIFIED destination address in Email Routing.
+  "send_email": [
+    {
+      "name": "SEND_EMAIL",
+      "destination_address": "collaborativeconstructiongc@gmail.com"
+    }
+  ],
+
+  // Non-secret config. Secrets (TURNSTILE_SECRET_KEY, and optionally
+  // RESEND_API_KEY) are set with `npx wrangler secret put <NAME>` and must
+  // never be committed here.
+  "vars": {
+    // The monitored inbox. Confirmed with the owner: the
+    // wes@collaborativeconstructionllc.com address is NOT watched.
+    "LEAD_INBOX": "collaborativeconstructiongc@gmail.com",
+    // Must be an address on this zone for Email Routing to accept it.
+    "LEAD_FROM_ADDRESS": "website@collaborativeconstructionllc.com"
   }
+
+  // R2 attachment storage. Blocked until R2 is enabled in the Cloudflare
+  // dashboard (needs a payment method on file even for the free tier).
+  // Until then the contact form hides its file upload field, because
+  // accepting files we cannot store would be the same lie we just removed.
+  // "r2_buckets": [
+  //   { "binding": "ATTACHMENTS", "bucket_name": "cc-lead-attachments" }
+  // ]
 }

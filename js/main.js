@@ -131,7 +131,12 @@
 
     document.body.classList.add("is-leaving", forward ? "leave-fwd" : "leave-back");
     emitShiftParticles(forward);
-    setTimeout(() => { window.location.href = dest; }, 320);
+    // This delay is paid on every internal click before the browser even
+    // starts the request, so it is a direct cost to perceived speed. It must
+    // stay in step with the .page-main exit transition in styles.css,
+    // otherwise navigation cuts the fade off half-finished. Both were 320ms;
+    // both are now 180ms, which still reads as a complete slide.
+    setTimeout(() => { window.location.href = dest; }, 180);
   });
 
   // restore on bfcache back-navigation
@@ -235,8 +240,6 @@
     start();
   });
 
-  const CONTACT_EMAIL = "collaborativeconstructiongc@gmail.com";
-
   function ensureModalAnimations() {
     if (document.getElementById("modal-animations")) return;
     const style = document.createElement("style");
@@ -280,56 +283,21 @@
   }
 
   /* ----------------------------------------------------------------------
-     Reliable email links (mailto often fails without a desktop mail app)
+     mailto: links are left alone on purpose.
+
+     This used to intercept every mailto click and force it into Gmail's web
+     compose window. That broke for anyone not signed into Gmail in that
+     browser, which is most people on a phone. The OS already knows which mail
+     app the visitor uses. Let it decide.
   ---------------------------------------------------------------------- */
-  function openEmailClient(to, subject, body) {
-    const gmail =
-      "https://mail.google.com/mail/?view=cm&fs=1&to=" +
-      encodeURIComponent(to) +
-      (subject ? "&su=" + encodeURIComponent(subject) : "") +
-      (body ? "&body=" + encodeURIComponent(body) : "");
-    window.open(gmail, "_blank", "noopener,noreferrer");
-  }
-
-  function showEmailToast(message) {
-    let toast = $(".email-toast");
-    if (!toast) {
-      toast = document.createElement("p");
-      toast.className = "email-toast";
-      toast.setAttribute("role", "status");
-      toast.setAttribute("aria-live", "polite");
-      document.body.appendChild(toast);
-    }
-    toast.textContent = message;
-    toast.classList.add("show");
-    clearTimeout(showEmailToast._timer);
-    showEmailToast._timer = setTimeout(() => toast.classList.remove("show"), 3200);
-  }
-
-  $$('a[href^="mailto:"]').forEach((link) => {
-    link.addEventListener("click", (e) => {
-      const href = link.getAttribute("href") || "";
-      const target = href.replace(/^mailto:/i, "").split("?")[0];
-      const params = new URLSearchParams(href.split("?")[1] || "");
-      const subject = params.get("subject") || "";
-      const body = params.get("body") || "";
-
-      e.preventDefault();
-      openEmailClient(target, subject, body);
-      if (navigator.clipboard && target) {
-        navigator.clipboard.writeText(target).then(
-          () => showEmailToast(`Opening Gmail for ${target}`),
-          () => showEmailToast("Opening Gmail…")
-        );
-      } else {
-        showEmailToast("Opening Gmail…");
-      }
-    });
-  });
 
   /* ----------------------------------------------------------------------
-     Contact form file count indicator + submit
-     Opens Gmail compose with the form details pre-filled
+     Contact form.
+
+     Posts to the Worker at /api/contact, which stores the lead and emails it.
+     The success message is only shown on a confirmed 200. If anything fails,
+     the visitor is told the truth and given a direct way to reach us, so a
+     real inquiry is never lost to a silent error.
   ---------------------------------------------------------------------- */
   const form = $("#contact-form");
   if (form) {
@@ -339,81 +307,150 @@
     const listEl = $(".file-list", form);
     const drop   = $(".dropzone", form);
     const status = $(".form-status", form);
+
+    /* -- optional attachment UI (only present when storage is enabled) ---- */
     let store = new DataTransfer(); // authoritative file set
 
-    function human(bytes) {
-      if (bytes < 1024) return bytes + " B";
-      if (bytes < 1048576) return (bytes / 1024).toFixed(0) + " KB";
-      return (bytes / 1048576).toFixed(1) + " MB";
-    }
-    function syncFiles() {
-      fileInput.files = store.files;
-      const n = store.files.length;
-      pill.hidden = n === 0;
-      pillN.textContent = n;
-      listEl.innerHTML = "";
-      Array.from(store.files).forEach((f, i) => {
-        const li = document.createElement("li");
-        const name = document.createElement("span");
-        name.textContent = f.name + "  ·  " + human(f.size);
-        const rm = document.createElement("button");
-        rm.type = "button"; rm.textContent = "Remove"; rm.setAttribute("aria-label", "Remove " + f.name);
-        rm.addEventListener("click", () => {
-          const dt = new DataTransfer();
-          Array.from(store.files).forEach((file, j) => { if (j !== i) dt.items.add(file); });
-          store = dt; syncFiles();
+    if (fileInput && drop && pill && pillN && listEl) {
+      const human = (bytes) => {
+        if (bytes < 1024) return bytes + " B";
+        if (bytes < 1048576) return (bytes / 1024).toFixed(0) + " KB";
+        return (bytes / 1048576).toFixed(1) + " MB";
+      };
+      var syncFiles = function () {
+        fileInput.files = store.files;
+        const n = store.files.length;
+        pill.hidden = n === 0;
+        pillN.textContent = n;
+        listEl.innerHTML = "";
+        Array.from(store.files).forEach((f, i) => {
+          const li = document.createElement("li");
+          const name = document.createElement("span");
+          name.textContent = f.name + "  ·  " + human(f.size);
+          const rm = document.createElement("button");
+          rm.type = "button"; rm.textContent = "Remove"; rm.setAttribute("aria-label", "Remove " + f.name);
+          rm.addEventListener("click", () => {
+            const dt = new DataTransfer();
+            Array.from(store.files).forEach((file, j) => { if (j !== i) dt.items.add(file); });
+            store = dt; syncFiles();
+          });
+          li.append(name, rm); listEl.appendChild(li);
         });
-        li.append(name, rm); listEl.appendChild(li);
-      });
-    }
-    function addFiles(fileList) {
-      Array.from(fileList).forEach(f => store.items.add(f));
-      syncFiles();
+      };
+      const addFiles = (fileList) => {
+        Array.from(fileList).forEach(f => store.items.add(f));
+        syncFiles();
+      };
+
+      fileInput.addEventListener("change", () => addFiles(fileInput.files));
+      drop.addEventListener("click", () => fileInput.click());
+      drop.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); } });
+      ["dragenter", "dragover"].forEach(ev => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("drag"); }));
+      ["dragleave", "drop"].forEach(ev => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("drag"); }));
+      drop.addEventListener("drop", (e) => { if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files); });
     }
 
-    fileInput.addEventListener("change", () => addFiles(fileInput.files));
-    drop.addEventListener("click", () => fileInput.click());
-    drop.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); } });
-    ["dragenter", "dragover"].forEach(ev => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("drag"); }));
-    ["dragleave", "drop"].forEach(ev => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("drag"); }));
-    drop.addEventListener("drop", (e) => { if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files); });
+    /* -- attribution ------------------------------------------------------
+       Captured at submit time so every lead row can be traced back to the
+       page, referrer, and campaign that produced it. This is what makes
+       conversion rate answerable per channel instead of per site.
+    --------------------------------------------------------------------- */
+    function attribution() {
+      const qs = new URLSearchParams(location.search);
+      let gaClientId = "";
+      try {
+        // GA4 stores the client id in the _ga cookie as GA1.1.<id>.<ts>
+        const m = document.cookie.match(/(?:^|;\s*)_ga=GA\d\.\d\.(\d+\.\d+)/);
+        if (m) gaClientId = m[1];
+      } catch (_) {}
+      return {
+        source_page: location.pathname + location.search,
+        referrer: document.referrer || "",
+        utm_source: qs.get("utm_source") || "",
+        utm_medium: qs.get("utm_medium") || "",
+        utm_campaign: qs.get("utm_campaign") || "",
+        ga_client_id: gaClientId,
+      };
+    }
 
-    form.addEventListener("submit", (e) => {
+    const FALLBACK_HTML =
+      'Please email <a href="mailto:collaborativeconstructiongc@gmail.com">collaborativeconstructiongc@gmail.com</a> ' +
+      'or call <a href="tel:+15084406981">(508) 440-6981</a>.';
+
+    let sending = false;
+
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      if (sending) return;
+
       status.className = "form-status";
       status.textContent = "";
+
       const name = form.name.value.trim();
       const email = form.email.value.trim();
       const message = form.message.value.trim();
+
       if (!name || !email || !message) {
-        status.classList.add("err"); status.textContent = "Please fill in your name, email, and message.";
+        status.classList.add("err");
+        status.textContent = "Please fill in your name, email, and message.";
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        status.classList.add("err");
+        status.textContent = "That email address does not look right.";
+        form.email.focus();
         return;
       }
 
-      const n = store.files.length;
-      const body =
-        `Name: ${name}\nEmail: ${email}\n\n${message}` +
-        (n ? `\n\n(${n} file${n > 1 ? "s" : ""} selected — please attach them in Gmail before sending.)` : "");
-
       const btn = $("button[type=submit]", form);
       const original = btn.textContent;
+      sending = true;
       btn.disabled = true;
-      btn.textContent = "Opening Gmail…";
+      btn.textContent = "Sending…";
 
-      openEmailClient(CONTACT_EMAIL, "Website inquiry from " + name, body);
+      const payload = new FormData(form);
+      Object.entries(attribution()).forEach(([k, v]) => payload.set(k, v));
+      // FormData picks up the live input, which we keep in sync with `store`.
 
-      form.reset();
-      store = new DataTransfer();
-      syncFiles();
+      try {
+        const res = await fetch("/api/contact", { method: "POST", body: payload });
+        let data = {};
+        try { data = await res.json(); } catch (_) {}
 
-      showFormModal(
-        "Thank You!",
-        "Your message has been sent. We'll be in touch shortly.",
-        "#cd8d05"
-      );
+        if (res.ok && data.ok) {
+          form.reset();
+          store = new DataTransfer();
+          if (typeof syncFiles === "function") syncFiles();
+          if (window.turnstile) window.turnstile.reset();
 
-      btn.disabled = false;
-      btn.textContent = original;
+          showFormModal(
+            "Thank You!",
+            "Your message has been received. We'll be in touch shortly.",
+            "#cd8d05"
+          );
+
+          // Only fire the conversion once the server has confirmed the lead.
+          if (typeof window.gtag === "function") {
+            window.gtag("event", "generate_lead", {
+              lead_id: data.id || "",
+              form_location: location.pathname,
+            });
+          }
+        } else {
+          status.classList.add("err");
+          status.innerHTML =
+            (data.error || "We could not send your message just now.") + " " + FALLBACK_HTML;
+          if (window.turnstile) window.turnstile.reset();
+        }
+      } catch (err) {
+        status.classList.add("err");
+        status.innerHTML =
+          "We could not reach the server. Please check your connection and try again. " + FALLBACK_HTML;
+      } finally {
+        sending = false;
+        btn.disabled = false;
+        btn.textContent = original;
+      }
     });
   }
 
