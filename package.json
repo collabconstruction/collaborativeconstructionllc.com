@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Collaborative Construction LLC website",
   "main": "worker/index.js",
+  "_scriptsComment": "build cleans _site first. Eleventy passthrough-copy does not remove output for files deleted from source, so without the clean step a deleted asset stays in _site and gets redeployed. That is exactly how a removed 4.1 MB hero video shipped to production after it had been deleted from git.",
   "scripts": {
-    "build": "eleventy",
+    "clean": "rm -rf _site",
+    "build": "npm run clean && eleventy",
     "serve": "eleventy --serve",
     "dev": "npm run build && wrangler dev",
     "deploy": "npm run build && wrangler deploy"
