@@ -42,6 +42,12 @@
   <meta name="twitter:description" content="{{ twitterDescription | default(ogDescription) | default(description) }}">
   <meta name="twitter:image" content="{{ business.url }}{{ shareImage | default(business.images.share) }}">
 
+  {#- The LCP image. It is a CSS background (.hero__bg), so without this the
+      browser cannot discover it until styles.css has downloaded and parsed,
+      which serialises two round trips before the largest paint even starts. #}
+  {%- if preloadImage %}
+  <link rel="preload" as="image" href="{{ preloadImage }}" fetchpriority="high">
+  {%- endif %}
   <link rel="icon" type="image/png" href="/assets/favicon.png">
   <link rel="apple-touch-icon" href="/assets/c-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -122,6 +128,16 @@
           <a href="mailto:{{ business.email }}">{{ business.email }}</a>
           <a href="{{ business.phoneHref }}">{{ business.phone }}</a>
         </address>
+        {#- Hours are emitted as openingHours in the JSON-LD, so they have to be
+            visible here too: structured data must never claim what the page
+            does not say. #}
+        {%- if business.hoursDisplay %}
+        <ul class="footer-hours">
+          {%- for h in business.hoursDisplay %}
+          <li><span>{{ h.days }}</span> <span>{{ h.time }}</span></li>
+          {%- endfor %}
+        </ul>
+        {%- endif %}
         <div class="socials">
           <a href="{{ business.social.facebook }}" aria-label="Facebook" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>

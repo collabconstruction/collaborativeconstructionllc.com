@@ -9,15 +9,15 @@ ogTitle: "Residential Construction & Renovation | Cape Cod & South Shore"
 ogDescription: "Working together, working collaboratively, to produce the highest quality construction and renovation projects. New construction, additions, ADUs, and remodels."
 shareImageAlt: "Custom home built by Collaborative Construction"
 twitterDescription: "Working together, working collaboratively, to produce the highest quality construction and renovation projects."
+preloadImage: /assets/img/belmont-pond.jpg
 ---
 
     <!-- ============================ HERO / MOTTO ============================ -->
     <section class="hero">
+      {# Still image, not video. The looping background video was removed at the
+         owner's request (quality), which also removed a 4.1 MB autoplaying
+         download that was the single biggest cause of the 11.9s LCP. #}
       <div class="hero__bg" aria-hidden="true"></div>
-      <video class="hero__video" autoplay muted loop playsinline preload="auto"
-             poster="assets/img/belmont-pond.jpg" aria-hidden="true">
-        <source src="/assets/video/backgroundvideo.mp4" type="video/mp4">
-      </video>
       <div class="hero__overlay" aria-hidden="true"></div>
       <div class="container">
         <p class="eyebrow motto-words" id="hero-motto" data-reveal>
@@ -45,7 +45,7 @@ twitterDescription: "Working together, working collaboratively, to produce the h
       <div class="container">
         <div class="two-col">
           <div class="figure" data-reveal="left">
-            <img src="/assets/img/belmont-hero.jpg" alt="Modern custom home built by Collaborative Construction in Belmont, MA" loading="lazy">
+            <img src="/assets/img/belmont-hero.jpg" alt="Modern custom home built by Collaborative Construction in Belmont, MA" loading="lazy" width="1280" height="837">
           </div>
           <div class="body" data-reveal="right">
             <p class="eyebrow">About Us</p>

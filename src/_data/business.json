@@ -14,14 +14,15 @@
   "phoneHref": "tel:+15084406981",
   "phoneSchema": "+1-508-440-6981",
 
+  "_addressComment": "Must match the Google Business Profile character for character. Google cross-references the two and inconsistent NAP is a known local-ranking drag. This is Wesleigh's home address and he confirmed publishing it; it is already public on the GBP. If that ever changes, switch the GBP to a service-area business FIRST, then shorten `display` and null out `street` here.",
   "address": {
-    "street": null,
+    "street": "16 Terry Lou Ave",
     "locality": "East Falmouth",
     "region": "MA",
     "postalCode": "02536",
     "country": "US",
-    "mapUrl": "https://maps.google.com/?q=East+Falmouth,+MA+02536",
-    "display": "East Falmouth, MA 02536"
+    "mapUrl": "https://maps.google.com/?q=16+Terry+Lou+Ave,+East+Falmouth,+MA+02536",
+    "display": "16 Terry Lou Ave, East Falmouth, MA 02536"
   },
 
   "_serviceAreaComment": "Wesleigh has not yet resolved the service-area question. 4 of 7 portfolio projects (Belmont, Newton, Carlisle, Dudley) sit outside the areas claimed below. See docs and the plan checklist. Changing this array changes the areaServed schema, the footer, and the location pages together.",
@@ -33,7 +34,18 @@
   ],
 
   "founded": null,
-  "hours": null,
+
+  "_hoursComment": "Copied from the live Google Business Profile so the two cannot disagree; Google cross-checks them. Note Marcus described these as '7-4 every day with Sunday off', but the GBP itself says Saturday 7 AM-12 PM. The GBP wins here because it is what is already published. Confirm which is right and change BOTH together.",
+  "hours": [
+    "Mo-Fr 07:00-16:00",
+    "Sa 07:00-12:00"
+  ],
+  "hoursDisplay": [
+    { "days": "Monday to Friday", "time": "7:00 AM to 4:00 PM" },
+    { "days": "Saturday", "time": "7:00 AM to 12:00 PM" },
+    { "days": "Sunday", "time": "Closed" }
+  ],
+
   "cslNumber": null,
   "hicNumber": null,
   "insurance": null,
