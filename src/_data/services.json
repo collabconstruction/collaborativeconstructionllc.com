@@ -1,0 +1,24 @@
+{
+  "_comment": "Service facts used for JSON-LD and page metadata. The long-form prose for each still lives in src/construction-advisory.njk; moving it into Markdown collection bodies is a follow-up refactor, deliberately kept out of the migration commit. `slug` must match the section anchor id on that page.",
+
+  "list": [
+    {
+      "slug": "opm",
+      "title": "Owner's Project Management",
+      "order": 1,
+      "summary": "Representing the owner's interests through pre-construction, design, bidding, and construction, protecting budget, schedule, and quality from concept to close-out."
+    },
+    {
+      "slug": "clerk-of-the-works",
+      "title": "Clerk of the Works",
+      "order": 2,
+      "summary": "On-site construction oversight that verifies work matches the drawings, specifications, and schedule, documenting progress and issues on the owner's behalf."
+    },
+    {
+      "slug": "advisory",
+      "title": "Construction Advisory",
+      "order": 3,
+      "summary": "Independent construction guidance for owners: reviewing contracts, budgets, bids, and schedules so decisions are made with clear information."
+    }
+  ]
+}

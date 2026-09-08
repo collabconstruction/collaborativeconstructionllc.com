@@ -1,0 +1,36 @@
+{
+  "_comment": "Nav order is shared with js/main.js, which uses the index of the current page to decide which direction the page-transition animation slides. Keep NAV_ORDER in js/main.js in step with the `url` values below, or transitions will animate the wrong way.",
+  "items": [
+    {
+      "url": "/",
+      "label": "Home",
+      "key": "home",
+      "summary": "Overview, services, and contact form"
+    },
+    {
+      "url": "/gallery",
+      "label": "Gallery",
+      "key": "gallery",
+      "summary": "Completed residential and commercial projects"
+    },
+    {
+      "url": "/construction-advisory",
+      "label": "Construction Management",
+      "key": "advisory",
+      "summary": "Construction management services"
+    },
+    {
+      "url": "/about",
+      "label": "About",
+      "key": "about",
+      "summary": "About Wesleigh Behn and the company"
+    }
+  ],
+  "footerExtra": [
+    {
+      "url": "/#contact",
+      "label": "Contact"
+    }
+  ],
+  "_summaryComment": "`summary` is used only by llms.txt, to tell an agent what each page is for. The nav itself renders `label`."
+}

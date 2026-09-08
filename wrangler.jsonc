@@ -4,10 +4,22 @@
   // called "collaborativeconstructionllc.com" usually becomes the name below.
   // If your Worker is named differently, change this line to match.
   "name": "collaborativeconstructionllc-com",
-  "main": "src/worker.js",
+  "main": "worker/index.js",
   "compatibility_date": "2025-06-01",
+
+  // Serve ONLY the Eleventy build output. This previously pointed at "./", the
+  // repo root, which meant every file in the repo was public and had to be
+  // denied one at a time in .assetsignore. That fails open: /.git and
+  // /schema.sql were served until someone noticed, and any new sensitive file
+  // is public by default.
+  //
+  // Pointing at ./_site inverts the default. Nothing is reachable unless
+  // Eleventy deliberately wrote it there, which removes the whole bug class
+  // and makes .assetsignore unnecessary.
+  //
+  // Consequence: deploying MUST build first. See the deploy script.
   "assets": {
-    "directory": "./",
+    "directory": "./_site",
     "binding": "ASSETS"
   },
 

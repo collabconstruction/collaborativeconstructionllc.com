@@ -1,0 +1,29 @@
+{
+  "_comment": "Facts only. Wesleigh's bio prose lives in src/about.njk, not here.",
+
+  "wesleigh": {
+    "id": "wesleigh-behn",
+    "name": "Wesleigh Behn",
+    "jobTitle": "Owner and Founder",
+    "photo": "/assets/img/wesleigh-behn.jpg",
+    "photoAlt": "Wesleigh Behn, Owner and Founder of Collaborative Construction",
+    "yearsExperience": 30,
+    "licensedSince": 2000,
+    "description": "Massachusetts native with over 30 years of experience in residential and commercial construction, holding an active Massachusetts Construction Supervisor License since 2000.",
+    "_alumniOfNote": "Matches the visible copy in src/about.njk. The school renamed itself Boston Architectural College in 2006; if Wesleigh prefers the current name, change it HERE AND in about.njk together, never one alone.",
+    "alumniOf": [
+      "Boston University",
+      "Boston Architectural Center"
+    ],
+    "knowsAbout": [
+      "Residential construction",
+      "Commercial construction",
+      "Owner's project management",
+      "Clerk of the Works",
+      "Construction advisory"
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/wesleigh-behn-a5b925187"
+    ]
+  }
+}

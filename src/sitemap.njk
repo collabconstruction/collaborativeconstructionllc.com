@@ -1,0 +1,25 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+priorities:
+  "/": "1.0"
+  "/gallery": "0.8"
+  "/construction-advisory": "0.8"
+  "/about": "0.6"
+---
+<?xml version="1.0" encoding="UTF-8"?>
+{#
+  Generated from the page collection so a new page can never be forgotten here.
+  Pages opt in by having a `canonical` in their front matter.
+#}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for item in collections.all %}
+{%- if item.data.canonical %}
+  <url>
+    <loc>{{ business.url }}{{ item.data.canonical }}</loc>
+    <lastmod>{{ item.inputPath | gitLastModified }}</lastmod>
+    <priority>{{ priorities[item.data.canonical] | default("0.5") }}</priority>
+  </url>
+{%- endif %}
+{%- endfor %}
+</urlset>

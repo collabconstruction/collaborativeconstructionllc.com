@@ -1,0 +1,53 @@
+{
+  "_comment": "SINGLE SOURCE OF TRUTH for business facts. Templates, JSON-LD, the sitemap and llms.txt all read from here, so NAP consistency is structural rather than manually maintained. Anything with a `null` is an open question for Wesleigh (see the plan checklist). Do not invent values: a null renders nothing, a wrong value publishes a false claim and contradicts the Google Business Profile.",
+
+  "name": "Collaborative Construction, LLC",
+  "legalName": null,
+  "shortName": "Collaborative Construction",
+  "url": "https://collaborativeconstructionllc.com",
+  "tagline": "Experience, Quality, Trust",
+  "description": "Residential construction and renovation built on a professional, client-centered approach, serving Cape Cod and the Islands and the South Shore of Massachusetts.",
+  "footerBlurb": "Residential construction &amp; renovation built on a professional, client-centered approach. Proudly serving Cape Cod &amp; the Islands and the South Shore.",
+
+  "email": "collaborativeconstructiongc@gmail.com",
+  "phone": "(508) 440-6981",
+  "phoneHref": "tel:+15084406981",
+  "phoneSchema": "+1-508-440-6981",
+
+  "address": {
+    "street": null,
+    "locality": "East Falmouth",
+    "region": "MA",
+    "postalCode": "02536",
+    "country": "US",
+    "mapUrl": "https://maps.google.com/?q=East+Falmouth,+MA+02536",
+    "display": "East Falmouth, MA 02536"
+  },
+
+  "_serviceAreaComment": "Wesleigh has not yet resolved the service-area question. 4 of 7 portfolio projects (Belmont, Newton, Carlisle, Dudley) sit outside the areas claimed below. See docs and the plan checklist. Changing this array changes the areaServed schema, the footer, and the location pages together.",
+  "_areaServedDisplay": "Prose form for llms.txt and page copy. areaServed below is the discrete list schema.org needs as AdministrativeArea nodes; keep the two in agreement.",
+  "areaServedDisplay": "Cape Cod and the Islands, and the South Shore of Massachusetts.",
+  "areaServed": [
+    "Cape Cod, Massachusetts",
+    "South Shore, Massachusetts"
+  ],
+
+  "founded": null,
+  "hours": null,
+  "cslNumber": null,
+  "hicNumber": null,
+  "insurance": null,
+
+  "social": {
+    "facebook": "https://www.facebook.com/share/14koskagbeC/?mibextid=wwXIfr",
+    "linkedin": "https://www.linkedin.com/in/wesleigh-behn-a5b925187"
+  },
+
+  "images": {
+    "logo": "/assets/logo.png",
+    "badge": "/assets/c-icon.png",
+    "share": "/assets/img/belmont-hero.jpg",
+    "shareWidth": 1280,
+    "shareHeight": 837
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "_comment": "The ONLY place a location is defined. Project front matter references these by slug, so a town name is typed once and feeds the rendered tag, the JSON-LD contentLocation, the sitemap, and any future location page or facet. No lat/lng here on purpose: inventing coordinates would publish false geo data. Add them from an authoritative source if geo schema is ever wanted.",
+
+  "_inServiceAreaComment": "`inServiceArea` is measured against the areaServed claim in business.json. Today 4 of 7 portfolio towns are false, which is the geographic-signal inconsistency flagged in the plan. This flag is what gates which location pages may be built.",
+
+  "belmont-ma":     { "name": "Belmont",     "state": "MA", "county": "Middlesex",  "region": "Greater Boston",         "inServiceArea": false },
+  "carlisle-ma":    { "name": "Carlisle",    "state": "MA", "county": "Middlesex",  "region": "Greater Boston",         "inServiceArea": false },
+  "dudley-ma":      { "name": "Dudley",      "state": "MA", "county": "Worcester",  "region": "Central Massachusetts",  "inServiceArea": false },
+  "falmouth-ma":    { "name": "Falmouth",    "state": "MA", "county": "Barnstable", "region": "Cape Cod",               "inServiceArea": true  },
+  "hingham-ma":     { "name": "Hingham",     "state": "MA", "county": "Plymouth",   "region": "South Shore",            "inServiceArea": true  },
+  "natick-ma":      { "name": "Natick",      "state": "MA", "county": "Middlesex",  "region": "Greater Boston",         "inServiceArea": false },
+  "newton-ma":      { "name": "Newton",      "state": "MA", "county": "Middlesex",  "region": "Greater Boston",         "inServiceArea": false },
+  "northampton-ma": { "name": "Northampton", "state": "MA", "county": "Hampshire",  "region": "Western Massachusetts",  "inServiceArea": false },
+  "rockland-ma":    { "name": "Rockland",    "state": "MA", "county": "Plymouth",   "region": "South Shore",            "inServiceArea": true  }
+}

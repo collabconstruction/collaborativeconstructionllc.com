@@ -1,0 +1,150 @@
+{#
+  The single page shell. Previously this markup was copy-pasted across four
+  HTML files, which is how the head blocks and JSON-LD started to drift.
+
+  Front matter each page must set:
+    title           <title> text (brand suffix is appended here)
+    description     meta description
+    permalink       output URL, e.g. "/about/index.html"
+    canonical       canonical path, e.g. "/about"
+    schemaType      selects JSON-LD nodes: home | gallery | services | about
+  Optional:
+    ogType          defaults to "website"
+    ogTitle         defaults to title
+    ogDescription   defaults to description
+    twitterDescription  short share copy; defaults to ogDescription
+    schemaName      JSON-LD WebPage name; defaults to title. Prefer a human
+                    label ("Project Gallery") over the brand-suffixed <title>.
+    breadcrumbName  breadcrumb leaf name; defaults to schemaName, then title
+    shareImage      defaults to business.images.share
+    shareImageAlt
+#}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  <meta name="theme-color" content="#821d1d">
+  <link rel="canonical" href="{{ business.url }}{{ canonical }}">
+
+  <meta property="og:type" content="{{ ogType | default('website') }}">
+  <meta property="og:site_name" content="{{ business.name }}">
+  <meta property="og:url" content="{{ business.url }}{{ canonical }}">
+  <meta property="og:title" content="{{ ogTitle | default(title) }}">
+  <meta property="og:description" content="{{ ogDescription | default(description) }}">
+  <meta property="og:image" content="{{ business.url }}{{ shareImage | default(business.images.share) }}">
+  <meta property="og:image:width" content="{{ shareImageWidth | default(business.images.shareWidth) }}">
+  <meta property="og:image:height" content="{{ shareImageHeight | default(business.images.shareHeight) }}">
+  <meta property="og:image:alt" content="{{ shareImageAlt | default('Custom home built by Collaborative Construction') }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ ogTitle | default(title) }}">
+  <meta name="twitter:description" content="{{ twitterDescription | default(ogDescription) | default(description) }}">
+  <meta name="twitter:image" content="{{ business.url }}{{ shareImage | default(business.images.share) }}">
+
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/c-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Inter:wght@400;500;600;700&family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script>
+    /* Apply directional page-entrance class before first paint (no flash) */
+    (function () {
+      try {
+        var d = sessionStorage.getItem("navDir");
+        if (d) {
+          document.documentElement.classList.add(d === "right" ? "enter-right" : "enter-left");
+          sessionStorage.removeItem("navDir");
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  {# Generated from src/_data. Never hand-edit structured data again. #}
+  <script type="application/ld+json">
+{{ { url: canonical, title: title, schemaName: schemaName, breadcrumbName: breadcrumbName, schemaType: schemaType, business: business, people: people, services: services.list } | jsonld | safe }}
+  </script>
+</head>
+<body>
+
+  <!-- ============================ HEADER ============================ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="{{ business.shortName }} home">
+        <img class="c-badge" src="{{ business.images.badge }}" alt="">
+        <img class="logo" src="{{ business.images.logo }}" alt="{{ business.shortName }}">
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav" id="primary-nav">
+        {%- for item in nav.items %}
+        <a href="{{ item.url }}"{% if item.url == canonical %} class="active"{% endif %}>{{ item.label }}</a>
+        {%- endfor %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main">
+{{ content | safe }}
+  </main>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="site-footer footer">
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img class="c-badge" src="{{ business.images.badge }}" alt="">
+          <span class="wm">Collaborative<br>Construction</span>
+        </div>
+        <p class="eyebrow gold motto-words">Experience <span class="dot" style="color:var(--gold-2)">·</span> Quality <span class="dot" style="color:var(--gold-2)">·</span> Trust</p>
+        <p>{{ business.footerBlurb | safe }}</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul class="footer-links">
+          {%- for item in nav.items %}
+          <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+          {%- endfor %}
+          {%- for item in nav.footerExtra %}
+          <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+          {%- endfor %}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <address class="footer-contact">
+          {{ business.name }}<br>
+          <a href="{{ business.address.mapUrl }}" target="_blank" rel="noopener">{{ business.address.display }}</a><br><br>
+          <a href="mailto:{{ business.email }}">{{ business.email }}</a>
+          <a href="{{ business.phoneHref }}">{{ business.phone }}</a>
+        </address>
+        <div class="socials">
+          <a href="{{ business.social.facebook }}" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>
+          </a>
+          <a href="{{ business.social.linkedin }}" aria-label="LinkedIn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;width:100%">
+        <span>&copy; <span id="year">2026</span> {{ business.name }}. All rights reserved.</span>
+        <span>Website by {{ business.name }}</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+---
+permalink: /llms.txt
+eleventyExcludeFromCollections: true
+---
+{#
+  This is a plain-text file, so every interpolation needs `| safe`. Without it
+  Nunjucks HTML-escapes apostrophes into &#39; and an agent reads the mangled
+  form. Autoescaping is correct for base.njk and wrong here.
+
+  Note on the convention itself: llms.txt is unproven and no major model
+  provider has committed to reading it. It costs one template to publish, so
+  it is worth the experiment, but nothing in this project should depend on it.
+-#}
+# {{ business.name | safe }}
+
+> {{ business.description | safe }}
+> Motto: {{ business.tagline | safe }}.
+
+## Contact
+
+- Email: {{ business.email | safe }}
+- Phone: {{ business.phone | safe }}
+- Location: {{ business.address.display | safe }}
+- Website: {{ business.url | safe }}/
+
+## Who runs it
+
+{{ people.wesleigh.name | safe }}, {{ people.wesleigh.jobTitle | safe }}. A Massachusetts native with over {{ people.wesleigh.yearsExperience }} years of experience in both residential and commercial construction. He holds a Bachelor's degree from {{ people.wesleigh.alumniOf[0] | safe }} and completed postgraduate studies at the {{ people.wesleigh.alumniOf[1] | safe }}, and has maintained an active Massachusetts Construction Supervisor License (CSL) since {{ people.wesleigh.licensedSince }}.
+
+## Services
+
+- New residential construction, additions, ADUs, and whole-home renovations
+- Kitchen and bathroom remodels
+- Commercial construction and tenant fit-outs
+{%- for s in services.list %}
+- {{ s.title | safe }}: {{ s.summary | safe }}
+{%- endfor %}
+
+## Service area
+
+{{ business.areaServedDisplay | safe }}
+
+## Pages
+
+{% for item in nav.items -%}
+- {{ business.url | safe }}{{ item.url | safe }} : {{ item.summary | safe }}
+{% endfor %}
