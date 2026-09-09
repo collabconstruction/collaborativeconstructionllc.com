@@ -298,7 +298,41 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   margin: 22px auto 30px; max-width: 16ch; text-wrap: balance;
   text-shadow: 0 2px 24px rgba(0,0,0,.35);
 }
-.hero__motto .accent { color: var(--gold-1); }
+/* "collaboratively" is the word the whole brand rests on, so it gets weight
+   and a warm gold glow rather than just a colour change. The glow is layered
+   text-shadows (tight core, wide halo) instead of a filter, which keeps the
+   letterforms crisp and costs no compositing. */
+.hero__motto .accent {
+  color: var(--gold-1);
+  font-weight: 700;
+  text-shadow:
+    0 0 1px rgba(255, 246, 214, .9),
+    0 0 12px rgba(232, 214, 163, .75),
+    0 0 30px rgba(205, 141, 5, .45),
+    0 2px 24px rgba(0, 0, 0, .35);
+  animation: accentGlow 4.5s ease-in-out infinite alternate;
+}
+@keyframes accentGlow {
+  from {
+    text-shadow:
+      0 0 1px rgba(255, 246, 214, .9),
+      0 0 10px rgba(232, 214, 163, .60),
+      0 0 24px rgba(205, 141, 5, .32),
+      0 2px 24px rgba(0, 0, 0, .35);
+  }
+  to {
+    text-shadow:
+      0 0 2px rgba(255, 246, 214, 1),
+      0 0 18px rgba(232, 214, 163, .90),
+      0 0 42px rgba(205, 141, 5, .60),
+      0 2px 24px rgba(0, 0, 0, .35);
+  }
+}
+/* The glow is decoration, not information, so drop the pulse when the visitor
+   has asked for less motion. The static shadow above still carries it. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__motto .accent { animation: none; }
+}
 /* The h1 is the motto plus this line. The motto carries the brand, this
    carries what the company actually does and where, which is what a search
    engine and a first-time visitor both need. */
