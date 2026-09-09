@@ -35,12 +35,14 @@
 
   "founded": null,
 
-  "_hoursComment": "Confirmed directly by the owner: 7 AM to 4 PM Monday through Saturday, closed Sunday. NOTE: the Google Business Profile currently still says Saturday 7 AM-12 PM. Until that is corrected in the GBP, the site and Google disagree about Saturday, which is exactly the NAP inconsistency this file exists to prevent. Fix the GBP, do not change this back.",
+  "_hoursComment": "Copied from the live Google Business Profile exactly as it reads today, so the site and Google cannot disagree. Sunday closed is confirmed. The owner believes Saturday is 7-4 rather than the 7-12 shown here; if so, correct it in the GOOGLE BUSINESS PROFILE FIRST, then update this file to match. Never change this file alone: an inconsistency between the site and the GBP is a known local-ranking drag, and the GBP is the copy Google trusts.",
   "hours": [
-    "Mo-Sa 07:00-16:00"
+    "Mo-Fr 07:00-16:00",
+    "Sa 07:00-12:00"
   ],
   "hoursDisplay": [
-    { "days": "Monday to Saturday", "time": "7:00 AM to 4:00 PM" },
+    { "days": "Monday to Friday", "time": "7:00 AM to 4:00 PM" },
+    { "days": "Saturday", "time": "7:00 AM to 12:00 PM" },
     { "days": "Sunday", "time": "Closed" }
   ],
 

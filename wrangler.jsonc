@@ -53,13 +53,21 @@
     "LEAD_INBOX": "collaborativeconstructiongc@gmail.com",
     // Must be an address on this zone for Email Routing to accept it.
     "LEAD_FROM_ADDRESS": "website@collaborativeconstructionllc.com"
-  }
+  },
 
-  // R2 attachment storage. Blocked until R2 is enabled in the Cloudflare
-  // dashboard (needs a payment method on file even for the free tier).
-  // Until then the contact form hides its file upload field, because
-  // accepting files we cannot store would be the same lie we just removed.
-  // "r2_buckets": [
-  //   { "binding": "ATTACHMENTS", "bucket_name": "cc-lead-attachments" }
-  // ]
+  // R2 attachment storage for project photos sent through the contact form.
+  //
+  // The owner asked for a guarantee this never costs money. There is no hard
+  // spending cap on R2, so the guarantee is enforced in code instead: the
+  // Worker caps uploads at 6 files, 10 MB each, 25 MB per submission, and an
+  // allowlist of image/PDF types, behind Turnstile. Free tier is 10 GB, so
+  // reaching it would take roughly 2,000 photos. Those limits live in
+  // worker/index.js (MAX_FILES, MAX_FILE_BYTES, ALLOWED_TYPES) and are the
+  // thing to check before anyone loosens them.
+  //
+  // If this binding is ever removed, the Worker rejects uploads with a clear
+  // message rather than accepting files and dropping them.
+  "r2_buckets": [
+    { "binding": "ATTACHMENTS", "bucket_name": "cc-lead-attachments" }
+  ]
 }

@@ -124,24 +124,21 @@ preloadImage: /assets/img/belmont-pond.jpg
                 <label for="cc-message">Message</label>
                 <textarea id="cc-message" name="message" placeholder="Tell us about your project…" required></textarea>
               </div>
-              <!--
-                Attachments are temporarily disabled. R2 object storage has not
-                been enabled on the Cloudflare account yet, so there is nowhere
-                to put uploaded files. Showing an upload box that quietly
-                discards photos would repeat the exact problem this form just
-                had. Restore this block once R2 is on and the ATTACHMENTS
-                binding is uncommented in wrangler.jsonc.
-
+              {# Enabled now that R2 is on and the ATTACHMENTS binding exists.
+                 The `accept` list mirrors ALLOWED_TYPES in worker/index.js, so
+                 the picker cannot offer a type the server will reject. The
+                 server still revalidates: this attribute is a convenience, not
+                 a control. #}
               <div class="field">
-                <label for="cc-files">Attachments <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+                <label for="cc-files">Photos <span style="font-weight:400;color:var(--muted)">(optional, up to 6)</span></label>
                 <label class="dropzone" tabindex="0" role="button" aria-label="Add files">
-                  <span>Drag &amp; drop files here, or <strong>browse</strong></span>
-                  <input id="cc-files" name="attachments" type="file" multiple>
+                  <span>Drag &amp; drop photos here, or <strong>browse</strong></span>
+                  <input id="cc-files" name="attachments" type="file" multiple
+                         accept="image/jpeg,image/png,image/webp,image/heic,image/heif,application/pdf">
                 </label>
                 <span class="file-pill" hidden>Files attached <span class="count">0</span></span>
                 <ul class="file-list" aria-live="polite"></ul>
               </div>
-              -->
 
               <!-- Honeypot: hidden from people, tempting to bots. Never fill this. -->
               <div class="hp-field" aria-hidden="true">
