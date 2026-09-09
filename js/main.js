@@ -633,23 +633,10 @@
     });
   }
 
-  /* ----------------------------------------------------------------------
-     Scroll progress clock on back-to-top button — a smaller inner circle
-     that fills like a pie/clock (gold fill over a faint maroon base).
-  ---------------------------------------------------------------------- */
-  if (toTop && !prefersReduced) {
-    const clock = document.createElement("span");
-    clock.className = "to-top__clock";
-    clock.setAttribute("aria-hidden", "true");
-    toTop.insertBefore(clock, toTop.firstChild);
-    const updateClock = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
-      clock.style.setProperty("--p", String(pct));
-    };
-    updateClock();
-    window.addEventListener("scroll", updateClock, { passive: true });
-  }
+  /* The back-to-top button used to carry a scroll-progress "clock": an inner
+     circle that filled like a pie as you scrolled. Removed at the owner's
+     request so the button reads as a plain, quiet arrow. This also drops a
+     scroll listener that wrote an inline custom property on every scroll. */
 
   // Page-glow fixed layer removed — fixed blobs at % positions create visible
   // circular patches against the plain stone background on gallery/about page tops.

@@ -283,7 +283,15 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
     linear-gradient(180deg, rgba(56,11,11,.10) 0%, rgba(56,11,11,.08) 45%, rgba(56,11,11,.40) 100%);
 }
 .hero .container { position: relative; z-index: 2; padding-top: 70px; padding-bottom: 70px; }
-.hero .eyebrow { color: var(--gold-1); }
+/* EXPERIENCE - QUALITY - TRUST sits over a bright sky. It was pale gold with
+   no text-shadow, so it washed out and was hard to read. White plus the same
+   kind of shadow the headline already uses fixes the contrast; the gold stays
+   on the separator dots so the brand accent is not lost. */
+.hero .eyebrow {
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, .55), 0 1px 4px rgba(0, 0, 0, .45);
+}
+.hero .eyebrow .dot { color: var(--gold-1); }
 .hero__motto {
   font-family: var(--font-display); font-style: italic; font-weight: 500;
   font-size: clamp(1.9rem, 4.6vw, 3.5rem); line-height: 1.22; color: #fff;
@@ -679,16 +687,6 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 }
 .to-top.show { opacity: 1; visibility: visible; transform: none; }
 .to-top:hover { background: var(--amber); color: var(--maroon-900); transform: translateY(-3px); }
-/* overlap the clock fill and the arrow in the same grid cell */
-.to-top > svg, .to-top__clock { grid-area: 1 / 1; }
-.to-top > svg { position: relative; z-index: 1; }
-/* inner "clock" circle: gold pie fill growing over a faint maroon base */
-.to-top__clock {
-  width: 30px; height: 30px; border-radius: 50%; z-index: 0; pointer-events: none;
-  background: conic-gradient(var(--gold-2) calc(var(--p, 0) * 360deg), rgba(42, 7, 7, .55) 0);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .18);
-}
-.to-top:hover .to-top__clock { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .28); }
 
 /* ==========================================================================
    ANIMATED FRAMES (about photo + gallery carousels)
