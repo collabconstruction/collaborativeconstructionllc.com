@@ -967,3 +967,78 @@ main, footer { position: relative; z-index: 1; }
   .adu-points.cols-2 { grid-template-columns: 1fr; }
   .svc-card { padding: 24px; }
 }
+
+/* ==========================================================================
+   CONSENT BANNER
+   Injected by js/analytics.js, and only when GA4 is configured. Cloudflare Web
+   Analytics is cookieless and never triggers this.
+
+   Bottom-anchored rather than a full-screen modal: this is a notice, not a
+   decision worth blocking the site over, and a homeowner who came here to find
+   a phone number should be able to read it without dismissing anything first.
+   The back-to-top button is fixed at bottom-right with z-index 90, so on a
+   phone the two would overlap. The banner sits above it, and while the banner
+   is mounted `.has-consent-banner` on <html> lifts the button clear of it.
+   ========================================================================== */
+/* Shift by `bottom`, never by `transform`: .to-top already uses transform for
+   its own show/hide animation, so overriding it would freeze the button in
+   place. Only below 880px, which is the width at which the centred 720px
+   banner actually reaches the button. */
+@media (max-width: 880px) {
+  html.has-consent-banner .to-top { bottom: 122px; }
+}
+
+.consent-banner {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 95;
+  margin: 0 auto;
+  max-width: 720px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 18px 22px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  /* Animate from off-screen. `is-in` is added on the next frame so there is an
+     initial state to transition from. */
+  transform: translateY(140%);
+  opacity: 0;
+  transition: transform .34s var(--ease), opacity .34s var(--ease);
+}
+.consent-banner.is-in { transform: translateY(0); opacity: 1; }
+
+.consent-banner p {
+  flex: 1 1 260px;
+  margin: 0;
+  font-size: .9rem;
+  line-height: 1.5;
+  color: var(--body);
+}
+
+.consent-banner__actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.consent-banner__actions .btn {
+  padding: 10px 20px;
+  font-size: .85rem;
+}
+
+@media (max-width: 560px) {
+  .consent-banner { gap: 14px; padding: 16px 18px; }
+  .consent-banner__actions { width: 100%; }
+  .consent-banner__actions .btn { flex: 1; justify-content: center; }
+}
+
+/* No transform animation for visitors who ask for reduced motion, but the
+   banner must still appear: hiding it would mean asking for consent silently. */
+@media (prefers-reduced-motion: reduce) {
+  .consent-banner { transition: none; transform: none; opacity: 1; }
+}

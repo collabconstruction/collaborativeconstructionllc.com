@@ -1,0 +1,24 @@
+{
+  "_comment": "Measurement configuration. Every field is null until the corresponding account exists. A null switches the whole integration off at build time: no script tag, no banner, no cookies, no console errors. That means this can be committed and deployed safely BEFORE any account is created, and turning analytics on later is a one-line edit to this file rather than a code change.",
+
+  "_cloudflareComment": "Cloudflare Web Analytics. Cookieless and privacy-preserving, so it needs NO consent banner and loads for everyone. Get the token from Cloudflare dashboard -> Analytics & Logs -> Web Analytics -> Add a site. The value is the `token` field inside the data-cf-beacon attribute Cloudflare shows you, NOT the whole snippet.",
+  "cloudflareToken": null,
+
+  "_ga4Comment": "GA4 measurement ID, looks like G-XXXXXXXXXX. GA4 sets cookies, so enabling this also enables the consent banner below. Consent Mode v2 is configured with everything denied by default, meaning no analytics cookie is written until the visitor accepts.",
+  "ga4MeasurementId": null,
+
+  "_consentComment": "Shown only when ga4MeasurementId is set, because Cloudflare Web Analytics alone needs no consent.",
+  "consent": {
+    "message": "We use cookies to understand how people find and use this site. Nothing is shared with advertisers.",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+
+  "_eventsComment": "Business events worth tracking, documented here so the list stays honest about WHY each one exists. These are fired by js/analytics.js. Pageviews are not a business outcome; these are. `generate_lead` is fired in js/main.js instead, because it must only fire after the server confirms a 200.",
+  "_events": {
+    "click_to_call": "Someone tapped a tel: link. For a contractor this is often a more valuable signal than the form, because most people just call.",
+    "click_to_email": "Someone tapped a mailto: link.",
+    "form_start": "Someone focused the first field of the contact form. Paired with generate_lead this gives a form completion rate, which is what tells you whether the form itself is the problem.",
+    "generate_lead": "Fired in js/main.js ONLY on a confirmed 200 from /api/contact, carrying the lead id. Never fire this on submit: it would count failures as conversions."
+  }
+}

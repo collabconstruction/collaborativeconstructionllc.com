@@ -67,6 +67,44 @@
     })();
   </script>
 
+  {#- ---------------------------------------------------------------------
+      Measurement. Driven by src/_data/analytics.json, and emits NOTHING while
+      its values are null, so this ships safely before either account exists and
+      is switched on later by a one-line data edit rather than a code change.
+
+      GA4 loads in <head> so the Consent Mode v2 defaults below are in force
+      before any tag can write a cookie. Everything is denied by default;
+      js/analytics.js only sends `consent: update` after an explicit accept.
+      --------------------------------------------------------------------- #}
+  {%- if analytics.ga4MeasurementId %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics.ga4MeasurementId }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    /* Denied BEFORE config. The order matters: default-denied first means no
+       analytics cookie is written unless the visitor accepts. */
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      wait_for_update: 500
+    });
+    gtag('js', new Date());
+    gtag('config', '{{ analytics.ga4MeasurementId }}');
+    /* Consumed by js/analytics.js. Its existence is the on-switch: with no
+       measurement id this is never defined, and that file returns immediately,
+       so there is no banner and no listeners. */
+    window.__CC_ANALYTICS = {
+      consent: {
+        message: {{ analytics.consent.message | dump | safe }},
+        accept: {{ analytics.consent.accept | dump | safe }},
+        decline: {{ analytics.consent.decline | dump | safe }}
+      }
+    };
+  </script>
+  {%- endif %}
+
   {# Generated from src/_data. Never hand-edit structured data again. #}
   <script type="application/ld+json">
 {{ { url: canonical, title: title, schemaName: schemaName, breadcrumbName: breadcrumbName, schemaType: schemaType, business: business, people: people, services: services.list } | jsonld | safe }}
@@ -161,6 +199,16 @@
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
   </button>
 
+  {#- Cloudflare Web Analytics. Cookieless, so it needs no consent banner and
+      loads for everyone. `defer` keeps it off the critical path: measurement
+      must never be the reason a page paints slower. #}
+  {%- if analytics.cloudflareToken %}
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "{{ analytics.cloudflareToken }}"}'></script>
+  {%- endif %}
+
+  {#- Before main.js, so the form_start listener is attached before anything
+      heavier runs. Inert unless GA4 is configured. #}
+  <script src="/js/analytics.js"></script>
   <script src="/js/main.js"></script>
 </body>
 </html>
