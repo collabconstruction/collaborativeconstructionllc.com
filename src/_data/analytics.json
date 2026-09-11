@@ -5,7 +5,8 @@
   "cloudflareToken": null,
 
   "_ga4Comment": "GA4 measurement ID, looks like G-XXXXXXXXXX. GA4 sets cookies, so enabling this also enables the consent banner below. Consent Mode v2 is configured with everything denied by default, meaning no analytics cookie is written until the visitor accepts.",
-  "ga4MeasurementId": null,
+  "_ga4Stream": "Property stream \"Collaborative Construction LLC\", stream ID 15756853352, stream URL https://collaborativeconstructionllc.com. base.njk renders the gtag snippet itself, so the raw snippet from the GA4 console must NOT be pasted into any template: doing so would load gtag.js a second time and, because the console snippet has no consent defaults, would set cookies before the visitor is ever asked.",
+  "ga4MeasurementId": "G-13DBV8V3BE",
 
   "_consentComment": "Shown only when ga4MeasurementId is set, because Cloudflare Web Analytics alone needs no consent.",
   "consent": {
