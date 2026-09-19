@@ -60,6 +60,91 @@
   }
 
   /* ----------------------------------------------------------------------
+     Word-by-word heading reveal — splits a heading's text into per-word
+     spans and pops them in with a short stagger as the heading scrolls
+     into view, instead of just fading in as one block.
+  ---------------------------------------------------------------------- */
+  const wordRevealEls = $$("[data-reveal-words]");
+  if (wordRevealEls.length) {
+    const wrapWords = (el) => {
+      const words = el.textContent.trim().split(/\s+/);
+      el.textContent = "";
+      words.forEach((word, i) => {
+        const span = document.createElement("span");
+        span.className = "rw-word";
+        span.textContent = word;
+        el.appendChild(span);
+        if (i < words.length - 1) el.appendChild(document.createTextNode(" "));
+      });
+      return $$(".rw-word", el);
+    };
+    const wrapped = wordRevealEls.map(el => ({ el, words: wrapWords(el) }));
+    if (prefersReduced || !("IntersectionObserver" in window)) {
+      wrapped.forEach(({ words }) => words.forEach(w => w.classList.add("animate")));
+    } else {
+      const STAGGER = 45; // ms between each word popping in
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          io.unobserve(entry.target);
+          const match = wrapped.find(w => w.el === entry.target);
+          if (!match) return;
+          match.words.forEach((w, i) => setTimeout(() => w.classList.add("animate"), i * STAGGER));
+        });
+      }, { threshold: 0.3, rootMargin: "0px 0px -8% 0px" });
+      wrapped.forEach(({ el }) => io.observe(el));
+    }
+  }
+
+  /* ----------------------------------------------------------------------
+     Value circles (About page only). Replaces the earlier hand-rolled
+     OBB physics sim (rectangles that fell, collided, and settled into a
+     pile) with a much simpler CSS-driven approach per user feedback that
+     the physics pile looked glitchy: a fixed 5-column grid of uniform
+     circles that drop into their own grid cell (via a staggered CSS
+     keyframe) the first time the card scrolls into view, then bob gently
+     in place. No requestAnimationFrame loop, no per-frame math — JS only
+     detects "first time visible" and stamps a stagger delay per circle;
+     @keyframes in css/styles.css do the rest.
+  ---------------------------------------------------------------------- */
+  const valuesGrid = $("#values-grid");
+  if (valuesGrid) {
+    const circleEls = $$(".value-circle", valuesGrid);
+    if (prefersReduced || !circleEls.length) {
+      // Reduced motion: CSS shows circles fully settled with no animation,
+      // so there's nothing for JS to do here.
+    } else {
+      const STAGGER_MS = 80;
+      const DROP_DURATION_MS = 650; // must match the circleDrop keyframe duration in css/styles.css
+      circleEls.forEach((el, i) => {
+        const dropDelay = i * STAGGER_MS;
+        el.style.setProperty("--drop-delay", dropDelay + "ms");
+        // The bob animation is declared alongside circleDrop from the start
+        // (see css/styles.css) but given its own delay so it only starts
+        // once this circle's own drop has finished — no mid-fall bobbing,
+        // and no JS timer/class-swap needed to hand off between the two.
+        el.style.setProperty("--bob-delay", (dropDelay + DROP_DURATION_MS) + "ms");
+      });
+
+      let hasFallen = false;
+      const dropIn = () => {
+        if (hasFallen) return;
+        hasFallen = true;
+        valuesGrid.classList.add("is-visible");
+      };
+
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) dropIn(); });
+        }, { threshold: 0.2 });
+        io.observe(valuesGrid);
+      } else {
+        dropIn();
+      }
+    }
+  }
+
+  /* ----------------------------------------------------------------------
      Page transitions — smooth directional slide + gold particle shift.
      No color veil; the fixed background stays put so nothing flashes.
      Direction tracks the site's nav order (moving left / right).
@@ -505,6 +590,56 @@
         ],
         { duration: 750 + Math.random() * 550, easing: "cubic-bezier(.22,.61,.36,1)" }
       ).onfinish = () => d.remove();
+    }
+
+    /* ----------------------------------------------------------------------
+       Custom cursor — a small maroon dot with a gold ring that trails the
+       pointer. Skipped on touch devices (no hover/pointer to draw there,
+       and forcing cursor:none would just hide the native tap feedback).
+    ---------------------------------------------------------------------- */
+    if (!window.matchMedia("(pointer: coarse)").matches) {
+      document.documentElement.classList.add("cc-cursor-on");
+      const cursorEl = document.createElement("div");
+      cursorEl.className = "cc-cursor";
+      cursorEl.innerHTML = '<span class="cc-cursor__ring"></span><span class="cc-cursor__dot"></span>';
+      document.body.appendChild(cursorEl);
+
+      let lastMote = 0;
+      window.addEventListener("mousemove", (e) => {
+        cursorEl.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+
+        // Sparse trailing motes — deliberately rare and tiny so ordinary
+        // movement stays quiet. Buttons already get a full burst on click.
+        const now = performance.now();
+        if (now - lastMote > 110 && Math.random() < 0.4) {
+          lastMote = now;
+          const d = document.createElement("span");
+          d.className = "dust";
+          const size = 2 + Math.random() * 2;
+          d.style.cssText =
+            `left:${e.clientX}px; top:${e.clientY}px; width:${size}px; height:${size}px;` +
+            `background:radial-gradient(circle, rgba(205,141,5,.8), rgba(205,141,5,0) 70%);`;
+          sparkLayer.appendChild(d);
+          const ang = Math.random() * Math.PI * 2;
+          const dist = 8 + Math.random() * 14;
+          d.animate(
+            [
+              { transform: "translate(-50%,-50%) scale(.5)", opacity: .5 },
+              { transform: `translate(calc(-50% + ${Math.cos(ang) * dist}px), calc(-50% + ${Math.sin(ang) * dist}px)) scale(1)`, opacity: 0 }
+            ],
+            { duration: 500, easing: "ease-out" }
+          ).onfinish = () => d.remove();
+        }
+      }, { passive: true });
+
+      const HOVER_SEL = "a, button, .btn, input, textarea, select, label, .to-top, .dropzone, .file-pill";
+      document.addEventListener("pointerover", (e) => {
+        cursorEl.classList.toggle("is-active", !!e.target.closest(HOVER_SEL));
+      });
+      document.addEventListener("pointerdown", () => cursorEl.classList.add("is-down"));
+      document.addEventListener("pointerup", () => cursorEl.classList.remove("is-down"));
+      document.addEventListener("mouseleave", () => { cursorEl.style.opacity = "0"; });
+      document.addEventListener("mouseenter", () => { cursorEl.style.opacity = "1"; });
     }
 
     // Burst only on click of an interactive element

@@ -79,10 +79,14 @@ breadcrumbName: "Gallery"
           </div>
         </article>
 
-        <!-- divider between projects -->
+        <!-- divider between the featured project and the paired grid below -->
         <div class="project-divider section-divider" data-reveal aria-hidden="true">
           <span class="line"></span><span class="gem"></span><span class="line r"></span>
         </div>
+
+        <!-- Remaining projects sit side by side in pairs, smaller than the
+             featured one above, and wrap to a new row as more are added. -->
+        <div class="projects-grid">
 
         <!-- PROJECT 2 -->
         <article class="project" data-reveal>
@@ -111,11 +115,6 @@ breadcrumbName: "Gallery"
             <div class="carousel__dots" role="tablist" aria-label="Choose slide"></div>
           </div>
         </article>
-
-        <!-- divider between projects -->
-        <div class="project-divider section-divider" data-reveal aria-hidden="true">
-          <span class="line"></span><span class="gem"></span><span class="line r"></span>
-        </div>
 
         <!-- PROJECT 3 -->
         <article class="project" data-reveal>
@@ -157,11 +156,6 @@ breadcrumbName: "Gallery"
           </div>
         </article>
 
-        <!-- divider between projects -->
-        <div class="project-divider section-divider" data-reveal aria-hidden="true">
-          <span class="line"></span><span class="gem"></span><span class="line r"></span>
-        </div>
-
         <!-- PROJECT 4 -->
         <article class="project" data-reveal>
           <div class="project-head">
@@ -194,11 +188,6 @@ breadcrumbName: "Gallery"
           </div>
         </article>
 
-        <!-- divider between projects -->
-        <div class="project-divider section-divider" data-reveal aria-hidden="true">
-          <span class="line"></span><span class="gem"></span><span class="line r"></span>
-        </div>
-
         <!-- PROJECT 5 -->
         <article class="project" data-reveal>
           <div class="project-head">
@@ -230,11 +219,6 @@ breadcrumbName: "Gallery"
             <div class="carousel__dots" role="tablist" aria-label="Choose slide"></div>
           </div>
         </article>
-
-        <!-- divider between projects -->
-        <div class="project-divider section-divider" data-reveal aria-hidden="true">
-          <span class="line"></span><span class="gem"></span><span class="line r"></span>
-        </div>
 
         <!-- PROJECT 6 -->
         <article class="project" data-reveal>
@@ -276,11 +260,6 @@ breadcrumbName: "Gallery"
           </div>
         </article>
 
-        <!-- divider between projects -->
-        <div class="project-divider section-divider" data-reveal aria-hidden="true">
-          <span class="line"></span><span class="gem"></span><span class="line r"></span>
-        </div>
-
         <!-- PROJECT 7 -->
         <article class="project" data-reveal>
           <div class="project-head">
@@ -313,10 +292,12 @@ breadcrumbName: "Gallery"
           </div>
         </article>
 
+        </div><!-- /.projects-grid -->
+
         <!-- ================================================================
-             To add another project, copy the block below, update the title,
-             tag, and the <img> slides, then place a <div class="project-divider">
-             before the next one.
+             To add another project, copy the block below (it goes inside
+             .projects-grid above; the first "featured" project stays outside
+             it), update the title, tag, and the <img> slides.
         ================================================================
         <article class="project" data-reveal>
           <div class="project-head">

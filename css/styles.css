@@ -31,6 +31,7 @@
   --maxw: 1200px;
   --header-h: 92px;
   --radius: 10px;
+  --radius-lg: 36px;
   --shadow-sm: 0 2px 10px rgba(56, 11, 11, .07);
   --shadow-md: 0 12px 34px rgba(56, 11, 11, .12);
   --shadow-lg: 0 26px 60px rgba(56, 11, 11, .18);
@@ -39,7 +40,12 @@
 
 /* ---------- reset / base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--stone); }
+/* overflow-x lives on html, not body: setting it on body without an
+   overflow-y also being set makes the UA compute overflow-y: auto on body,
+   which turns body into its own independent scroll container and breaks
+   position: sticky (children stick relative to body's scrollport instead
+   of the real viewport). html avoids the quirk entirely. */
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--stone); overflow-x: hidden; }
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -48,7 +54,6 @@ body {
   line-height: 1.65;
   font-size: 17px;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 /* ---------- global animated gold/white background (identical on every page) ----------
@@ -75,6 +80,107 @@ body::before {
   0%   { transform: translate3d(0, 0, 0) scale(1); }
   50%  { transform: translate3d(2.5%, -2%, 0) scale(1.08) rotate(.5deg); }
   100% { transform: translate3d(-2%, 2.5%, 0) scale(1.05) rotate(-.5deg); }
+}
+
+/* ---------- ambient background fx: rays, sparkle dust, gold fill pulse, watermark ----------
+   Layered above body::before (same fixed z-index: -1 layer, painted after it so it sits
+   on top). Purely decorative, fixed and identical on every page like body::before. */
+.bg-fx {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.bg-fx__rays {
+  /* Recreated from the reference photo: a warm cream-to-amber diagonal
+     wash (bright upper-left, deeper gold-brown lower-right) with two
+     crossing bands of light cutting through it at different angles, like
+     facets of glass catching light. Three gradient layers, all built from
+     existing palette vars. */
+  position: absolute;
+  inset: -10%;
+  background-image:
+    /* corner-to-corner tone shift */
+    linear-gradient(135deg,
+      rgba(255, 253, 244, .55) 0%,
+      rgba(247, 238, 214, .30) 30%,
+      transparent 52%,
+      rgba(158, 108, 24, .20) 78%,
+      rgba(94, 58, 15, .28) 100%),
+    /* crossing facet band, angle A */
+    linear-gradient(58deg,
+      transparent 0%,
+      rgba(255, 255, 255, .40) 10%,
+      transparent 22%,
+      transparent 42%,
+      rgba(232, 214, 163, .34) 52%,
+      transparent 64%,
+      transparent 80%,
+      rgba(205, 141, 5, .24) 90%,
+      transparent 100%),
+    /* crossing facet band, angle B (opposite diagonal) */
+    linear-gradient(-34deg,
+      transparent 0%,
+      rgba(255, 255, 255, .32) 12%,
+      transparent 26%,
+      transparent 48%,
+      rgba(205, 141, 5, .20) 60%,
+      transparent 74%,
+      transparent 90%,
+      rgba(120, 78, 20, .22) 98%,
+      transparent 100%);
+  opacity: .95;
+  animation: raysDrift 50s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes raysDrift {
+  0%   { transform: translate3d(0, 0, 0) scale(1.02) rotate(0deg); }
+  100% { transform: translate3d(-1.5%, 1.5%, 0) scale(1.06) rotate(.6deg); }
+}
+.bg-fx__sparkle {
+  position: absolute;
+  inset: 0;
+  background-image:
+    /* three larger soft "bloom" glows, matching the obvious bright sparkle
+       spots in the reference photo — bigger and softer-edged than the
+       fine dust specks below them. */
+    radial-gradient(3.2% 3.2% at 21% 33%, rgba(255,255,255,.95), rgba(255,255,255,.25) 45%, transparent 78%),
+    radial-gradient(2.6% 2.6% at 53% 34%, rgba(255,255,255,.9), rgba(255,255,255,.2) 45%, transparent 78%),
+    radial-gradient(2.2% 2.2% at 31% 65%, rgba(255,255,255,.85), rgba(255,255,255,.18) 45%, transparent 78%),
+    radial-gradient(1.5px 1.5px at 8% 22%, rgba(255,255,255,.9), transparent 100%),
+    radial-gradient(2px 2px at 18% 68%, rgba(232,214,163,.85), transparent 100%),
+    radial-gradient(1.5px 1.5px at 27% 12%, rgba(255,255,255,.8), transparent 100%),
+    radial-gradient(2px 2px at 34% 84%, rgba(204,184,121,.8), transparent 100%),
+    radial-gradient(1.5px 1.5px at 44% 38%, rgba(255,255,255,.85), transparent 100%),
+    radial-gradient(2px 2px at 52% 6%, rgba(232,214,163,.8), transparent 100%),
+    radial-gradient(1.5px 1.5px at 61% 58%, rgba(255,255,255,.9), transparent 100%),
+    radial-gradient(2px 2px at 69% 26%, rgba(205,141,5,.7), transparent 100%),
+    radial-gradient(1.5px 1.5px at 76% 74%, rgba(255,255,255,.8), transparent 100%),
+    radial-gradient(2px 2px at 83% 46%, rgba(232,214,163,.85), transparent 100%),
+    radial-gradient(1.5px 1.5px at 91% 16%, rgba(255,255,255,.9), transparent 100%),
+    radial-gradient(2px 2px at 14% 92%, rgba(204,184,121,.75), transparent 100%),
+    radial-gradient(1.5px 1.5px at 58% 90%, rgba(255,255,255,.8), transparent 100%),
+    radial-gradient(2px 2px at 96% 64%, rgba(232,214,163,.8), transparent 100%);
+  animation: sparkleTwinkle 6s ease-in-out infinite alternate;
+}
+@keyframes sparkleTwinkle {
+  0%   { opacity: .35; }
+  50%  { opacity: .85; }
+  100% { opacity: .5; }
+}
+.bg-fx__fill {
+  position: absolute;
+  inset: -30%;
+  background: radial-gradient(45% 45% at 50% 45%, rgba(205, 141, 5, .10), transparent 70%);
+  opacity: 0;
+  transform: scale(.85);
+  animation: fillPulse 32s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+@keyframes fillPulse {
+  0%, 100% { opacity: 0; transform: scale(.85); }
+  50%      { opacity: .07; transform: scale(1.15); }
 }
 img { max-width: 100%; display: block; }
 a { color: var(--maroon); text-decoration: none; transition: color .25s var(--ease); }
@@ -128,6 +234,16 @@ p { margin: 0 0 1.1em; }
   animation: popAndSettle 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
+/* Word-by-word heading reveal, used via [data-reveal-words] */
+.rw-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(14px);
+}
+.rw-word.animate {
+  animation: popAndSettle 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
 /* section heading block */
 .section { padding: 96px 0; }
 .section-head { margin-bottom: 46px; }
@@ -141,6 +257,39 @@ p { margin: 0 0 1.1em; }
 .section-head.center { text-align: center; }
 .section-head.center .rule { margin: 18px auto 0; }
 
+/* ---------- bubble section panels ----------
+   Each content section sits inside its own big rounded panel, floating
+   over the ambient gold/white background instead of running edge to edge.
+   The radius here is deliberately much larger than --radius (used by the
+   cards inside), so a section reads as one soft "bubble" holding smaller
+   rounded cards, not a flat sheet. */
+.section > .container,
+.about-page-body > .container,
+.gallery-intro > .container,
+.projects > .container {
+  background: rgba(255, 255, 255, .55);
+  border-radius: var(--radius-lg);
+  padding-top: 56px;
+  padding-bottom: 56px;
+  /* Base drop shadow plus a soft gold/white bloom right at the edge, so the
+     panel's border blends into the ambient background instead of reading
+     as a flat, hard-edged rectangle sitting on top of it. */
+  box-shadow:
+    var(--shadow-md),
+    0 0 0 1px rgba(255, 255, 255, .35),
+    0 0 34px 6px rgba(232, 214, 163, .28);
+}
+@media (max-width: 640px) {
+  .section > .container,
+  .about-page-body > .container,
+  .gallery-intro > .container,
+  .projects > .container {
+    border-radius: 24px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+
 /* ---------- buttons ---------- */
 .btn {
   display: inline-flex; align-items: center; gap: .55em;
@@ -152,6 +301,23 @@ p { margin: 0 0 1.1em; }
 .btn-primary:hover { background: var(--amber); color: var(--maroon-900); transform: translateY(-2px); box-shadow: var(--shadow-md), 0 0 18px 4px rgba(205, 141, 5, .35), 0 0 40px 8px rgba(205, 141, 5, .15); }
 .btn-ghost { background: transparent; color: var(--maroon); border-color: var(--maroon); }
 .btn-ghost:hover { background: var(--maroon); color: #fff; transform: translateY(-2px); box-shadow: var(--shadow-md), 0 0 18px 4px rgba(130, 29, 29, .38), 0 0 40px 8px rgba(130, 29, 29, .16); }
+
+/* strongest CTA — gold, with a light sweep on hover */
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold-1), var(--amber));
+  color: var(--maroon-900); font-weight: 700; box-shadow: var(--shadow-md);
+  z-index: 0; /* own stacking context, so ::before's negative z-index stays behind this button's text only */
+}
+.btn-gold::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.55) 48%, transparent 66%);
+  transform: translateX(-120%); transition: transform .6s var(--ease);
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), 0 0 22px 6px rgba(205, 141, 5, .45), 0 0 46px 10px rgba(232, 214, 163, .28);
+}
+.btn-gold:hover::before { transform: translateX(120%); }
 
 /* ==========================================================================
    HEADER
@@ -177,6 +343,19 @@ p { margin: 0 0 1.1em; }
 }
 .brand:hover .c-badge { transform: rotate(-6deg) scale(1.06); }
 .brand .logo { height: 50px; width: auto; }
+
+.header-right { display: flex; align-items: center; gap: 18px; }
+
+.btn-sm { padding: 9px 20px; font-size: .85rem; }
+
+.header-cta { display: flex; align-items: center; gap: 10px; }
+.header-cta__icon {
+  display: flex; align-items: center; justify-content: center; flex: 0 0 auto;
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1.5px solid var(--maroon); color: var(--maroon);
+  transition: background .25s var(--ease), color .25s var(--ease), transform .25s var(--ease);
+}
+.header-cta__icon:hover { background: var(--maroon); color: #fff; transform: translateY(-2px) rotate(10deg); }
 
 /* nav */
 .nav { display: flex; align-items: center; gap: 6px; }
@@ -243,6 +422,9 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   html.enter-right .page-main,
   html.enter-left .page-main { animation: none; }
   body.is-leaving .page-main { transition: none; }
+  .bg-fx__rays, .bg-fx__sparkle { animation: none; }
+  .bg-fx__sparkle { opacity: .5; }
+  .bg-fx__fill { animation: none; opacity: .05; transform: scale(1); }
 }
 
 /* ---------- scroll reveal ---------- */
@@ -256,6 +438,30 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 [data-reveal][data-reveal="right"] { transform: translateX(44px); }
 [data-reveal][data-reveal="zoom"]  { transform: scale(.92); }
 [data-reveal].is-visible { transform: none !important; }
+/* "Get in Touch" boom entrance — falls in from above tiny, overshoots past
+   its resting size on the way down (the "boom"), then settles at a much
+   larger permanent size than a normal eyebrow. Kept separate from the
+   generic [data-reveal] fade above: same is-visible trigger/JS, just its
+   own transform/timing so it doesn't affect any other reveal element. */
+.eyebrow--boom {
+  /* At this size it reads as a heading, not a small kicker label, so it
+     needs to switch to the same serif display font every other big
+     heading on the site uses (--font-head) — left in the small eyebrow's
+     sans-serif body font, it looked like a mismatched font stuck next to
+     "Contact" / "Let's talk about your project" right below it. */
+  font-family: var(--font-head);
+  font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+  letter-spacing: .04em;
+  display: block;
+  margin-bottom: 18px;
+}
+[data-reveal="boom"] {
+  opacity: 0;
+  transform: translateY(-140px) scale(.3);
+  transition: opacity .45s ease-out, transform 1s cubic-bezier(.34, 1.56, .64, 1);
+}
+[data-reveal="boom"].is-visible { opacity: 1; }
+
 [data-delay="1"] { transition-delay: .12s; }
 [data-delay="2"] { transition-delay: .24s; }
 [data-delay="3"] { transition-delay: .36s; }
@@ -276,11 +482,11 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 }
 .hero__overlay {
   position: absolute; inset: 0; z-index: 1;
-  /* very low red tint over the hero image, with a gentle darken at the base
-     so the white headline + buttons stay readable */
+  /* Stronger maroon tint over the hero image, with a deeper darken at the
+     base, so the white headline + buttons read clearly against any photo. */
   background:
-    linear-gradient(rgba(130, 29, 29, .10), rgba(130, 29, 29, .10)),
-    linear-gradient(180deg, rgba(56,11,11,.10) 0%, rgba(56,11,11,.08) 45%, rgba(56,11,11,.40) 100%);
+    linear-gradient(rgba(130, 29, 29, .32), rgba(130, 29, 29, .32)),
+    linear-gradient(180deg, rgba(56,11,11,.28) 0%, rgba(56,11,11,.22) 45%, rgba(56,11,11,.55) 100%);
 }
 .hero .container { position: relative; z-index: 2; padding-top: 70px; padding-bottom: 70px; }
 /* EXPERIENCE - QUALITY - TRUST sits over a bright sky. It was pale gold with
@@ -393,7 +599,11 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 .contact { background: transparent; position: relative; }
 .contact-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: start; }
 
-.form-card { background: #fff; border-radius: var(--radius); padding: 34px; box-shadow: var(--shadow-md); border: 1px solid var(--line); position: relative; }
+.form-card {
+  background: #fff; border-radius: var(--radius); padding: 34px;
+  box-shadow: var(--shadow-md), 0 0 26px 4px rgba(232, 214, 163, .22);
+  border: 1px solid var(--line); position: relative;
+}
 .field { margin-bottom: 18px; }
 .field label { display: block; font-weight: 600; font-size: .9rem; color: var(--ink); margin-bottom: 7px; }
 .field input, .field textarea {
@@ -524,13 +734,41 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 .project-divider { padding: 28px 0; }
 .project-divider::before { display: none; } /* section-divider handles layout */
 
+/* Everything after the featured first project pairs up side by side instead
+   of each stacking full-width — the full-bleed carousels were reading as
+   "the gallery takes up the whole screen." Grid auto-wraps as more projects
+   are added, two per row, without any per-count logic needed. */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px 32px;
+}
+.projects-grid .project { padding: 0; }
+.projects-grid .project-head { margin-bottom: 18px; }
+.projects-grid .project-head h2 { font-size: clamp(1.25rem, 2vw, 1.6rem); }
+.projects-grid .carousel__slide img { height: clamp(220px, 28vw, 360px); }
+@media (max-width: 780px) {
+  .projects-grid { grid-template-columns: 1fr; gap: 36px; }
+  .projects-grid .carousel__slide img { height: clamp(260px, 62vw, 420px); }
+}
+
 /* ==========================================================================
    ABOUT PAGE
    ========================================================================== */
 .about-page-hero { background: transparent; text-align: center; padding: 78px 0 30px; }
 .about-page-hero h1 { font-size: clamp(2.2rem, 5vw, 3.3rem); }
 .about-page-body { padding: 30px 0 100px; }
-.owner-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 56px; align-items: start; }
+
+/* owner-card wraps the photo/bio grid together with the falling-circles
+   layer behind it, so the circles are scoped to just this block (not the
+   whole page) and can never render above the photo/bio text. */
+.owner-card { position: relative; }
+.owner-grid {
+  position: relative;
+  z-index: 1;
+  display: grid; grid-template-columns: .85fr 1.15fr; gap: 56px; align-items: start;
+}
+.owner-photo-wrap { position: relative; }
 .owner-photo {
   position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md);
   aspect-ratio: 4/5;
@@ -548,6 +786,180 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   border-left: 4px solid var(--gold-2); background: var(--cream); padding: 18px 22px;
   border-radius: 0 8px 8px 0; color: var(--muted); font-style: italic;
 }
+/* Falling circles now sit behind the whole owner-grid, so the bio column
+   gets its own translucent card here — otherwise circles drifting behind
+   the text would fight with it for legibility. */
+.owner-bio {
+  position: relative;
+  background: rgba(255, 255, 255, .82);
+  border-radius: var(--radius);
+  padding: 28px 30px;
+  box-shadow: var(--shadow-md);
+}
+.owner-bio p:last-child { margin-bottom: 0; }
+/* Bold lead-in line before each bio paragraph — a little hook to draw the
+   eye in before the reader commits to the full paragraph. Nudged up and
+   to the left of its paragraph (rather than sitting flush above it) so it
+   reads like a small pulled-out label, not just another line of body text. */
+.bio-kicker {
+  display: block;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.08rem;
+  color: var(--maroon);
+  margin: 0 0 6px;
+  transform: translate(-8px, -4px);
+}
+.owner-bio p + .bio-kicker { margin-top: 22px; }
+
+/* founder bubble, overlaps the bottom-left corner of the photo */
+.owner-tag {
+  position: absolute;
+  left: -16px;
+  bottom: -16px;
+  max-width: calc(100% - 20px);
+  background: var(--maroon-900);
+  color: var(--white);
+  padding: 18px 26px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+.owner-tag h2 {
+  margin: 0;
+  color: var(--white);
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  line-height: 1.15;
+}
+.owner-tag .eyebrow {
+  display: block;
+  margin: 4px 0 0;
+  color: var(--gold-2);
+}
+@media (max-width: 940px) {
+  .owner-tag { left: 16px; bottom: -16px; }
+}
+
+/* Quote now sits inside .owner-card, below the photo/bio grid, above the
+   circles layer (z-index 0). The extra runway beneath it is pure empty
+   space so the falling circles have real room to settle past the quote
+   instead of piling up right at its edge. */
+.owner-quote {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  /* Slightly less dominant than the shared .quote-band__text size used on
+     the homepage — this one sits inside a busier card (photo/bio/circles)
+     so it doesn't need to shout as loud. */
+  font-size: clamp(1.2rem, 2.1vw, 1.7rem);
+}
+/* The later `.quote-band__text { margin: 0 auto; }` rule (shared with the
+   homepage quote band) has the same specificity as `.owner-quote` above and
+   comes after it in the cascade, so it was silently winning and zeroing out
+   the top margin below — the previous "move it down" edit never actually
+   rendered. Bumping specificity here (two classes) so this margin sticks. */
+.quote-band__text.owner-quote {
+  margin: 160px auto 0;
+}
+@media (max-width: 720px) {
+  /* 160px reads as a huge dead-empty gap on a narrow, already-stacked mobile
+     layout — scale it down to something proportionate. */
+  .quote-band__text.owner-quote { margin-top: 70px; }
+}
+/* ---------- value circles (About page) ----------
+   Replaces the earlier hand-rolled physics pile (rectangles that fell,
+   collided and stacked at random — user feedback: "look like shit... so
+   glitchy") with a plain, predictable CSS Grid: 13 uniform circles laid
+   out 5-per-row (5 + 5 + 3, since 13 doesn't divide evenly by 5), each one
+   dropping straight down into its own fixed grid cell the first time the
+   card scrolls into view, then settling into a slow, gentle bob. No JS
+   physics loop — main.js only stamps a stagger delay and toggles two
+   classes; every visual is a CSS @keyframes animation. */
+.values-grid {
+  position: relative;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  /* Smaller, tighter panel than the old physics runway — sized to its own
+     content instead of reserving a tall worst-case area for a random pile. */
+  max-width: 620px;
+  margin: 40px auto 0;
+  padding: 22px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .38), rgba(255, 255, 255, .12));
+  border: 1px solid rgba(204, 184, 121, .4); /* soft --gold-2 tint */
+  border-radius: 28px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5);
+}
+.value-circle {
+  justify-self: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .64rem;
+  line-height: 1.15;
+  box-shadow: var(--shadow-md);
+  /* Pre-drop state: above the grid and invisible. .is-visible triggers both
+     animations below at once, staggered per circle via --drop-delay/
+     --bob-delay (set inline by main.js). */
+  opacity: 0;
+  transform: translateY(-160px) scale(.5);
+  will-change: transform;
+}
+/* Both animations are declared together (not swapped in via a second
+   class) because when two animations target the same property, the CSS
+   cascade only keeps the LAST-declared one for that property — a separate
+   ".settled" rule swapping in circleBob would silently drop circleDrop's
+   "opacity: 1" forwards-fill and leave circles invisible. Instead, circleBob
+   is given its own animation-delay (dropDelay + drop duration, computed in
+   main.js) so it sits idle — not yet started, not overriding anything —
+   until circleDrop has finished and filled its final (visible, opacity: 1)
+   frame; only then does circleBob take over the transform property. */
+.values-grid.is-visible .value-circle {
+  animation:
+    circleDrop .65s cubic-bezier(.34, 1.56, .64, 1) var(--drop-delay, 0s) both,
+    circleBob 3.4s ease-in-out var(--bob-delay, 0s) infinite;
+}
+@keyframes circleDrop {
+  0%   { opacity: 0; transform: translateY(-160px) scale(.5); }
+  70%  { opacity: 1; transform: translateY(6px) scale(1.03); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes circleBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+.value-circle.v-maroon { background: var(--maroon); color: var(--white); }
+.value-circle.v-maroon-900 { background: var(--maroon-900); color: var(--white); }
+.value-circle.v-gold { background: var(--amber); color: var(--maroon-900); }
+.value-circle.v-outline { background: var(--cream); color: var(--maroon); border: 2px solid var(--gold-2); }
+
+@media (max-width: 720px) {
+  /* 5 columns at phone widths would crush each circle under ~55px —
+     too small for phrases like "Turning Ideas Into Reality" to stay
+     readable, so mobile drops to 3 columns (13 items = 5 rows: 3+3+3+3+1). */
+  .values-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 340px;
+    gap: 12px;
+    padding: 18px;
+  }
+  .value-circle { width: 92px; height: 92px; font-size: .62rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .value-circle {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
 
 /* ==========================================================================
    FOOTER
@@ -559,7 +971,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   background-size: 200% 100%;
   animation: headerFlow 7s linear infinite;
 }
-.footer-top { padding-top: 66px; padding-bottom: 30px; display: grid; grid-template-columns: 1.5fr 1fr 1.1fr; gap: 44px; }
+.footer-top { padding-top: 66px; padding-bottom: 30px; display: grid; grid-template-columns: 1.3fr .8fr .9fr .9fr; gap: 40px; }
 .footer-logo { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
 .footer-logo .c-badge { width: 50px; height: 50px; flex: 0 0 auto; position: relative; top: 5px; }
 .footer-logo .wm { font-family: var(--font-head); font-weight: 700; color: #fff; font-size: 1.32rem; line-height: 1.04; }
@@ -579,6 +991,24 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   color: rgba(255,255,255,.72); font-size: .92rem; margin-bottom: 6px;
 }
 .footer-hours li span:last-child { color: rgba(255,255,255,.9); white-space: nowrap; }
+
+.footer-projects { display: flex; flex-direction: column; gap: 14px; }
+.footer-project {
+  display: flex; align-items: center; gap: 12px;
+  color: rgba(255,255,255,.78); border-radius: 10px;
+  padding: 6px; margin: -6px; transition: background .25s var(--ease);
+}
+.footer-project:hover { background: rgba(255,255,255,.06); }
+.footer-project img {
+  width: 56px; height: 56px; border-radius: 8px; object-fit: cover; flex: 0 0 auto;
+}
+.footer-project span { display: flex; flex-direction: column; font-size: .92rem; color: #fff; line-height: 1.35; }
+.footer-project span small { color: rgba(255,255,255,.55); font-size: .78rem; }
+.footer-projects-link {
+  display: inline-block; margin-top: 18px; font-size: .85rem;
+  color: var(--gold-1); letter-spacing: .02em;
+}
+.footer-projects-link:hover { color: #fff; }
 
 .socials { display: flex; gap: 12px; margin-top: 26px; margin-bottom: 18px; }
 .socials a {
@@ -621,8 +1051,10 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 .adu-spec strong { color: var(--gold-1); }
 
 .adu-card {
-  background: var(--cream); color: var(--body); border-radius: var(--radius); padding: 32px;
-  box-shadow: var(--shadow-lg); border-top: 5px solid var(--gold-2); position: sticky; top: 112px;
+  background: var(--cream);
+  color: var(--body); border-radius: var(--radius); padding: 32px;
+  box-shadow: var(--shadow-lg), 0 0 26px 4px rgba(232, 214, 163, .3);
+  border-top: 5px solid var(--gold-2); position: sticky; top: 112px;
 }
 .adu-card h3 { color: var(--maroon); font-size: 1.55rem; margin-bottom: 6px; }
 .adu-card .sub { color: var(--muted); margin-bottom: 20px; }
@@ -709,6 +1141,72 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 .dust { position: fixed; border-radius: 50%; pointer-events: none; will-change: transform, opacity; }
 
 /* ==========================================================================
+   CUSTOM CURSOR (red dot, gold ring)
+   Enabled only by main.js adding .cc-cursor-on to <html> — kept off for
+   touch devices and prefers-reduced-motion, so this never fights a finger
+   or an accessibility preference.
+   ========================================================================== */
+html.cc-cursor-on,
+html.cc-cursor-on * { cursor: none !important; }
+.cc-cursor { position: fixed; top: 0; left: 0; z-index: 10050; pointer-events: none; will-change: transform; }
+.cc-cursor__dot {
+  position: absolute; top: 0; left: 0; width: 8px; height: 8px; margin: -4px 0 0 -4px;
+  border-radius: 50%; background: var(--maroon-600);
+  box-shadow: 0 0 6px 1px rgba(130, 29, 29, .5);
+  transition: width .25s var(--ease), height .25s var(--ease), margin .25s var(--ease),
+              background .25s var(--ease), box-shadow .25s var(--ease);
+}
+.cc-cursor__ring {
+  position: absolute; top: 0; left: 0; width: 30px; height: 30px; margin: -15px 0 0 -15px;
+  border-radius: 50%; border: 1.5px solid var(--gold-2); opacity: .55;
+  transition: width .3s var(--ease), height .3s var(--ease), margin .3s var(--ease),
+              border-color .3s var(--ease), opacity .3s var(--ease), transform .12s var(--ease);
+}
+.cc-cursor.is-active .cc-cursor__dot {
+  width: 10px; height: 10px; margin: -5px 0 0 -5px; background: var(--amber);
+  box-shadow: 0 0 14px 3px rgba(205, 141, 5, .6);
+}
+.cc-cursor.is-active .cc-cursor__ring {
+  width: 54px; height: 54px; margin: -27px 0 0 -27px; border-width: 2px;
+  border-color: var(--gold-1); opacity: .9;
+}
+.cc-cursor.is-down .cc-cursor__ring { transform: scale(.8); }
+@media (pointer: coarse) {
+  html.cc-cursor-on, html.cc-cursor-on * { cursor: auto !important; }
+  .cc-cursor { display: none; }
+}
+
+/* ==========================================================================
+   COMPANY FACTS STRIP (auto-scrolling ticker)
+   ========================================================================== */
+.facts-strip {
+  position: relative; overflow: hidden; background: var(--maroon-900);
+  padding: 15px 0;
+}
+.facts-strip::before, .facts-strip::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 70px; z-index: 2; pointer-events: none;
+}
+.facts-strip::before { left: 0; background: linear-gradient(90deg, var(--maroon-900), transparent); }
+.facts-strip::after { right: 0; background: linear-gradient(270deg, var(--maroon-900), transparent); }
+.facts-track {
+  display: flex; align-items: center; width: max-content;
+  animation: factsScroll 34s linear infinite;
+}
+.facts-track:hover { animation-play-state: paused; }
+.fact {
+  color: var(--gold-1); font-family: var(--font-body); font-weight: 600;
+  font-size: .92rem; letter-spacing: .04em; white-space: nowrap; padding: 0 4px;
+}
+.fact-sep { color: var(--amber); opacity: .75; font-size: .6rem; padding: 0 20px; }
+@keyframes factsScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .facts-track { animation: none; overflow-x: auto; }
+}
+
+/* ==========================================================================
    BACK TO TOP
    ========================================================================== */
 .to-top {
@@ -744,7 +1242,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
    ========================================================================== */
 .section-divider {
   position: relative; display: flex; align-items: center; justify-content: center;
-  padding: 26px 0; overflow: visible;
+  padding: 54px 0; overflow: visible;
 }
 .section-divider[data-reveal] { opacity: 1 !important; transform: none !important; }
 .section-divider .line {
@@ -765,6 +1263,35 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 @keyframes gemGlow {
   0%, 100% { box-shadow: 0 0 8px rgba(205, 141, 5, .5), 0 0 20px rgba(205, 141, 5, .2); }
   50%       { box-shadow: 0 0 22px rgba(205, 141, 5, .9), 0 0 44px rgba(205, 141, 5, .35); }
+}
+
+/* ==========================================================================
+   QUOTE BAND — short phrase set directly on the ambient background,
+   deliberately without a bubble panel so the background shows through.
+   ========================================================================== */
+.quote-band { padding: 40px 0; }
+.quote-band .container { text-align: center; background: transparent; box-shadow: none; }
+.quote-band__text {
+  margin: 0 auto;
+  max-width: 780px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+  line-height: 1.4;
+  color: var(--maroon-700, var(--maroon));
+}
+.quote-band__text::before { content: "\201C"; }
+.quote-band__text::after { content: "\201D"; }
+.quote-band__cite {
+  display: block;
+  margin-top: 16px;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-size: .74rem;
+  color: var(--amber-600, var(--amber));
 }
 
 /* ==========================================================================
@@ -801,7 +1328,29 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
    NOTE: .site-header is intentionally excluded — it keeps its own
    position:sticky / z-index:100 so the fixed mobile nav (a header child)
    paints above main content instead of behind it. */
-main, footer { position: relative; z-index: 1; }
+.page-main { position: relative; z-index: 1; }
+
+/* ---------- footer curtain reveal ----------
+   top: 100vh (not bottom: 0) is the standard trick here: the footer stays in
+   its normal static position (far below the fold) until scrolling would
+   bring its static top above one full viewport-height from the current
+   scroll offset, at which point sticky holds it pinned just off the bottom
+   edge — then releases near the very end of the page so it settles into
+   place, reading as if the page curtain-reveals it from underneath. No
+   negative-margin/z-index overlap hacks needed, so it can't fight the
+   document's own scrollHeight the way a bottom:0 + shrink-the-content
+   version does. */
+.site-footer { position: sticky; top: 100vh; }
+.page-main > *:last-child { border-radius: 0 0 48px 48px; }
+@media (max-width: 940px) {
+  .page-main > *:last-child { border-radius: 0 0 28px 28px; }
+}
+/* The construction-advisory CTA band (.svc-cta) is a full-bleed solid
+   maroon section with no cream "bubble" wrapper around it, unlike every
+   other page's last section — rounding its bottom corners the same way
+   reads as a broken seam against a hard color block instead of a soft
+   curtain edge, so it opts back out to a plain rectangle. */
+.page-main > .svc-cta:last-child { border-radius: 0; }
 
 /* ==========================================================================
    AMBIENT SPOTLIGHT ORBS (auto-injected by JS into sections)
@@ -845,6 +1394,8 @@ main, footer { position: relative; z-index: 1; }
   .nav a { padding: 14px 16px; font-size: 1.05rem; }
   .nav a::after { display: none; }
   .nav-toggle { display: block; }
+  .header-right { gap: 10px; }
+  .header-cta .btn { display: none; }
   .two-col, .contact-grid, .owner-grid, .adu-grid { grid-template-columns: 1fr; gap: 38px; }
   .adu-card { position: static; }
   .about .figure::before, .about .figure::after { display: none; }
@@ -852,6 +1403,7 @@ main, footer { position: relative; z-index: 1; }
   .gallery-intro .two-col { grid-template-columns: 1fr; text-align: center; }
   .gallery-intro .mark { margin: 0 auto; }
   .section { padding: 70px 0; }
+  .section-divider { padding: 36px 0; }
   .brand .logo { height: 40px; }
   .brand .c-badge { width: 38px; height: 38px; }
 }
@@ -953,10 +1505,29 @@ main, footer { position: relative; z-index: 1; }
 .adu-points.cols-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px 44px; }
 .adu-points.cols-2 li { border-bottom: 0; padding: 9px 0; }
 
+/* .adu already paints its own maroon gradient — the generic bubble-panel
+   background (rgba white, from ".section > .container") would wash it out
+   into a muddy pink, same class of bug as the old .adu-card white-out. Strip
+   it back to transparent here so the maroon reads clean on both the ADU
+   section and the CTA band below (which reuses the .adu class). */
+.adu > .container { background: transparent; box-shadow: none; }
+
 /* ---- CTA band (reuses .adu maroon gradient) ---- */
 .svc-cta { text-align: center; }
 .svc-cta .container { max-width: 780px; }
 .svc-cta .eyebrow { color: var(--gold-1); display: inline-block; margin-bottom: 14px; }
+.svc-cta__photo {
+  /* Plain circular frame — no inset square backing behind the photo. The
+     rect frame + maroon-700 fill used to leave dark corners peeking out
+     around the circular portrait, which read as a stray grey/black square. */
+  display: block;
+  width: 84px; height: 84px; margin: 4px auto 14px;
+  border-radius: 50%; overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.svc-cta__photo img {
+  display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 18%;
+}
 .svc-cta h2 { color: #fff; font-size: clamp(1.8rem, 3.8vw, 2.6rem); margin-bottom: 12px; }
 .svc-cta p { color: rgba(255,255,255,.82); max-width: 54ch; margin: 0 auto 28px; }
 .svc-cta .btn-primary { background: var(--gold-1); color: var(--maroon-900); }
