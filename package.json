@@ -8,9 +8,11 @@
     "clean": "rm -rf _site",
     "build": "npm run clean && eleventy",
     "serve": "eleventy --serve",
-    "dev": "npm run build && wrangler dev",
+    "dev": "npm run build && wrangler dev --config wrangler.local.jsonc --local",
     "deploy": "npm run build && wrangler deploy",
-    "test": "node --experimental-vm-modules --test tests/*.test.mjs"
+    "test": "node --experimental-vm-modules --test tests/*.test.mjs",
+    "leads": "node scripts/leads.mjs",
+    "db:local": "wrangler d1 migrations apply cc-leads --local --config wrangler.local.jsonc"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
