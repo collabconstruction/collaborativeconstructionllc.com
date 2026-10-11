@@ -251,11 +251,9 @@ async function handleContact(request, env, ctx) {
     return json({ ok: false, error: "Could not read the form data." }, 400);
   }
 
-  // Honeypot. Real users never fill this in; bots usually do.
-  if (clean(form.get("company_website"), 200)) {
-    // Look successful so the bot does not retry with a different shape.
-    return json({ ok: true, id: "ok" });
-  }
+  // Neutral field name avoids organization/website autofill heuristics. Never clear it
+  // client-side: every supplied value (including duplicate fields) is checked here.
+  if (form.getAll("cc_x7q2m9").some(value => typeof value !== "string" || value.trim() !== "")) return json({ ok: false, error: "We could not accept this submission. Please call us if you need help." }, 422);
 
   const name = clean(form.get("name"), 120);
   const email = clean(form.get("email"), 254);

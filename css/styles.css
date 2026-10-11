@@ -642,8 +642,9 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 .form-status.err { color: var(--maroon); }
 .form-status a { color: inherit; text-decoration: underline; }
 
-/* Honeypot. Hidden from people without using display:none or [hidden], since
-   some bots skip those. Kept out of the tab order and off screen instead. */
+/* Neutral honeypot: hidden/inert in markup, excluded from accessibility and
+   keyboard navigation. Turnstile and rate limits remain independent controls. */
+.hp-field[hidden] { display: none !important; }
 .hp-field {
   position: absolute;
   left: -9999px;

@@ -92,7 +92,7 @@
         // The honeypot is invisible to people. If it is focused, that is a bot,
         // and counting it would inflate form starts with traffic that will
         // never convert.
-        if (e.target.name === "company_website") return;
+        if (e.target.name === "cc_x7q2m9") return;
         started = true;
         track("form_start", { form_location: location.pathname });
       },
