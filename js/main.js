@@ -28,6 +28,7 @@
     });
     $$(".nav a").forEach(a => a.addEventListener("click", () => {
       nav.classList.remove("open"); toggle.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
     }));
   }
 
@@ -152,7 +153,7 @@
   /* Links are extensionless ("/about"), because Cloudflare serves them that
      way and 307-redirects the ".html" form. The ".html" handling below is
      kept so any old bookmark or stray link still animates correctly. */
-  const NAV_ORDER = ["", "gallery", "construction-advisory", "about"];
+  const NAV_ORDER = ["", "general-contractor-falmouth-ma", "home-additions-cape-cod", "adu-builder-cape-cod", "home-renovation-cape-cod", "custom-home-builder-cape-cod", "construction-advisory", "gallery", "about"];
 
   const pageSlug = (pathname) => {
     let s = (pathname || "").split("#")[0].split("?")[0];
@@ -343,48 +344,6 @@
     start();
   });
 
-  function ensureModalAnimations() {
-    if (document.getElementById("modal-animations")) return;
-    const style = document.createElement("style");
-    style.id = "modal-animations";
-    style.textContent = `
-      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-      @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    `;
-    document.head.appendChild(style);
-  }
-
-  function showFormModal(title, message, buttonColor) {
-    ensureModalAnimations();
-    const modal = document.createElement("div");
-    modal.className = "form-modal";
-    modal.innerHTML = `
-      <div class="modal-content">
-        <h2>${title}</h2>
-        <p>${message}</p>
-        <button type="button" class="modal-close">Close</button>
-      </div>
-    `;
-    modal.style.cssText = `
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center;
-      z-index: 10000; animation: fadeIn 0.3s ease;
-    `;
-    const content = modal.querySelector(".modal-content");
-    content.style.cssText = `
-      background: white; padding: 2rem; border-radius: 8px; max-width: 420px;
-      text-align: center; animation: slideUp 0.3s ease;
-    `;
-    const closeBtn = modal.querySelector(".modal-close");
-    closeBtn.style.cssText = `
-      margin-top: 1rem; padding: 0.5rem 1.5rem; background: ${buttonColor};
-      color: white; border: none; border-radius: 4px; cursor: pointer;
-    `;
-    closeBtn.addEventListener("click", () => modal.remove());
-    modal.addEventListener("click", (e) => { if (e.target === modal) modal.remove(); });
-    document.body.appendChild(modal);
-  }
-
   /* ----------------------------------------------------------------------
      mailto: links are left alone on purpose.
 
@@ -404,155 +363,100 @@
   ---------------------------------------------------------------------- */
   const form = $("#contact-form");
   if (form) {
-    const fileInput = $("#cc-files", form);
-    const pill   = $(".file-pill", form);
-    const pillN  = $(".file-pill .count", form);
-    const listEl = $(".file-list", form);
-    const drop   = $(".dropzone", form);
+    const field = name => form.elements.namedItem(name);
     const status = $(".form-status", form);
-
-    /* -- optional attachment UI (only present when storage is enabled) ---- */
-    let store = new DataTransfer(); // authoritative file set
-
-    if (fileInput && drop && pill && pillN && listEl) {
-      const human = (bytes) => {
-        if (bytes < 1024) return bytes + " B";
-        if (bytes < 1048576) return (bytes / 1024).toFixed(0) + " KB";
-        return (bytes / 1048576).toFixed(1) + " MB";
-      };
-      var syncFiles = function () {
-        fileInput.files = store.files;
-        const n = store.files.length;
-        pill.hidden = n === 0;
-        pillN.textContent = n;
-        listEl.innerHTML = "";
-        Array.from(store.files).forEach((f, i) => {
-          const li = document.createElement("li");
-          const name = document.createElement("span");
-          name.textContent = f.name + "  ·  " + human(f.size);
-          const rm = document.createElement("button");
-          rm.type = "button"; rm.textContent = "Remove"; rm.setAttribute("aria-label", "Remove " + f.name);
-          rm.addEventListener("click", () => {
-            const dt = new DataTransfer();
-            Array.from(store.files).forEach((file, j) => { if (j !== i) dt.items.add(file); });
-            store = dt; syncFiles();
-          });
-          li.append(name, rm); listEl.appendChild(li);
-        });
-      };
-      const addFiles = (fileList) => {
-        Array.from(fileList).forEach(f => store.items.add(f));
-        syncFiles();
-      };
-
-      fileInput.addEventListener("change", () => addFiles(fileInput.files));
-      drop.addEventListener("click", () => fileInput.click());
-      drop.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); } });
-      ["dragenter", "dragover"].forEach(ev => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("drag"); }));
-      ["dragleave", "drop"].forEach(ev => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("drag"); }));
-      drop.addEventListener("drop", (e) => { if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files); });
+    const fileInput = $("#cc-files", form);
+    const list = $(".file-list", form);
+    const type = field("project_type");
+    const context = window.ccIntakeContext;
+    if (type && context) type.value = context.get().project_type;
+    let files = [], sending = false, submissionId = null;
+    const rotate = () => { submissionId = null; };
+    form.addEventListener("input", e => { if (e.target.name !== "cf-turnstile-response") rotate(); });
+    form.addEventListener("change", e => { if (e.target.name !== "cf-turnstile-response") rotate(); });
+    function renderFiles() {
+      if (!list) return;
+      list.textContent = "";
+      files.forEach((file, i) => {
+        const li = document.createElement("li");
+        const text = document.createElement("span");
+        text.textContent = file.name;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = "Remove";
+        button.setAttribute("aria-label", "Remove " + file.name);
+        button.addEventListener("click", () => { files.splice(i, 1); rotate(); renderFiles(); });
+        li.append(text, button); list.appendChild(li);
+      });
     }
-
-    /* -- attribution ------------------------------------------------------
-       Captured at submit time so every lead row can be traced back to the
-       page, referrer, and campaign that produced it. This is what makes
-       conversion rate answerable per channel instead of per site.
-    --------------------------------------------------------------------- */
-    function attribution() {
-      const qs = new URLSearchParams(location.search);
-      let gaClientId = "";
-      try {
-        // GA4 stores the client id in the _ga cookie as GA1.1.<id>.<ts>
-        const m = document.cookie.match(/(?:^|;\s*)_ga=GA\d\.\d\.(\d+\.\d+)/);
-        if (m) gaClientId = m[1];
-      } catch (_) {}
-      return {
-        source_page: location.pathname + location.search,
-        referrer: document.referrer || "",
-        utm_source: qs.get("utm_source") || "",
-        utm_medium: qs.get("utm_medium") || "",
-        utm_campaign: qs.get("utm_campaign") || "",
-        ga_client_id: gaClientId,
-      };
+    if (fileInput) fileInput.addEventListener("change", () => {
+      files = Array.from(fileInput.files || []);
+      renderFiles();
+    });
+    function fallback(message) {
+      status.className = "form-status err";
+      status.textContent = message + " Your entries are still here. You can retry, email ";
+      const email = document.createElement("a");
+      email.href = "mailto:collaborativeconstructiongc@gmail.com";
+      email.textContent = "collaborativeconstructiongc@gmail.com";
+      const phone = document.createElement("a");
+      phone.href = "tel:+15084406981"; phone.textContent = "(508) 440-6981";
+      status.append(email, document.createTextNode(" or call "), phone, document.createTextNode("."));
     }
-
-    const FALLBACK_HTML =
-      'Please email <a href="mailto:collaborativeconstructiongc@gmail.com">collaborativeconstructiongc@gmail.com</a> ' +
-      'or call <a href="tel:+15084406981">(508) 440-6981</a>.';
-
-    let sending = false;
-
-    form.addEventListener("submit", async (e) => {
+    form.addEventListener("submit", async e => {
       e.preventDefault();
       if (sending) return;
-
-      status.className = "form-status";
-      status.textContent = "";
-
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      const message = form.message.value.trim();
-
-      if (!name || !email || !message) {
-        status.classList.add("err");
-        status.textContent = "Please fill in your name, email, and message.";
+      status.className = "form-status"; status.textContent = "";
+      if (!form.reportValidity()) return;
+      if (!["name", "email", "message"].every(n => field(n).value.trim())) {
+        status.textContent = "Please enter your name, email and project message.";
         return;
       }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
-        status.classList.add("err");
-        status.textContent = "That email address does not look right.";
-        form.email.focus();
-        return;
+      if (files.length > 6 || files.some(f => f.size > 10 * 1024 * 1024) || files.reduce((total, f) => total + f.size, 0) > 25 * 1024 * 1024) {
+        fallback("Please select up to 6 attachments, each no larger than 10 MB and 25 MB total."); return;
       }
-
+      if (!window.crypto || typeof window.crypto.randomUUID !== "function") {
+        fallback("This browser cannot submit securely. Please use a current browser."); return;
+      }
+      submissionId = submissionId || window.crypto.randomUUID();
+      const payload = new FormData(form);
+      if (context) Object.entries(context.get()).forEach(([key, value]) => {
+        if (["source_page", "first_landing_page", "referrer", "utm_source", "utm_medium", "utm_campaign"].includes(key)) payload.set(key, value);
+      });
+      payload.set("submission_id", submissionId);
+      payload.delete("attachments");
+      files.forEach(file => payload.append("attachments", file));
       const btn = $("button[type=submit]", form);
       const original = btn.textContent;
+      const controls = Array.from(form.elements).filter(el => !el.disabled && el.name !== "cf-turnstile-response");
       sending = true;
-      btn.disabled = true;
-      btn.textContent = "Sending…";
-
-      const payload = new FormData(form);
-      Object.entries(attribution()).forEach(([k, v]) => payload.set(k, v));
-      // FormData picks up the live input, which we keep in sync with `store`.
-
+      controls.forEach(el => { el.disabled = true; });
+      btn.textContent = "Saving inquiry…";
+      status.textContent = "Saving your inquiry…";
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 30000);
       try {
-        const res = await fetch("/api/contact", { method: "POST", body: payload });
+        const response = await fetch("/api/contact", { method: "POST", body: payload, signal: controller.signal });
         let data = {};
-        try { data = await res.json(); } catch (_) {}
-
-        if (res.ok && data.ok) {
-          form.reset();
-          store = new DataTransfer();
-          if (typeof syncFiles === "function") syncFiles();
-          if (window.turnstile) window.turnstile.reset();
-
-          showFormModal(
-            "Thank You!",
-            "Your message has been received. We'll be in touch shortly.",
-            "#cd8d05"
-          );
-
-          // Only fire the conversion once the server has confirmed the lead.
-          if (typeof window.gtag === "function") {
-            window.gtag("event", "generate_lead", {
-              lead_id: data.id || "",
-              form_location: location.pathname,
-            });
-          }
+        try { data = await response.json(); } catch (_) {}
+        if (response.ok && data.ok === true && data.stored === true && typeof data.id === "string" && data.id) {
+          form.reset(); files = []; renderFiles(); rotate();
+          status.className = "form-status ok";
+          status.textContent = "Your inquiry is saved. Reference: " + data.id.slice(0, 80) + ". This confirms storage, not a personal response. If you need to follow up, call (508) 440-6981 and quote this reference.";
+          if (data.attachments && data.attachments.pending) status.textContent += " Attachments are still being processed; do not resend your inquiry.";
+          if (data.attachments && data.attachments.failedCount > 0) status.textContent += " Some attachments could not be saved. Please mention this when we speak; your inquiry itself is saved.";
+          if (window.ccTrack) window.ccTrack("generate_lead");
         } else {
-          status.classList.add("err");
-          status.innerHTML =
-            (data.error || "We could not send your message just now.") + " " + FALLBACK_HTML;
-          if (window.turnstile) window.turnstile.reset();
+          fallback(typeof data.error === "string" ? data.error.slice(0, 300) : "We could not confirm that your inquiry was saved.");
         }
-      } catch (err) {
-        status.classList.add("err");
-        status.innerHTML =
-          "We could not reach the server. Please check your connection and try again. " + FALLBACK_HTML;
+      } catch (_) {
+        fallback("We could not confirm the result. Please retry without changing your entries to avoid a duplicate inquiry.");
       } finally {
+        clearTimeout(timeout);
         sending = false;
-        btn.disabled = false;
+        controls.forEach(el => { el.disabled = false; });
         btn.textContent = original;
+        if (window.turnstile) { try { window.turnstile.reset(); } catch (_) {} }
       }
     });
   }

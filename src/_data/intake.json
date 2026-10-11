@@ -1,0 +1,4 @@
+{
+  "turnstileSiteKey": "0x4AAAAAAFT7_DoQM-wX5k4h",
+  "_comment": "Existing public site key observed on production 2026-10-11. Keep unchanged; private secret remains in the deployed Worker binding."
+}

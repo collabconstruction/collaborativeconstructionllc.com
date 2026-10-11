@@ -1,33 +1,4 @@
-/* ==========================================================================
-   analytics.js  -  business events and consent
-
-   Loaded on every page, but almost entirely inert unless src/_data/analytics.json
-   has a GA4 measurement id. base.njk only defines window.__CC_ANALYTICS when a
-   measurement id exists, so with the default null config this file installs two
-   cheap listeners, finds no gtag, and does nothing else. No cookies, no banner,
-   no network requests, no console noise.
-
-   What it tracks and why:
-     click_to_call   a tel: tap. For a contractor this is usually a MORE
-                     valuable signal than the form, because most homeowners
-                     just call. Not tracking it means undercounting the site's
-                     actual output.
-     click_to_email  a mailto: tap.
-     form_start      first focus of any contact-form field. Paired with
-                     generate_lead this yields a form completion rate, which is
-                     the number that tells you whether the form itself is the
-                     problem or whether nobody is reaching it.
-
-   generate_lead is deliberately NOT here. It lives in js/main.js because it
-   must fire only after the server returns a confirmed 200. Firing it on submit
-   would count failed submissions as conversions, which quietly corrupts every
-   downstream conversion-rate figure.
-
-   Consent: GA4 sets cookies, so Consent Mode v2 is set to denied for everything
-   in base.njk BEFORE gtag('config') runs. Nothing is written until the visitor
-   accepts. Cloudflare Web Analytics is cookieless and is not gated on any of
-   this.
-   ========================================================================== */
+/* Consent-gated GA: no loader, queued events, customer fields or lead IDs before consent. */
 (function () {
   "use strict";
 
@@ -35,6 +6,8 @@
   if (!CFG) return; // GA4 not configured: stay completely inert.
 
   var STORAGE_KEY = "cc-consent";
+  var granted = false;
+  var loaded = false;
 
   /* ---------------------------------------------------------------------
      Event helper. Queues nothing: if gtag is missing or consent is denied,
@@ -43,9 +16,14 @@
      friendly" setup ends up sending data it promised not to.
      ------------------------------------------------------------------- */
   function track(name, params) {
-    if (typeof window.gtag !== "function") return;
-    window.gtag("event", name, params || {});
+    if (!granted || typeof window.gtag !== "function") return false;
+    if (!["click_to_call", "click_to_email", "form_start", "generate_lead"].includes(name)) return false;
+    // Accept only the site's fixed path; never copy arbitrary event parameters.
+    var page = window.ccIntakeContext ? window.ccIntakeContext.currentPage() : "/";
+    window.gtag("event", name, { form_location: page });
+    return true;
   }
+  window.ccTrack = track;
 
   /* ---------------------------------------------------------------------
      Outbound intent. One delegated listener on the document rather than a
@@ -56,7 +34,7 @@
      the dialer before a click event ever lands, so click under-reports.
      ------------------------------------------------------------------- */
   document.addEventListener(
-    "pointerdown",
+    "click",
     function (e) {
       var a = e.target.closest && e.target.closest('a[href^="tel:"], a[href^="mailto:"]');
       if (!a) return;
@@ -93,8 +71,7 @@
         // and counting it would inflate form starts with traffic that will
         // never convert.
         if (e.target.name === "cc_x7q2m9") return;
-        started = true;
-        track("form_start", { form_location: location.pathname });
+        started = track("form_start");
       },
       true
     );
@@ -126,20 +103,31 @@
   }
 
   function grant() {
-    if (typeof window.gtag !== "function") return;
-    window.gtag("consent", "update", {
-      analytics_storage: "granted",
-      ad_storage: "denied",
-      ad_user_data: "denied",
-      ad_personalization: "denied",
+    granted = true;
+    if (loaded) return;
+    loaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    window.gtag("js", new Date());
+    window.gtag("config", CFG.measurementId, {
+      send_page_view: false, allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+      page_location: location.origin + (window.ccIntakeContext ? window.ccIntakeContext.currentPage() : "/"),
+      page_referrer: ""
     });
+    window.gtag("event", "page_view");
+    var script = document.createElement("script");
+    script.async = true;
+    script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(CFG.measurementId);
+    document.head.appendChild(script);
   }
 
   // Re-apply a previously granted choice on every subsequent page load.
   var prior = readChoice();
   if (prior === "granted") grant();
 
-  if (prior) return; // Already decided. No banner.
+  if (prior === "granted" || prior === "denied") return; // Already decided. No banner.
 
   var banner = document.createElement("div");
   banner.className = "consent-banner";

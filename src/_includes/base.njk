@@ -67,40 +67,12 @@
     })();
   </script>
 
-  {#- ---------------------------------------------------------------------
-      Measurement. Driven by src/_data/analytics.json, and emits NOTHING while
-      its values are null, so this ships safely before either account exists and
-      is switched on later by a one-line data edit rather than a code change.
-
-      GA4 loads in <head> so the Consent Mode v2 defaults below are in force
-      before any tag can write a cookie. Everything is denied by default;
-      js/analytics.js only sends `consent: update` after an explicit accept.
-      --------------------------------------------------------------------- #}
+  {# GA is loaded by analytics.js only after explicit consent. #}
   {%- if analytics.ga4MeasurementId %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics.ga4MeasurementId }}"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    /* Denied BEFORE config. The order matters: default-denied first means no
-       analytics cookie is written unless the visitor accepts. */
-    gtag('consent', 'default', {
-      ad_storage: 'denied',
-      ad_user_data: 'denied',
-      ad_personalization: 'denied',
-      analytics_storage: 'denied',
-      wait_for_update: 500
-    });
-    gtag('js', new Date());
-    gtag('config', '{{ analytics.ga4MeasurementId }}');
-    /* Consumed by js/analytics.js. Its existence is the on-switch: with no
-       measurement id this is never defined, and that file returns immediately,
-       so there is no banner and no listeners. */
     window.__CC_ANALYTICS = {
-      consent: {
-        message: {{ analytics.consent.message | dump | safe }},
-        accept: {{ analytics.consent.accept | dump | safe }},
-        decline: {{ analytics.consent.decline | dump | safe }}
-      }
+      measurementId: {{ analytics.ga4MeasurementId | dump | safe }},
+      consent: {{ analytics.consent | dump | safe }}
     };
   </script>
   {%- endif %}
@@ -237,6 +209,7 @@
 
   {#- Before main.js, so the form_start listener is attached before anything
       heavier runs. Inert unless GA4 is configured. #}
+  <script src="/js/intake-context.js"></script>
   <script src="/js/analytics.js"></script>
   <script src="/js/main.js"></script>
 </body>

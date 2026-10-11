@@ -20,11 +20,12 @@
   // Consequence: deploying MUST build first. See the deploy script.
   "assets": {
     "directory": "./_site",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
   },
 
-  // Lead records. Schema lives in schema.sql:
-  //   npx wrangler d1 execute cc-leads --file=schema.sql --remote
+  // Existing production database: Phase 1 tables/triggers already exist.
+  // Do not replay migrations during this release; see docs/releases/.
   "d1_databases": [
     {
       "binding": "DB",
@@ -55,18 +56,14 @@
     "LEAD_FROM_ADDRESS": "website@collaborativeconstructionllc.com"
   },
 
-  // R2 attachment storage for project photos sent through the contact form.
-  //
-  // The owner asked for a guarantee this never costs money. There is no hard
-  // spending cap on R2, so the guarantee is enforced in code instead: the
-  // Worker caps uploads at 6 files, 10 MB each, 25 MB per submission, and an
-  // allowlist of image/PDF types, behind Turnstile. Free tier is 10 GB, so
-  // reaching it would take roughly 2,000 photos. Those limits live in
-  // worker/index.js (MAX_FILES, MAX_FILE_BYTES, ALLOWED_TYPES) and are the
-  // thing to check before anyone loosens them.
-  //
-  // If this binding is ever removed, the Worker rejects uploads with a clear
-  // message rather than accepting files and dropping them.
+  // Per-IP burst protection, complementing Turnstile. This is not a billing cap.
+  // Matches the existing production binding verified on 2026-10-11.
+  "ratelimits": [
+    { "name": "INTAKE_RATE_LIMITER", "namespace_id": "10041", "simple": { "limit": 5, "period": 60 } }
+  ],
+
+  // Private R2 objects are accessible only through account-authorized tools.
+  // Per-request limits do not guarantee free-tier spend; review retention/usage.
   "r2_buckets": [
     { "binding": "ATTACHMENTS", "bucket_name": "cc-lead-attachments" }
   ]

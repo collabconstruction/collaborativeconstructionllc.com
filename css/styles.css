@@ -606,13 +606,13 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 }
 .field { margin-bottom: 18px; }
 .field label { display: block; font-weight: 600; font-size: .9rem; color: var(--ink); margin-bottom: 7px; }
-.field input, .field textarea {
+.field input, .field textarea, .field select {
   width: 100%; font-family: var(--font-body); font-size: 1rem; color: var(--ink);
   padding: 13px 15px; border: 1.5px solid var(--cream-3); border-radius: 8px; background: var(--cream);
   transition: border-color .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
 }
 .field textarea { resize: vertical; min-height: 140px; }
-.field input:focus, .field textarea:focus {
+.field input:focus, .field textarea:focus, .field select:focus {
   outline: none; border-color: var(--amber); background: #fff;
   box-shadow: 0 0 0 4px rgba(205, 141, 5, .14);
 }
@@ -1609,8 +1609,96 @@ html.cc-cursor-on * { cursor: none !important; }
   .consent-banner__actions .btn { flex: 1; justify-content: center; }
 }
 
+/* ==========================================================================
+   SERVICES SECTION (homepage)
+   ========================================================================== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.service-card {
+  display: block;
+  padding: 28px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--amber-600);
+}
+
+.service-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  color: var(--maroon);
+}
+
+.service-card p {
+  font-size: 0.95rem;
+  color: var(--body);
+  margin: 0;
+}
+
+/* Two-column figure images with border and rounded corners */
+.two-col .figure {
+  position: relative;
+}
+
+.two-col .figure img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-md);
+}
+
+.two-col .figure::before {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: -18px;
+  width: 120px;
+  height: 120px;
+  border-top: 4px solid var(--gold-2);
+  border-left: 4px solid var(--gold-2);
+  border-radius: 6px 0 0 0;
+  z-index: -1;
+}
+
+.two-col .figure::after {
+  content: "";
+  position: absolute;
+  right: -18px;
+  bottom: -18px;
+  width: 120px;
+  height: 120px;
+  border-bottom: 4px solid var(--maroon);
+  border-right: 4px solid var(--maroon);
+  border-radius: 0 0 6px 0;
+  z-index: -1;
+}
+
 /* No transform animation for visitors who ask for reduced motion, but the
    banner must still appear: hiding it would mean asking for consent silently. */
 @media (prefers-reduced-motion: reduce) {
   .consent-banner { transition: none; transform: none; opacity: 1; }
 }
+
+/* Inquiry fields remain usable on narrow screens and without file APIs. */
+.form-status { overflow-wrap: anywhere; }
+.field input[type="file"] { max-width: 100%; font-size: .9rem; }
+.inquiry-paths .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+button:disabled { cursor: wait; opacity: .7; }

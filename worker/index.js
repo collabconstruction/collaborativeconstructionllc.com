@@ -28,11 +28,28 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
+    // Redirect .html URLs to clean canonical URLs (only for pages, not assets)
+    if (url.pathname.endsWith('.html') && !url.pathname.startsWith('/assets/') && !url.pathname.startsWith('/css/') && !url.pathname.startsWith('/js/')) {
+      const cleanPath = url.pathname.slice(0, -5);
+      return Response.redirect(`${url.origin}${cleanPath}${url.search}`, 301);
+    }
+
+    // Redirect www to non-www
+    if (url.hostname.startsWith('www.')) {
+      const nonWww = url.hostname.replace('www.', '');
+      return Response.redirect(`${url.protocol}//${nonWww}${url.pathname}${url.search}`, 301);
+    }
+
     if (url.pathname === "/api/contact") {
       if (request.method !== "POST") {
         return json({ ok: false, error: "Method not allowed." }, 405, { Allow: "POST" });
       }
-      return handleContact(request, env, ctx);
+      try {
+        return await handleContact(request, env, ctx);
+      } catch {
+        console.error("intake-unexpected-error");
+        return json({ ok: false, error: "We could not confirm your inquiry was saved. Please retry or call us." }, 503);
+      }
     }
 
     return env.ASSETS.fetch(request);
@@ -70,31 +87,26 @@ function safeExt(filename) {
 
 /* ---------------------------------------------------------------- turnstile */
 
-async function verifyTurnstile(token, ip, secret) {
-  if (!secret) return { ok: true, skipped: true }; // not provisioned yet
-  if (!token) return { ok: false, reason: "missing-token" };
-
+async function verifyTurnstile(token, ip, secret, hostname) {
+  if (!secret || !token || token.length > 2048) return false;
   const body = new FormData();
   body.append("secret", secret);
   body.append("response", token);
   if (ip) body.append("remoteip", ip);
-
   try {
-    const res = await fetch(
-      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-      { method: "POST", body }
-    );
+    const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST", body, signal: AbortSignal.timeout(8000),
+    });
     const data = await res.json();
-    return data.success ? { ok: true } : { ok: false, reason: (data["error-codes"] || []).join(",") };
-  } catch {
-    return { ok: false, reason: "verify-failed" };
-  }
+    return res.ok && data.success === true && data.hostname === hostname && data.action === "contact";
+  } catch { return false; }
 }
 
 /* -------------------------------------------------------------------- email */
 
 // RFC 2047 encoding, so names and subjects with accents survive the trip.
 function encodeHeader(value) {
+  value = value.replace(/[\r\n]/g, " ");
   // eslint-disable-next-line no-control-regex
   if (/^[\x20-\x7E]*$/.test(value)) return value;
   const bytes = new TextEncoder().encode(value);
@@ -151,6 +163,9 @@ async function sendNotification(env, lead, attachments, failedUploads = []) {
     ["Name", lead.name],
     ["Email", lead.email],
     ["Phone", lead.phone || "(not provided)"],
+    ["Project type", lead.project_type || "(not provided)"],
+    ["Town", lead.project_town || "(not provided)"],
+    ["Responder", "Wesleigh Behn — review the private queue and record next action"],
     ["Page", lead.source_page || "(unknown)"],
     ["Referrer", lead.referrer || "(direct)"],
     ["Campaign",
@@ -196,17 +211,17 @@ async function sendNotification(env, lead, attachments, failedUploads = []) {
       const raw = buildMime({
         from,
         to,
-        replyTo: `${lead.name.replace(/[<>@"]/g, "")} <${lead.email}>`,
+        replyTo: `${lead.name.replace(/[<>@"\r\n]/g, "")} <${lead.email}>`,
         subject,
         html,
       });
       await env.SEND_EMAIL.send(new EmailMessage(from, to, raw));
       return { sent: true, via: "cloudflare" };
     } catch (err) {
-      const detail = String(err && err.message ? err.message : err).slice(0, 300);
+      const detail = "transport-rejected";
       // Fall through to Resend if it happens to be configured.
       if (!env.RESEND_API_KEY) return { sent: false, error: `cf-email: ${detail}` };
-      console.error("send_email failed, trying Resend", detail);
+      console.error("notification-primary-rejected");
     }
   }
 
@@ -216,6 +231,7 @@ async function sendNotification(env, lead, attachments, failedUploads = []) {
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
+      signal: AbortSignal.timeout(8000),
       headers: {
         authorization: `Bearer ${env.RESEND_API_KEY}`,
         "content-type": "application/json",
@@ -230,165 +246,195 @@ async function sendNotification(env, lead, attachments, failedUploads = []) {
     });
 
     if (!res.ok) {
-      const detail = await res.text();
-      return { sent: false, error: `resend-${res.status}: ${detail.slice(0, 300)}` };
+      return { sent: false, error: `resend-http-${res.status}` };
     }
     return { sent: true, via: "resend" };
   } catch (err) {
-    return { sent: false, error: `resend-threw: ${String(err).slice(0, 300)}` };
+    return { sent: false, error: "resend-unavailable" };
   }
 }
 
 /* ------------------------------------------------------------------ handler */
 
-async function handleContact(request, env, ctx) {
-  const ip = request.headers.get("cf-connecting-ip") || "";
-
-  let form;
+const PROJECT_TYPES = new Set(["", "general_contracting", "addition", "adu", "renovation", "custom_home", "advisory", "other"]);
+const MAX_BODY_BYTES = MAX_TOTAL_BYTES + 256 * 1024;
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const singleLine = (value, max) => clean(value, max).replace(/[\x00-\x1f\x7f]/g, " ");
+const campaign = (value) => /^[a-zA-Z0-9_. -]{1,100}$/.test(value || "") ? value : "";
+function sourcePath(value) {
   try {
-    form = await request.formData();
-  } catch {
-    return json({ ok: false, error: "Could not read the form data." }, 400);
+    const u = new URL(value, "https://collaborativeconstructionllc.com");
+    return u.origin === "https://collaborativeconstructionllc.com" ? u.pathname.slice(0, 300) : "";
+  } catch { return ""; }
+}
+function referrerOrigin(value) {
+  try { const u = new URL(value); return ["http:", "https:"].includes(u.protocol) ? u.origin.slice(0, 200) : ""; }
+  catch { return ""; }
+}
+async function digest(value) {
+  const hash = await crypto.subtle.digest("SHA-256", typeof value === "string" ? new TextEncoder().encode(value) : value);
+  return [...new Uint8Array(hash)].map(x => x.toString(16).padStart(2, "0")).join("");
+}
+async function boundedForm(request) {
+  if (Number(request.headers.get("content-length")) > MAX_BODY_BYTES) throw new Error("too-large");
+  if (!request.body) throw new Error("invalid-body");
+  const reader = request.body.getReader();
+  const chunks = [];
+  let size = 0;
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > MAX_BODY_BYTES) { await reader.cancel(); throw new Error("too-large"); }
+    chunks.push(value);
   }
+  const bytes = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
+  return new Response(bytes, { headers: { "content-type": request.headers.get("content-type") || "" } }).formData();
+}
+async function knownReceipt(db, key, fingerprint) {
+  const row = await db.prepare(`SELECT r.fingerprint, r.lead_id, w.notification_state,
+    w.attachment_state, w.attachment_warning FROM intake_receipts r
+    JOIN lead_workflow w ON w.lead_id = r.lead_id WHERE request_key = ?`).bind(key).first();
+  if (!row) return null;
+  if (row.fingerprint !== fingerprint) return json({ ok: false, error: "This submission reference was already used for different details. Refresh the page before sending a new inquiry." }, 409);
+  let failedCount = 0;
+  try { failedCount = JSON.parse(row.attachment_warning || "{}").failedCount || 0; } catch { /* legacy note */ }
+  return json({ ok: true, stored: true, id: row.lead_id,
+    notification: row.notification_state,
+    attachments: { failedCount, pending: row.attachment_state === "pending" } });
+}
 
+async function handleContact(request, env, ctx) {
+  const url = new URL(request.url);
+  const local = env.INTAKE_LOCAL_TEST === "true" && ["localhost", "127.0.0.1", "[::1]"].includes(url.hostname);
+  const expectedOrigin = local ? url.origin : "https://collaborativeconstructionllc.com";
+  if (request.headers.get("origin") !== expectedOrigin || request.headers.get("sec-fetch-site") === "cross-site") {
+    return json({ ok: false, error: "Please send your inquiry from our website." }, 403);
+  }
+  const ip = request.headers.get("cf-connecting-ip") || "unknown";
+  if (!local) {
+    if (!env.TURNSTILE_SECRET_KEY || !env.INTAKE_RATE_LIMITER) {
+      return json({ ok: false, error: "Our form is temporarily unavailable. Please call or email us directly." }, 503);
+    }
+    try {
+      const limit = await env.INTAKE_RATE_LIMITER.limit({ key: `contact:${ip}` });
+      if (!limit.success) return json({ ok: false, error: "Too many attempts. Please wait a minute or call us." }, 429, { "Retry-After": "60" });
+    } catch { return json({ ok: false, error: "Our form is temporarily unavailable. Please call or email us." }, 503); }
+  }
+  // Never accept an email-only inquiry: a durable queue is required.
+  if (!env.DB) return json({ ok: false, error: "We cannot save your inquiry right now. Please call or email us." }, 503);
+  let form;
+  try { form = await boundedForm(request); }
+  catch (err) { return json({ ok: false, error: err.message === "too-large" ? "Your files are too large. Please keep the total below 25 MB." : "Could not read the form. Please try again." }, err.message === "too-large" ? 413 : 400); }
   // Neutral field name avoids organization/website autofill heuristics. Never clear it
   // client-side: every supplied value (including duplicate fields) is checked here.
   if (form.getAll("cc_x7q2m9").some(value => typeof value !== "string" || value.trim() !== "")) return json({ ok: false, error: "We could not accept this submission. Please call us if you need help." }, 422);
 
-  const name = clean(form.get("name"), 120);
-  const email = clean(form.get("email"), 254);
-  const phone = clean(form.get("phone"), 40);
-  const message = clean(form.get("message"), MAX_MESSAGE_CHARS);
-
+  const fields = { name: 120, email: 254, phone: 40, message: MAX_MESSAGE_CHARS,
+    project_type: 40, project_town: 100, budget_range: 100, desired_timeline: 150 };
   const errors = {};
-  if (!name) errors.name = "Please enter your name.";
-  if (!email) errors.email = "Please enter your email.";
-  else if (!isEmail(email)) errors.email = "That email address does not look right.";
-  if (!message) errors.message = "Please tell us about your project.";
-
-  if (Object.keys(errors).length) {
-    return json({ ok: false, error: "Please check the highlighted fields.", errors }, 400);
+  const lead = {};
+  for (const [key, max] of Object.entries(fields)) {
+    const value = form.get(key);
+    if (value !== null && (typeof value !== "string" || value.trim().length > max)) errors[key] = `Please shorten the ${key.replaceAll("_", " ")} field.`;
+    lead[key] = key === "message" ? clean(value, max) : singleLine(value, max);
   }
-
-  const turnstile = await verifyTurnstile(
-    form.get("cf-turnstile-response"), ip, env.TURNSTILE_SECRET_KEY
-  );
-  if (!turnstile.ok) {
-    return json(
-      { ok: false, error: "We could not verify that you are human. Please reload the page and try again." },
-      403
-    );
-  }
-
-  const id = crypto.randomUUID();
-  const created_at = new Date().toISOString();
-
-  /* -- attachments -------------------------------------------------------- */
-  const uploads = form.getAll("attachments")
-    .filter((f) => f && typeof f === "object" && f.size > 0);
-  const attachments = [];
-  const failedUploads = [];
-
-  if (uploads.length > MAX_FILES) {
-    return json({ ok: false, error: `Please attach no more than ${MAX_FILES} files.` }, 400);
-  }
-
+  if (!lead.name) errors.name = "Please enter your name.";
+  if (!isEmail(lead.email) || /[\r\n]/.test(form.get("email") || "")) errors.email = "Please enter a valid email address.";
+  if (!lead.message) errors.message = "Please tell us about your project.";
+  if (!PROJECT_TYPES.has(lead.project_type)) errors.project_type = "Please choose a listed project type.";
+  if (Object.keys(errors).length) return json({ ok: false, error: "Please check the form fields.", errors }, 400);
+  const suppliedKey = form.get("submission_id");
+  if (suppliedKey && !UUID.test(suppliedKey)) return json({ ok: false, error: "Please refresh the form and try again." }, 400);
+  const requestKey = suppliedKey || crypto.randomUUID();
+  const uploads = form.getAll("attachments").filter(file => file && typeof file === "object" && file.size > 0);
+  if (uploads.length > MAX_FILES) return json({ ok: false, error: "Please attach no more than 6 files." }, 400);
   let total = 0;
   for (const file of uploads) {
     total += file.size;
-    if (file.size > MAX_FILE_BYTES) {
-      return json({ ok: false, error: `"${file.name}" is larger than 10 MB.` }, 400);
-    }
-    if (total > MAX_TOTAL_BYTES) {
-      return json({ ok: false, error: "Those files total more than 25 MB. Please send fewer or smaller files." }, 400);
-    }
-    if (file.type && !ALLOWED_TYPES.has(file.type)) {
-      return json({ ok: false, error: `"${file.name}" is not a supported file type. Please use JPG, PNG, WEBP, HEIC, or PDF.` }, 400);
-    }
+    if (file.size > MAX_FILE_BYTES || total > MAX_TOTAL_BYTES) return json({ ok: false, error: "Files must be at most 10 MB each and 25 MB in total." }, 413);
+    if (!ALLOWED_TYPES.has(file.type)) return json({ ok: false, error: "Use JPG, PNG, WEBP, HEIC or PDF attachments." }, 400);
   }
-
-  // If files were sent but there is nowhere to put them, say so rather than
-  // dropping them silently. The form hides its upload field while R2 is off,
-  // so this only fires if someone posts directly.
-  if (uploads.length && !env.ATTACHMENTS) {
-    return json({
-      ok: false,
-      error: "We cannot accept file attachments right now. Please send your message without files, and we will follow up for photos by email.",
-    }, 503);
+  if (uploads.length && !env.ATTACHMENTS) return json({ ok: false, error: "Attachments are unavailable. Remove the files to send your inquiry, then share them when we follow up." }, 503);
+  Object.assign(lead, {
+    source_page: sourcePath(form.get("source_page") || "/"),
+    referrer: referrerOrigin(form.get("referrer")),
+    utm_source: campaign(form.get("utm_source")), utm_medium: campaign(form.get("utm_medium")),
+    utm_campaign: campaign(form.get("utm_campaign")),
+  });
+  const fileFingerprints = [];
+  for (const file of uploads) fileFingerprints.push([file.name, file.type, file.size, await digest(await file.arrayBuffer())]);
+  // Attribution can change on a retry; content identity is the customer's fields/files.
+  const fingerprint = await digest(JSON.stringify([Object.keys(fields).map(k => lead[k]), fileFingerprints]));
+  const replay = await knownReceipt(env.DB, requestKey, fingerprint);
+  if (replay) return replay;
+  if (!local && !await verifyTurnstile(form.get("cf-turnstile-response"), ip, env.TURNSTILE_SECRET_KEY, url.hostname)) {
+    return json({ ok: false, error: "Please complete the verification and try again." }, 403);
   }
-
-  if (uploads.length && env.ATTACHMENTS) {
-    for (const file of uploads) {
-      const key = `leads/${id}/${crypto.randomUUID()}${safeExt(file.name)}`;
-      try {
-        await env.ATTACHMENTS.put(key, file.stream(), {
-          httpMetadata: { contentType: file.type || "application/octet-stream" },
-          customMetadata: { leadId: id, originalName: file.name.slice(0, 200) },
-        });
-        attachments.push({ key, name: file.name, size: file.size });
-      } catch (err) {
-        // An attachment failure must not cost us the lead, but it must be
-        // visible in the notification so nobody assumes photos arrived.
-        console.error("R2 put failed", key, err);
-        failedUploads.push(file.name);
-      }
-    }
-  }
-
-  const lead = {
-    id, created_at, name, email, phone, message,
-    source_page: clean(form.get("source_page"), 300),
-    referrer: clean(form.get("referrer"), 500),
-    utm_source: clean(form.get("utm_source"), 100),
-    utm_medium: clean(form.get("utm_medium"), 100),
-    utm_campaign: clean(form.get("utm_campaign"), 150),
-    ga_client_id: clean(form.get("ga_client_id"), 100),
-  };
-
-  /* -- persist first ------------------------------------------------------ */
-  if (!env.DB) {
-    // No database bound, so email is the only path and it must succeed.
-    const mail = await sendNotification(env, lead, attachments, failedUploads);
-    return mail.sent
-      ? json({ ok: true, id })
-      : json({ ok: false, error: "We could not deliver your message. Please email or call us directly." }, 502);
-  }
-
+  lead.id = crypto.randomUUID();
+  lead.created_at = new Date().toISOString();
   try {
-    await env.DB.prepare(
-      `INSERT INTO leads
-         (id, created_at, name, email, phone, message,
-          source_page, referrer, utm_source, utm_medium, utm_campaign,
-          ga_client_id, attachment_keys, country, user_agent)
-       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
-    ).bind(
-      lead.id, lead.created_at, lead.name, lead.email, lead.phone, lead.message,
-      lead.source_page, lead.referrer, lead.utm_source, lead.utm_medium, lead.utm_campaign,
-      lead.ga_client_id,
-      JSON.stringify(attachments.map((a) => a.key)),
-      request.cf?.country || null,
-      (request.headers.get("user-agent") || "").slice(0, 400)
-    ).run();
-  } catch (err) {
-    console.error("D1 insert failed", err);
-    // Could not store it. Try email as a last resort before admitting failure.
-    const mail = await sendNotification(env, lead, attachments, failedUploads);
-    return mail.sent
-      ? json({ ok: true, id })
-      : json({ ok: false, error: "Something went wrong on our end. Please email or call us directly." }, 500);
+    // D1 batch is transactional: customer data, receipt and workflow update commit together.
+    await env.DB.batch([
+      env.DB.prepare(`INSERT INTO leads (id,created_at,name,email,phone,message,source_page,referrer,
+        utm_source,utm_medium,utm_campaign,attachment_keys) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`).bind(
+        lead.id, lead.created_at, lead.name, lead.email, lead.phone, lead.message, lead.source_page,
+        lead.referrer, lead.utm_source, lead.utm_medium, lead.utm_campaign, "[]"),
+      env.DB.prepare(`INSERT INTO intake_receipts (request_key,fingerprint,lead_id,created_at) VALUES (?,?,?,?)`).bind(requestKey, fingerprint, lead.id, lead.created_at),
+      env.DB.prepare(`UPDATE lead_workflow SET project_type=?,project_town=?,budget_range=?,desired_timeline=?,attachment_state=? WHERE lead_id=?`).bind(
+        lead.project_type, lead.project_town, lead.budget_range, lead.desired_timeline, uploads.length ? "pending" : "none", lead.id),
+    ]);
+  } catch {
+    // Concurrent identical submissions race on the receipt key; only one creates a lead.
+    const concurrent = await knownReceipt(env.DB, requestKey, fingerprint);
+    if (concurrent) return concurrent;
+    console.error("intake-storage-failed");
+    return json({ ok: false, error: "We could not save your inquiry. Please retry or call us." }, 503);
   }
 
-  /* -- then notify -------------------------------------------------------- */
-  // The lead is safe now, so the response does not need to block on email.
-  const notify = sendNotification(env, lead, attachments, failedUploads).then((mail) =>
-    env.DB.prepare(`UPDATE leads SET emailed = ?, email_error = ? WHERE id = ?`)
-      .bind(mail.sent ? 1 : 0, mail.error || null, id)
-      .run()
-      .catch((e) => console.error("D1 email-status update failed", e))
-  );
-
-  if (ctx && typeof ctx.waitUntil === "function") ctx.waitUntil(notify);
+  const attachments = [];
+  const failedUploads = [];
+  for (const file of uploads) {
+    const key = `leads/${lead.id}/${crypto.randomUUID()}${safeExt(file.name)}`;
+    try {
+      await env.ATTACHMENTS.put(key, file.stream(), { httpMetadata: { contentType: file.type },
+        customMetadata: { leadId: lead.id } });
+      attachments.push({ key, name: singleLine(file.name, 200), size: file.size });
+    } catch { failedUploads.push(singleLine(file.name, 200)); }
+  }
+  let failedCount = failedUploads.length;
+  if (uploads.length) {
+    try {
+      await env.DB.batch([
+        env.DB.prepare("UPDATE leads SET attachment_keys=? WHERE id=?").bind(JSON.stringify(attachments.map(a => a.key)), lead.id),
+        env.DB.prepare("UPDATE lead_workflow SET attachment_state=?,attachment_warning=? WHERE lead_id=?").bind(
+          failedCount ? "partial_failure" : "saved", failedCount ? JSON.stringify({ failedCount }) : null, lead.id),
+      ]);
+    } catch {
+      // Lead remains durable, pending attachments surface in the private queue.
+      // Avoid retaining objects whose references could not be committed.
+      for (const a of attachments) { try { await env.ATTACHMENTS.delete(a.key); } catch { /* reconcile private prefix */ } }
+      failedCount = uploads.length;
+      attachments.length = 0;
+      failedUploads.splice(0, failedUploads.length, "Attachment storage could not be confirmed");
+      console.error("intake-attachment-status-unconfirmed");
+    }
+  }
+  const notify = (async () => {
+    let mail;
+    try { mail = local ? { sent: false, error: "local-notification-disabled" } : await sendNotification(env, lead, attachments, failedUploads); }
+    catch { mail = { sent: false, error: "notification-unavailable" }; }
+    try {
+      await env.DB.batch([
+        env.DB.prepare("UPDATE leads SET emailed=?,email_error=? WHERE id=?").bind(mail.sent ? 1 : 0, mail.error || null, lead.id),
+        env.DB.prepare("UPDATE lead_workflow SET notification_state=?,notification_attempted_at=? WHERE lead_id=?").bind(
+          mail.sent ? "accepted" : "failed", new Date().toISOString(), lead.id),
+      ]);
+    } catch { console.error("intake-notification-status-unconfirmed"); }
+  })();
+  if (ctx?.waitUntil) ctx.waitUntil(notify);
   else await notify;
-
-  return json({ ok: true, id });
+  return json({ ok: true, stored: true, id: lead.id, notification: "pending", attachments: { failedCount, pending: false } });
 }

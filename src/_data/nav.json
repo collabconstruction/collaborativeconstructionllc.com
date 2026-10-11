@@ -8,29 +8,56 @@
       "summary": "Overview, services, and contact form"
     },
     {
-      "url": "/gallery",
-      "label": "Gallery",
-      "key": "gallery",
-      "summary": "Completed residential and commercial projects"
+      "url": "",
+      "label": "Services",
+      "key": "services",
+      "summary": "Our construction and renovation services",
+      "dropdown": [
+        {
+          "url": "/general-contractor-falmouth-ma/",
+          "label": "General Contracting"
+        },
+        {
+          "url": "/home-additions-cape-cod/",
+          "label": "Home Additions"
+        },
+        {
+          "url": "/adu-builder-cape-cod/",
+          "label": "ADU Construction"
+        },
+        {
+          "url": "/home-renovation-cape-cod/",
+          "label": "Home Renovation"
+        },
+        {
+          "url": "/custom-home-builder-cape-cod/",
+          "label": "Custom Homes"
+        },
+        {
+          "url": "/construction-advisory/",
+          "label": "Construction Advisory"
+        }
+      ]
     },
     {
-      "url": "/construction-advisory",
-      "label": "Construction Management",
-      "key": "advisory",
-      "summary": "Construction management services"
+      "url": "/gallery",
+      "label": "Projects",
+      "key": "gallery",
+      "summary": "Completed residential and commercial projects"
     },
     {
       "url": "/about",
       "label": "About",
       "key": "about",
       "summary": "About Wesleigh Behn and the company"
-    }
-  ],
-  "footerExtra": [
+    },
     {
       "url": "/#contact",
-      "label": "Contact"
+      "label": "Contact",
+      "key": "contact",
+      "summary": "Contact form and information"
     }
   ],
+  "footerExtra": [],
   "_summaryComment": "`summary` is used only by llms.txt, to tell an agent what each page is for. The nav itself renders `label`."
 }
