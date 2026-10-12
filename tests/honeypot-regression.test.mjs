@@ -111,7 +111,7 @@ test('the actual submit handler sends the populated trap without clearing it', a
     append(key, value) { this.values.set(key, value); }
   }
   vm.runInNewContext(source.slice(start, end), {
-    window: { crypto: webcrypto }, document: { cookie: '', referrer: '',
+    window: { crypto: webcrypto, ccChallenge: {take:()=>true, reset(){}} }, document: { cookie: '', referrer: '',
       createElement: () => ({}), createTextNode: text => ({ textContent: text }) },
     location: { pathname: '/', search: '' }, URLSearchParams, FormData: Payload,
     DataTransfer: class { files = []; }, AbortController, setTimeout, clearTimeout,

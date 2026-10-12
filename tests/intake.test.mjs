@@ -38,7 +38,7 @@ function fixture(t, options = {}) {
     INTAKE_RATE_LIMITER: { async limit() { return {success: !options.rateLimited}; } }, TURNSTILE_SECRET_KEY: 'synthetic-test-only' };
   const context = vm.createContext({ Request,Response,FormData,URL,TextEncoder,Uint8Array,crypto:webcrypto,AbortSignal,
     btoa, console:{error:(...a)=>logs.push(a.join(' '))},
-    fetch: async () => new Response(JSON.stringify(options.challenge || {success:true,hostname:'collaborativeconstructionllc.com',action:'contact'}),{status:200}) });
+    fetch: options.fetch || (async () => new Response(JSON.stringify(options.challenge || {success:true,hostname:'collaborativeconstructionllc.com',action:'contact'}),{status:200})) });
   const module = new vm.SourceTextModule(readFileSync('worker/index.js','utf8'),{context});
   const ready = (async()=> { await module.link(()=>new vm.SyntheticModule(['EmailMessage'],function(){this.setExport('EmailMessage',class{constructor(from,to,raw){Object.assign(this,{from,to,raw});}});},{context}));await module.evaluate();return module.namespace.default; })();
   async function send(fields={}, settings={}) {
@@ -149,4 +149,36 @@ test('populated neutral honeypot rejects duplicate-field and file-value evasions
 });
 test('legitimate autofill does not bypass failed Turnstile',async t=>{
  const f=fixture(t,{challenge:{success:false}}); const r=await f.send({company_website:'Endicott College',cc_x7q2m9:''});assert.equal(r.status,403);assert.equal(f.query('SELECT COUNT(*) n FROM leads')[0].n,0);
+});
+
+for (const [category, fields, options] of [
+ ['missing-token',{'cf-turnstile-response':null},{}],
+ ['token-too-long',{'cf-turnstile-response':'s'.repeat(2049)},{}],
+ ['invalid-token-type',{'cf-turnstile-response':new File(['private'],'private.txt')},{}],
+ ['siteverify-http',{}, {fetch:async()=>new Response('PRIVATE',{status:502})}],
+ ['siteverify-invalid-response',{}, {fetch:async()=>new Response('null')}],
+ ['parse-failure',{}, {fetch:async()=>new Response('PRIVATE not JSON')}],
+ ['network-failure',{}, {fetch:async()=>{throw Error('PRIVATE')}}],
+ ['timeout',{}, {fetch:async()=>{throw Object.assign(Error('PRIVATE'),{name:'TimeoutError'})}}],
+ ['siteverify-rejected',{}, {challenge:{success:false,'error-codes':['timeout-or-duplicate','PRIVATE email@example.com','timeout-or-duplicate'],hostname:'PRIVATE',action:'PRIVATE'}}],
+ ['siteverify-context',{}, {challenge:{success:true,hostname:'PRIVATE',action:'PRIVATE'}}],
+]) test('safe challenge diagnostic: '+category,async t=>{
+ const f=fixture(t,options); const r=await f.send(fields);assert.equal(r.status,403);assert.equal(r.body.error,'Please complete the verification and try again.');
+ const log=JSON.parse(f.logs[0]);assert.equal(log.category,category);assert.equal(log.event,'intake-turnstile-rejected');
+ assert.doesNotMatch(JSON.stringify(f.logs),/PRIVATE|email@example|synthetic|Synthetic Person/);
+ if(category==='siteverify-rejected')assert.deepEqual(log.codes,['timeout-or-duplicate','unknown-code']);
+ if(category==='siteverify-context'){assert.equal(log.hostnameMatch,false);assert.equal(log.actionMatch,false);}
+ assert.equal(f.query('SELECT COUNT(*) n FROM leads')[0].n,0);
+});
+test('missing secret diagnostic retains existing unavailable response',async t=>{
+ const f=fixture(t);delete f.env.TURNSTILE_SECRET_KEY;assert.equal((await f.send()).status,503);assert.equal(JSON.parse(f.logs[0]).category,'missing-secret');
+});
+test('Siteverify sends correct fields once and unchanged durable retries do not revalidate',async t=>{
+ let calls=0;
+ const f=fixture(t,{fetch:async(url,options)=>{
+  calls++;assert.equal(url,'https://challenges.cloudflare.com/turnstile/v0/siteverify');assert.equal(options.method,'POST');
+  assert.equal(options.body.get('secret'),'synthetic-test-only');assert.equal(options.body.get('response'),'synthetic');
+  return new Response(JSON.stringify({success:true,hostname:'collaborativeconstructionllc.com',action:'contact'}));
+ }});
+ const submission_id=randomUUID();assert.equal((await f.send({submission_id})).status,200);assert.equal((await f.send({submission_id})).status,200);assert.equal(calls,1);assert.equal(f.logs.length,0);
 });

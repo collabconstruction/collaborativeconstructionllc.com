@@ -87,19 +87,47 @@ function safeExt(filename) {
 
 /* ---------------------------------------------------------------- turnstile */
 
+// Only fixed categories and allowlisted provider codes may enter production logs.
+const TURNSTILE_CODES = new Set([
+  "missing-input-secret", "invalid-input-secret", "missing-input-response",
+  "invalid-input-response", "bad-request", "timeout-or-duplicate", "internal-error",
+]);
+function challengeFailure(category, details = {}) {
+  console.error(JSON.stringify({ event: "intake-turnstile-rejected", category, ...details }));
+  return false;
+}
 async function verifyTurnstile(token, ip, secret, hostname) {
-  if (!secret || !token || token.length > 2048) return false;
+  if (!secret) return challengeFailure("missing-secret");
+  if (token === null || token === "") return challengeFailure("missing-token");
+  if (typeof token !== "string") return challengeFailure("invalid-token-type");
+  if (token.length > 2048) return challengeFailure("token-too-long");
   const body = new FormData();
   body.append("secret", secret);
   body.append("response", token);
   if (ip) body.append("remoteip", ip);
+  let stage = "network";
   try {
     const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
       method: "POST", body, signal: AbortSignal.timeout(8000),
     });
+    if (!res.ok) return challengeFailure("siteverify-http", { status: res.status });
+    stage = "parse";
     const data = await res.json();
-    return res.ok && data.success === true && data.hostname === hostname && data.action === "contact";
-  } catch { return false; }
+    if (!data || typeof data !== "object" || Array.isArray(data) || typeof data.success !== "boolean") {
+      return challengeFailure("siteverify-invalid-response");
+    }
+    const matches = { hostnameMatch: data.hostname === hostname, actionMatch: data.action === "contact" };
+    if (!data.success) {
+      const codes = Array.isArray(data["error-codes"]) ? data["error-codes"] : [];
+      return challengeFailure("siteverify-rejected", {
+        codes: [...new Set(codes.map(code => TURNSTILE_CODES.has(code) ? code : "unknown-code"))].slice(0, 8), ...matches,
+      });
+    }
+    if (!matches.hostnameMatch || !matches.actionMatch) return challengeFailure("siteverify-context", matches);
+    return true;
+  } catch (err) {
+    return challengeFailure(err?.name === "TimeoutError" || err?.name === "AbortError" ? "timeout" : stage + "-failure");
+  }
 }
 
 /* -------------------------------------------------------------------- email */
@@ -316,6 +344,7 @@ async function handleContact(request, env, ctx) {
   const ip = request.headers.get("cf-connecting-ip") || "unknown";
   if (!local) {
     if (!env.TURNSTILE_SECRET_KEY || !env.INTAKE_RATE_LIMITER) {
+      if (!env.TURNSTILE_SECRET_KEY) challengeFailure("missing-secret");
       return json({ ok: false, error: "Our form is temporarily unavailable. Please call or email us directly." }, 503);
     }
     try {

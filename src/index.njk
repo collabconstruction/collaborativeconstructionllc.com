@@ -246,7 +246,12 @@ preloadImage: /assets/img/belmont-pond.jpg
                 <ul class="file-list" aria-live="polite"></ul>
               </div>
               {% if intake.turnstileSiteKey %}
-              <div class="cf-turnstile" data-sitekey="{{ intake.turnstileSiteKey }}" data-action="contact"></div>
+              <script src="/js/turnstile-lifecycle.js"></script>
+              <div id="cc-turnstile" class="cf-turnstile" data-sitekey="{{ intake.turnstileSiteKey }}" data-action="contact"
+                data-callback="ccChallengeSuccess" data-expired-callback="ccChallengeExpired"
+                data-timeout-callback="ccChallengeTimeout" data-error-callback="ccChallengeError"
+                data-refresh-expired="auto" data-refresh-timeout="auto"></div>
+              <p id="challenge-status" role="status" aria-live="polite"></p>
               <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
               {% endif %}
               <noscript><p>Please call <a href="{{ business.phoneHref }}">{{ business.phone }}</a> or email <a href="mailto:{{ business.email }}">{{ business.email }}</a> to inquire without JavaScript.</p></noscript>

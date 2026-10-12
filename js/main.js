@@ -418,6 +418,11 @@
       if (!window.crypto || typeof window.crypto.randomUUID !== "function") {
         fallback("This browser cannot submit securely. Please use a current browser."); return;
       }
+      if (!window.ccChallenge || !window.ccChallenge.take(field("cf-turnstile-response")?.value)) {
+        window.ccChallenge?.reset();
+        fallback("Please complete fresh verification, then select Send Inquiry again.");
+        return;
+      }
       submissionId = submissionId || window.crypto.randomUUID();
       const payload = new FormData(form);
       if (context) Object.entries(context.get()).forEach(([key, value]) => {
@@ -456,7 +461,7 @@
         sending = false;
         controls.forEach(el => { el.disabled = false; });
         btn.textContent = original;
-        if (window.turnstile) { try { window.turnstile.reset(); } catch (_) {} }
+        window.ccChallenge?.reset();
       }
     });
   }
