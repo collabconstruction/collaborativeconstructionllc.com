@@ -49,13 +49,13 @@ export function manualSQL(data, now = new Date().toISOString(), id = randomUUID(
   // CLI runs these in a single D1 execute file. If interrupted, defaults keep the lead actionable.
   return `INSERT INTO leads(id,created_at,name,email,phone,message) VALUES(${[id,now,name,email,phone,message].map(quote).join(',')});\n${updateSQL(id,updates).replace('SELECT changes() AS changed;', '')}\nUPDATE lead_workflow SET notification_state='not_applicable' WHERE lead_id=${quote(id)};`;
 }
-export function queueSQL(now) {
+export function queueSQL(now, id) {
   return `SELECT l.*,w.*, CASE WHEN trim(w.assigned_to)='' THEN 1 ELSE 0 END AS unassigned,
     CASE WHEN w.stage NOT IN ('won','lost','not_a_fit') AND w.follow_up_due_at < ${quote(now)} THEN 1 ELSE 0 END AS overdue,
     CASE WHEN w.notification_state IN ('pending','failed','unknown') THEN 1 ELSE 0 END AS notification_exception,
     CASE WHEN w.attachment_state IN ('pending','partial','failed') OR w.attachment_warning IS NOT NULL THEN 1 ELSE 0 END AS attachment_exception,
     CASE WHEN w.stage NOT IN ('won','lost','not_a_fit') AND w.follow_up_due_at IS NULL THEN 1 ELSE 0 END AS missing_follow_up
-    FROM leads l JOIN lead_workflow w ON w.lead_id=l.id ORDER BY l.created_at DESC;`;
+    FROM leads l JOIN lead_workflow w ON w.lead_id=l.id ${id ? `WHERE l.id=${quote(id)}` : ''} ORDER BY l.created_at DESC;`;
 }
 export function reportSQL(from,to,now) {
   return `SELECT COUNT(*) AS total_inquiries,
