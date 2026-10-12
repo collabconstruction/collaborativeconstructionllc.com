@@ -28,13 +28,40 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
-    // Redirect .html URLs to clean canonical URLs (only for pages, not assets)
-    if (url.pathname.endsWith('.html') && !url.pathname.startsWith('/assets/') && !url.pathname.startsWith('/css/') && !url.pathname.startsWith('/js/')) {
-      const cleanPath = url.pathname.slice(0, -5);
-      return Response.redirect(`${url.origin}${cleanPath}${url.search}`, 301);
+    // Legacy/duplicate URL forms (old .html filenames and no-trailing-slash paths from
+    // before the current site structure). Each maps directly to its one true canonical
+    // destination with a single permanent (301) redirect -- never a chain. This list is
+    // intentionally exhaustive and static, not pattern-based string stripping: every
+    // value is already a final canonical URL, so a redirected request can never land on
+    // another key in this map. That matters because Cloudflare's own Workers Static
+    // Assets auto-trailing-slash/html-handling redirect (which otherwise serves these
+    // paths) is hard-coded to 307 and is not configurable via wrangler.jsonc -- see
+    // Cloudflare's docs on `html_handling`. These exact paths are routed through this
+    // Worker instead of straight to ASSETS (see `run_worker_first` in wrangler.jsonc)
+    // specifically so they can carry the stronger 301 canonicalization signal. Nothing
+    // else is affected: any path not listed here (including every canonical page,
+    // every asset, and /api/*) is untouched by this block.
+    const LEGACY_REDIRECTS = new Map([
+      ['/index.html', '/'],
+      ['/about', '/about/'], ['/about.html', '/about/'],
+      ['/gallery', '/gallery/'], ['/gallery.html', '/gallery/'],
+      ['/construction-advisory', '/construction-advisory/'], ['/construction-advisory.html', '/construction-advisory/'],
+      ['/adu-builder-cape-cod', '/adu-builder-cape-cod/'], ['/adu-builder-cape-cod.html', '/adu-builder-cape-cod/'],
+      ['/custom-home-builder-cape-cod', '/custom-home-builder-cape-cod/'], ['/custom-home-builder-cape-cod.html', '/custom-home-builder-cape-cod/'],
+      ['/home-additions-cape-cod', '/home-additions-cape-cod/'], ['/home-additions-cape-cod.html', '/home-additions-cape-cod/'],
+      ['/home-renovation-cape-cod', '/home-renovation-cape-cod/'], ['/home-renovation-cape-cod.html', '/home-renovation-cape-cod/'],
+      ['/general-contractor-falmouth-ma', '/general-contractor-falmouth-ma/'], ['/general-contractor-falmouth-ma.html', '/general-contractor-falmouth-ma/'],
+    ]);
+    if (LEGACY_REDIRECTS.has(url.pathname)) {
+      return Response.redirect(`${url.origin}${LEGACY_REDIRECTS.get(url.pathname)}${url.search}`, 301);
     }
 
-    // Redirect www to non-www
+    // Redirect www to non-www. In production this branch is currently unreachable: no
+    // Worker route or custom domain binds the www hostname to this Worker (confirmed via
+    // the Cloudflare API), so www requests never reach this fetch() handler at all -- they
+    // fail at the edge (522) before getting here. Left in place as defense-in-depth in
+    // case a www binding is ever added later; the actual fix for the live 522 is a
+    // zone-level Cloudflare Redirect Rule, not Worker code (see docs/HANDOFF.md).
     if (url.hostname.startsWith('www.')) {
       const nonWww = url.hostname.replace('www.', '');
       return Response.redirect(`${url.protocol}//${nonWww}${url.pathname}${url.search}`, 301);

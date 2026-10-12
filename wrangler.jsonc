@@ -28,7 +28,25 @@
   "assets": {
     "directory": "./_site",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*"]
+    // "/api/*" needs the Worker for the intake endpoint. The remaining 17 exact paths
+    // are legacy/duplicate URL forms (old .html filenames and no-trailing-slash pages)
+    // that need the Worker's own 301 redirect logic in worker/index.js instead of
+    // Cloudflare's built-in asset auto-trailing-slash redirect, which is hard-coded to
+    // 307 and not configurable. These are listed as exact literal paths, not a
+    // wildcard, so no other request (any canonical page, any asset, any future path)
+    // is routed through the Worker by this change. See docs/research/18-indexing-audit.md.
+    "run_worker_first": [
+      "/api/*",
+      "/index.html",
+      "/about", "/about.html",
+      "/gallery", "/gallery.html",
+      "/construction-advisory", "/construction-advisory.html",
+      "/adu-builder-cape-cod", "/adu-builder-cape-cod.html",
+      "/custom-home-builder-cape-cod", "/custom-home-builder-cape-cod.html",
+      "/home-additions-cape-cod", "/home-additions-cape-cod.html",
+      "/home-renovation-cape-cod", "/home-renovation-cape-cod.html",
+      "/general-contractor-falmouth-ma", "/general-contractor-falmouth-ma.html"
+    ]
   },
 
   // Existing production database: Phase 1 tables/triggers already exist.
