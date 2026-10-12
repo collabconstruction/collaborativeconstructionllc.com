@@ -47,6 +47,17 @@ Full detail, evidence, and the three highest-value next actions with effort/cost
 2. Fix the ADU page's image/caption mismatch and complete its feasibility checklist content (small effort; aligned with the one service line that has sourced local demand evidence).
 3. Resolve the Falmouth residential-exterior case study's attribution with the owner and, if confirmed, prepare it for publication (it's the only one of seven gallery projects physically inside the declared core market, and the business currently has zero case studies with verified role/process).
 
+## 5a. Git integration readiness (2026-10-12 execution sprint)
+
+Re-verified this sprint, no destructive operation run:
+
+- `codex/phase1-recovery` (pushed, `1a8c15b`) ← `main`/`origin/main` (`e2ba56b`, unrelated, unchanged) ← `phase1-release-prep` (local-only, `936cb25`) is **exactly one commit ahead** of `codex/phase1-recovery`'s tip: the documentation commit `936cb25` (`docs(phase1,phase2): record production-verified status and open Phase 2 plan`). Confirmed via `git merge-base --is-ancestor 1a8c15b 936cb25` (true).
+- **Safe integration plan, not yet executed (needs separate approval):**
+  1. Push `phase1-release-prep` to `origin` as a new branch (e.g. `origin/phase1-release-prep` or fast-forward `origin/codex/phase1-recovery` to `936cb25`) — this only adds the one documentation commit on top of already-pushed work; it changes no production code.
+  2. Separately, and only with explicit owner approval, fast-forward `main` to `936cb25` (or open a PR for review first) — `main` currently has no commits that aren't also in `936cb25`'s history, so this would be a clean fast-forward with no merge conflicts, but it is a distinct decision from pushing the recovery/prep branches.
+  3. This sprint's own new local changes (ADU content edit, `phase1-status.md` update, `14-phase2-execution-plan.md` updates, new `15-falmouth-case-study-worksheet.md`) are **not yet committed** as of this writing — see section 6 for the focused-commit plan that keeps them separate from the ~80 unrelated pre-existing uncommitted files currently in the tree (`git status --porcelain=v1 | wc -l` → 80, up from 76 after the prior session's focused commit, because this sprint's edits are sitting on top of that unchanged baseline).
+- **No push to `origin/main`, no merge into `main`, and no push of `phase1-release-prep` was performed this sprint** — all three remain pending owner approval, per the task's explicit constraint.
+
 ## 6. Next actions for whoever picks this up
 
 - **Decide whether/how to commit this session's documentation edits.** Nothing from this session (this file, `docs/phase1-status.md`, `docs/research/14-phase2-execution-plan.md`, edits to `docs/research/08-growth-plan.md`/`10-scorecard.md`/`11-decisions-and-questions.md`/`00-INDEX.md`, `docs/operations.md`, the five superseded-banner insertions) has been committed. They sit uncommitted alongside the pre-existing ~86 files of unrelated research/skills work. A focused commit covering only this session's documentation changes (not the pre-existing unrelated work, and not a destructive `add -A`) is the clean way to make this durable — do that explicitly rather than assuming it already happened.
