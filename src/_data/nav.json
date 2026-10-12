@@ -40,13 +40,13 @@
       ]
     },
     {
-      "url": "/gallery",
+      "url": "/gallery/",
       "label": "Projects",
       "key": "gallery",
       "summary": "Completed residential and commercial projects"
     },
     {
-      "url": "/about",
+      "url": "/about/",
       "label": "About",
       "key": "about",
       "summary": "About Wesleigh Behn and the company"

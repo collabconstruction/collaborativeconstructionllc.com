@@ -29,6 +29,9 @@
 | [Decisions and owner questions](11-decisions-and-questions.md) | Assumptions, unresolved facts, business choices |
 | [Templates](12-templates.md) | Evidence records, projects, leads, experiments and agent tasks |
 | [Source register](13-sources.md) | Primary reference links and evidence receipts |
+| [GSC SEO baseline](16-gsc-seo-baseline.md) | Search Console connection record, first real baseline data, indexing-gap finding, three ranked SEO improvements, full 9-page indexing re-check and sitemap/Cloudflare-access follow-on |
+| [SEO + AI-discoverability sprint report](17-seo-sprint-report.md) | Before/after, exact files changed, test evidence, remaining business-info gaps, prioritized release proposal for the structured-data/internal-link/regression-test sprint |
+| [Complete URL inventory & indexing audit](18-indexing-audit.md) | Every public URL (canonical + legacy/duplicate + www), production-verified HTTP/redirect/canonical status, full GSC classification, indexing checklist with clickable URLs, manual GSC workflow, `www` host 522 defect, `/about` stale-duplicate-index finding |
 | [Company skills](../../.agents/skills/) | Five original skills, with local Claude entrypoints |
 
 ## Evidence rules

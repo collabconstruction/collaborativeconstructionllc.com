@@ -7,7 +7,14 @@
     description     meta description
     permalink       output URL, e.g. "/about/index.html"
     canonical       canonical path, e.g. "/about"
-    schemaType      selects JSON-LD nodes: home | gallery | services | about
+    schemaType      selects JSON-LD nodes: home | gallery | services | service | about
+                    (home is implicit from url === "/"; "services" emits one
+                    Service node per entry in services.json onto a shared
+                    page (construction-advisory); "service" emits a single
+                    Service node for this page itself, named/described from
+                    this same front matter — use it on a dedicated service
+                    landing page such as the ADU/custom-home/additions/
+                    renovation/general-contractor pages)
   Optional:
     ogType          defaults to "website"
     ogTitle         defaults to title
@@ -79,7 +86,7 @@
 
   {# Generated from src/_data. Never hand-edit structured data again. #}
   <script type="application/ld+json">
-{{ { url: canonical, title: title, schemaName: schemaName, breadcrumbName: breadcrumbName, schemaType: schemaType, business: business, people: people, services: services.list } | jsonld | safe }}
+{{ { url: canonical, title: title, description: description, schemaName: schemaName, breadcrumbName: breadcrumbName, schemaType: schemaType, business: business, people: people, services: services.list } | jsonld | safe }}
   </script>
 </head>
 <body>
@@ -175,16 +182,16 @@
       <div class="footer-col">
         <h4>Recent Work</h4>
         <div class="footer-projects">
-          <a class="footer-project" href="/gallery">
+          <a class="footer-project" href="/gallery/">
             <img src="/assets/img/belmont-hero.jpg" alt="Custom cedar-clad modern home in Belmont, MA" loading="lazy">
             <span>Custom Residence<small>Belmont, MA</small></span>
           </a>
-          <a class="footer-project" href="/gallery">
+          <a class="footer-project" href="/gallery/">
             <img src="/assets/img/modern-home-4.jpg" alt="Modern custom residence in Carlisle, MA" loading="lazy">
             <span>Modern Custom Residence<small>Carlisle, MA</small></span>
           </a>
         </div>
-        <a class="footer-projects-link" href="/gallery">View full gallery &rarr;</a>
+        <a class="footer-projects-link" href="/gallery/">View full gallery &rarr;</a>
       </div>
     </div>
 
