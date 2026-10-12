@@ -7,6 +7,13 @@
   "main": "worker/index.js",
   "compatibility_date": "2025-06-01",
 
+  // Persist coded errors without request-body/customer-field logging.
+  "observability": {
+    "enabled": true,
+    "logs": { "enabled": true, "head_sampling_rate": 1, "invocation_logs": false },
+    "traces": { "enabled": true, "head_sampling_rate": 0.01 }
+  },
+
   // Serve ONLY the Eleventy build output. This previously pointed at "./", the
   // repo root, which meant every file in the repo was public and had to be
   // denied one at a time in .assetsignore. That fails open: /.git and

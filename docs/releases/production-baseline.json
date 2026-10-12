@@ -1,0 +1,79 @@
+{
+  "checked_at_utc": "2026-10-12",
+  "worker": "collaborativeconstructionllc-com",
+  "version_id": "2d3e6d9c-dfdc-4194-9ad3-38aa3f394c3d",
+  "version_created_at": "2026-10-11T16:47:50.506694Z",
+  "compatibility_date": "2025-06-01",
+  "bindings": [
+    {
+      "name": "ASSETS",
+      "type": "assets"
+    },
+    {
+      "bucket_name": "cc-lead-attachments",
+      "name": "ATTACHMENTS",
+      "type": "r2_bucket"
+    },
+    {
+      "name": "BREVO_API_KEY",
+      "type": "secret_text"
+    },
+    {
+      "database_id": "7e094c32-e89e-4efa-95ce-1133a9b4293c",
+      "id": "7e094c32-e89e-4efa-95ce-1133a9b4293c",
+      "name": "DB",
+      "type": "d1"
+    },
+    {
+      "name": "INTAKE_RATE_LIMITER",
+      "namespace_id": "10041",
+      "simple": {
+        "limit": 5,
+        "period": 60
+      },
+      "type": "ratelimit"
+    },
+    {
+      "name": "LEAD_FROM_ADDRESS",
+      "text": "website@collaborativeconstructionllc.com",
+      "type": "plain_text"
+    },
+    {
+      "name": "LEAD_INBOX",
+      "text": "collaborativeconstructiongc@gmail.com",
+      "type": "plain_text"
+    },
+    {
+      "destination_address": "collaborativeconstructiongc@gmail.com",
+      "name": "SEND_EMAIL",
+      "type": "send_email"
+    },
+    {
+      "name": "TURNSTILE_SECRET_KEY",
+      "type": "secret_text"
+    }
+  ],
+  "public_site_key": "0x4AAAAAAFT7_DoQM-wX5k4h",
+  "turnstile_widget_settings": "Not readable with existing OAuth permissions (403); no credentials changed.",
+  "gmail_destination_verified": true,
+  "database_schema_objects_matched": 12,
+  "database_rows_written": 0,
+  "database_migration_ledger": [
+    {
+      "name": "0001_existing_leads.sql",
+      "applied_at": "2026-10-11 16:12:40"
+    }
+  ],
+  "aggregate_counts_at_check": {
+    "leads": 1,
+    "workflows": 1,
+    "receipts": 0
+  },
+  "deployed_worker_sha256": "3e1cfec872b78fcc1a9d6681796a67916ebeb28c4f43b6d82cf0f391bd8abc17",
+  "public_asset_sha256": {
+    "js/main.js": "d4edf0d0079fbe9f22d0bb9a84b56687051a5b067cdfdd2a3805985cbcf9f74e",
+    "js/analytics.js": "f61cc1ae5aa6231c23e5d94a5d484d32496c51f7fec21f2b5a4b6b1534c7ca94",
+    "js/intake-context.js": "90ca6ac2ba73a3981b7d31736a5cad6c758f14313cdc02b5d1327a01f4946111",
+    "css/styles.css": "6dfc6e07ee2a6e7c2af13499c00c0faaafbd1d4d8462b493178a154fce9adf21"
+  }
+}

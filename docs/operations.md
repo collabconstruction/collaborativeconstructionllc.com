@@ -6,7 +6,7 @@ Release preparation verified October 11, 2026. This is a private local CLI, not 
 
 Production already contains both schema migrations' objects. Its migration ledger currently records only `0001_existing_leads.sql`; `0002_lead_operations.sql` was applied outside the ledger. **Do not run remote migration apply or replay either SQL file for this release.** Ledger reconciliation is separate future maintenance requiring its own review. The release command deploys code/assets only.
 
-For a fresh synthetic local database only: `npm run db:local`. The local config has no email binding and never sends notifications. Keep actual customer exports outside this repository. See [release procedure](releases/2026-10-11-intake-release.md) for deployment, verification and rollback.
+For a fresh synthetic local database only: `npm run db:local`. The local config has no email binding and never sends notifications. Keep actual customer exports outside this repository. See [release procedure](releases/2026-10-12-intake-release.md) for deployment, verification and rollback.
 
 ## Daily workflow
 

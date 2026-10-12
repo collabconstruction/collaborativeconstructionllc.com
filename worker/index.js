@@ -47,7 +47,7 @@ export default {
       try {
         return await handleContact(request, env, ctx);
       } catch {
-        console.error("intake-unexpected-error");
+        console.error(JSON.stringify({ event: "intake-unexpected-error" }));
         return json({ ok: false, error: "We could not confirm your inquiry was saved. Please retry or call us." }, 503);
       }
     }
@@ -221,7 +221,7 @@ async function sendNotification(env, lead, attachments, failedUploads = []) {
       const detail = "transport-rejected";
       // Fall through to Resend if it happens to be configured.
       if (!env.RESEND_API_KEY) return { sent: false, error: `cf-email: ${detail}` };
-      console.error("notification-primary-rejected");
+      console.error(JSON.stringify({ event: "notification-primary-rejected" }));
     }
   }
 
@@ -390,7 +390,7 @@ async function handleContact(request, env, ctx) {
     // Concurrent identical submissions race on the receipt key; only one creates a lead.
     const concurrent = await knownReceipt(env.DB, requestKey, fingerprint);
     if (concurrent) return concurrent;
-    console.error("intake-storage-failed");
+    console.error(JSON.stringify({ event: "intake-storage-failed" }));
     return json({ ok: false, error: "We could not save your inquiry. Please retry or call us." }, 503);
   }
 
@@ -419,7 +419,7 @@ async function handleContact(request, env, ctx) {
       failedCount = uploads.length;
       attachments.length = 0;
       failedUploads.splice(0, failedUploads.length, "Attachment storage could not be confirmed");
-      console.error("intake-attachment-status-unconfirmed");
+      console.error(JSON.stringify({ event: "intake-attachment-status-unconfirmed" }));
     }
   }
   const notify = (async () => {
@@ -432,7 +432,7 @@ async function handleContact(request, env, ctx) {
         env.DB.prepare("UPDATE lead_workflow SET notification_state=?,notification_attempted_at=? WHERE lead_id=?").bind(
           mail.sent ? "accepted" : "failed", new Date().toISOString(), lead.id),
       ]);
-    } catch { console.error("intake-notification-status-unconfirmed"); }
+    } catch { console.error(JSON.stringify({ event: "intake-notification-status-unconfirmed" })); }
   })();
   if (ctx?.waitUntil) ctx.waitUntil(notify);
   else await notify;
