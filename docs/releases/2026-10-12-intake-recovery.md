@@ -2,6 +2,23 @@
 
 Local fixes only. Deployment and another inquiry require explicit approval of the final SHA supplied in the handoff. Phase 1 remains incomplete until D1, workflow, private queue and actual Gmail receipt pass a real test.
 
+## Resolution — 2026-10-12, owner-confirmed PASS
+
+This recovery candidate (commit `1a8c15b7423882b1f6d2d2e14b4a835ec749b941`) was deployed. Worker version `28d3bb86-6417-4266-a3b0-c12e28f8c37f`, created 2026-10-12T16:34:30.692Z, serving 100% of production traffic. Live `js/main.js` and `js/turnstile-lifecycle.js` were independently diffed byte-for-byte against this commit and matched.
+
+A single authorized fresh-browser test inquiry was submitted 52 seconds after that deployment (2026-10-12T16:35:22.560Z / ~12:35 PM EDT). Read-only production verification found:
+
+- Turnstile passed server-side verification (the lead would not have persisted otherwise; `worker/index.js` rejects before storage on verification failure).
+- Exactly one new `leads` row and exactly one new `intake_receipts` row — no duplicate.
+- `lead_workflow` created: `stage=new`, `assigned_to=Wesleigh Behn`, `notification_state=accepted`, `next_action=Review inquiry and contact prospect`.
+- The repaired private queue CLI (`be4bf6c`) retrieved the record correctly by ID.
+- The historical lead (`d5a4b6e8`, received 2026-09-29) was unchanged — lead count went from 1 to 2 as expected, no data loss.
+- The owner independently checked `collaborativeconstructiongc@gmail.com` and confirmed the notification email actually arrived. This resolves the "transport acceptance is not inbox delivery" caveat below.
+
+**The original Turnstile 403 root cause from `production-verification.md` (04:36 UTC deployment, 12:11 PM EDT test) remains formally undiagnosed.** No diagnostic log entry was captured for that failure, and the diagnostics added in `57aac15` were not live at the time it occurred. The recovery deployment's own test succeeded without logging an `intake-turnstile-rejected` event, so the specific failure mode was out-run, not reproduced or root-caused. Treat this as resolved-in-practice. See `docs/phase1-status.md` for the consolidated current status.
+
+Recovery branch `codex/phase1-recovery` has been pushed to `origin` and fast-forward merged locally into `phase1-release-prep` (now at `1a8c15b`). It has not been merged into `main` or pushed there; that requires separate approval.
+
 ## Evidence and remaining uncertainty
 
 Production baseline remains commit `2b5f2e7ed3326a56cc71e591002ac839840ec6e8`, version `84408614-4caf-4da9-bf23-6b7c6c0bb6ab`, deployment `a79ef696-0a13-45dd-9a2a-838db7c18cc9` at 100%. Current deployment metadata was checked during recovery. The original private report is `/Users/marcusbehn/.codex/release-evidence/cc-2026-10-12/production-verification.md`.
