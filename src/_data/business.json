@@ -50,9 +50,19 @@
   "hicNumber": null,
   "insurance": null,
 
+  "_socialComment": "Two different jobs here. `googleBusinessProfile` and `facebook` identify the BUSINESS and are the sameAs set in lib/schema.js. `linkedin` is Wesleigh's PERSONAL profile: it is a footer link and is already declared on the person node in people.json, so schema.js deliberately leaves it off the business sameAs. Declaring a Person URL as a GeneralContractor's sameAs tells Google two different entity types share one identity, which is the opposite of what we need while other firms named Collaborative Construction outrank us for our own name.",
+  "_canonicalUrlComment": "Use canonical profile URLs, never share/redirect links. The old facebook value was https://www.facebook.com/share/14koskagbeC/?mibextid=wwXIfr - a share link carrying the mibextid click-tracking parameter, which redirects to the value below. A redirecting, parameterised URL is a weak sameAs signal. Verified 2026-10-13 by following the redirect.",
   "social": {
-    "facebook": "https://www.facebook.com/share/14koskagbeC/?mibextid=wwXIfr",
+    "googleBusinessProfile": "https://www.google.com/maps?cid=10110650788670469074",
+    "facebook": "https://www.facebook.com/people/Collaborative-Construction-LLC/61593017512930/",
     "linkedin": "https://www.linkedin.com/in/wesleigh-behn-a5b925187"
+  },
+
+  "_googleComment": "Identifiers for the Google Business Profile, verified 2026-10-13 by resolving the owner-supplied review link. cid is the numeric customer ID used by the canonical Maps URL above; placeId is the Places API identifier. reviewUrl is the owner-supplied link that opens the write-a-review form directly.",
+  "google": {
+    "cid": "10110650788670469074",
+    "placeId": "ChIJ5YdXQ2pxIisR0vO54lI_UIw",
+    "reviewUrl": "https://g.page/r/CdLzueJSP1CMEBM/review"
   },
 
   "images": {

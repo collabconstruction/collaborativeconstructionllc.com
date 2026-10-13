@@ -3,8 +3,15 @@ layout: base.njk
 permalink: /index.html
 canonical: /
 schemaType: home
-title: "Collaborative Construction, LLC Residential Construction & Renovation | Cape Cod & South Shore"
-description: "Collaborative Construction, LLC professional, client-centered residential construction and renovation. New construction, additions, ADUs, and remodels serving Cape Cod & the Islands and the South Shore."
+# Was 97 characters with no separator after "LLC", so it read as a run-on
+# ("...LLC Residential Construction...") and Google truncated it near 60,
+# cutting the location entirely while showing "Construction" three times.
+# Brand first and exact, then place.
+title: "Collaborative Construction, LLC | Cape Cod & South Shore Builder"
+# The old description spent its first 32 characters repeating the legal name
+# already in the title - the most valuable words in the snippet. Leads with
+# the work and closes with the phone number instead.
+description: "Collaborative Construction, LLC: home building and renovation on Cape Cod, the Islands, and the South Shore. Additions, ADUs, and remodels. Call (508) 440-6981."
 ogTitle: "Residential Construction & Renovation | Cape Cod & South Shore"
 ogDescription: "Working together, working collaboratively, to produce the highest quality construction and renovation projects. New construction, additions, ADUs, and remodels."
 shareImageAlt: "Custom home built by Collaborative Construction"

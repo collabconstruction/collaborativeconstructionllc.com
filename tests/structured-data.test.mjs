@@ -115,3 +115,46 @@ test('SERVICE_PAGE_URLS fixture matches the five dedicated service landing pages
     ].sort()
   );
 });
+
+/* ---------------------------------------------------------- brand identity */
+/* Search Console, 28 days to 2026-10-13: "collaborative construction" drew 71
+   impressions at average position 8.2 with zero clicks, and "collaborate
+   construction" another 16 at position 43.6. The company is losing its own
+   name to other firms sharing it. These assertions protect the entity signals
+   added to fix that, because all three are the kind of thing a well-meaning
+   edit silently drops. */
+
+const homeBusiness = () =>
+  render(pages[0])['@graph'].find(n => Array.isArray(n['@type']) && n['@type'].includes('GeneralContractor'));
+
+test('the business node claims the short name people actually search as alternateName', () => {
+  const node = homeBusiness();
+  assert.equal(node.name, business.name);
+  assert.equal(node.alternateName, business.shortName,
+    'alternateName must carry the short form ("Collaborative Construction"); that is the query drawing the impressions');
+  assert.notEqual(node.name, node.alternateName, 'alternateName adds nothing if it merely repeats name');
+});
+
+test('the Google Business Profile is present in the business sameAs', () => {
+  const sameAs = homeBusiness().sameAs;
+  assert.ok(sameAs.includes(business.social.googleBusinessProfile),
+    'the GBP is the strongest local entity signal available and must stay in sameAs');
+});
+
+test('the founder personal LinkedIn is never declared as the business identity', () => {
+  const sameAs = homeBusiness().sameAs;
+  assert.ok(!sameAs.includes(business.social.linkedin),
+    'social.linkedin is a Person URL, already declared on the person node; listing it here tells Google one URL identifies both a Person and a GeneralContractor');
+  // It must still be on the person, i.e. moved rather than deleted.
+  const person = render(pages[1])['@graph'].find(n => n['@type'] === 'Person');
+  assert.ok(person.sameAs.includes(business.social.linkedin));
+});
+
+test('business sameAs URLs are canonical, not share or tracking links', () => {
+  for (const url of homeBusiness().sameAs) {
+    assert.ok(!/[?&](mibextid|rdid|share_url|fbclid|utm_)/.test(url),
+      `${url} carries a tracking/share parameter; a redirecting URL is a weak sameAs signal`);
+    assert.ok(!url.includes('/share/'),
+      `${url} is a share redirect rather than the canonical profile URL`);
+  }
+});
