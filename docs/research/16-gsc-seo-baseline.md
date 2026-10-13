@@ -2,6 +2,55 @@
 
 **Connected and verified 2026-10-12.** Status: **Search Console only** moves from "Unknown — not connected" to **connected, read-only, verified with live data**. GA4 and Google Business Profile are still unconnected — see `06-data-access.md`. This file is the source of truth for the GSC connection record and the first baseline; other files link here rather than repeating the numbers.
 
+---
+
+## UPDATE 2026-10-13 — the indexing gap has closed; improvement #1 is done
+
+**Every indexing claim below this banner is now stale.** Re-ran the same read-only batch URL inspection on 2026-10-13 against all 9 public URLs:
+
+| Result | Count |
+|---|---|
+| `PASS — Submitted and indexed` | **9 of 9** |
+| `URL is unknown to Google` | **0** |
+
+That includes both pages this document singles out as never indexed — `/adu-builder-cape-cod/` (crawled 2026-10-13T16:15Z) and `/general-contractor-falmouth-ma/` (crawled 2026-10-12T22:08Z) — plus `/about/`, `/construction-advisory/`, `/custom-home-builder-cape-cod/`, `/home-additions-cape-cod/` and `/home-renovation-cape-cod/`. All 9 report breadcrumb rich results; all were crawled as MOBILE.
+
+**The diagnosis in "no technical indexing blocker exists" below was correct.** It attributed the gap to ordinary crawl-discovery lag rather than a defect, and predicted the state would flip on a re-check in 5–7 days. It flipped in one. No indexing remediation was needed or performed.
+
+**Consequences for the ranked improvements below:**
+
+- **Improvement #1 (get the pages indexed) is complete.** Do not spend effort on it. Anything in this file or in `14-phase2-execution-plan.md` that ranks indexing as the top action is superseded.
+- **The "research target, not confirmed zero demand" caveat is now resolvable.** Indexed pages can accumulate query data, so ADU/additions/custom-home demand becomes genuinely measurable from roughly late October 2026. Re-pull then; do not treat today's zero rows as either confirmed demand or confirmed absence.
+- **Improvement #2 (title/snippet CTR) is now the top on-site lever**, and the first slice of it shipped 2026-10-13 — see below.
+
+### New headline finding: the company is losing its own brand term
+
+28-day window to 2026-10-13:
+
+| Query | Impressions | Avg. position | Clicks |
+|---|---|---|---|
+| `collaborative construction` | 71 | 8.2 | **0** |
+| `collaborate construction` | 16 | 43.6 | **0** |
+| `collaborative construction solutions` | 7 | 41.6 | 0 |
+
+~94 impressions on the company's **own name**, converting **zero** clicks, because other firms sharing the name outrank it. This is now the highest-value organic gap — cheaper than earning new rankings, and it needs no new content.
+
+Three on-site causes were found and fixed (commit `9e9245d`, deployed as Worker version `77344f5d-dcbf-4ed3-90b7-0a45d4514b44`):
+
+1. **No `alternateName`.** The schema claimed only "Collaborative Construction, LLC" while the query drawing the impressions is the short form. Now emits the existing owner-confirmed `shortName` on the business and WebSite nodes.
+2. **`sameAs` omitted the Google Business Profile** — the strongest local entity signal — while including the founder's personal LinkedIn, which is already the person node's `sameAs`. That declared one URL as the identity of both a Person and a GeneralContractor. `sameAs` is now built explicitly from business-entity profiles.
+3. **Both `sameAs` URLs were non-canonical.** The Facebook value was a `/share/` redirect carrying a `mibextid` tracking parameter.
+
+GBP identifiers, derived by resolving the owner-supplied review link rather than guessed, are now recorded in `business.json`: cid `10110650788670469074`, placeId `ChIJ5YdXQ2pxIisR0vO54lI_UIw`.
+
+Also fixed: the homepage `<title>` was 97 characters with no separator after "LLC", so it read as a run-on and Google truncated it near 60 — cutting the location entirely while showing "Construction" three times. Now 68 characters, brand first. The meta description spent its first 32 characters repeating the legal name already in the title; it now leads with the work and closes with the phone number.
+
+**Honest limit:** on-site entity signals improve disambiguation and CTR, but outranking other same-named firms for a generic brand term depends substantially on the Google Business Profile and off-site signals that cannot be changed from the repository.
+
+**Other movement (28d vs. prior 28d):** position 10.7 → 6.9, CTR 1.50% → 2.26%, clicks 8 → 9, impressions 534 → 398 (−25.5%). **9 clicks is far too small a sample to call a trend** — do not report any of these deltas as a result.
+
+---
+
 ## Connection record
 
 - **Package**: `mcp-server-google-search-console` (community package, reviewed before install).
