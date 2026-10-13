@@ -190,7 +190,7 @@
       layer.className = "spark-layer";
       document.body.appendChild(layer);
     }
-    const tints = ["232,214,163", "205,141,5", "255,255,255", "204,184,121"]; // gold / amber / white
+    const tints = ["247,200,166", "217,83,30", "255,255,255", "236,138,90"]; // light orange / orange / white
     const dirX = forward ? -1 : 1;
     for (let i = 0; i < 26; i++) {
       const d = document.createElement("span");
@@ -529,7 +529,7 @@
           showFormModal(
             "Thank You!",
             "Your message has been received. We'll be in touch shortly.",
-            "#cd8d05"
+            "#d9531e"
           );
 
           // Only fire the conversion once the server has confirmed the lead.
@@ -566,7 +566,7 @@
     sparkLayer.className = "spark-layer";
     document.body.appendChild(sparkLayer);
 
-    const COLORS = ["#cd8d05", "#ccb879", "#e8d6a3", "#9c2b22"]; // amber, gold, light gold, maroon
+    const COLORS = ["#d9531e", "#ec8a5a", "#f7c8a6", "#2b2d31"]; // orange, mid orange, light orange, charcoal
     const SEL = ".btn, .nav a, .socials a, .to-top, .carousel__btn, .carousel__dots button, " +
                 ".info-list a, .dropzone, .file-pill, .footer-links a, .footer-contact a, .adu-card, .brand";
 
@@ -618,7 +618,7 @@
           const size = 2 + Math.random() * 2;
           d.style.cssText =
             `left:${e.clientX}px; top:${e.clientY}px; width:${size}px; height:${size}px;` +
-            `background:radial-gradient(circle, rgba(205,141,5,.8), rgba(205,141,5,0) 70%);`;
+            `background:radial-gradient(circle, rgba(217,83,30,.8), rgba(217,83,30,0) 70%);`;
           sparkLayer.appendChild(d);
           const ang = Math.random() * Math.PI * 2;
           const dist = 8 + Math.random() * 14;
@@ -656,7 +656,7 @@
       const size = 2 + Math.random() * 5;
       const x = Math.random() * window.innerWidth;
       const y = Math.random() * window.innerHeight;
-      const tints = ["232,214,163", "205,141,5", "255,255,255", "204,184,121"]; // gold / amber / white
+      const tints = ["247,200,166", "217,83,30", "255,255,255", "236,138,90"]; // light orange / orange / white
       const c = tints[(Math.random() * tints.length) | 0];
       d.style.cssText =
         `left:${x}px; top:${y}px; width:${size}px; height:${size}px;` +
@@ -786,34 +786,34 @@
     // Keep y between 25%–75% so nothing clips at section top/bottom edges
     const SPOT_TARGETS = [
       { sel: ".section.about", spots: [
-        { x: "28%", y: "45%", s: 300, c: "205,141,5",   op: .22, a: "ambFloat1", d: "16s" },
-        { x: "72%", y: "40%", s: 260, c: "232,214,163", op: .20, a: "ambFloat2", d: "20s" },
-        { x: "50%", y: "60%", s: 240, c: "204,184,121", op: .18, a: "ambFloat3", d: "24s" },
+        { x: "28%", y: "45%", s: 300, c: "217,83,30",   op: .22, a: "ambFloat1", d: "16s" },
+        { x: "72%", y: "40%", s: 260, c: "247,200,166", op: .20, a: "ambFloat2", d: "20s" },
+        { x: "50%", y: "60%", s: 240, c: "236,138,90", op: .18, a: "ambFloat3", d: "24s" },
       ]},
       // about-page-hero and gallery-intro are short header sections — page-glow
       // already covers them; section spots here create a visible lighter patch.
       { sel: ".about-page-body", spots: [
-        { x: "28%", y: "40%", s: 340, c: "205,141,5",   op: .13, a: "ambFloat2", d: "17s" },
-        { x: "70%", y: "52%", s: 300, c: "232,214,163", op: .12, a: "ambFloat1", d: "21s" },
-        { x: "50%", y: "68%", s: 280, c: "204,184,121", op: .11, a: "ambFloat3", d: "25s" },
+        { x: "28%", y: "40%", s: 340, c: "217,83,30",   op: .13, a: "ambFloat2", d: "17s" },
+        { x: "70%", y: "52%", s: 300, c: "247,200,166", op: .12, a: "ambFloat1", d: "21s" },
+        { x: "50%", y: "68%", s: 280, c: "236,138,90", op: .11, a: "ambFloat3", d: "25s" },
       ]},
       // projects: start spots at 28%+ so they don't bleed into the divider above
       { sel: ".projects", spots: [
-        { x: "28%", y: "28%", s: 320, c: "205,141,5",   op: .13, a: "ambFloat2", d: "22s" },
-        { x: "70%", y: "32%", s: 300, c: "232,214,163", op: .12, a: "ambFloat1", d: "26s" },
-        { x: "32%", y: "55%", s: 320, c: "204,184,121", op: .12, a: "ambFloat3", d: "19s" },
-        { x: "66%", y: "60%", s: 300, c: "205,141,5",   op: .13, a: "ambFloat2", d: "23s" },
-        { x: "48%", y: "82%", s: 300, c: "232,214,163", op: .11, a: "ambFloat1", d: "20s" },
+        { x: "28%", y: "28%", s: 320, c: "217,83,30",   op: .13, a: "ambFloat2", d: "22s" },
+        { x: "70%", y: "32%", s: 300, c: "247,200,166", op: .12, a: "ambFloat1", d: "26s" },
+        { x: "32%", y: "55%", s: 320, c: "236,138,90", op: .12, a: "ambFloat3", d: "19s" },
+        { x: "66%", y: "60%", s: 300, c: "217,83,30",   op: .13, a: "ambFloat2", d: "23s" },
+        { x: "48%", y: "82%", s: 300, c: "247,200,166", op: .11, a: "ambFloat1", d: "20s" },
       ]},
       // Construction Advisory page — Owner's PM + Clerk-of-the-Works sections
       { sel: ".advisory-pm", spots: [
-        { x: "26%", y: "34%", s: 320, c: "205,141,5",   op: .12, a: "ambFloat2", d: "22s" },
-        { x: "72%", y: "30%", s: 300, c: "232,214,163", op: .11, a: "ambFloat1", d: "26s" },
-        { x: "50%", y: "60%", s: 300, c: "204,184,121", op: .10, a: "ambFloat3", d: "20s" },
+        { x: "26%", y: "34%", s: 320, c: "217,83,30",   op: .12, a: "ambFloat2", d: "22s" },
+        { x: "72%", y: "30%", s: 300, c: "247,200,166", op: .11, a: "ambFloat1", d: "26s" },
+        { x: "50%", y: "60%", s: 300, c: "236,138,90", op: .10, a: "ambFloat3", d: "20s" },
       ]},
       { sel: ".advisory-clerk", spots: [
-        { x: "30%", y: "42%", s: 320, c: "205,141,5",   op: .12, a: "ambFloat1", d: "19s" },
-        { x: "70%", y: "50%", s: 300, c: "232,214,163", op: .11, a: "ambFloat2", d: "23s" },
+        { x: "30%", y: "42%", s: 320, c: "217,83,30",   op: .12, a: "ambFloat1", d: "19s" },
+        { x: "70%", y: "50%", s: 300, c: "247,200,166", op: .11, a: "ambFloat2", d: "23s" },
       ]},
     ];
 
