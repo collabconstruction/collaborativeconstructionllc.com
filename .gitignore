@@ -2,7 +2,8 @@
 .DS_Store
 
 # Editor / tooling
-.claude/
+.claude/*
+!.claude/skills/
 .dev.vars
 
 # Dependencies
@@ -19,3 +20,16 @@ _site/
 
 # Pre-migration snapshot of the live site, used only to diff the migration.
 .baseline/
+
+# Business exports and secrets are private; store outside this repo by preference.
+/research-private/
+/docs/research/private/
+
+# Google OAuth client credentials and tokens must never live in this repo.
+# Canonical private location: ~/.cc-private/gsc/oauth-client.json (outside this tree).
+client_secret*.json
+*.apps.googleusercontent.com.json
+oauth-client.json
+token.json
+credentials.json
+.cc-private/
