@@ -108,8 +108,14 @@
 
   <header class="site-header">
     <div class="container header-inner">
+      {#- logo-header.png already draws the gold house mark as part of the
+          wordmark (see the .brand .logo comment below), so the separate
+          c-icon.png badge that used to sit beside it was a second house icon
+          next to a logo that already has one. Mobile hid the duplicate under
+          940px already (css/styles.css, "logo-header.png already contains the
+          house mark") with the rationale that it cost 54px of a 390px bar;
+          the same duplication was still rendering, unhidden, above 940px. #}
       <a class="brand" href="/" aria-label="{{ business.shortName }} home">
-        <img class="c-badge" src="{{ business.images.badge }}" alt="">
         <img class="logo" src="{{ business.images.logoHeader }}" alt="{{ business.shortName }}">
       </a>
       <div class="header-right">

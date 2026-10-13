@@ -12,7 +12,7 @@ twitterDescription: "Home additions and ADUs on Cape Cod with over 30 years of c
 schemaName: "Home Additions Cape Cod"
 breadcrumbName: "Home Additions"
 ---
-
+{% from "faq.njk" import faq %}
     <!-- ============================ HERO ============================ -->
     <section class="about-page-hero">
       <div class="container">
@@ -141,6 +141,25 @@ breadcrumbName: "Home Additions"
         <p class="advisory-lede">You can ask about the proposed project team, relevant experience and communication approach when discussing fit. Availability and the specific scope need to be confirmed for your project.</p>
       </div>
     </section>
+
+    <div class="section-divider" data-reveal aria-hidden="true">
+      <span class="line"></span><span class="gem"></span><span class="line r"></span>
+    </div>
+
+    {{ faq([
+      {
+        "q": "What types of additions do you build?",
+        "a": "Attached additions, detached structures, second-story additions, and accessory dwelling units (ADUs), designed to integrate seamlessly with the existing structure."
+      },
+      {
+        "q": "How is permitting for an addition or ADU handled?",
+        "a": "We coordinate with local permitting authorities through zoning review, permit applications, and construction documentation. For ADUs specifically, we stay current with Massachusetts regulations that affect accessory dwelling units."
+      },
+      {
+        "q": "What do you need from me to start?",
+        "a": "How you want to use the additional space and where the property is on Cape Cod. Existing structure, site access, and local requirements can affect the options; the next step may be a site discussion and drawing review before an agreed scope and estimate."
+      }
+    ], "Questions About Home Additions") }}
 
     <!-- ============================ CTA ============================ -->
     <section class="section adu svc-cta">

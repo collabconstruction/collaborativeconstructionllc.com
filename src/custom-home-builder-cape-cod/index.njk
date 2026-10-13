@@ -12,7 +12,7 @@ twitterDescription: "Custom home builder on Cape Cod with over 30 years of const
 schemaName: "Custom Home Builder Cape Cod"
 breadcrumbName: "Custom Homes"
 ---
-
+{% from "faq.njk" import faq %}
     <!-- ============================ HERO ============================ -->
     <section class="about-page-hero">
       <div class="container">
@@ -203,6 +203,25 @@ breadcrumbName: "Custom Homes"
         <p class="advisory-lede">You can ask about the proposed project team, relevant experience and communication approach when discussing fit. Availability and the specific scope need to be confirmed for your project.</p>
       </div>
     </section>
+
+    <div class="section-divider" data-reveal aria-hidden="true">
+      <span class="line"></span><span class="gem"></span><span class="line r"></span>
+    </div>
+
+    {{ faq([
+      {
+        "q": "What does the custom home process look like?",
+        "a": "Three stages: design consultation to shape your vision into a buildable plan, pre-construction covering permitting, budget refinement, material selection and scheduling, and construction with regular updates through a single point of contact."
+      },
+      {
+        "q": "What styles of homes do you build?",
+        "a": "A range of architectural styles, from modern designs with extensive glazing to traditional Cape Cod and New England homes, including complex features such as custom millwork, stone flooring, floating stairs, and board-formed concrete."
+      },
+      {
+        "q": "What do you need from me to start?",
+        "a": "Where you plan to build on Cape Cod, whether you have a site, and where you are in the design process. Site conditions, approvals, drawings, and specifications inform the construction scope before a price or start date can be established."
+      }
+    ], "Questions About Custom Homes") }}
 
     <!-- ============================ CTA ============================ -->
     <section class="section adu svc-cta">

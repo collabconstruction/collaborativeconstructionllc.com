@@ -12,7 +12,7 @@ twitterDescription: "ADU builder on Cape Cod with over 30 years of construction 
 schemaName: "ADU Builder Cape Cod"
 breadcrumbName: "ADU Builder"
 ---
-
+{% from "faq.njk" import faq %}
     <!-- ============================ HERO ============================ -->
     <section class="about-page-hero">
       <div class="container">
@@ -166,6 +166,24 @@ breadcrumbName: "ADU Builder"
     <div class="section-divider" data-reveal aria-hidden="true">
       <span class="line"></span><span class="gem"></span><span class="line r"></span>
     </div>
+
+    {#- Process questions only here — the feasibility checklist directly
+        below already covers state law, local zoning, site constraints and
+        economics, so repeating those as FAQ items would just duplicate it. -#}
+    {{ faq([
+      {
+        "q": "Do you build both detached and attached ADUs?",
+        "a": "Yes — detached structures such as garage apartments and backyard cottages, attached additions with separate entrances, and interior conversions of existing basements, attics, or garages."
+      },
+      {
+        "q": "What's the first step to explore an ADU on my property?",
+        "a": "Share the Cape Cod property town and whether you are considering an attached unit, detached unit, or conversion. Feasibility depends on the site, utilities, and applicable local requirements — see the checklist below before assuming a property qualifies."
+      },
+      {
+        "q": "Who handles the zoning, code, and utility questions?",
+        "a": "We work with you to design an ADU that meets your needs, fits your property, and complies with local requirements, and we coordinate foundation work, framing, electrical, plumbing, HVAC, and finishes so there is a single point of accountability."
+      }
+    ], "Questions About ADUs") }}
 
     <!-- ============================ ADU FEASIBILITY CHECKLIST ============================ -->
     <section class="section">

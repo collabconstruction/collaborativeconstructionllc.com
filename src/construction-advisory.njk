@@ -11,7 +11,7 @@ shareImageAlt: "A Collaborative Construction project under management"
 twitterDescription: "Owner's project management, Clerk of the Works oversight, and construction advisory on Cape Cod and the South Shore."
 schemaName: "Construction Management"
 ---
-
+{% from "faq.njk" import faq %}
     <!-- ============================ HERO ============================ -->
     <section class="about-page-hero">
       <div class="container">
@@ -217,6 +217,25 @@ schemaName: "Construction Management"
         <p class="advisory-lede">Before engagement, confirm relevant experience, availability, reporting frequency, authority and deliverables. Design, permitting and contractor responsibilities should be explicit in the agreed scope.</p>
       </div>
     </section>
+
+    <div class="section-divider" data-reveal aria-hidden="true">
+      <span class="line"></span><span class="gem"></span><span class="line r"></span>
+    </div>
+
+    {{ faq([
+      {
+        "q": "What's the difference between Owner's Project Management, Clerk of the Works, and Construction Advisory?",
+        "a": "Owner's Project Management represents you end to end, hands-on through entitlement, procurement, design, construction buy-out, and close-out. Clerk of the Works is on-site supervision throughout every building activity, focused on cost containment and quality control. Construction Advisory does not manage the job site day to day &mdash; it provides high-level risk management and specialized technical foresight, acting as an executive sounding board alongside your Owner's Rep."
+      },
+      {
+        "q": "What do you need from me to get started?",
+        "a": "The town, project stage, your role, and the decisions you need help with. A first conversation can clarify whether owner's representation, Clerk of the Works support, or a focused advisory scope is appropriate."
+      },
+      {
+        "q": "What should be confirmed before engagement?",
+        "a": "Relevant experience, availability, reporting frequency, authority, and deliverables. Design, permitting, and contractor responsibilities should be explicit in the agreed scope."
+      }
+    ], "Questions About Construction Advisory") }}
 
     <!-- ============================ CTA BAND ============================ -->
     <section class="section adu svc-cta">

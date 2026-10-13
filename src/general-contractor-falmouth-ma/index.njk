@@ -12,7 +12,7 @@ twitterDescription: "General contracting services in Falmouth, MA and Cape Cod w
 schemaName: "General Contractor Falmouth"
 breadcrumbName: "General Contractor"
 ---
-
+{% from "faq.njk" import faq %}
     <!-- ============================ HERO ============================ -->
     <section class="about-page-hero">
       <div class="container">
@@ -141,6 +141,29 @@ breadcrumbName: "General Contractor"
         <p class="advisory-lede">You can ask about the proposed project team, relevant experience and communication approach when discussing fit. Availability and the specific scope need to be confirmed for your project.</p>
       </div>
     </section>
+
+    <div class="section-divider" data-reveal aria-hidden="true">
+      <span class="line"></span><span class="gem"></span><span class="line r"></span>
+    </div>
+
+    {{ faq([
+      {
+        "q": "What does Collaborative Construction handle as general contractor?",
+        "a": "Design coordination, permitting, subcontractor management, scheduling, and quality control, with a single point of contact for the entire build."
+      },
+      {
+        "q": "What areas do you serve?",
+        "a": "Falmouth, Mashpee, Barnstable, Sandwich, and surrounding communities across Cape Cod, the Islands, and the South Shore."
+      },
+      {
+        "q": "What do you need from me to start?",
+        "a": "The project town, the work you have in mind, and any drawings you already have. A first conversation establishes service-area fit and the next information needed."
+      },
+      {
+        "q": "When are scope, price, and schedule decided?",
+        "a": "Before construction begins, the scope, permitting responsibilities, price, and schedule need to be agreed. You can ask about the proposed project team, relevant experience, and communication approach when discussing fit."
+      }
+    ], "Questions About General Contracting") }}
 
     <!-- ============================ CTA ============================ -->
     <section class="section adu svc-cta">

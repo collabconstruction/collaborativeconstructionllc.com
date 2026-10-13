@@ -1,0 +1,32 @@
+{#- Shared FAQ/disclosure pattern — adapted from the MIT pattern lab's
+    "04 / NATIVE DISCLOSURES" study
+    (~/.claude/skills/creative-website-design/assets/pattern-lab/index.html).
+    Only the idea is reused (native <details>/<summary>, no JS, one item
+    open by convention): the markup, classes and copy here are this
+    project's own, scoped to css/styles.css design tokens rather than the
+    pattern lab's standalone stylesheet.
+
+    Every answer passed in must restate something already said elsewhere on
+    the same page or on an already-approved page (business.json, the page's
+    own body copy) — this macro does not get to introduce a new claim,
+    price, promise or credential. Callers own that; this file only renders
+    whatever strings they pass. -#}
+{% macro faq(items, heading = "Common Questions", eyebrow = "Before You Reach Out") %}
+<section class="section faq" aria-label="{{ heading }}">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow">{{ eyebrow }}</span>
+      <h2 data-reveal-words>{{ heading }}</h2>
+      <hr class="rule">
+    </div>
+    <div class="faq-list" data-reveal>
+      {%- for item in items %}
+      <details class="faq-item"{% if loop.first %} open{% endif %}>
+        <summary>{{ item.q }}</summary>
+        <div class="faq-item__body"><p>{{ item.a | safe }}</p></div>
+      </details>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+{% endmacro %}
