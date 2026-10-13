@@ -191,7 +191,7 @@
       layer.className = "spark-layer";
       document.body.appendChild(layer);
     }
-    const tints = ["232,214,163", "205,141,5", "255,255,255", "204,184,121"]; // gold / amber / white
+    const tints = ["243,182,140", "217,83,30", "255,255,255", "232,121,58"]; // gold / amber / white
     const dirX = forward ? -1 : 1;
     for (let i = 0; i < 26; i++) {
       const d = document.createElement("span");
@@ -475,7 +475,7 @@
     sparkLayer.className = "spark-layer";
     document.body.appendChild(sparkLayer);
 
-    const COLORS = ["#cd8d05", "#ccb879", "#e8d6a3", "#9c2b22"]; // amber, gold, light gold, maroon
+    const COLORS = ["#d9531e", "#e8793a", "#f3b68c", "#2b2d31"]; // amber, gold, light gold, charcoal
     const SEL = ".btn, .nav a, .socials a, .to-top, .carousel__btn, .carousel__dots button, " +
                 ".info-list a, .dropzone, .file-pill, .footer-links a, .footer-contact a, .adu-card, .brand";
 
@@ -501,55 +501,8 @@
       ).onfinish = () => d.remove();
     }
 
-    /* ----------------------------------------------------------------------
-       Custom cursor — a small maroon dot with a gold ring that trails the
-       pointer. Skipped on touch devices (no hover/pointer to draw there,
-       and forcing cursor:none would just hide the native tap feedback).
-    ---------------------------------------------------------------------- */
-    if (!window.matchMedia("(pointer: coarse)").matches) {
-      document.documentElement.classList.add("cc-cursor-on");
-      const cursorEl = document.createElement("div");
-      cursorEl.className = "cc-cursor";
-      cursorEl.innerHTML = '<span class="cc-cursor__ring"></span><span class="cc-cursor__dot"></span>';
-      document.body.appendChild(cursorEl);
-
-      let lastMote = 0;
-      window.addEventListener("mousemove", (e) => {
-        cursorEl.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-
-        // Sparse trailing motes — deliberately rare and tiny so ordinary
-        // movement stays quiet. Buttons already get a full burst on click.
-        const now = performance.now();
-        if (now - lastMote > 110 && Math.random() < 0.4) {
-          lastMote = now;
-          const d = document.createElement("span");
-          d.className = "dust";
-          const size = 2 + Math.random() * 2;
-          d.style.cssText =
-            `left:${e.clientX}px; top:${e.clientY}px; width:${size}px; height:${size}px;` +
-            `background:radial-gradient(circle, rgba(205,141,5,.8), rgba(205,141,5,0) 70%);`;
-          sparkLayer.appendChild(d);
-          const ang = Math.random() * Math.PI * 2;
-          const dist = 8 + Math.random() * 14;
-          d.animate(
-            [
-              { transform: "translate(-50%,-50%) scale(.5)", opacity: .5 },
-              { transform: `translate(calc(-50% + ${Math.cos(ang) * dist}px), calc(-50% + ${Math.sin(ang) * dist}px)) scale(1)`, opacity: 0 }
-            ],
-            { duration: 500, easing: "ease-out" }
-          ).onfinish = () => d.remove();
-        }
-      }, { passive: true });
-
-      const HOVER_SEL = "a, button, .btn, input, textarea, select, label, .to-top, .dropzone, .file-pill";
-      document.addEventListener("pointerover", (e) => {
-        cursorEl.classList.toggle("is-active", !!e.target.closest(HOVER_SEL));
-      });
-      document.addEventListener("pointerdown", () => cursorEl.classList.add("is-down"));
-      document.addEventListener("pointerup", () => cursorEl.classList.remove("is-down"));
-      document.addEventListener("mouseleave", () => { cursorEl.style.opacity = "0"; });
-      document.addEventListener("mouseenter", () => { cursorEl.style.opacity = "1"; });
-    }
+    // Custom cursor removed — the site now uses the browser/OS default
+    // cursor everywhere (no .cc-cursor-on class is ever added to <html>).
 
     // Burst only on click of an interactive element
     document.addEventListener("pointerdown", (e) => {
@@ -565,7 +518,7 @@
       const size = 2 + Math.random() * 5;
       const x = Math.random() * window.innerWidth;
       const y = Math.random() * window.innerHeight;
-      const tints = ["232,214,163", "205,141,5", "255,255,255", "204,184,121"]; // gold / amber / white
+      const tints = ["243,182,140", "217,83,30", "255,255,255", "232,121,58"]; // gold / amber / white
       const c = tints[(Math.random() * tints.length) | 0];
       d.style.cssText =
         `left:${x}px; top:${y}px; width:${size}px; height:${size}px;` +
@@ -695,34 +648,34 @@
     // Keep y between 25%–75% so nothing clips at section top/bottom edges
     const SPOT_TARGETS = [
       { sel: ".section.about", spots: [
-        { x: "28%", y: "45%", s: 300, c: "205,141,5",   op: .22, a: "ambFloat1", d: "16s" },
-        { x: "72%", y: "40%", s: 260, c: "232,214,163", op: .20, a: "ambFloat2", d: "20s" },
-        { x: "50%", y: "60%", s: 240, c: "204,184,121", op: .18, a: "ambFloat3", d: "24s" },
+        { x: "28%", y: "45%", s: 300, c: "217,83,30",   op: .22, a: "ambFloat1", d: "16s" },
+        { x: "72%", y: "40%", s: 260, c: "243,182,140", op: .20, a: "ambFloat2", d: "20s" },
+        { x: "50%", y: "60%", s: 240, c: "232,121,58", op: .18, a: "ambFloat3", d: "24s" },
       ]},
       // about-page-hero and gallery-intro are short header sections — page-glow
       // already covers them; section spots here create a visible lighter patch.
       { sel: ".about-page-body", spots: [
-        { x: "28%", y: "40%", s: 340, c: "205,141,5",   op: .13, a: "ambFloat2", d: "17s" },
-        { x: "70%", y: "52%", s: 300, c: "232,214,163", op: .12, a: "ambFloat1", d: "21s" },
-        { x: "50%", y: "68%", s: 280, c: "204,184,121", op: .11, a: "ambFloat3", d: "25s" },
+        { x: "28%", y: "40%", s: 340, c: "217,83,30",   op: .13, a: "ambFloat2", d: "17s" },
+        { x: "70%", y: "52%", s: 300, c: "243,182,140", op: .12, a: "ambFloat1", d: "21s" },
+        { x: "50%", y: "68%", s: 280, c: "232,121,58", op: .11, a: "ambFloat3", d: "25s" },
       ]},
       // projects: start spots at 28%+ so they don't bleed into the divider above
       { sel: ".projects", spots: [
-        { x: "28%", y: "28%", s: 320, c: "205,141,5",   op: .13, a: "ambFloat2", d: "22s" },
-        { x: "70%", y: "32%", s: 300, c: "232,214,163", op: .12, a: "ambFloat1", d: "26s" },
-        { x: "32%", y: "55%", s: 320, c: "204,184,121", op: .12, a: "ambFloat3", d: "19s" },
-        { x: "66%", y: "60%", s: 300, c: "205,141,5",   op: .13, a: "ambFloat2", d: "23s" },
-        { x: "48%", y: "82%", s: 300, c: "232,214,163", op: .11, a: "ambFloat1", d: "20s" },
+        { x: "28%", y: "28%", s: 320, c: "217,83,30",   op: .13, a: "ambFloat2", d: "22s" },
+        { x: "70%", y: "32%", s: 300, c: "243,182,140", op: .12, a: "ambFloat1", d: "26s" },
+        { x: "32%", y: "55%", s: 320, c: "232,121,58", op: .12, a: "ambFloat3", d: "19s" },
+        { x: "66%", y: "60%", s: 300, c: "217,83,30",   op: .13, a: "ambFloat2", d: "23s" },
+        { x: "48%", y: "82%", s: 300, c: "243,182,140", op: .11, a: "ambFloat1", d: "20s" },
       ]},
       // Construction Advisory page — Owner's PM + Clerk-of-the-Works sections
       { sel: ".advisory-pm", spots: [
-        { x: "26%", y: "34%", s: 320, c: "205,141,5",   op: .12, a: "ambFloat2", d: "22s" },
-        { x: "72%", y: "30%", s: 300, c: "232,214,163", op: .11, a: "ambFloat1", d: "26s" },
-        { x: "50%", y: "60%", s: 300, c: "204,184,121", op: .10, a: "ambFloat3", d: "20s" },
+        { x: "26%", y: "34%", s: 320, c: "217,83,30",   op: .12, a: "ambFloat2", d: "22s" },
+        { x: "72%", y: "30%", s: 300, c: "243,182,140", op: .11, a: "ambFloat1", d: "26s" },
+        { x: "50%", y: "60%", s: 300, c: "232,121,58", op: .10, a: "ambFloat3", d: "20s" },
       ]},
       { sel: ".advisory-clerk", spots: [
-        { x: "30%", y: "42%", s: 320, c: "205,141,5",   op: .12, a: "ambFloat1", d: "19s" },
-        { x: "70%", y: "50%", s: 300, c: "232,214,163", op: .11, a: "ambFloat2", d: "23s" },
+        { x: "30%", y: "42%", s: 320, c: "217,83,30",   op: .12, a: "ambFloat1", d: "19s" },
+        { x: "70%", y: "50%", s: 300, c: "243,182,140", op: .11, a: "ambFloat2", d: "23s" },
       ]},
     ];
 
