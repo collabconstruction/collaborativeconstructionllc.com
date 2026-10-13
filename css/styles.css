@@ -41,6 +41,42 @@
   --shadow-md: 0 12px 34px rgba(26, 26, 26, .12);
   --shadow-lg: 0 26px 60px rgba(26, 26, 26, .18);
   --ease: cubic-bezier(.22, .61, .36, 1);
+
+  /* ---- Type scale (October 2026 refresh) ------------------------------
+     Previously every heading hand-rolled its own clamp(), which is how the
+     contact eyebrow ended up LARGER than the h2 it sat above. These six
+     steps are the whole scale; components reference a step instead of
+     inventing a size, so hierarchy can't silently invert again.
+     Ratio ~1.25 at mobile widening to ~1.33 at desktop. */
+  --step--1: clamp(.82rem, .79rem + .14vw, .9rem);
+  --step-0:  clamp(1rem, .96rem + .2vw, 1.0625rem);
+  --step-1:  clamp(1.2rem, 1.12rem + .4vw, 1.44rem);
+  --step-2:  clamp(1.45rem, 1.3rem + .75vw, 1.95rem);
+  --step-3:  clamp(1.75rem, 1.5rem + 1.25vw, 2.6rem);
+  --step-4:  clamp(2.1rem, 1.7rem + 2vw, 3.4rem);
+  --step-5:  clamp(2.5rem, 1.9rem + 3vw, 4.2rem);
+
+  /* ---- Spacing scale --------------------------------------------------
+     8px base. Section rhythm used to be a flat 96px everywhere, which read
+     as dead space on a phone and cramped on a wide screen; --space-section
+     scales with the viewport instead. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-section: clamp(56px, 7vw, 104px);
+
+  /* Measure caps. The hero motto was max-width:16ch, which wrapped a single
+     sentence onto seven lines; --measure-display is the replacement. */
+  --measure-display: 24ch;
+  --measure-prose: 68ch;
+
+  --focus: 0 0 0 3px rgba(255, 255, 255, .9), 0 0 0 6px var(--amber);
 }
 
 /* ---------- reset / base ---------- */
@@ -74,6 +110,30 @@ body::before { content: none; }
 img { max-width: 100%; display: block; }
 a { color: var(--maroon); text-decoration: none; transition: color .25s var(--ease); }
 a:hover { color: var(--amber); }
+
+/* Visible keyboard focus. Previously focus fell back to the UA default,
+   which is invisible against the dark header and the dark ADU band. The
+   double ring (white halo + orange) reads on both light and dark ground,
+   so one rule covers the whole site. Mouse users never see it. */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+  border-radius: 6px;
+}
+.site-header :focus-visible,
+.adu :focus-visible,
+.site-footer :focus-visible { box-shadow: 0 0 0 3px rgba(26, 26, 26, .9), 0 0 0 6px var(--gold-1); }
+
+/* Skip link: keyboard users had to tab the entire header on every page. */
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 200;
+  background: var(--amber); color: #fff; font-weight: 700;
+  padding: 12px 20px; border-radius: 0 0 8px 0;
+}
+.skip-link:focus { left: 0; color: #fff; }
+/* <main> is tabindex="-1" only so the skip link can move focus into it; it is
+   not an interactive control, so it should not draw a focus ring. */
+.page-main:focus, .page-main:focus-visible { outline: 0; box-shadow: none; }
 h1, h2, h3, h4 { font-family: var(--font-head); color: var(--ink); line-height: 1.15; font-weight: 700; margin: 0 0 .5em; }
 p { margin: 0 0 1.1em; }
 
@@ -89,10 +149,13 @@ p { margin: 0 0 1.1em; }
   color: var(--maroon);
 }
 .eyebrow.motto-words {
-  font-size: clamp(1.2rem, 3vw, 1.8rem);
-  letter-spacing: .15em;
+  /* Sized down from clamp(1.2rem, 3vw, 1.8rem): at 1.2rem with .15em tracking
+     this three-word motto needed 2 lines on a 390px phone and orphaned
+     "TRUST". It is a label above the headline, not a competitor to it. */
+  font-size: clamp(.9rem, 1.5vw, 1.15rem);
+  letter-spacing: .14em;
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: var(--space-4);
 }
 .eyebrow.motto-words .dot {
   margin: 0 .25em;
@@ -134,10 +197,10 @@ p { margin: 0 0 1.1em; }
 }
 
 /* section heading block */
-.section { padding: 96px 0; }
-.section-head { margin-bottom: 46px; }
+.section { padding: var(--space-section) 0; }
+.section-head { margin-bottom: var(--space-7); }
 .section-head .eyebrow { display: inline-block; margin-bottom: 14px; }
-.section-head h2 { font-size: clamp(2rem, 4vw, 2.9rem); }
+.section-head h2 { font-size: var(--step-3); }
 .rule {
   width: 64px; height: 4px; border: 0; margin: 18px 0 0;
   background: linear-gradient(90deg, var(--gold-3), var(--gold-1));
@@ -258,6 +321,61 @@ p { margin: 0 0 1.1em; }
 .nav a.active { color: #fff; }
 .nav a.active::after { transform: scaleX(1); }
 
+/* nav dropdown (Services)
+   nav.json gives "Services" a `dropdown` array instead of a url, because the
+   six service landing pages have no combined index page. The trigger is a
+   <button>, not a link, so it never advertises a destination it does not have.
+   Opening is driven three ways on purpose:
+     :hover        — pointer users
+     :focus-within — keyboard users, with no JS required
+     .is-open      — click/tap, set by js/main.js so aria-expanded stays true
+   The CSS paths mean the menu still works if main.js fails to load. */
+.nav-group { position: relative; display: flex; }
+.nav-group__trigger {
+  display: inline-flex; align-items: center; gap: 7px;
+  font: inherit; font-weight: 600; font-size: .98rem; color: rgba(255, 255, 255, .85);
+  background: none; border: 0; cursor: pointer;
+  padding: 10px 16px; border-radius: 7px; letter-spacing: .01em;
+  transition: color .25s var(--ease), background .25s var(--ease);
+}
+.nav-group__trigger:hover,
+.nav-group:focus-within .nav-group__trigger,
+.nav-group__trigger.active { color: #fff; }
+.nav-group__trigger:hover { background: rgba(255, 255, 255, .08); }
+.nav-group__chev { transition: transform .3s var(--ease); }
+.nav-group:hover .nav-group__chev,
+.nav-group:focus-within .nav-group__chev,
+.nav-group.is-open .nav-group__chev { transform: rotate(180deg); }
+
+.nav-group__panel {
+  position: absolute; top: calc(100% + 6px); left: 50%; transform: translate(-50%, -8px);
+  min-width: 232px; display: flex; flex-direction: column; padding: 8px;
+  background: var(--maroon-900); border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 12px; box-shadow: var(--shadow-md);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .22s var(--ease), transform .22s var(--ease), visibility .22s;
+  z-index: 60;
+}
+/* keeps the pointer from falling through the 6px gap on the way down */
+.nav-group__panel::before { content: ""; position: absolute; inset: -8px 0 100% 0; }
+.nav-group:hover .nav-group__panel,
+.nav-group:focus-within .nav-group__panel,
+.nav-group.is-open .nav-group__panel {
+  opacity: 1; visibility: visible; pointer-events: auto; transform: translate(-50%, 0);
+}
+.nav-group__panel a {
+  padding: 11px 14px; font-size: .95rem; font-weight: 600; border-radius: 8px;
+  color: rgba(255, 255, 255, .82); white-space: nowrap;
+}
+.nav-group__panel a::after { display: none; }
+.nav-group__panel a:hover { background: rgba(217, 83, 30, .22); color: #fff; }
+.nav-group__panel a.active { color: var(--gold-1); background: rgba(255, 255, 255, .07); }
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-group__panel { transition: none; transform: translate(-50%, 0); }
+  .nav-group__chev { transition: none; }
+}
+
 /* mobile nav toggle */
 .nav-toggle {
   display: none; background: none; border: 0; cursor: pointer; padding: 8px;
@@ -326,24 +444,30 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
    larger permanent size than a normal eyebrow. Kept separate from the
    generic [data-reveal] fade above: same is-visible trigger/JS, just its
    own transform/timing so it doesn't affect any other reveal element. */
+/* October 2026 refresh: this used to be clamp(2.4rem, 5.5vw, 3.6rem) in the
+   heading serif, which made the "Get in Touch" KICKER render larger than the
+   "Contact Us" <h2> directly beneath it — the heading hierarchy was inverted
+   on the single most important section of the site. It is now a normal
+   eyebrow drawn from the shared scale, and the h2 is the largest thing in
+   the block again. The class and its data-reveal hook are kept so the
+   existing markup and reveal JS are untouched. */
 .eyebrow--boom {
-  /* At this size it reads as a heading, not a small kicker label, so it
-     needs to switch to the same serif display font every other big
-     heading on the site uses (--font-head) — left in the small eyebrow's
-     sans-serif body font, it looked like a mismatched font stuck next to
-     "Contact" / "Let's talk about your project" right below it. */
-  font-family: var(--font-head);
-  font-size: clamp(2.4rem, 5.5vw, 3.6rem);
-  letter-spacing: .04em;
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  letter-spacing: .22em;
   display: block;
-  margin-bottom: 18px;
+  margin-bottom: var(--space-3);
+  color: var(--amber);
 }
+/* The old "boom" entrance dropped the label in from 140px above at 0.3×
+   scale and overshot past its resting size. It drew the eye to a label
+   rather than to the form. Now it shares the ordinary reveal fade. */
 [data-reveal="boom"] {
   opacity: 0;
-  transform: translateY(-140px) scale(.3);
-  transition: opacity .45s ease-out, transform 1s cubic-bezier(.34, 1.56, .64, 1);
+  transform: translateY(16px);
+  transition: opacity .6s var(--ease), transform .6s var(--ease);
 }
-[data-reveal="boom"].is-visible { opacity: 1; }
+[data-reveal="boom"].is-visible { opacity: 1; transform: none; }
 
 [data-delay="1"] { transition-delay: .12s; }
 [data-delay="2"] { transition-delay: .24s; }
@@ -354,8 +478,13 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
    HERO / MOTTO (home)
    ========================================================================== */
 .hero {
-  position: relative; min-height: 76vh; display: flex; align-items: center;
-  color: #fff; text-align: center; overflow: hidden;
+  position: relative; display: flex; align-items: center;
+  color: #fff; text-align: left; overflow: hidden;
+  /* 76vh on a phone meant the hero alone was taller than the screen before
+     any content, and `vh` ignores the browser's collapsing address bar.
+     svh measures the small (chrome-visible) viewport, with a px floor and
+     ceiling so the hero never becomes a letterbox or a full-screen wall. */
+  min-height: clamp(520px, 74svh, 760px);
 }
 .hero__bg {
   /* Keep this URL in step with `preloadImage` in src/index.njk. It is the LCP
@@ -365,13 +494,21 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 }
 .hero__overlay {
   position: absolute; inset: 0; z-index: 1;
-  /* Stronger maroon tint over the hero image, with a deeper darken at the
-     base, so the white headline + buttons read clearly against any photo. */
+  /* The text column is now left-anchored, so the scrim is too: heaviest where
+     the words are, lightest over the right of the frame where the building
+     is. A flat tint across the whole image dims the photograph to pay for
+     contrast it only needs on one side. */
   background:
-    linear-gradient(rgba(43, 45, 49, .32), rgba(43, 45, 49, .32)),
-    linear-gradient(180deg, rgba(26,26,26,.28) 0%, rgba(26,26,26,.22) 45%, rgba(26,26,26,.55) 100%);
+    linear-gradient(90deg, rgba(20, 21, 23, .82) 0%, rgba(20, 21, 23, .66) 38%, rgba(20, 21, 23, .22) 72%, rgba(20, 21, 23, .12) 100%),
+    linear-gradient(180deg, rgba(20, 21, 23, .45) 0%, rgba(20, 21, 23, .10) 42%, rgba(20, 21, 23, .55) 100%);
 }
-.hero .container { position: relative; z-index: 2; padding-top: 70px; padding-bottom: 70px; }
+@media (max-width: 860px) {
+  /* No room to dodge the subject on a phone: darken evenly instead. */
+  .hero__overlay {
+    background: linear-gradient(180deg, rgba(20, 21, 23, .66) 0%, rgba(20, 21, 23, .52) 45%, rgba(20, 21, 23, .74) 100%);
+  }
+}
+.hero .container { position: relative; z-index: 2; padding-top: var(--space-8); padding-bottom: var(--space-8); }
 /* EXPERIENCE - QUALITY - TRUST sits over a bright sky. It was pale gold with
    no text-shadow, so it washed out and was hard to read. White plus the same
    kind of shadow the headline already uses fixes the contrast; the gold stays
@@ -381,11 +518,30 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   text-shadow: 0 2px 18px rgba(0, 0, 0, .55), 0 1px 4px rgba(0, 0, 0, .45);
 }
 .hero .eyebrow .dot { color: var(--gold-1); }
+
+/* The h1 is two voices: `.hero__lede` says what the company does and where,
+   `.hero__motto` says how it works. The lede is set in the heading face at
+   display size; the motto stays in the italic display face but steps down,
+   so the pair reads as statement-then-signature instead of competing. */
+.hero__title { margin: var(--space-5) 0 var(--space-6); }
+/* Measures are in `em`, so each line's column is sized by its own type rather
+   than by the h1's inherited font — a `ch`/`em` cap set on the parent silently
+   resolves against the wrong font size and is how the old 16ch became seven
+   lines of hero headline. */
+.hero__lede {
+  display: block; max-width: 13em;
+  font-family: var(--font-head); font-weight: 700; font-style: normal;
+  font-size: var(--step-5); line-height: 1.06; letter-spacing: -.02em;
+  color: #fff; text-wrap: balance;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, .5);
+}
 .hero__motto {
+  display: block; max-width: 30em;
   font-family: var(--font-display); font-style: italic; font-weight: 500;
-  font-size: clamp(1.9rem, 4.6vw, 3.5rem); line-height: 1.22; color: #fff;
-  margin: 22px auto 30px; max-width: 16ch; text-wrap: balance;
-  text-shadow: 0 2px 24px rgba(0,0,0,.35);
+  font-size: var(--step-1); line-height: 1.38;
+  color: rgba(255, 255, 255, .92);
+  margin-top: var(--space-5); text-wrap: pretty;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, .45);
 }
 /* "collaboratively" is the word the whole brand rests on, so it gets weight
    and a warm gold glow rather than just a colour change. The glow is layered
@@ -422,19 +578,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 @media (prefers-reduced-motion: reduce) {
   .hero__motto .accent { animation: none; }
 }
-/* The h1 is the motto plus this line. The motto carries the brand, this
-   carries what the company actually does and where, which is what a search
-   engine and a first-time visitor both need. */
-.hero__sub {
-  display: block;
-  font-family: var(--font-body); font-style: normal; font-weight: 600;
-  font-size: clamp(.95rem, 1.6vw, 1.15rem);
-  letter-spacing: .04em; line-height: 1.4;
-  color: var(--gold-1);
-  margin-top: 18px; max-width: 34ch; margin-inline: auto;
-  text-shadow: 0 1px 12px rgba(0,0,0,.45);
-}
-.hero__cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.hero__cta { display: flex; gap: 14px; justify-content: flex-start; flex-wrap: wrap; }
 .hero .btn-ghost { color: #fff; border-color: rgba(255,255,255,.7); }
 .hero .btn-ghost:hover { background: #fff; color: var(--maroon); border-color: #fff; }
 .scroll-cue {
@@ -483,11 +627,18 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 .contact-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: start; }
 
 .form-card {
-  background: #fff; border-radius: var(--radius); padding: 34px;
-  box-shadow: var(--shadow-md), 0 0 26px 4px rgba(243, 182, 140, .22);
+  background: #fff; border-radius: var(--radius); padding: var(--space-7);
+  /* dropped the 26px peach halo: it read as a smudge around the card edge */
+  box-shadow: var(--shadow-md);
   border: 1px solid var(--line); position: relative;
 }
-.field { margin-bottom: 18px; }
+.field { margin-bottom: var(--space-5); }
+/* Short related inputs pair up instead of each taking a full row, which cut
+   roughly a screen's worth of scrolling out of the form on a phone. */
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+.field-row .field { margin-bottom: var(--space-5); }
+@media (max-width: 520px) { .field-row { grid-template-columns: 1fr; gap: 0; } }
+
 .field label { display: block; font-weight: 600; font-size: .9rem; color: var(--ink); margin-bottom: 7px; }
 .field input, .field textarea, .field select {
   width: 100%; font-family: var(--font-body); font-size: 1rem; color: var(--ink);
@@ -499,6 +650,13 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   outline: none; border-color: var(--amber); background: #fff;
   box-shadow: 0 0 0 4px rgba(217, 83, 30, .14);
 }
+
+/* Error state. The message element is always present so there is no layout
+   shift when it fills; it simply has no height until it has text. */
+.field__error { margin: 6px 0 0; font-size: .85rem; font-weight: 600; color: #b3261e; }
+.field__error:empty { display: none; }
+.field [aria-invalid="true"] { border-color: #b3261e; background: #fdf4f3; }
+.field [aria-invalid="true"]:focus { box-shadow: 0 0 0 4px rgba(179, 38, 30, .16); }
 
 /* file dropzone */
 .dropzone {
@@ -549,6 +707,13 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 .info-list a:hover .ico, .info-list li:hover .ico { background: var(--amber); color: var(--maroon-900); transform: translateY(-2px); }
 .info-list .label { font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .info-list .value { font-weight: 600; color: var(--ink); font-size: 1.05rem; overflow-wrap: anywhere; }
+/* The 37-character address needs 330px at 1.05rem but the text column beside
+   the icon is only ~296px on a 390px phone, so it was breaking mid-domain into
+   "...@gmail." / "com". A visitor who copies a broken address types it wrong,
+   so this scales the email down just enough to stay on one line and caps at
+   the normal size once the column is wide enough (~466px viewport). Below
+   ~340px it still wraps, which is what `overflow-wrap: anywhere` above is for. */
+.info-list .value--email { font-size: clamp(.82rem, 3.5vw, 1.05rem); }
 .info-list a { color: inherit; }
 .info-list a:hover .value { color: var(--maroon); }
 .email-toast {
@@ -571,11 +736,29 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 
 .projects { padding-bottom: 70px; }
 .project { padding: 40px 0; }
-.project-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: 26px; flex-wrap: wrap; }
-.project-head h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); margin: 0; }
+
+/* The head is a stack now, not one baseline row. A title and a town was all
+   a project used to carry, so nothing distinguished a dispensary fit-out
+   from a bath remodel at a glance. Category, town, photo count and a line
+   naming what is pictured are each a different weight so the eye can skip
+   the parts it does not need. */
+.project-head { margin-bottom: var(--space-5); }
+.project-head h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); margin: 0 0 var(--space-2); }
+.project-meta {
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: 10px; margin: 0 0 var(--space-2);
+}
 .project-head .tag {
   font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 700;
   color: var(--maroon); background: rgba(43,45,49,.08); padding: 5px 12px; border-radius: 20px;
+}
+/* Category is the one piece of sorting information, so it gets the accent;
+   the town stays neutral so the two do not compete. */
+.project-head .tag--cat { color: #fff; background: var(--maroon); }
+.project-count { font-size: .82rem; color: var(--muted); letter-spacing: .02em; }
+.project-shows {
+  margin: 0; max-width: 62ch;
+  font-size: .97rem; line-height: 1.55; color: var(--muted);
 }
 
 /* carousel */
@@ -584,35 +767,85 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   border: 3px solid transparent;
   background:
     linear-gradient(#000, #000) padding-box,
-    conic-gradient(from var(--bd-angle, 0deg), var(--gold-2), var(--amber), var(--maroon-600), var(--gold-1), var(--gold-2)) border-box;
-  animation: frameSpin 14s linear infinite;
+    conic-gradient(from 135deg, var(--gold-2), var(--amber), var(--maroon-600), var(--gold-1), var(--gold-2)) border-box;
 }
+/* The gradient frame is static here on purpose. frameSpin animates a
+   registered @property angle, so every frame re-rasterizes the border — fine
+   for the single about-page portrait, but /gallery/ has seven carousels and
+   was running seven of them forever behind the photographs. The frame still
+   reads as the same brand detail standing still. */
 .carousel__track { display: flex; transition: transform .8s var(--ease); will-change: transform; }
 .carousel__slide { min-width: 100%; position: relative; }
 .carousel__slide img { width: 100%; height: clamp(320px, 56vw, 620px); object-fit: cover; }
+/* Bottom padding reserves the dots row. Captions wrap to two lines on a
+   phone, and at 22px the second line finished level with the dots — they
+   never actually collided, because the text is left-aligned and the dots are
+   centred, but they sat on the same line and read as one muddled row. */
+/* The scrim used to be `linear-gradient(transparent, rgba(26,26,26,.78))`,
+   which only reaches full strength at the very bottom edge of the box — below
+   the text. Measured, the caption text occupies roughly 34%-70% of the box
+   height, where that gradient was only .27-.55 opaque: white-on-bright-photo
+   came out at 1.77:1. Several photographs here are bright (sky-heavy
+   exteriors, a white bath), so those captions were genuinely hard to read.
+   Ramping the scrim early puts >=.66 opacity under the whole text band, which
+   is 5.7:1 against a pure-white photo — the worst case the images can present. */
 .carousel__caption {
-  position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 28px 22px;
-  background: linear-gradient(transparent, rgba(26,26,26,.78)); color: #fff;
-  font-weight: 500; font-size: 1rem; letter-spacing: .01em;
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 44px 28px 38px;
+  background: linear-gradient(rgba(26,26,26,0) 0%, rgba(26,26,26,.62) 26%,
+                              rgba(26,26,26,.84) 64%, rgba(26,26,26,.9) 100%);
+  color: #fff; font-weight: 500; font-size: 1rem; letter-spacing: .01em;
 }
+/* The arrows used to be opacity:0 until .carousel:hover, so on any phone or
+   tablet they never appeared at all and swiping was the only way to reach
+   photo 2 of 6 — undiscoverable. They are visible at rest now; hover and
+   focus still respond, they are just no longer the thing that summons them. */
 .carousel__btn {
   position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
   width: 52px; height: 52px; border-radius: 50%; border: 0; cursor: pointer;
-  background: rgba(247,243,236,.85); color: var(--maroon); font-size: 1.4rem; line-height: 1;
+  background: rgba(247,243,236,.92); color: var(--maroon); font-size: 1.4rem; line-height: 1;
   display: grid; place-items: center; box-shadow: var(--shadow-sm);
-  transition: all .25s var(--ease); opacity: 0;
+  transition: background .25s var(--ease), color .25s var(--ease), transform .25s var(--ease);
 }
-.carousel:hover .carousel__btn { opacity: 1; }
 .carousel__btn:hover { background: var(--amber); color: #fff; transform: translateY(-50%) scale(1.08); }
+.carousel__btn:focus-visible { outline: var(--focus); outline-offset: 3px; }
 .carousel__btn.prev { left: 18px; }
 .carousel__btn.next { right: 18px; }
-.carousel__dots { position: absolute; left: 0; right: 0; bottom: 16px; z-index: 3; display: flex; gap: 9px; justify-content: center; }
-.carousel__dots button {
-  width: 10px; height: 10px; border-radius: 50%; border: 0; cursor: pointer; padding: 0;
-  background: rgba(255,255,255,.45); transition: all .3s var(--ease);
+
+/* Replaces the autoplay progress bar. A bar that fills tells you how long
+   until the photo changes without your asking; a counter tells you how many
+   photographs there are, which is the thing worth knowing. */
+.carousel__count {
+  position: absolute; top: 14px; right: 16px; z-index: 3; margin: 0;
+  padding: 4px 11px; border-radius: 20px;
+  background: rgba(26,26,26,.6); color: #fff;
+  font-size: .78rem; font-weight: 600; letter-spacing: .06em;
+  font-variant-numeric: tabular-nums;
 }
-.carousel__dots button.active { background: var(--amber); width: 26px; border-radius: 6px; }
-.carousel__bar { position: absolute; top: 0; left: 0; height: 3px; background: var(--amber); z-index: 3; width: 0; }
+
+/* The dot itself is drawn by ::before so the button can be a 28x24 target
+   without the dot growing to match. The visible pill is unchanged; what
+   changed is what you have to hit. Measured before: a 10x10 dot with 19px
+   between centres, which fails WCAG 2.5.8 (Target Size, Minimum) twice over —
+   under 24x24, and too close together to earn the spacing exception, since
+   that test asks whether a 24px circle on each centre stays clear of its
+   neighbours'. At 28px wide plus the gap, centres are now ~32px apart.
+
+   Fixing the width also steadies the row: the old rule grew the active dot
+   from 10px to 26px, so the whole centred row shifted sideways every time the
+   photo changed. The target is a constant 28px, so only the pill inside moves. */
+.carousel__dots { position: absolute; left: 0; right: 0; bottom: 10px; z-index: 3; display: flex; gap: 4px; justify-content: center; }
+.carousel__dots button {
+  width: 28px; height: 24px; border: 0; padding: 0; cursor: pointer;
+  background: none; display: grid; place-items: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.carousel__dots button::before {
+  content: ""; display: block; width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(255,255,255,.55); box-shadow: 0 1px 3px rgba(0,0,0,.35);
+  transition: background .3s var(--ease), width .3s var(--ease);
+}
+.carousel__dots button.active::before { background: var(--amber); width: 26px; border-radius: 6px; }
+.carousel__dots button:focus-visible { outline: 2px solid #fff; outline-offset: 0; border-radius: 4px; }
 
 /* divider between projects — inherits .section-divider styles */
 .project-divider { padding: 28px 0; }
@@ -628,12 +861,27 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   gap: 44px 32px;
 }
 .projects-grid .project { padding: 0; }
-.projects-grid .project-head { margin-bottom: 18px; }
+.projects-grid .project-head { margin-bottom: var(--space-4); }
 .projects-grid .project-head h2 { font-size: clamp(1.25rem, 2vw, 1.6rem); }
+.projects-grid .project-shows { font-size: .9rem; }
 .projects-grid .carousel__slide img { height: clamp(220px, 28vw, 360px); }
+/* Half-width carousels get smaller controls so a 52px disc does not cover a
+   third of the photograph. */
+.projects-grid .carousel__btn { width: 42px; height: 42px; }
+.projects-grid .carousel__btn.prev { left: 12px; }
+.projects-grid .carousel__btn.next { right: 12px; }
 @media (max-width: 780px) {
   .projects-grid { grid-template-columns: 1fr; gap: 36px; }
   .projects-grid .carousel__slide img { height: clamp(260px, 62vw, 420px); }
+}
+
+/* Attribution note in the gallery intro. Set apart with a rule rather than a
+   box or an icon: it is a qualification on the photographs above it, not a
+   warning, and styling it like an alert would overstate it. */
+.gallery-note {
+  margin: var(--space-4) 0 0; padding-left: 16px;
+  border-left: 3px solid var(--amber);
+  font-size: 1rem; line-height: 1.6; color: var(--muted); max-width: 66ch;
 }
 
 /* ==========================================================================
@@ -968,33 +1216,14 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   50%       { transform: translate(8px, 16px) scale(1.06); }
 }
 
-/* form-card spotlights */
-.form-card { overflow: hidden; } /* clip the blobs */
-.form-card::before {
-  content: ""; pointer-events: none;
-  position: absolute; top: -60px; right: -40px;
-  width: 260px; height: 260px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(217, 83, 30, .13) 0%, transparent 68%);
-  animation: spotDrift1 11s ease-in-out infinite;
-  z-index: 0;
-}
-.form-card::after {
-  content: ""; pointer-events: none;
-  position: absolute; bottom: -50px; left: -30px;
-  width: 220px; height: 220px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(43, 45, 49, .09) 0%, transparent 68%);
-  animation: spotDrift2 14s ease-in-out infinite;
-  z-index: 0;
-}
-/* extra amber spot center-right */
-.form-card .spot-extra {
-  pointer-events: none; position: absolute; top: 38%; right: -20px;
-  width: 170px; height: 170px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(243, 182, 140, .18) 0%, transparent 70%);
-  animation: spotDrift3 9s ease-in-out infinite;
-  z-index: 0;
-}
-/* make sure form content sits above the blobs */
+/* The form card used to carry three drifting radial-gradient blobs (two
+   pseudo-elements plus .spot-extra). Behind text inputs they rendered as pink
+   smudges in the corners, they animated continuously beside the one control
+   on the page that needs calm attention, and they were three more things
+   compositing on every frame. The card is now plain; the inquiry is the
+   feature. .spot-extra is left in the markup but no longer painted. */
+.form-card { overflow: hidden; }
+.form-card .spot-extra { display: none; }
 .form-card form { position: relative; z-index: 1; }
 
 /* adu-card spotlights */
@@ -1243,24 +1472,93 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
     position: fixed; inset: var(--header-h) 0 auto 0; flex-direction: column; align-items: stretch;
     background: var(--maroon-900);
     padding: 14px 20px 22px; gap: 4px; box-shadow: var(--shadow-md);
-    transform: translateY(-130%); transition: transform .4s var(--ease); border-bottom: 1px solid rgba(255, 255, 255, .1);
+    transform: translateY(-130%); transition: transform .4s var(--ease), visibility .4s var(--ease);
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+    /* `translateY(-130%)` moves the drawer off-screen but leaves it focusable,
+       so tabbing from the logo used to walk through 11 invisible menu links
+       with no visible focus ring anywhere on screen (WCAG 2.4.3/2.4.7).
+       `visibility: hidden` takes them out of the tab order. It is transitioned
+       alongside the transform on purpose: visibility flips to `visible`
+       immediately when opening, but waits for the slide to finish when
+       closing, so the animation still plays out both ways. Doing this in CSS
+       rather than JS keeps the drawer unfocusable even if main.js never loads. */
+    visibility: hidden;
   }
-  .nav.open { transform: none; }
+  .nav.open { transform: none; visibility: visible; }
   .nav a { padding: 14px 16px; font-size: 1.05rem; }
   .nav a::after { display: none; }
   .nav-toggle { display: block; }
   .header-right { gap: 10px; }
-  .header-cta .btn { display: none; }
+
+  /* In the mobile sheet the dropdown becomes an inline accordion rather than
+     a floating panel — a panel positioned over a sheet that is itself
+     overlaying the page is two stacked layers with nowhere to go. */
+  .nav-group { display: block; position: static; }
+  .nav-group__trigger {
+    width: 100%; justify-content: space-between;
+    padding: 14px 16px; font-size: 1.05rem;
+  }
+  .nav-group__panel {
+    position: static; transform: none; min-width: 0; padding: 0 0 0 12px;
+    margin: 2px 0 6px; border: 0; border-left: 2px solid rgba(217, 83, 30, .5);
+    border-radius: 0; background: none; box-shadow: none;
+    opacity: 1; pointer-events: auto;
+    max-height: 0; overflow: hidden;
+    /* This used to say `visibility: visible`, to undo the desktop dropdown's
+       hidden state before switching to a max-height accordion. Two problems.
+       A descendant's `visibility: visible` overrides a hidden ancestor, so
+       these six links stayed focusable even while the whole drawer was closed.
+       And `max-height: 0` + `overflow: hidden` only clips visually — it never
+       removes anything from the tab order — so they were also focusable while
+       the drawer was open and the accordion collapsed. Tying visibility to the
+       open state fixes both, and keeps the collapse animation. */
+    visibility: hidden;
+    transition: max-height .32s var(--ease), visibility .32s var(--ease);
+  }
+  .nav-group__panel::before { display: none; }
+  /* hover must not latch open on touch; tap (.is-open) and focus do the work */
+  .nav-group:hover .nav-group__panel { max-height: 0; }
+  /* `:focus-within` is satisfied by the trigger button, which sits outside the
+     panel — so keyboard focus still opens it even though the links inside
+     start unfocusable. */
+  .nav-group:focus-within .nav-group__panel,
+  .nav-group.is-open .nav-group__panel { max-height: 420px; transform: none; visibility: visible; }
+  .nav-group__panel a { padding: 12px 14px; font-size: 1rem; white-space: normal; }
+
+  /* The primary call to action used to be `display: none` under 940px, which
+     removed the only Get in Touch button on exactly the devices most likely
+     to be used to make the inquiry. Keep both actions, shrink the label. */
+  .header-cta { gap: 8px; }
+  .header-cta .btn { padding: 9px 14px; font-size: .78rem; letter-spacing: .06em; white-space: nowrap; }
+
+  /* logo-header.png already contains the house mark, so the separate .c-badge
+     is a duplicate of it. On a phone that duplication costs ~54px of a 390px
+     bar — which is what was pushing the wordmark off the right edge. */
+  .brand .c-badge { display: none; }
+  .brand { gap: 0; flex: 0 1 auto; min-width: 0; }
+  .brand .logo { max-width: 100%; object-fit: contain; object-position: left center; }
   .two-col, .contact-grid, .owner-grid, .adu-grid { grid-template-columns: 1fr; gap: 38px; }
   .adu-card { position: static; }
   .about .figure::before, .about .figure::after { display: none; }
   .footer-top { grid-template-columns: 1fr; gap: 30px; padding-top: 90px; }
   .gallery-intro .two-col { grid-template-columns: 1fr; text-align: center; }
   .gallery-intro .mark { margin: 0 auto; }
-  .section { padding: 70px 0; }
+  /* The intro centres at this width, and a left-edge rule against centred
+     text reads as a misalignment rather than an aside. Same signal, turned
+     to match: a short rule centred above it. */
+  .gallery-note {
+    border-left: 0; padding: var(--space-4) 0 0;
+    margin-inline: auto; max-width: 52ch; position: relative;
+  }
+  .gallery-note::before {
+    content: ""; position: absolute; top: 0; left: 50%;
+    width: 56px; height: 3px; margin-left: -28px; background: var(--amber);
+  }
+  /* --space-section is already clamp(56px, 7vw, 104px), so it lands at 56-66px
+     across this range on its own. The old fixed 70px/56px overrides here and
+     at 520px just made the scale harder to reason about. */
   .section-divider { padding: 36px 0; }
   .brand .logo { height: 40px; }
-  .brand .c-badge { width: 38px; height: 38px; }
 }
 @media (max-width: 520px) {
   body { font-size: 16px; }
@@ -1268,14 +1566,10 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   .form-card { padding: 22px; }
   .adu-card { padding: 24px; }
   .adu-law { padding-left: 16px; }
-  .hero { min-height: 70vh; }
-  .section { padding: 56px 0; }
   .project-head h2 { font-size: 1.5rem; }
 }
 @media (max-width: 380px) {
   .brand .logo { height: 34px; }
-  .brand .c-badge { width: 32px; height: 32px; }
-  .brand { gap: 9px; }
   .container { padding-inline: 14px; }
   .hero__cta .btn { padding: 12px 18px; font-size: .9rem; }
 }
@@ -1286,7 +1580,18 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 
 /* reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+  /* `animation-iteration-count: 1` matters as much as the duration here. Ten
+     rules in this file end in `infinite` (the gold portrait frame, the marquee,
+     the ambient orbs, the header sheen, the scroll-hint wheel, the divider
+     gem). Shortening an infinite animation to .001ms does not stop it — it
+     restarts it forever, which is a worse outcome than the original. Pinning
+     the count to one run lets each animation land on its end state and stop. */
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
   [data-reveal] { opacity: 1 !important; transform: none !important; }
   .hero__bg { transform: none; }
 }
@@ -1466,42 +1771,116 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 /* ==========================================================================
    SERVICES SECTION (homepage)
    ========================================================================== */
+.section-lede {
+  max-width: 62ch; margin: var(--space-5) auto 0;
+  font-size: var(--step-0); color: var(--body);
+}
+
+/* The two engagements this company offers are genuinely different — one builds
+   your house, the other watches someone else build it — so they get separate
+   bands rather than sitting as peers in one undifferentiated six-up grid. */
+.svc-path { margin-top: var(--space-8); }
+.svc-path__head { max-width: var(--measure-prose); margin-bottom: var(--space-6); }
+.svc-path__head h3 {
+  font-size: var(--step-2); margin-bottom: var(--space-2);
+  display: flex; align-items: center; gap: var(--space-4);
+}
+/* a short rule after the label, drawn by the heading itself */
+.svc-path__head h3::after {
+  content: ""; flex: 1 1 auto; height: 2px; max-width: 160px;
+  background: linear-gradient(90deg, var(--amber), transparent);
+}
+.svc-path__head p { color: var(--muted); margin: 0; font-size: var(--step-0); }
+
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-  margin-top: 32px;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
+  /* 260px let four cards onto a 1180px row, which left ~160px of text beside
+     the icon and broke "General Contracting" across two lines. 330px caps it
+     at three. */
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: var(--space-4);
 }
 
 .service-card {
-  display: block;
-  padding: 28px;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: "icon title go" "icon body body";
+  align-items: start;
+  column-gap: var(--space-5); row-gap: var(--space-2);
+  padding: var(--space-6);
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   text-decoration: none;
-  transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
+  transition: border-color .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
 }
-
 .service-card:hover {
-  transform: translateY(-4px);
+  /* The old card lifted 4px on hover. Six of them lifting in sequence as the
+     pointer crossed the grid read as fidget rather than feedback; a colour
+     and shadow change says the same thing without moving the layout. */
+  border-color: var(--amber);
   box-shadow: var(--shadow-md);
-  border-color: var(--amber-600);
 }
-
-.service-card h3 {
-  font-size: 1.25rem;
-  margin-bottom: 12px;
-  color: var(--maroon);
+.service-card__icon {
+  grid-area: icon;
+  display: grid; place-items: center;
+  width: 46px; height: 46px; flex: 0 0 auto;
+  border-radius: 10px;
+  background: rgba(217, 83, 30, .09);
+  color: var(--amber-600);
+  transition: background .25s var(--ease), color .25s var(--ease);
 }
-
+.service-card__icon svg { width: 24px; height: 24px; }
+.service-card:hover .service-card__icon { background: var(--amber); color: #fff; }
+.service-card h4 {
+  grid-area: title;
+  font-size: 1.1rem; margin: 0; color: var(--maroon); align-self: center;
+}
 .service-card p {
-  font-size: 0.95rem;
-  color: var(--body);
-  margin: 0;
+  grid-area: body;
+  font-size: .93rem; line-height: 1.55; color: var(--body); margin: 0;
+}
+.service-card__go {
+  grid-area: go; align-self: center;
+  color: #b9b9b9; display: grid; place-items: center;
+  transition: color .25s var(--ease), transform .25s var(--ease);
+}
+.service-card__go svg { width: 18px; height: 18px; }
+.service-card:hover .service-card__go { color: var(--amber); transform: translateX(3px); }
+
+/* The "not sure which one" card goes to the form, not to a service page, so
+   it is drawn as an invitation rather than as a sixth service. */
+.service-card--cta {
+  background: rgba(217, 83, 30, .05);
+  border-style: dashed;
+}
+
+.svc-path--advisory .service-card--wide {
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: "icon title go" "icon body body";
+  padding: var(--space-7);
+}
+.svc-path--advisory .service-card--wide h4 { font-size: var(--step-1); }
+.svc-path--advisory .service-card--wide p { max-width: 62ch; font-size: var(--step-0); }
+
+@media (max-width: 560px) {
+  /* Stack the icon above the text: a 46px icon column plus a 24px gap is a
+     third of a 390px screen spent on decoration. */
+  .service-card {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "icon go" "title title" "body body";
+    row-gap: var(--space-3);
+  }
+  .service-card h4 { align-self: start; }
+  .svc-path--advisory .service-card--wide {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "icon go" "title title" "body body";
+    padding: var(--space-6);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .service-card:hover .service-card__go { transform: none; }
 }
 
 /* Two-column figure images with border and rounded corners */
@@ -1554,5 +1933,4 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 /* Inquiry fields remain usable on narrow screens and without file APIs. */
 .form-status { overflow-wrap: anywhere; }
 .field input[type="file"] { max-width: 100%; font-size: .9rem; }
-.inquiry-paths .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
 button:disabled { cursor: wait; opacity: .7; }

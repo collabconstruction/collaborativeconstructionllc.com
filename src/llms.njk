@@ -42,6 +42,8 @@ eleventyExcludeFromCollections: true
 
 ## Pages
 
-{% for item in nav.items -%}
-- {{ business.url | safe }}{{ item.url | safe }} : {{ item.summary | safe }}
-{% endfor %}
+{# "Services" is a menu heading with no page of its own, so emit its children
+   instead; an agent reading this file should see every real URL. -#}
+{% for item in nav.items %}{% if item.dropdown %}{% for sub in item.dropdown %}- {{ business.url | safe }}{{ sub.url | safe }} : {{ sub.summary | safe }}
+{% endfor %}{% else %}- {{ business.url | safe }}{{ item.url | safe }} : {{ item.summary | safe }}
+{% endif %}{% endfor %}

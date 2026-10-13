@@ -1,0 +1,232 @@
+{
+  "_comment": [
+    "Gallery projects, moved out of src/gallery.njk so the seven entries are",
+    "labelled by one template instead of seven hand-maintained copies.",
+    "",
+    "NOTHING HERE IS A NEW CLAIM. Every title, location, alt text and caption",
+    "is transcribed verbatim from the markup that was already published.",
+    "",
+    "`category` classifies the title and captions that were already there",
+    "(a dispensary, a dormitory and a self-storage facility are commercial;",
+    "the rest are residential). `shows` summarises that project's own",
+    "captions and nothing else - it names which parts of the building the",
+    "photographs cover, not the scope of work performed.",
+    "",
+    "DO NOT add a `role` or `builtBy` field until the owner confirms project",
+    "attribution. Research 'Website Evidence and Business Facts.md' is",
+    "explicit: confirm whether each project was performed by the company or",
+    "represents the founder's earlier employment / oversight experience, and",
+    "do not imply sole company authorship of every pictured building. The",
+    "note in gallery.njk exists because that question is still open.",
+    "",
+    "The '50,000 SF' figure in the Lovell Dormitory caption was already",
+    "published and is preserved verbatim. It has not been independently",
+    "verified here.",
+    "",
+    "`footerThumb` marks the two projects shown in the 'Recent Work' strip in",
+    "every page footer (see src/_includes/base.njk). Those two images and",
+    "alt texts were hardcoded there before and are kept verbatim. The alts",
+    "name the town because a footer thumbnail has no caption beside it."
+  ],
+  "items": [
+    {
+      "title": "Custom Residence",
+      "category": "Residential",
+      "location": "Belmont, MA",
+      "shows": "Exterior and site, living room, hallway, bath, and stair.",
+      "footerThumb": {
+        "src": "/assets/img/belmont-hero.jpg",
+        "alt": "Custom cedar-clad modern home in Belmont, MA"
+      },
+      "images": [
+        {
+          "src": "/assets/img/belmont-hero.jpg",
+          "alt": "Custom cedar-clad modern home exterior",
+          "caption": "Exterior: custom cedar-clad modern home"
+        },
+        {
+          "src": "/assets/img/belmont-pond.jpg",
+          "alt": "The home set in its landscape beside a pond",
+          "caption": "Site & landscape: the home set against the pond"
+        },
+        {
+          "src": "/assets/img/belmont-living.jpg",
+          "alt": "Open living room with floor-to-ceiling glazing",
+          "caption": "Open living room with floor-to-ceiling glazing"
+        },
+        {
+          "src": "/assets/img/belmont-hallway.jpg",
+          "alt": "Gallery hallway with custom millwork and stone flooring",
+          "caption": "Gallery hallway with custom millwork & stone flooring"
+        },
+        {
+          "src": "/assets/img/belmont-bath.jpg",
+          "alt": "Spa bath with cedar detailing and soaking tub",
+          "caption": "Spa bath with cedar detailing & soaking tub"
+        },
+        {
+          "src": "/assets/img/belmont-stair.jpg",
+          "alt": "Floating stair with board-formed concrete and steel",
+          "caption": "Floating stair: board-formed concrete & steel"
+        }
+      ]
+    },
+    {
+      "title": "Commercial Dispensary",
+      "category": "Commercial",
+      "location": "Dudley, MA",
+      "shows": "Retail floor, lobby, and express pick-up.",
+      "images": [
+        {
+          "src": "/assets/img/greatest-hits-1.jpg",
+          "alt": "Commercial dispensary interior retail space",
+          "caption": "Interior retail space"
+        },
+        {
+          "src": "/assets/img/greatest-hits-2.jpg",
+          "alt": "Commercial dispensary lobby and express pick up",
+          "caption": "Lobby & express pick-up"
+        }
+      ]
+    },
+    {
+      "title": "Residential Exterior",
+      "category": "Residential",
+      "location": "Falmouth, MA",
+      "shows": "Front and side exteriors, entry walkway, deck, and gazebo.",
+      "images": [
+        {
+          "src": "/assets/img/residential-1.jpg",
+          "alt": "Front exterior with driveway and attached garage",
+          "caption": "Front exterior with driveway and attached garage"
+        },
+        {
+          "src": "/assets/img/residential-2.jpg",
+          "alt": "Front entry with custom paver walkway and porch",
+          "caption": "Front entry with custom paver walkway and porch"
+        },
+        {
+          "src": "/assets/img/residential-3.jpg",
+          "alt": "Side exterior with back deck and custom gazebo",
+          "caption": "Side exterior with back deck and custom gazebo"
+        },
+        {
+          "src": "/assets/img/residential-4.jpg",
+          "alt": "Composite back deck with custom railing and lighting",
+          "caption": "Composite back deck with custom railing and lighting"
+        },
+        {
+          "src": "/assets/img/residential-5.jpg",
+          "alt": "Spacious back deck featuring a shaded gazebo area",
+          "caption": "Spacious back deck featuring a shaded gazebo area"
+        }
+      ]
+    },
+    {
+      "title": "Custom Bath Suite",
+      "category": "Residential",
+      "location": "Newton, MA",
+      "shows": "Soaking tub, double vanity, and glass shower enclosure.",
+      "images": [
+        {
+          "src": "/assets/img/modern-home-1.jpg",
+          "alt": "Standalone bathtub with custom wood panel accent wall",
+          "caption": "Standalone bathtub with custom wood panel accent wall"
+        },
+        {
+          "src": "/assets/img/modern-home-3.jpg",
+          "alt": "Custom bathroom vanity with dual sinks and wood panels",
+          "caption": "Custom bathroom vanity with dual sinks and wood panels"
+        },
+        {
+          "src": "/assets/img/modern-home-2.jpg",
+          "alt": "Modern glass-enclosed shower with tile interior",
+          "caption": "Modern glass-enclosed shower with tile interior"
+        }
+      ]
+    },
+    {
+      "title": "Modern Custom Residence",
+      "category": "Residential",
+      "location": "Carlisle, MA",
+      "shows": "Exterior, skylit hallway, and kitchen.",
+      "footerThumb": {
+        "src": "/assets/img/modern-home-4.jpg",
+        "alt": "Modern custom residence in Carlisle, MA"
+      },
+      "images": [
+        {
+          "src": "/assets/img/modern-home-4.jpg",
+          "alt": "Modern glass-enclosed exterior home design",
+          "caption": "Modern glass-enclosed exterior home design"
+        },
+        {
+          "src": "/assets/img/modern-interior-1.jpg",
+          "alt": "Modern hallway with skylights and open floor plan",
+          "caption": "Modern hallway with skylights and open floor plan"
+        },
+        {
+          "src": "/assets/img/modern-interior-2.jpg",
+          "alt": "Modern kitchen with large island overlooking a river view",
+          "caption": "Modern kitchen with large island overlooking a river view"
+        }
+      ]
+    },
+    {
+      "title": "Lovell Dormitory",
+      "category": "Commercial",
+      "location": "Rockland, MA",
+      "shows": "Front and rear elevations, café and dining commons, recreation room.",
+      "images": [
+        {
+          "src": "/assets/img/Lovell_dorm.jpg",
+          "alt": "Lovell Dormitory, a completed 50,000 SF residence hall",
+          "caption": "Lovell Dormitory: a completed 50,000 SF residence hall"
+        },
+        {
+          "src": "/assets/img/Lovell_dorm_Front.jpg",
+          "alt": "Front exterior of the completed dormitory",
+          "caption": "Front exterior of the completed dormitory"
+        },
+        {
+          "src": "/assets/img/Lovell_dorm_Rear.jpg",
+          "alt": "Rear exterior and grounds of the dormitory",
+          "caption": "Rear exterior & grounds"
+        },
+        {
+          "src": "/assets/img/Lovell_dorm_Cafe.jpg",
+          "alt": "On-site café and dining commons",
+          "caption": "On-site café & dining commons"
+        },
+        {
+          "src": "/assets/img/Lovell_dorm_Rec_Room.jpg",
+          "alt": "Student recreation room",
+          "caption": "Student recreation room"
+        }
+      ]
+    },
+    {
+      "title": "CubeSmart Self Storage",
+      "category": "Commercial",
+      "location": "Hingham, MA",
+      "shows": "Street-front exterior, storage corridors, and leasing office.",
+      "images": [
+        {
+          "src": "/assets/img/Cube_Front.jpg",
+          "alt": "CubeSmart Self Storage street-front exterior",
+          "caption": "Street-front exterior of the completed facility"
+        },
+        {
+          "src": "/assets/img/Cube_Lockers.jpg",
+          "alt": "Interior storage lockers and corridors",
+          "caption": "Interior storage lockers & corridors"
+        },
+        {
+          "src": "/assets/img/Cube_Office.jpg",
+          "alt": "Leasing office and reception area",
+          "caption": "Leasing office & reception"
+        }
+      ]
+    }
+  ]
+}

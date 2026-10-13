@@ -61,6 +61,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Inter:wght@400;500;600;700&family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
+  {#- Every [data-reveal] block starts at opacity:0 and is only un-hidden by
+      main.js, and .motto-word/.rw-word start hidden too. With JavaScript
+      disabled that renders the whole page blank — including the no-JS contact
+      fallback inside .form-card, which names the phone number and email for
+      exactly this visitor and was itself invisible. This restores the end
+      state for them. It cannot affect the scripted path: a <noscript> style
+      is inert whenever scripting is enabled. -#}
+  <noscript>
+    <style>
+      [data-reveal], .motto-word, .rw-word { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
   <script>
     /* Apply directional page-entrance class before first paint (no flash) */
     (function () {
@@ -92,6 +104,8 @@
 <body>
 
   <!-- ============================ HEADER ============================ -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="/" aria-label="{{ business.shortName }} home">
@@ -99,9 +113,33 @@
         <img class="logo" src="{{ business.images.logoHeader }}" alt="{{ business.shortName }}">
       </a>
       <div class="header-right">
-        <nav class="nav" id="primary-nav">
+        {#- `Services` carries a `dropdown` array in src/_data/nav.json but no
+            template ever rendered it, so it fell through to `<a href="">` —
+            a dead link that just reloaded the current page, on every page of
+            the site. That made all five service landing pages reachable only
+            from the homepage grid or the footer. It now renders as a real
+            disclosure: a <button> plus a panel, opened on hover and on
+            :focus-within (so it works for pointer, touch and keyboard with
+            no JavaScript), and expanded inline in the mobile sheet. #}
+        <nav class="nav" id="primary-nav" aria-label="Primary">
           {%- for item in nav.items %}
-          <a href="{{ item.url }}"{% if item.url == canonical %} class="active"{% endif %}>{{ item.label }}</a>
+          {%- if item.dropdown %}
+          {%- set groupActive = false %}
+          {%- for sub in item.dropdown %}{% if sub.url == canonical %}{% set groupActive = true %}{% endif %}{%- endfor %}
+          <div class="nav-group">
+            <button type="button" class="nav-group__trigger{% if groupActive %} active{% endif %}" aria-expanded="false" aria-controls="nav-services">
+              {{ item.label }}
+              <svg class="nav-group__chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="nav-group__panel" id="nav-services">
+              {%- for sub in item.dropdown %}
+              <a href="{{ sub.url }}"{% if sub.url == canonical %} class="active" aria-current="page"{% endif %}>{{ sub.label }}</a>
+              {%- endfor %}
+            </div>
+          </div>
+          {%- else %}
+          <a href="{{ item.url }}"{% if item.url == canonical %} class="active" aria-current="page"{% endif %}>{{ item.label }}</a>
+          {%- endif %}
           {%- endfor %}
         </nav>
         <div class="header-cta">
@@ -117,7 +155,7 @@
     </div>
   </header>
 
-  <main class="page-main">
+  <main class="page-main" id="main" tabindex="-1">
 {{ content | safe }}
   </main>
 
@@ -136,8 +174,16 @@
       <div class="footer-col">
         <h4>Explore</h4>
         <ul class="footer-links">
+          {#- A menu heading has no url, so list its children in its place
+              rather than emitting `<a href="">`. #}
           {%- for item in nav.items %}
+          {%- if item.dropdown %}
+          {%- for sub in item.dropdown %}
+          <li><a href="{{ sub.url }}">{{ sub.label }}</a></li>
+          {%- endfor %}
+          {%- else %}
           <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+          {%- endif %}
           {%- endfor %}
           {%- for item in nav.footerExtra %}
           <li><a href="{{ item.url }}">{{ item.label }}</a></li>
@@ -175,15 +221,18 @@
 
       <div class="footer-col">
         <h4>Recent Work</h4>
+        {#- These two thumbnails used to hardcode a title, town and image that
+            also appear on /gallery/ — in the footer of every page. Renaming a
+            project in projects.json would have left this strip quietly
+            disagreeing with the gallery it links to, so it now reads the same
+            data and shows whichever entries carry `footerThumb`. -#}
         <div class="footer-projects">
+          {%- for p in projects.items %}{% if p.footerThumb %}
           <a class="footer-project" href="/gallery/">
-            <img src="/assets/img/belmont-hero.jpg" alt="Custom cedar-clad modern home in Belmont, MA" loading="lazy">
-            <span>Custom Residence<small>Belmont, MA</small></span>
+            <img src="{{ p.footerThumb.src }}" alt="{{ p.footerThumb.alt }}" loading="lazy">
+            <span>{{ p.title }}<small>{{ p.location }}</small></span>
           </a>
-          <a class="footer-project" href="/gallery/">
-            <img src="/assets/img/modern-home-4.jpg" alt="Modern custom residence in Carlisle, MA" loading="lazy">
-            <span>Modern Custom Residence<small>Carlisle, MA</small></span>
-          </a>
+          {%- endif %}{% endfor %}
         </div>
         <a class="footer-projects-link" href="/gallery/">View full gallery &rarr;</a>
       </div>

@@ -20,18 +20,26 @@ preloadImage: /assets/img/belmont-pond.jpg
       <div class="hero__bg" aria-hidden="true"></div>
       <div class="hero__overlay" aria-hidden="true"></div>
       <div class="container">
+        {# The h1 used to lead with the motto and demote "Residential
+           Construction & Renovation on Cape Cod and the South Shore" to a
+           small orange subtitle. That is backwards: the what-and-where line
+           is the one thing a first-time visitor and a search engine both
+           need first, and it is already what ogTitle says. The two pieces of
+           copy are unchanged — only their order and weight. #}
         <p class="eyebrow motto-words" id="hero-motto" data-reveal>
-          <span class="motto-word">Experience</span> <span class="dot">·</span> 
-          <span class="motto-word">Quality</span> <span class="dot">·</span> 
+          <span class="motto-word">Experience</span> <span class="dot">·</span>
+          <span class="motto-word">Quality</span> <span class="dot">·</span>
           <span class="motto-word">Trust</span>
         </p>
-        <h1 class="hero__motto" data-reveal data-delay="1">
-          <em>Working together, working <span class="accent">collaboratively</span>, to produce the highest quality construction and renovation projects.</em>
-          <span class="hero__sub">Residential Construction &amp; Renovation on Cape Cod and the South Shore</span>
+        <h1 class="hero__title" data-reveal data-delay="1">
+          <span class="hero__lede">Residential Construction &amp; Renovation on Cape Cod and the South Shore</span>
+          <em class="hero__motto">Working together, working <span class="accent">collaboratively</span>, to produce the highest quality construction and renovation projects.</em>
         </h1>
         <div class="hero__cta" data-reveal data-delay="2">
-          <a href="/gallery/" class="btn btn-gold">View Our Work</a>
-          <a href="/about/" class="btn btn-gold">About Us</a>
+          {# Two identical gold buttons gave neither action priority, and
+             neither of them was the inquiry. #}
+          <a href="/#contact" class="btn btn-gold">Get in Touch</a>
+          <a href="/gallery/" class="btn btn-ghost">View Our Work</a>
         </div>
       </div>
     </section>
@@ -68,49 +76,110 @@ preloadImage: /assets/img/belmont-pond.jpg
       <span class="line"></span><span class="gem"></span><span class="line r"></span>
     </div>
 
-    <section class="section inquiry-paths">
-      <div class="container">
-        <h2>What are you planning?</h2>
-        <p>For a home project, tell us what you want to build and where. For project oversight, tell us your role, project stage and the support you need. Scope, service area and availability can be discussed before you commit.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact" data-project-type="general_contracting">Discuss a home project</a>
-          <a class="btn btn-ghost" href="/construction-advisory/">Explore construction advisory</a>
-        </div>
-      </div>
-    </section>
-
     <!-- ============================ SERVICES ============================ -->
-    <section class="section services">
+    {# This used to be two sections: an `.inquiry-paths` block that asked
+       "What are you planning?" and offered a residential/advisory choice, and
+       a separate six-card `Our Services` grid that answered the same question
+       again. They are merged here so the split the visitor has to make
+       — building a home, or overseeing someone else's build — is made once,
+       and the cards sit underneath the choice they belong to.
+
+       The cards are icon-led rather than photo-led on purpose. Attaching a
+       portfolio photograph to "ADU Construction" would assert that the photo
+       IS an ADU this company built, and no per-project role is confirmed.
+       Icons carry the same scanning benefit without making that claim. #}
+    <section class="section services" id="services">
       <div class="container">
         <div class="section-head center" data-reveal>
           <span class="eyebrow">What We Do</span>
-          <h2 data-reveal-words>Our Services</h2>
+          <h2 data-reveal-words>What are you planning?</h2>
           <hr class="rule">
+          <p class="section-lede">For a home project, tell us what you want to build and where. For project oversight, tell us your role, project stage and the support you need. Scope, service area and availability can be discussed before you commit.</p>
         </div>
-        <div class="services-grid">
-          <a href="/general-contractor-falmouth-ma/" class="service-card" data-reveal data-delay="1">
-            <h3>General Contracting</h3>
-            <p>Full-service residential construction in Falmouth and across Cape Cod</p>
-          </a>
-          <a href="/home-additions-cape-cod/" class="service-card" data-reveal data-delay="2">
-            <h3>Home Additions</h3>
-            <p>Expand your living space with seamless additions and ADUs</p>
-          </a>
-          <a href="/adu-builder-cape-cod/" class="service-card" data-reveal data-delay="3">
-            <h3>ADU Builder</h3>
-            <p>Expert ADU construction on Cape Cod</p>
-          </a>
-          <a href="/home-renovation-cape-cod/" class="service-card" data-reveal data-delay="4">
-            <h3>Home Renovation</h3>
-            <p>Kitchen, bath, and whole-home renovations</p>
-          </a>
-          <a href="/custom-home-builder-cape-cod/" class="service-card" data-reveal data-delay="5">
-            <h3>Custom Homes</h3>
-            <p>Bespoke custom home building from concept to completion</p>
-          </a>
-          <a href="/construction-advisory/" class="service-card" data-reveal data-delay="6">
-            <h3>Construction Advisory</h3>
-            <p>Owner's project management and Clerk of the Works oversight</p>
+
+        <div class="svc-path" data-reveal>
+          <div class="svc-path__head">
+            <h3>Build &amp; renovate</h3>
+            <p>You own the home, or you are about to. We build it.</p>
+          </div>
+          <div class="services-grid">
+            <a href="/general-contractor-falmouth-ma/" class="service-card">
+              <span class="service-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/></svg>
+              </span>
+              <h4>General Contracting</h4>
+              <p>Full-service residential construction in Falmouth and across Cape Cod</p>
+              <span class="service-card__go" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
+            </a>
+            <a href="/home-additions-cape-cod/" class="service-card">
+              <span class="service-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M4 21V10l6-4 6 4"/><path d="M16 21v-7h4v7"/><path d="M8 21v-5h3v5"/></svg>
+              </span>
+              <h4>Home Additions</h4>
+              <p>Expand your living space with seamless additions and ADUs</p>
+              <span class="service-card__go" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
+            </a>
+            <a href="/adu-builder-cape-cod/" class="service-card">
+              <span class="service-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21h20"/><path d="M3 21v-7l5-3.5L13 14v7"/><path d="M14 21v-9l4-2.5L22 12v9"/><path d="M7 21v-3h2v3"/></svg>
+              </span>
+              <h4>ADU Construction</h4>
+              <p>Expert ADU construction on Cape Cod</p>
+              <span class="service-card__go" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
+            </a>
+            <a href="/home-renovation-cape-cod/" class="service-card">
+              <span class="service-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0 5 5L21 21H3l9.9-9.9a4 4 0 0 1 1.8-4.8z"/><path d="m16 3 5 5"/></svg>
+              </span>
+              <h4>Home Renovation</h4>
+              <p>Kitchen, bath, and whole-home renovations</p>
+              <span class="service-card__go" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
+            </a>
+            <a href="/custom-home-builder-cape-cod/" class="service-card">
+              <span class="service-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M4 21V9l8-6 8 6v12"/><path d="M9.5 21v-5.5h5V21"/><path d="M9.5 10.5h5"/></svg>
+              </span>
+              <h4>Custom Homes</h4>
+              <p>Bespoke custom home building from concept to completion</p>
+              <span class="service-card__go" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
+            </a>
+            <a class="service-card service-card--cta" href="#contact" data-project-type="general_contracting">
+              <span class="service-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </span>
+              <h4>Not sure which one?</h4>
+              <p>Describe the project in your own words and we will tell you how it is usually scoped.</p>
+              <span class="service-card__go" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="svc-path svc-path--advisory" data-reveal>
+          <div class="svc-path__head">
+            <h3>Plan &amp; oversee</h3>
+            <p>Someone else is building. You need an experienced set of eyes on it.</p>
+          </div>
+          <a href="/construction-advisory/" class="service-card service-card--wide">
+            <span class="service-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 2H8.5A2.5 2.5 0 0 0 6 4.5v15A2.5 2.5 0 0 0 8.5 22h7a2.5 2.5 0 0 0 2.5-2.5v-15A2.5 2.5 0 0 0 15.5 2z"/><path d="M9.5 6h5"/><path d="M9.5 10h5"/><path d="M9.5 14h3"/></svg>
+            </span>
+            <h4>Construction Advisory</h4>
+            <p>Owner's project management and Clerk of the Works oversight: budget, schedule and quality watched on your behalf, from concept to close-out.</p>
+            <span class="service-card__go" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
           </a>
         </div>
       </div>
@@ -205,21 +274,29 @@ preloadImage: /assets/img/belmont-pond.jpg
             <span class="spot-extra" aria-hidden="true"></span>
             <form id="contact-form" action="/api/contact" method="post" enctype="multipart/form-data" novalidate>
               <p class="form-note">Name, email and a short message are required. Other details are optional.</p>
+              {#- Each required control carries an empty .field__error that
+                  js/main.js fills in, and points at it with aria-describedby
+                  so a screen reader announces the message with the field
+                  rather than only in the shared status line at the bottom. #}
               <div class="field">
                 <label for="cc-name">Name</label>
-                <input id="cc-name" name="name" type="text" autocomplete="name" placeholder="Your name" maxlength="120" required>
+                <input id="cc-name" name="name" type="text" autocomplete="name" placeholder="Your name" maxlength="120" required aria-describedby="cc-name-error">
+                <p class="field__error" id="cc-name-error"></p>
               </div>
               <div class="field">
                 <label for="cc-email">Email</label>
-                <input id="cc-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" maxlength="254" required>
+                <input id="cc-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" maxlength="254" required aria-describedby="cc-email-error">
+                <p class="field__error" id="cc-email-error"></p>
               </div>
-              <div class="field">
-                <label for="cc-phone">Phone (optional)</label>
-                <input id="cc-phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
-              </div>
-              <div class="field">
-                <label for="cc-town">Project town (optional)</label>
-                <input id="cc-town" name="project_town" type="text" maxlength="100" autocomplete="address-level2">
+              <div class="field-row">
+                <div class="field">
+                  <label for="cc-phone">Phone (optional)</label>
+                  <input id="cc-phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
+                </div>
+                <div class="field">
+                  <label for="cc-town">Project town (optional)</label>
+                  <input id="cc-town" name="project_town" type="text" maxlength="100" autocomplete="address-level2">
+                </div>
               </div>
               <div class="field">
                 <label for="cc-project-type">Project type (optional)</label>
@@ -234,9 +311,27 @@ preloadImage: /assets/img/belmont-pond.jpg
                   <option value="other">Other / not sure yet</option>
                 </select>
               </div>
+              {#- budget_range and desired_timeline were already accepted,
+                  length-checked, written to lead_workflow and included in the
+                  idempotency fingerprint by worker/index.js — the form simply
+                  never offered them, so every lead arrived without the two
+                  details that decide whether a job is worth a site visit.
+                  These are free text, not a priced menu: the company has
+                  published no prices and none are implied here. #}
+              <div class="field-row">
+                <div class="field">
+                  <label for="cc-budget">Budget range (optional)</label>
+                  <input id="cc-budget" name="budget_range" type="text" maxlength="100" placeholder="A range or “not sure yet”">
+                </div>
+                <div class="field">
+                  <label for="cc-timeline">Timing (optional)</label>
+                  <input id="cc-timeline" name="desired_timeline" type="text" maxlength="150" placeholder="e.g. next spring, no fixed date">
+                </div>
+              </div>
               <div class="field">
                 <label for="cc-message">Message</label>
-                <textarea id="cc-message" name="message" placeholder="What would you like to build or improve? Include your town and timing if known." maxlength="5000" required></textarea>
+                <textarea id="cc-message" name="message" placeholder="What would you like to build or improve? Include your town and timing if known." maxlength="5000" required aria-describedby="cc-message-error"></textarea>
+                <p class="field__error" id="cc-message-error"></p>
               </div>
               <div class="field">
                 <label for="cc-files">Photos or plans (optional)</label>
@@ -290,7 +385,7 @@ preloadImage: /assets/img/belmont-pond.jpg
                   </span>
                   <div>
                     <div class="label">Email</div>
-                    <div class="value">collaborativeconstructiongc@gmail.com</div>
+                    <div class="value value--email">collaborativeconstructiongc@gmail.com</div>
                   </div>
                 </a>
               </li>

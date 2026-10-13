@@ -33,6 +33,40 @@
   }
 
   /* ----------------------------------------------------------------------
+     Services dropdown
+
+     CSS already opens the panel on :hover and :focus-within, so the menu
+     works with this file absent. What CSS cannot do is keep aria-expanded
+     honest, or let a tap toggle the panel shut again — so that part lives
+     here, as a class the same CSS rules respond to.
+  ---------------------------------------------------------------------- */
+  $$(".nav-group").forEach(group => {
+    const trigger = $(".nav-group__trigger", group);
+    if (!trigger) return;
+    const setOpen = (open) => {
+      group.classList.toggle("is-open", open);
+      trigger.setAttribute("aria-expanded", String(open));
+    };
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setOpen(!group.classList.contains("is-open"));
+    });
+    // Escape closes and returns focus to the trigger, per the usual
+    // disclosure pattern; focusout covers tabbing or tapping away.
+    group.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && group.classList.contains("is-open")) {
+        setOpen(false); trigger.focus();
+      }
+    });
+    group.addEventListener("focusout", () => {
+      if (!group.contains(document.activeElement)) setOpen(false);
+    });
+    document.addEventListener("click", (e) => {
+      if (!group.contains(e.target)) setOpen(false);
+    });
+  });
+
+  /* ----------------------------------------------------------------------
      Subtle hero parallax
   ---------------------------------------------------------------------- */
   const heroBg = $(".hero__bg");
@@ -263,85 +297,84 @@
   }
 
   /* ----------------------------------------------------------------------
-     Carousel(s) auto-advance, dots, arrows, progress, swipe, pause-on-hover
+     Carousel(s) — dots, arrows, keyboard, swipe, slide counter
+
+     These no longer advance on their own. Seven galleries on /gallery/ each
+     ran a requestAnimationFrame loop forever to paint a progress bar, and up
+     to four were on screen at once in the two-column grid, so the page had
+     several photographs sliding independently while you tried to look at one.
+     Autoplay also failed WCAG 2.2.2: pausing was bound to :hover, which a
+     touch or keyboard visitor cannot do.
+
+     Photographs of finished work are the reason someone is on this page, so
+     the visitor sets the pace. Everything that let you *choose* a photo —
+     arrows, dots, swipe — is kept, and arrow keys and a "3 / 6" counter are
+     new, because with autoplay gone the controls have to carry discovery.
   ---------------------------------------------------------------------- */
   $$(".carousel").forEach((root) => {
     const track  = $(".carousel__track", root);
     const slides = $$(".carousel__slide", root);
     const dotsWrap = $(".carousel__dots", root);
-    const bar    = $(".carousel__bar", root);
     const prev   = $(".carousel__btn.prev", root);
     const next   = $(".carousel__btn.next", root);
-    if (slides.length <= 1) { if (prev) prev.style.display = "none"; if (next) next.style.display = "none"; }
+    if (!track || slides.length <= 1) return;
 
     let idx = 0;
-    const INTERVAL = parseInt(root.dataset.interval || "5000", 10);
-    let timer = null, barRAF = null, barStart = 0, paused = false;
 
-    // dots
+    /* Built here rather than in the templates: it is a readout of state this
+       script owns, so on a page where the script never ran there is no "1 / 6"
+       sitting next to arrows that do nothing. aria-hidden because the dots
+       and arrow labels already say which photo you are on — a screen reader
+       does not need to hear the position twice. */
+    const count = document.createElement("p");
+    count.className = "carousel__count";
+    count.setAttribute("aria-hidden", "true");
+    const at = document.createElement("span");
+    at.className = "carousel__at";
+    count.append(at, document.createTextNode(" / " + slides.length));
+    root.appendChild(count);
+
     const dots = slides.map((_, i) => {
       const b = document.createElement("button");
-      b.type = "button"; b.setAttribute("aria-label", "Go to slide " + (i + 1));
-      b.addEventListener("click", () => go(i, true));
+      b.type = "button";
+      b.setAttribute("aria-label", "Photo " + (i + 1) + " of " + slides.length);
+      b.addEventListener("click", () => go(i));
       dotsWrap && dotsWrap.appendChild(b);
       return b;
     });
 
     function render() {
       track.style.transform = `translateX(${-idx * 100}%)`;
-      dots.forEach((d, i) => d.classList.toggle("active", i === idx));
+      dots.forEach((d, i) => {
+        d.classList.toggle("active", i === idx);
+        // aria-current, not aria-selected: this is a set of links-in-spirit
+        // into one gallery, not a tablist.
+        if (i === idx) d.setAttribute("aria-current", "true");
+        else d.removeAttribute("aria-current");
+      });
+      if (at) at.textContent = String(idx + 1);
     }
-    function go(i, user) {
-      idx = (i + slides.length) % slides.length;
-      render();
-      if (user) restart();
-    }
-    const nextSlide = () => go(idx + 1);
-    const prevSlide = () => go(idx - 1);
+    const go = (i) => { idx = (i + slides.length) % slides.length; render(); };
 
-    next && next.addEventListener("click", () => go(idx + 1, true));
-    prev && prev.addEventListener("click", () => go(idx - 1, true));
+    next && next.addEventListener("click", () => go(idx + 1));
+    prev && prev.addEventListener("click", () => go(idx - 1));
 
-    // progress bar animation
-    function animateBar(ts) {
-      if (!barStart) barStart = ts;
-      const p = Math.min((ts - barStart) / INTERVAL, 1);
-      if (bar) bar.style.width = (p * 100) + "%";
-      if (p >= 1) { barStart = 0; nextSlide(); }
-      barRAF = requestAnimationFrame(animateBar);
-    }
-    function start() {
-      if (prefersReduced || slides.length <= 1 || paused) return;
-      stop(); barStart = 0; barRAF = requestAnimationFrame(animateBar);
-    }
-    function stop() {
-      if (barRAF) cancelAnimationFrame(barRAF);
-      barRAF = null; if (bar) bar.style.width = "0%";
-    }
-    function restart() { stop(); start(); }
+    // Arrow keys work once anything inside the carousel has focus, which is
+    // how a keyboard visitor expects a gallery to behave.
+    root.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") { go(idx + 1); e.preventDefault(); }
+      else if (e.key === "ArrowLeft") { go(idx - 1); e.preventDefault(); }
+    });
 
-    // pause on hover / when offscreen
-    root.addEventListener("mouseenter", () => { paused = true; stop(); });
-    root.addEventListener("mouseleave", () => { paused = false; start(); });
-    document.addEventListener("visibilitychange", () => { document.hidden ? stop() : start(); });
-
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver((ents) => {
-        ents.forEach(en => { paused = !en.isIntersecting; en.isIntersecting ? start() : stop(); });
-      }, { threshold: 0.25 }).observe(root);
-    }
-
-    // swipe
     let sx = 0, dx = 0, dragging = false;
-    track.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; dragging = true; stop(); }, { passive: true });
+    track.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; dx = 0; dragging = true; }, { passive: true });
     track.addEventListener("touchmove",  (e) => { if (dragging) dx = e.touches[0].clientX - sx; }, { passive: true });
     track.addEventListener("touchend",   () => {
-      if (Math.abs(dx) > 45) (dx < 0 ? nextSlide() : prevSlide());
-      dx = 0; dragging = false; start();
+      if (Math.abs(dx) > 45) go(dx < 0 ? idx + 1 : idx - 1);
+      dx = 0; dragging = false;
     });
 
     render();
-    start();
   });
 
   /* ----------------------------------------------------------------------
@@ -372,7 +405,15 @@
     if (type && context) type.value = context.get().project_type;
     let files = [], sending = false, submissionId = null;
     const rotate = () => { submissionId = null; };
-    form.addEventListener("input", e => { if (e.target.name !== "cf-turnstile-response") rotate(); });
+    /* One input listener, not two. Rotating the submission id and clearing a
+       stale error message are both reactions to the visitor editing a field,
+       and splitting them across two registrations made the second one shadow
+       the first wherever only a single handler per event type is kept. */
+    form.addEventListener("input", e => {
+      const el = e.target;
+      if (!el || el.name !== "cf-turnstile-response") rotate();
+      if (isFlagged(el) && String(el.value || "").trim()) setFieldError(el, "");
+    });
     form.addEventListener("change", e => { if (e.target.name !== "cf-turnstile-response") rotate(); });
     function renderFiles() {
       if (!list) return;
@@ -393,6 +434,37 @@
       files = Array.from(fileInput.files || []);
       renderFiles();
     });
+    /* ---- per-field errors ------------------------------------------------
+       Validation used to speak only through the one status line at the
+       bottom of the form ("Please enter your name, email and project
+       message"), which does not say which box is wrong and, on a phone,
+       is often off screen. These helpers write the message next to the
+       control and mark it aria-invalid. The .field__error elements are
+       already in the markup and already referenced by aria-describedby,
+       so filling one announces it with the field it belongs to.
+
+       setFieldError does not touch submit logic — the gating conditions
+       below are unchanged. It only makes the existing refusal legible.
+
+       Every DOM call here is feature-checked rather than assumed. Labelling
+       is cosmetic and submitting is not: a field with no matching error slot,
+       or an element that cannot take focus, must never be the reason an
+       inquiry fails to send.
+    --------------------------------------------------------------------- */
+    const errorSlot = el => (el && el.id ? $("#" + el.id + "-error", form) : null);
+    const isFlagged = el => !!el && typeof el.getAttribute === "function"
+      && el.getAttribute("aria-invalid") === "true";
+    function setFieldError(el, message) {
+      if (!el) return;
+      if (typeof el.setAttribute === "function") el.setAttribute("aria-invalid", message ? "true" : "false");
+      const slot = errorSlot(el);
+      if (slot) slot.textContent = message || "";
+    }
+    function focusField(el) { if (el && typeof el.focus === "function") el.focus(); }
+    function clearFieldErrors() {
+      ["name", "email", "message"].forEach(n => setFieldError(field(n), ""));
+    }
+
     function fallback(message) {
       status.className = "form-status err";
       status.textContent = message + " Your entries are still here. You can retry, email ";
@@ -407,11 +479,22 @@
       e.preventDefault();
       if (sending) return;
       status.className = "form-status"; status.textContent = "";
-      if (!form.reportValidity()) return;
-      if (!["name", "email", "message"].every(n => field(n).value.trim())) {
-        status.textContent = "Please enter your name, email and project message.";
+      clearFieldErrors();
+      const missing = [
+        ["name", "Please enter your name."],
+        ["email", "Please enter your email address."],
+        ["message", "Please tell us about your project."]
+      ].filter(([n]) => !field(n).value.trim());
+      if (missing.length) {
+        missing.forEach(([n, msg]) => setFieldError(field(n), msg));
+        status.className = "form-status err";
+        status.textContent = missing.length === 1
+          ? "One field still needs an answer — see the message above it."
+          : "A few fields still need answers — see the messages above them.";
+        focusField(field(missing[0][0]));
         return;
       }
+      if (!form.reportValidity()) return;
       if (files.length > 6 || files.some(f => f.size > 10 * 1024 * 1024) || files.reduce((total, f) => total + f.size, 0) > 25 * 1024 * 1024) {
         fallback("Please select up to 6 attachments, each no larger than 10 MB and 25 MB total."); return;
       }
@@ -452,7 +535,28 @@
           if (data.attachments && data.attachments.failedCount > 0) status.textContent += " Some attachments could not be saved. Please mention this when we speak; your inquiry itself is saved.";
           if (window.ccTrack) window.ccTrack("generate_lead");
         } else {
+          /* The Worker already returns a per-field `errors` map alongside
+             `error` on a 400 (see worker/index.js), and the browser was
+             throwing it away — so a server-side rejection showed only the
+             generic "Please check the form fields." Attach each one to its
+             control, then focus the first. */
+          let firstBad = null;
+          if (data && data.errors && typeof data.errors === "object") {
+            Object.entries(data.errors).forEach(([name, message]) => {
+              const el = field(name);
+              if (!el || typeof message !== "string") return;
+              setFieldError(el, message.slice(0, 200));
+              /* Only move focus to something the visitor can actually act on.
+                 The Worker can reject project_type, which is a hidden input
+                 carrying the context of whichever service page they arrived
+                 from — focusing that would take focus nowhere and leave no
+                 visible explanation. Those cases fall through to the status
+                 line below, which prints the server's own message. */
+              if (!firstBad && errorSlot(el)) firstBad = el;
+            });
+          }
           fallback(typeof data.error === "string" ? data.error.slice(0, 300) : "We could not confirm that your inquiry was saved.");
+          focusField(firstBad);
         }
       } catch (_) {
         fallback("We could not confirm the result. Please retry without changing your entries to avoid a duplicate inquiry.");
