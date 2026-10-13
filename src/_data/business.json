@@ -57,6 +57,7 @@
 
   "images": {
     "logo": "/assets/logo.png",
+    "logoHeader": "/assets/logo-header.png",
     "badge": "/assets/c-icon.png",
     "share": "/assets/img/belmont-hero.jpg",
     "shareWidth": 1280,
