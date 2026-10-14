@@ -48,9 +48,42 @@ No evidence supports explanation #2 (consent blocking) as the cause of the 48-ho
 
 No code change needed beyond what's already committed locally. The smallest safe action is: deploy commit `9fb6ac8` (or whatever HEAD includes it) through the normal release procedure (isolated worktree → `npm ci` → `npm test` → `npm run build` → `verify-release-build.mjs` → `wrangler deploy --dry-run` → real deploy → post-deploy verification). **Not performed yet — deployment requires separate owner approval**, consistent with this round's explicit authorization boundaries.
 
+## Update — October 13-14, 2026: canonical source confirmed, identity re-verified, deploy still pending
+
+The owner sent a follow-up explaining item 7 above: **`G-13DBV8V3BE` was an Analytics setup the owner personally accessed using their *school* email, not the business account.** This resolves the open question from Part B item 7 — the old ID was never "the wrong unlisted business property," it belongs to a different, personal/school Google identity entirely. The owner then gave an explicit, standing decision:
+
+> Collaborative Construction's website tracking and long-term business reporting will be managed through `collaborativeconstructiongc@gmail.com` / property `558903217` / measurement ID `G-PNS7LJP5QB`, going forward.
+
+**This is now recorded as the canonical GA4 configuration for this project. Future agents and docs should treat `G-PNS7LJP5QB` / property `558903217` as authoritative and `G-13DBV8V3BE` as legacy/historical only** — not delete it, not change its permissions, not treat it as an equivalent or backup data source for this site's reporting.
+
+Re-verification performed this round (all read-only, all additive to Part A's checks, nothing above was reversed or contradicted):
+
+- **Re-ran `gcloud auth application-default login`** with `userinfo.email`+`openid` added to the scope list specifically to get a hard answer on which Google identity the existing ADC token belongs to (the owner's new message raised a legitimate doubt about this, since two personal/business Google accounts are both in play). Queried `https://www.googleapis.com/oauth2/v2/userinfo` with the resulting token: **confirmed `collaborativeconstructiongc@gmail.com`** — the business account, not the school one. This is a definitive identity check, not an inference from "the API calls happened to work."
+- **Re-confirmed the property↔stream↔measurement-ID mapping directly from the Admin API's `dataStreams` endpoint** (`GET analyticsadmin.googleapis.com/v1beta/properties/558903217/dataStreams`), which returned `properties/558903217/dataStreams/16124097872` → `measurementId: "G-PNS7LJP5QB"` — an authoritative, machine-verified confirmation of the owner-reported table at the top of this document, not just trust in what was typed into chat.
+- **Re-confirmed no double-send risk exists structurally**: grepped the full repo (excluding `node_modules`/`_site`) for both measurement IDs — the only live code reference is the single `ga4MeasurementId` value in `src/_data/analytics.json`; grepped `worker/index.js` for any Measurement-Protocol/server-side send pattern — none exists. There is exactly one place in the codebase a measurement ID can be read from, so sending to both properties simultaneously is not possible with the current code, regardless of deploy state.
+- **Re-ran the full pre-deploy verification chain without deploying**: `npm test` (95/95 pass), `npm run build`, `node scripts/verify-release-build.mjs` (passed), `npx wrangler deploy --dry-run` (succeeded, bindings matched the known-good set with no drift). Current live Worker version at time of this check: `00c4ba2e-dee6-4c69-9771-954ac685cd8d` (100% traffic) — this is the rollback target if/when a real deploy is approved and run.
+- **No file changes were needed this round.** `src/_data/analytics.json` already has `ga4MeasurementId: "G-PNS7LJP5QB"` from commit `9fb6ac8` (the prior round's "smallest local change"). That commit is still unmerged/undeployed; nothing new was committed to application code this round, only to this documentation and to `docs/research/06-data-access.md`'s GA4 section (updated same day to drop its stale "not yet obtained" framing).
+
+**Still true, unchanged from Part A/B above**: production (`https://collaborativeconstructionllc.com`) is still serving `G-13DBV8V3BE` as of this check — the corrected tag exists only in the local commit, not live. Deployment has deliberately not been run, per explicit instruction not to deploy without separate approval.
+
+### Controlled deployment and verification procedure (prepared, not run)
+
+This is the exact procedure that will be followed once the owner gives separate deploy approval — written out explicitly rather than left as "the normal release procedure" shorthand, per the owner's request. Steps 1-5 have already been dry-run/rehearsed this round (not against production); step 6 onward requires approval first.
+
+1. Create a fresh, isolated `git worktree` detached at the exact commit to deploy (HEAD including `9fb6ac8`) — never deploy from the main working tree, consistent with every prior release in `docs/releases/`.
+2. In that worktree: `npm ci` (clean install), `npm test` (must be 95/95 or whatever the current full count is, 0 fail, 0 skip), `npm run build`, `node scripts/verify-release-build.mjs` (checks public file set, trap/challenge contracts, canonical/sitemap/JSON-LD invariants). All four already passed this round against this exact commit.
+3. `npx wrangler deploy --dry-run` — confirms bindings (D1 `cc-leads`, R2 `cc-lead-attachments`, `SEND_EMAIL`, rate limiter, env vars) match the known-good set with zero drift. Already passed this round.
+4. Record the current live Worker version via `npx wrangler deployments list` as the rollback target before deploying. Recorded this round: `00c4ba2e-dee6-4c69-9771-954ac685cd8d`, 100% traffic.
+5. **Stop here without separate owner approval.** Steps 1-4 are non-destructive dry runs/local checks only; nothing below this line touches production.
+6. **(Pending approval)** Run the real `npx wrangler deploy` from the isolated worktree.
+7. **(Pending approval)** Post-deploy `curl` checks: confirm the live HTML's only measurement ID is now `G-PNS7LJP5QB` (not `G-13DBV8V3BE`), confirm homepage and all canonical pages still return 200, confirm `css/styles.css`/other assets are intact.
+8. **(Pending approval) Per the owner's explicit instruction**: verify using a clean browser (fresh profile or private window, no stale `cc-consent` localStorage key from testing) — grant analytics consent via the real banner on the live site, then confirm the hit appears in GA4 **Realtime** or **DebugView** for property `558903217`, under a session that is clearly identifiable as a verification check (not conflated with real customer traffic in any report).
+9. Write a dated release record under `docs/releases/` (same format as `2026-10-13-design-motion-faq-release.md`) documenting the deployed commit, new Worker version ID, rollback command, and post-deploy verification results — this is the standing convention for every production change in this repo.
+10. Rollback path if anything goes wrong: `npx wrangler rollback 00c4ba2e-dee6-4c69-9771-954ac685cd8d --name collaborativeconstructionllc-com --message "<reason>"` — restores the prior version, touches no D1/R2 data.
+
 ## Owner actions still open
 
-1. Approve deploying commit `9fb6ac8` so the live site actually starts sending to `G-PNS7LJP5QB`.
-2. **Restart Claude Code** so the newly registered `google-analytics` MCP tools become available in a session (confirmed not yet visible in this one).
-3. Check the GA4 account switcher for any other property using `G-13DBV8V3BE`, to rule in/out whether historical data exists somewhere else under a different property.
-4. Once restarted and deployed, allow some real traffic time, then use the new MCP connection to pull a first real GA4 baseline alongside the existing GSC one.
+1. Approve deploying commit `9fb6ac8` (or current HEAD including it) so the live site actually starts sending to `G-PNS7LJP5QB`. **Once approved, verify post-deploy using a clean browser with explicit analytics consent granted, checked against GA4 Realtime or DebugView for property `558903217`** — per the owner's explicit verification instruction.
+2. ~~Restart Claude Code so the newly registered `google-analytics` MCP tools become available~~ — superseded by this round's direct REST/ADC verification (identity, property, and dataStreams all confirmed without needing the MCP tool surface itself to be loaded). Restarting is still worthwhile to get the convenience of the MCP tool surface (`run_report`, `get_account_summaries`, etc.) for future reporting, but is no longer blocking any open verification question.
+3. ~~Check the GA4 account switcher for any other property using `G-13DBV8V3BE`~~ — resolved by the owner directly: that property belongs to the owner's school Google account, not a misplaced business property. No further lookup needed. Per standing instruction, it is being preserved untouched (no deletion, no permission change).
+4. Once deployed, allow some real traffic time, then use the MCP connection (or the same raw REST calls used in this diagnosis) to pull a first real GA4 baseline for `558903217` alongside the existing GSC one.
