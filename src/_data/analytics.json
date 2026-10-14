@@ -4,8 +4,8 @@
   "_cloudflareAlreadyOnComment": "LEAVE THIS NULL. Web Analytics is already enabled on this zone using Cloudflare's AUTOMATIC setup, which injects the beacon at the edge rather than from our HTML. Verified 2026-09-09: the beacon is absent from _site output and from a plain curl, but present in a real browser request, carrying Cloudflare's own token 09fc0190332d4c69ab1b7de00a7f5d69. Setting cloudflareToken here would add a SECOND beacon tag on top of the injected one and double-count every pageview. Only fill this in if automatic injection is first turned off in the Cloudflare dashboard.",
   "cloudflareToken": null,
   "_ga4Comment": "GA4 loads only after explicit consent; events are gated by the same consent helper.",
-  "_ga4Stream": "Property stream \"Collaborative Construction LLC\", stream ID 15756853352, stream URL https://collaborativeconstructionllc.com. base.njk renders the gtag snippet itself, so the raw snippet from the GA4 console must NOT be pasted into any template: doing so would load gtag.js a second time and, because the console snippet has no consent defaults, would set cookies before the visitor is ever asked.",
-  "ga4MeasurementId": "G-13DBV8V3BE",
+  "_ga4Stream": "Property stream \"Collaborative Construction LLC\", stream ID 16124097872, stream URL https://collaborativeconstructionllc.com, measurement ID G-PNS7LJP5QB. Switched 2026-10-13 from the prior stream (ID 15756853352, measurement ID G-13DBV8V3BE, owning account unknown) to this one, created under the business-owned collaborativeconstructiongc@gmail.com account, per owner decision. base.njk renders the gtag snippet itself, so the raw snippet from the GA4 console must NOT be pasted into any template: doing so would load gtag.js a second time and, because the console snippet has no consent defaults, would set cookies before the visitor is ever asked.",
+  "ga4MeasurementId": "G-PNS7LJP5QB",
   "_consentComment": "Shown only when ga4MeasurementId is set, because Cloudflare Web Analytics alone needs no consent.",
   "consent": {
     "message": "We use cookies to understand how people find and use this site. Nothing is shared with advertisers.",
