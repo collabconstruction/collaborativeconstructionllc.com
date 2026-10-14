@@ -33,6 +33,7 @@
 | [SEO + AI-discoverability sprint report](17-seo-sprint-report.md) | Before/after, exact files changed, test evidence, remaining business-info gaps, prioritized release proposal for the structured-data/internal-link/regression-test sprint |
 | [Complete URL inventory & indexing audit](18-indexing-audit.md) | Every public URL (canonical + legacy/duplicate + www), production-verified HTTP/redirect/canonical status, full GSC classification, indexing checklist with clickable URLs, manual GSC workflow, `www` host 522 defect and its determined root cause + owner-corrected, Cloudflare-docs-revalidated Redirect Rule fix (**API write attempt confirmed blocked with `401`; owner action required via dashboard — see `docs/releases/2026-10-12-seo-redirect-release.md`**), `/about` stale-duplicate-index finding, **307→301 legacy-redirect fix (unit-tested, `wrangler dev` integration-tested, and now deployed to production + verified live 17/17, 2026-10-12 night)**, owner indexing-request disposition, and sitemap/`/construction-advisory/` recheck |
 | [Company skills](../../.agents/skills/) | Five original skills, with local Claude entrypoints |
+| [Research report index](22-research-report-index.md) | Auto-generated index of cloud-routine and local-backup research reports (health, competitive); read this first to see what agents discovered without hunting through branches — see also [report-ingestion usage guide](../automation/report-ingestion.md) |
 
 ## Evidence rules
 
