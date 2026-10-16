@@ -1,0 +1,23 @@
+name: Public Website Health
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+permissions:
+  contents: read
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Public website availability and basic metadata
+        run: python3 scripts/monitor_public_site.py
+      - name: Save health result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-health-${{ github.run_id }}
+          path: monitoring-output/
+          if-no-files-found: warn
+          retention-days: 30
