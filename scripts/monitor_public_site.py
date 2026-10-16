@@ -27,8 +27,8 @@ for path in PATHS:
             content_type = response.headers.get("Content-Type", "")
         result = {"path": path, "status": status, "ok": status == 200, "final_url": final_url, "content_type": content_type}
         if path == "/":
-            result["has_title"] = bool(re.search(r"<title\\b[^>]*>\\s*[^<]+", body, re.I))
-            result["has_description"] = bool(re.search(r'<meta\\s+[^>]*name=["\\\']description["\\\']', body, re.I))
+            result["has_title"] = "<title" in body.lower() and "</title>" in body.lower()
+            result["has_description"] = bool(re.search(r'<meta[^>]+name=["\x27]description["\x27]', body, re.I))
     except (urllib.error.URLError, TimeoutError, OSError) as exc:
         result = {"path": path, "ok": False, "error": str(exc)[:240]}
     result["elapsed_ms"] = round((time.monotonic() - started) * 1000)
