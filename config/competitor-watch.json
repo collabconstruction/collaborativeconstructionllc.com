@@ -1,0 +1,146 @@
+[
+  {
+    "name": "The Valle Group",
+    "town": "Falmouth",
+    "category": "builder",
+    "url": "https://vallegroup.com/"
+  },
+  {
+    "name": "M. Duffany Builders",
+    "town": "Falmouth",
+    "category": "builder",
+    "url": "https://duffanybuilders.com/"
+  },
+  {
+    "name": "Longfellow Design Build",
+    "town": "Falmouth",
+    "category": "design-build",
+    "url": "https://www.longfellowdb.com/"
+  },
+  {
+    "name": "Clancy Construction",
+    "town": "Falmouth",
+    "category": "general contractor",
+    "url": "https://clancyconstruction.com/"
+  },
+  {
+    "name": "C. H. Newton Builders",
+    "town": "Falmouth",
+    "category": "builder",
+    "url": "https://www.chnewton.com/"
+  },
+  {
+    "name": "Barnes Custom Builders",
+    "town": "Falmouth",
+    "category": "builder",
+    "url": "https://www.barnescustom.com/"
+  },
+  {
+    "name": "Broderick Building & Remodeling",
+    "town": "Falmouth",
+    "category": "remodeler",
+    "url": "https://www.broderickbuilding.com/"
+  },
+  {
+    "name": "Tigo Builders",
+    "town": "Falmouth",
+    "category": "builder",
+    "url": "https://www.tigobuilders.com/"
+  },
+  {
+    "name": "Cataldo Custom Builders",
+    "town": "Falmouth",
+    "category": "builder",
+    "url": "https://www.cataldobuilders.com/"
+  },
+  {
+    "name": "Pinsonneault Builders",
+    "town": "Falmouth",
+    "category": "builder",
+    "url": "https://pinsonneaultbuilders.com/"
+  },
+  {
+    "name": "DC Builders",
+    "town": "Falmouth",
+    "category": "builder",
+    "url": "https://dcbuildersofcapecod.com/"
+  },
+  {
+    "name": "Good Builders",
+    "town": "Falmouth",
+    "category": "builder",
+    "url": "https://www.goodbuildersinc.com/"
+  },
+  {
+    "name": "D. P. Fuccillo Construction",
+    "town": "East Falmouth",
+    "category": "concrete contractor",
+    "url": "https://dpfuccillo.com/"
+  },
+  {
+    "name": "O'Connor Development",
+    "town": "Falmouth",
+    "category": "developer/builder",
+    "url": "https://www.oconnordevelopment.org/"
+  },
+  {
+    "name": "Coast to Coast Construction",
+    "town": "Falmouth",
+    "category": "general contractor",
+    "url": "https://www.ctcconstructioninc.com/"
+  },
+  {
+    "name": "Cape Cod Remodeling LLC",
+    "town": "Upper Cape",
+    "category": "remodeler",
+    "url": "https://capecodremodelingllc.com/"
+  },
+  {
+    "name": "Cape Associates",
+    "town": "Cape Cod",
+    "category": "builder",
+    "url": "https://www.capeassociates.com/"
+  },
+  {
+    "name": "Care Free Homes",
+    "town": "South Coast/Upper Cape",
+    "category": "remodeler",
+    "url": "https://carefreehomescompany.com/"
+  },
+  {
+    "name": "McPhee Associates",
+    "town": "Cape Cod",
+    "category": "builder",
+    "url": "https://www.mcpheeassociatesinc.com/"
+  },
+  {
+    "name": "R. K. Fox Builders",
+    "town": "Upper Cape",
+    "category": "builder",
+    "url": "https://www.rkfoxbuilders.com/"
+  },
+  {
+    "name": "High Tide Contracting",
+    "town": "Cape Cod",
+    "category": "design reference",
+    "url": "https://www.high-tide-contracting.com/"
+  },
+  {
+    "name": "Sea View Builders",
+    "town": "Cape Cod",
+    "category": "design reference",
+    "url": "https://www.seaviewbuilders.com/"
+  },
+  {
+    "name": "Archwright Fine Home Builders",
+    "town": "Cape Cod",
+    "category": "builder",
+    "url": "https://archwright.com/"
+  },
+  {
+    "name": "Polhemus Savery DaSilva",
+    "town": "Cape Cod",
+    "category": "architecture/build",
+    "url": "https://www.psdab.com/"
+  }
+]
