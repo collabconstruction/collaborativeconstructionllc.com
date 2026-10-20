@@ -71,6 +71,9 @@
   <noscript>
     <style>
       [data-reveal], .motto-word, .rw-word { opacity: 1 !important; transform: none !important; }
+      {#- .rule draws itself in from scaleX(0), so without this every hairline
+          rule on the page is invisible rather than merely un-animated. -#}
+      .rule { transform: scaleX(1) !important; }
     </style>
   </noscript>
   <script>
@@ -158,7 +161,7 @@
           </a>
         </div>
         <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
-          <span></span><span></span><span></span>
+          <span class="line"></span><span class="line"></span><span class="line"></span>
         </button>
       </div>
     </div>
@@ -176,12 +179,12 @@
           <img class="c-badge" src="{{ business.images.badge }}" alt="">
           <span class="wm">Collaborative<br>Construction</span>
         </div>
-        <p class="eyebrow gold motto-words">Experience <span class="dot" style="color:var(--gold-2)">·</span> Quality <span class="dot" style="color:var(--gold-2)">·</span> Trust</p>
+        <p class="footer-motto"><span>Experience</span><span>Quality</span><span>Trust</span></p>
         <p>{{ business.footerBlurb | safe }}</p>
       </div>
 
       <div class="footer-col">
-        <h4>Explore</h4>
+        <h2>Explore</h2>
         <ul class="footer-links">
           {#- A menu heading has no url, so list its children in its place
               rather than emitting `<a href="">`. #}
@@ -201,7 +204,7 @@
       </div>
 
       <div class="footer-col">
-        <h4>Contact</h4>
+        <h2>Contact</h2>
         <address class="footer-contact">
           {{ business.name }}<br>
           <a href="{{ business.address.mapUrl }}" target="_blank" rel="noopener">{{ business.address.display }}</a><br><br>
@@ -229,7 +232,7 @@
       </div>
 
       <div class="footer-col">
-        <h4>Recent Work</h4>
+        <h2>Recent Work</h2>
         {#- These two thumbnails used to hardcode a title, town and image that
             also appear on /gallery/, in the footer of every page. Renaming a
             project in projects.json would have left this strip quietly

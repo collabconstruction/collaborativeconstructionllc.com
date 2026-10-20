@@ -12,39 +12,29 @@ twitterDescription: "Home renovation services on Cape Cod with over 30 years of 
 schemaName: "Home Renovation Cape Cod"
 breadcrumbName: "Home Renovation"
 ---
-{% from "faq.njk" import faq %}
+
+
+<div class="service-page">
     <!-- ============================ HERO ============================ -->
     <section class="about-page-hero">
       <div class="container">
-        <span class="eyebrow motto-words" data-reveal>Experience <span class="dot">·</span> Quality <span class="dot">·</span> Trust</span>
-        <h1 data-reveal-words>Home Renovation on Cape Cod</h1>
-        <hr class="rule" style="margin:18px auto 0" data-reveal data-delay="2">
-        <p class="hero-lede" data-reveal data-delay="3">Kitchen and bath remodeling, whole-home renovations, and interior updates across Cape Cod and the South Shore.</p>
+        <p class="values-sequence" aria-label="Experience, Quality, Trust"><span>Experience</span><span>Quality</span><span>Trust</span></p>
+        <h1>Home Renovation </h1>
+        <hr class="rule" style="margin:18px auto 0">
+        <p class="hero-lede">Kitchen and bath remodeling, whole-home renovations, and interior updates.</p>
       </div>
     </section>
-
-    <div class="section-divider" data-reveal aria-hidden="true">
-      <span class="line"></span><span class="gem"></span><span class="line r"></span>
-    </div>
 
     <!-- ============================ WHAT WE RENOVATE ============================ -->
-    <section class="section advisory-intro">
+    <section class="section advisory-intro service-introduction">
       <div class="container">
-        <div class="section-head center" data-reveal>
-          <span class="eyebrow">Renovation Services</span>
-          <h2 data-reveal-words>Types of Renovations We Complete</h2>
-          <hr class="rule">
-        </div>
-        <p class="advisory-lede" data-reveal data-delay="1">We handle residential renovation projects of all sizes, from single-room updates to whole-home transformations. Our work includes kitchen and bathroom remodeling, interior renovations, floor plan changes, and exterior updates. Whether you're modernizing an older Cape Cod home or updating a specific space, we bring the same attention to detail and quality craftsmanship to every renovation project.</p>
+        <div class="section-head center" data-reveal><span class="eyebrow">Services</span><h2>Make your home work better</h2><p class="section-lede">Practical improvements, from individual rooms to whole-home renovation.</p></div>
+        <div class="scope-grid" data-reveal><article class="scope-tile"><span class="scope-tile__number">01</span><h3>Kitchens</h3><p>Cabinetry, layouts, finishes and coordinated trades.</p></article><article class="scope-tile"><span class="scope-tile__number">02</span><h3>Bathrooms</h3><p>Plumbing, tile, fixtures and interior improvements.</p></article><article class="scope-tile"><span class="scope-tile__number">03</span><h3>Whole homes</h3><p>Structural, mechanical and finish work planned together.</p></article></div>
       </div>
     </section>
 
-    <div class="section-divider" data-reveal aria-hidden="true">
-      <span class="line"></span><span class="gem"></span><span class="line r"></span>
-    </div>
-
     <!-- ============================ KITCHEN & BATH ============================ -->
-    <section class="section">
+    <section class="section service-editorial">
       <div class="container">
         <div class="section-head center" data-reveal>
           <span class="eyebrow">Specialized Work</span>
@@ -52,24 +42,16 @@ breadcrumbName: "Home Renovation"
           <hr class="rule">
         </div>
         <div class="two-col">
-          <div class="body" data-reveal="left">
-            <p><strong>Kitchen and Bath Remodeling</strong></p>
-            <p>Kitchens and bathrooms are among the most complex renovation projects, involving multiple trades and precise coordination. We manage the entire process: design consultation, demolition, plumbing, electrical, cabinetry installation, flooring, and finishes. Our experience includes modern spa-style bathrooms, custom kitchens with islands, and updates that respect the character of older homes while adding modern functionality.</p>
-            <p>We work with you to select materials and fixtures that fit your budget and lifestyle, then coordinate every subcontractor and inspection to keep your renovation on schedule and on budget.</p>
-          </div>
+          <div class="body" data-reveal="left"><p class="service-summary">Kitchens and bathrooms bring several trades into a small space. We coordinate demolition, plumbing, electrical work and finishes in a clear sequence.</p><ul class="service-checks"><li>Clear scope and responsibilities</li><li>Coordinated trades and inspections</li><li>Project decisions documented</li></ul></div>
           <div class="figure" data-reveal="right">
-            <img src="/assets/img/modern-home-1.jpg" alt="Custom bathroom renovation with standalone bathtub" loading="lazy">
+            <picture><source type="image/webp" srcset="/assets/img/r/modern-home-1-160.webp 160w, /assets/img/r/modern-home-1-480.webp 480w, /assets/img/r/modern-home-1-533.webp 533w" sizes="(min-width: 880px) 560px, 92vw"><img src="/assets/img/modern-home-1.jpg" alt="Custom bathroom renovation with standalone bathtub" width="533" height="800" loading="lazy" decoding="async"></picture>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="section-divider" data-reveal aria-hidden="true">
-      <span class="line"></span><span class="gem"></span><span class="line r"></span>
-    </div>
-
     <!-- ============================ WHOLE-HOME RENOVATIONS ============================ -->
-    <section class="section">
+    <section class="section service-details">
       <div class="container">
         <div class="section-head center" data-reveal>
           <span class="eyebrow">Comprehensive Projects</span>
@@ -80,12 +62,8 @@ breadcrumbName: "Home Renovation"
       </div>
     </section>
 
-    <div class="section-divider" data-reveal aria-hidden="true">
-      <span class="line"></span><span class="gem"></span><span class="line r"></span>
-    </div>
-
     <!-- ============================ RELATED PROJECTS ============================ -->
-    <section class="section">
+    <section class="section service-projects">
       <div class="container">
         <div class="section-head center" data-reveal>
           <span class="eyebrow">Our Work</span>
@@ -101,15 +79,15 @@ breadcrumbName: "Home Renovation"
             <div class="carousel">
               <div class="carousel__track">
                 <div class="carousel__slide">
-                  <img src="/assets/img/modern-home-1.jpg" alt="Standalone bathtub with custom wood panel accent wall" loading="lazy">
+                  <picture><source type="image/webp" srcset="/assets/img/r/modern-home-1-160.webp 160w, /assets/img/r/modern-home-1-480.webp 480w, /assets/img/r/modern-home-1-533.webp 533w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img src="/assets/img/modern-home-1.jpg" alt="Standalone bathtub with custom wood panel accent wall" width="533" height="800" loading="lazy" decoding="async"></picture>
                   <div class="carousel__caption">Standalone bathtub with custom wood panel accent wall</div>
                 </div>
                 <div class="carousel__slide">
-                  <img src="/assets/img/modern-home-3.jpg" alt="Custom bathroom vanity with dual sinks and wood panels" loading="lazy">
+                  <picture><source type="image/webp" data-srcset="/assets/img/r/modern-home-3-160.webp 160w, /assets/img/r/modern-home-3-480.webp 480w, /assets/img/r/modern-home-3-533.webp 533w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/modern-home-3.jpg" alt="Custom bathroom vanity with dual sinks and wood panels" width="533" height="800" loading="lazy" decoding="async"></picture>
                   <div class="carousel__caption">Custom bathroom vanity with dual sinks and wood panels</div>
                 </div>
                 <div class="carousel__slide">
-                  <img src="/assets/img/modern-home-2.jpg" alt="Modern glass-enclosed shower with tile interior" loading="lazy">
+                  <picture><source type="image/webp" data-srcset="/assets/img/r/modern-home-2-160.webp 160w, /assets/img/r/modern-home-2-480.webp 480w, /assets/img/r/modern-home-2-533.webp 533w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/modern-home-2.jpg" alt="Modern glass-enclosed shower with tile interior" width="533" height="800" loading="lazy" decoding="async"></picture>
                   <div class="carousel__caption">Modern glass-enclosed shower with tile interior</div>
                 </div>
               </div>
@@ -124,33 +102,11 @@ breadcrumbName: "Home Renovation"
           </article>
 
           <article class="project" data-reveal>
-            <div class="project-head">
-              <h2>Residential Exterior</h2>
-              <span class="tag">Falmouth, MA</span>
-            </div>
-            <div class="carousel">
-              <div class="carousel__track">
-                <div class="carousel__slide">
-                  <img src="/assets/img/residential-1.jpg" alt="Front exterior with driveway and attached garage" loading="lazy">
-                  <div class="carousel__caption">Front exterior with driveway and attached garage</div>
-                </div>
-                <div class="carousel__slide">
-                  <img src="/assets/img/residential-2.jpg" alt="Front entry with custom paver walkway and porch" loading="lazy">
-                  <div class="carousel__caption">Front entry with custom paver walkway and porch</div>
-                </div>
-                <div class="carousel__slide">
-                  <img src="/assets/img/residential-4.jpg" alt="Composite back deck with custom railing and lighting" loading="lazy">
-                  <div class="carousel__caption">Composite back deck with custom railing and lighting</div>
-                </div>
-              </div>
-              <button class="carousel__btn prev" type="button" aria-label="Previous image">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-              </button>
-              <button class="carousel__btn next" type="button" aria-label="Next image">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-              </button>
-              <div class="carousel__dots" role="group" aria-label="Choose a photo"></div>
-            </div>
+            <div class="project-head"><h2>Exterior Siding</h2><span class="tag">Mashpee, MA</span></div>
+            <figure>
+              <picture><source type="image/webp" srcset="/assets/img/r/mashpee-siding-1-160.webp 160w, /assets/img/r/mashpee-siding-1-480.webp 480w, /assets/img/r/mashpee-siding-1-640.webp 640w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img src="/assets/img/mashpee-siding-1.jpg" alt="Light-colored siding and white window trim on a home in Mashpee, MA" width="640" height="480" loading="lazy" decoding="async"></picture>
+              <figcaption>Exterior siding and window trim in Mashpee.</figcaption>
+            </figure>
           </article>
         </div>
         <div style="text-align:center;margin-top:32px" data-reveal>
@@ -159,44 +115,49 @@ breadcrumbName: "Home Renovation"
       </div>
     </section>
 
-    <div class="section-divider" data-reveal aria-hidden="true">
-      <span class="line"></span><span class="gem"></span><span class="line r"></span>
-    </div>
-
-    <section class="section">
+    <section class="section service-details">
       <div class="container">
         <h2>Tell us what needs to change</h2>
-        <p class="advisory-lede">Describe the rooms or systems you want to improve, the Cape Cod property town and whether the home will be occupied during work. Existing conditions and access can affect the scope. Before work begins, agree the responsibilities, selections, estimate and sequence, including how changes will be handled.</p>
+        <p class="advisory-lede">Describe the rooms or systems you want to improve, the Massachusetts property town and whether the home will be occupied during work. Existing conditions and access can affect the scope. Before work begins, agree the responsibilities, selections, estimate and sequence, including how changes will be handled.</p>
         <p class="advisory-lede">You can ask about the proposed project team, relevant experience and communication approach when discussing fit. Availability and the specific scope need to be confirmed for your project.</p>
       </div>
     </section>
 
-    <div class="section-divider" data-reveal aria-hidden="true">
-      <span class="line"></span><span class="gem"></span><span class="line r"></span>
+    
+<section class="section faq" aria-label="Questions About Renovations">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow">Before You Reach Out</span>
+      <h2 data-reveal-words>Questions About Renovations</h2>
+      <hr class="rule">
     </div>
+    <div class="faq-list" data-reveal>
+      <details class="faq-item" open>
+        <summary>What kinds of renovation work do you take on?</summary>
+        <div class="faq-item__body"><p>Projects of all sizes: kitchen and bathroom remodeling, interior renovations, floor plan changes, exterior updates, and single-room updates through whole-home transformations.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>How do you manage a renovation with multiple trades involved?</summary>
+        <div class="faq-item__body"><p>We manage the entire process: design consultation, demolition, plumbing, electrical, cabinetry installation, flooring, and finishes. We also coordinate every subcontractor and inspection to keep the renovation on schedule.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What do you need from me to get started?</summary>
+        <div class="faq-item__body"><p>Describe the rooms or systems you want to improve, the Massachusetts property town, and whether the home will be occupied during work. Existing conditions and access can affect the scope.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
 
-    {{ faq([
-      {
-        "q": "What kinds of renovation work do you take on?",
-        "a": "Projects of all sizes: kitchen and bathroom remodeling, interior renovations, floor plan changes, exterior updates, and single-room updates through whole-home transformations."
-      },
-      {
-        "q": "How do you manage a renovation with multiple trades involved?",
-        "a": "We manage the entire process, design consultation, demolition, plumbing, electrical, cabinetry installation, flooring, and finishes, and coordinate every subcontractor and inspection to keep the renovation on schedule."
-      },
-      {
-        "q": "What do you need from me to get started?",
-        "a": "Describe the rooms or systems you want to improve, the Cape Cod property town, and whether the home will be occupied during work. Existing conditions and access can affect the scope."
-      }
-    ], "Questions About Renovations") }}
 
     <!-- ============================ CTA ============================ -->
     <section class="section adu svc-cta">
       <div class="container" data-reveal>
         <span class="eyebrow eyebrow--boom" data-reveal="boom">Get in Touch</span>
-        <span class="svc-cta__photo"><img src="/assets/img/wesleigh-behn.jpg" alt="Wesleigh Behn, Owner &amp; Founder"></span>
         <h2 data-reveal-words>Discuss Your Renovation</h2>
         <p>Whether you're planning a kitchen remodel, bathroom update, or whole-home renovation, let's talk about transforming your space.</p>
         <a href="/#contact" data-project-type="renovation" class="btn btn-primary">Contact Us Today</a>
       </div>
     </section>
+
+</div>
+

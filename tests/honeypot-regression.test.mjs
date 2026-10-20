@@ -92,7 +92,7 @@ test('analytics ignores the renamed trap', () => {
 test('the actual submit handler sends the populated trap without clearing it', async () => {
   const source = read('js/main.js');
   const start = source.indexOf('  const form = $("#contact-form");');
-  const end = source.indexOf('\n  /* ----------------------------------------------------------------------\n     Particles', start);
+  const end = source.indexOf('  /* [INTAKE-HANDLER-END]', start);
   assert.ok(start >= 0 && end > start);
   const events = {}, requests = [];
   const fields = Object.fromEntries([['name', 'Synthetic Check'], ['email', 'test@example.invalid'],

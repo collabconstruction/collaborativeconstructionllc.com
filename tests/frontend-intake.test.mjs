@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import fs from 'node:fs';
 const source = fs.readFileSync(new URL('../js/main.js', import.meta.url),'utf8');
-const code = source.slice(source.indexOf('  const form = $("#contact-form");'), source.indexOf('\n  /* ----------------------------------------------------------------------\n     Particles'));
+const code = source.slice(source.indexOf('  const form = $("#contact-form");'), source.indexOf('  /* [INTAKE-HANDLER-END]'));
 function setup(responses, autoRefresh = true) {
   const events={}, requests=[], tracked=[];
   const fields=Object.fromEntries(['name','email','message','project_type','cc_x7q2m9','cf-turnstile-response'].map(name=>[name,{name,value:name==='email'?'test@example.com':'test',disabled:false}]));

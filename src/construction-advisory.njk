@@ -11,46 +11,36 @@ shareImageAlt: "A Collaborative Construction project under management"
 twitterDescription: "Owner's project management, Clerk of the Works oversight, and construction advisory on Cape Cod and the South Shore."
 schemaName: "Construction Management"
 ---
-{% from "faq.njk" import faq %}
+
+
+<div class="service-page">
     <!-- ============================ HERO ============================ -->
     <section class="about-page-hero">
       <div class="container">
-        <span class="eyebrow motto-words" data-reveal>Experience <span class="dot">·</span> Quality <span class="dot">·</span> Trust</span>
-        <h1 data-reveal-words>Construction Management</h1>
-        <hr class="rule" style="margin:18px auto 0" data-reveal data-delay="2">
-        <p class="hero-lede" data-reveal data-delay="3">Owner's project management and Clerk of the Works oversight, an experienced advocate protecting your budget, schedule, and quality from concept to close-out.</p>
+        <p class="values-sequence" aria-label="Experience, Quality, Trust"><span>Experience</span><span>Quality</span><span>Trust</span></p>
+        <h1>Construction Management</h1>
+        <hr class="rule" style="margin:18px auto 0">
+        <p class="hero-lede">Owner’s project management, Clerk of the Works and advisory services for independent review of construction progress, budgets and decisions.</p>
       </div>
     </section>
-
-    <div class="section-divider" data-reveal aria-hidden="true">
-      <span class="line"></span><span class="gem"></span><span class="line r"></span>
-    </div>
 
     <!-- ============================ INTRO ============================ -->
-    <section class="section advisory-intro">
+    <section class="section advisory-intro service-introduction">
       <div class="container">
-        <div class="section-head center" data-reveal>
-          <span class="eyebrow">Your Advocate At The Table</span>
-          <h2 data-reveal-words>An owner's advocate from concept to close-out</h2>
-          <hr class="rule">
-        </div>
-        <p class="advisory-lede" data-reveal data-delay="1">Every project runs smoother with an experienced advocate at the table, someone whose only job is to protect your interests. Through our Construction Advisory services, Collaborative Construction represents the owner from the first budget through move-in, drawing on more than 30 years of building experience. Engage us for full owner's project management across every phase, or for focused, on-site oversight through our Clerk of the Works.</p>
+        <div class="section-head center" data-reveal><span class="eyebrow">Services</span><h2>Choose the support you need</h2><p class="section-lede">Independent oversight for owners making construction decisions.</p></div>
+        <div class="scope-grid" data-reveal><article class="scope-tile"><span class="scope-tile__number">01</span><h3>Owner’s project management</h3><p>Coordination and reporting across the project.</p></article><article class="scope-tile"><span class="scope-tile__number">02</span><h3>Clerk of the Works</h3><p>On-site observation of quality and progress.</p></article><article class="scope-tile"><span class="scope-tile__number">03</span><h3>Focused advisory</h3><p>Review specific bids, schedules or project decisions.</p></article></div>
       </div>
     </section>
 
-    <div class="section-divider" data-reveal aria-hidden="true">
-      <span class="line"></span><span class="gem"></span><span class="line r"></span>
-    </div>
-
     <!-- ============================ OWNER'S PROJECT MANAGEMENT ============================ -->
-    <section class="section advisory-pm" id="owners-pm">
+    <section class="section service-details advisory-pm" id="owners-pm">
       <div class="container">
         <div class="section-head center" data-reveal>
           <span class="eyebrow">Service Area One</span>
           <h2 data-reveal-words>Owner's Project Management</h2>
           <hr class="rule">
         </div>
-        <p class="advisory-lede" data-reveal data-delay="1">As your sole representative, we guide the design, development, and construction-delivery process from end to end, hands-on through entitlement, procurement, design, construction buy-out, and close-out. By identifying and managing the critical resources and milestones along the way, we keep your project aligned to its budget, schedule, and quality goals.</p>
+        <p class="advisory-lede" data-reveal data-delay="1">Owner’s Project Management coordinates design, procurement and construction on the owner’s behalf. The agreed scope can include budget reviews, scheduling, contractor selection and close-out. Reporting identifies progress, decisions and risks.</p>
 
         <div class="svc-grid">
           <!-- 1 · Pre-Construction -->
@@ -152,7 +142,7 @@ schemaName: "Construction Management"
               <p class="proj-card__meta">20,000 SF facility</p>
             </article>
             <article class="proj-card" data-reveal data-delay="3">
-              <h4 class="proj-card__name">YMCA Cape Cod (Current)</h4>
+              <h4 class="proj-card__name">YMCA Massachusetts (Current)</h4>
               <span class="proj-card__loc">Falmouth, MA</span>
               <p class="proj-card__meta">68,000 SF facility</p>
             </article>
@@ -161,19 +151,15 @@ schemaName: "Construction Management"
       </div>
     </section>
 
-    <div class="section-divider" data-reveal aria-hidden="true">
-      <span class="line"></span><span class="gem"></span><span class="line r"></span>
-    </div>
-
     <!-- ============================ CLERK-OF-THE-WORKS ============================ -->
-    <section class="section advisory-clerk" id="clerk">
+    <section class="section service-details advisory-clerk" id="clerk">
       <div class="container">
         <div class="section-head center" data-reveal>
           <span class="eyebrow">Service Area Two</span>
           <h2 data-reveal-words>Clerk of the Works</h2>
           <hr class="rule">
         </div>
-        <p class="advisory-lede" data-reveal data-delay="1">On-site supervision by our Clerk of the Works throughout every building activity is one of the most effective tools for cost containment, safeguarding quality control and keeping the work true to the plans and specifications. Across each stage of construction, we provide:</p>
+        <p class="advisory-lede" data-reveal data-delay="1">Clerk of the Works oversight documents site progress, observes work against the drawings and specifications, and reports issues to the owner. Depending on the agreed scope, this includes:</p>
 
         <article class="svc-card clerk-card" data-reveal data-delay="2">
           <ul class="adu-points cols-2">
@@ -193,12 +179,8 @@ schemaName: "Construction Management"
       </div>
     </section>
 
-    <div class="section-divider" data-reveal aria-hidden="true">
-      <span class="line"></span><span class="gem"></span><span class="line r"></span>
-    </div>
-
     <!-- ============================ CONSTRUCTION ADVISORY ============================ -->
-    <section class="section advisory-ca" id="construction-advisory">
+    <section class="section service-details advisory-ca" id="construction-advisory">
       <div class="container">
         <div class="section-head center" data-reveal>
           <span class="eyebrow">Service Area Three</span>
@@ -210,40 +192,49 @@ schemaName: "Construction Management"
       </div>
     </section>
 
-    <section class="section">
+    <section class="section service-details">
       <div class="container">
         <h2>Define the oversight your project needs</h2>
-        <p class="advisory-lede">For a project on Cape Cod or the South Shore, share the town, project stage, your role and the decisions you need help with. A first conversation can clarify whether owner’s representation, Clerk of the Works support or a focused advisory scope is appropriate.</p>
+        <p class="advisory-lede">For a project  or the South Shore, share the town, project stage, your role and the decisions you need help with. A first conversation can clarify whether owner’s representation, Clerk of the Works support or a focused advisory scope is appropriate.</p>
         <p class="advisory-lede">Before engagement, confirm relevant experience, availability, reporting frequency, authority and deliverables. Design, permitting and contractor responsibilities should be explicit in the agreed scope.</p>
       </div>
     </section>
 
-    <div class="section-divider" data-reveal aria-hidden="true">
-      <span class="line"></span><span class="gem"></span><span class="line r"></span>
+    
+<section class="section faq" aria-label="Questions About Construction Advisory">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow">Before You Reach Out</span>
+      <h2 data-reveal-words>Questions About Construction Advisory</h2>
+      <hr class="rule">
     </div>
+    <div class="faq-list" data-reveal>
+      <details class="faq-item" open>
+        <summary>What&#39;s the difference between Owner&#39;s Project Management, Clerk of the Works, and Construction Advisory?</summary>
+        <div class="faq-item__body"><p>Owner's Project Management represents you end to end, hands-on through entitlement, procurement, design, construction buy-out, and close-out. Clerk of the Works is on-site supervision throughout every building activity, focused on cost containment and quality control. Construction Advisory does not manage the job site day to day. It provides independent reviews of construction risks and technical decisions alongside your owner's representative.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What do you need from me to get started?</summary>
+        <div class="faq-item__body"><p>The town, project stage, your role, and the decisions you need help with. A first conversation can clarify whether owner's representation, Clerk of the Works support, or a focused advisory scope is appropriate.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What should be confirmed before engagement?</summary>
+        <div class="faq-item__body"><p>Relevant experience, availability, reporting frequency, authority, and deliverables. Design, permitting, and contractor responsibilities should be explicit in the agreed scope.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
 
-    {{ faq([
-      {
-        "q": "What's the difference between Owner's Project Management, Clerk of the Works, and Construction Advisory?",
-        "a": "Owner's Project Management represents you end to end, hands-on through entitlement, procurement, design, construction buy-out, and close-out. Clerk of the Works is on-site supervision throughout every building activity, focused on cost containment and quality control. Construction Advisory does not manage the job site day to day. It provides high-level risk management and specialized technical foresight, acting as an executive sounding board alongside your Owner's Rep."
-      },
-      {
-        "q": "What do you need from me to get started?",
-        "a": "The town, project stage, your role, and the decisions you need help with. A first conversation can clarify whether owner's representation, Clerk of the Works support, or a focused advisory scope is appropriate."
-      },
-      {
-        "q": "What should be confirmed before engagement?",
-        "a": "Relevant experience, availability, reporting frequency, authority, and deliverables. Design, permitting, and contractor responsibilities should be explicit in the agreed scope."
-      }
-    ], "Questions About Construction Advisory") }}
 
     <!-- ============================ CTA BAND ============================ -->
     <section class="section adu svc-cta">
       <div class="container" data-reveal>
         <span class="eyebrow eyebrow--boom" data-reveal="boom">Get in Touch</span>
-        <span class="svc-cta__photo"><img src="/assets/img/wesleigh-behn.jpg" alt="Wesleigh Behn, Owner &amp; Founder"></span>
         <h2 data-reveal-words>Let's talk about your project</h2>
-        <p>Tell us about your build and we'll show you how an experienced advocate keeps it on budget, on schedule, and built to your standards.</p>
+        <p>Discuss the oversight your project needs, from budget and schedule reviews to on-site observation.</p>
         <a href="/#contact" data-project-type="advisory" class="btn btn-primary">Discuss Your Project</a>
       </div>
     </section>
+
+</div>
+
