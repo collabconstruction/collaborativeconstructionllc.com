@@ -4278,17 +4278,21 @@ body { max-width: var(--page-max); margin-inline: auto; }
 /* One setting for how strong every swirl image looks (1 = as drawn, lower =
    softer). It multiplies the opacity of the page headers, the About backdrop,
    the process and quote edges, the home sections and the contact band. */
-:root { --swirl-strength: 1; }
+:root { --swirl-strength: 0.4; }
 
 /* Home hero: the crossing curves run across the hero, and the silk ribbon sits
-   low on the right, fully inside the hero (it used to run off the right edge).
-   The ribbon is listed twice on purpose: two copies of a soft picture look
-   about twice as solid on navy. */
-.hero__bg {
-  background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'), url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'), url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp');
+   low on the right, fully inside the hero. They live on their own layer so the
+   swirl strength setting can dim them like every other swirl. */
+.hero__bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'), url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp');
   background-repeat: no-repeat;
-  background-size: cover, 50% auto, 50% auto;
-  background-position: center, 92% 96%, 92% 96%;
+  background-size: cover, 50% auto;
+  background-position: center, 92% 96%;
+  opacity: calc(1 * var(--swirl-strength) * 1.4);
 }
 
 /* Page headers. Each header shows two images, one left of the title and one
@@ -4374,7 +4378,7 @@ body { max-width: var(--page-max); margin-inline: auto; }
    the rail's top and bottom and the cream page shows above and below it. */
 .locations--atlas {
   overflow: visible;
-  background: url('../assets/img/swirls/golden-light-flare.webp') center / 130% 130% no-repeat;
+  background: linear-gradient(rgba(244, 240, 231, 0.5), rgba(244, 240, 231, 0.5)), url('../assets/img/swirls/golden-light-flare.webp') center / 130% 130% no-repeat;
   color: var(--navy);
 }
 .location-atlas li,
