@@ -33,6 +33,10 @@ const OVERLAY = [
   "css/styles.css",
   "js/main.js",
   "assets/img/gold-lines",
+  "assets/logo.png",
+  "assets/logo-header.png",
+  "assets/c-icon.png",
+  "assets/favicon.png",
 ];
 
 const ASSET_EXT = "css|js|png|jpe?g|webp|avif|gif|svg|woff2?|ico|json|txt|xml|webmanifest|mp4|pdf";
