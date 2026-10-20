@@ -4152,3 +4152,118 @@ figure {
   -webkit-mask-image: radial-gradient(ellipse at center, #000 62%, transparent 96%);
   mask-image: radial-gradient(ellipse at center, #000 62%, transparent 96%);
 }
+
+/* ==========================================================================
+   October 20 owner pass: centering on the service pages and About, a visible
+   contact button, and a smaller featured gallery photo.
+
+   Every rule below fixes a measured cause, not a guess. The live pages were
+   loaded in a browser and the ink of each text block was compared with the
+   centre of its container. The blocks that were off had one of three causes:
+   a box narrower than its parent with no auto margin, a grid whose column
+   sat at the start edge, or a chevron inside a flex row that pushed the
+   words aside.
+   ========================================================================== */
+
+/* Hero line under the page title. `.hero-lede` caps itself at 62ch but had no
+   auto margin, so the capped box sat against the left edge of the container
+   (169px left of centre) even though its text-align was already `center`.
+   Applies to every page that uses the shared page hero: the five service
+   pages, Construction Management and About. */
+.about-page-hero .hero-lede {
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* Project title and location tag on the service pages ("Residential
+   Exterior / Falmouth, MA"). The head is a grid with `space-between`, which
+   with one column parks the column at the start edge, and the tag is a flex
+   box that shrinks to its text. Centre the column and each item in it. */
+.service-page .project-head {
+  justify-content: center;
+  justify-items: center;
+  text-align: center;
+}
+.service-page .project-head .tag {
+  justify-self: center;
+  justify-content: center;
+}
+
+/* The "1 / 3" under every carousel. It was a block capped at ~515px with no
+   auto margin, so its centred text sat in a box hugging the left edge (303px
+   left of centre). Let it span the carousel so the text centres on the photo. */
+.carousel__count {
+  max-width: none;
+  margin-inline: 0;
+  text-align: center;
+}
+
+/* FAQ questions. The chevron sat in the same flex row as the question, so the
+   words were pushed left by half its width. Taking the chevron out of the flow
+   and pinning it to the right edge lets the question centre on its own. */
+.faq-item summary {
+  position: relative;
+  display: block;
+  text-align: center;
+  padding-inline: 44px;
+}
+.faq-item summary::after {
+  position: absolute;
+  right: var(--s-2);
+  top: calc(50% - 6px);
+}
+
+/* FAQ answers. The paragraph was capped near 730px inside an 860px box with no
+   auto margin, so the centred text sat 65px left of the question above it. */
+.faq-item__body p {
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* Contact card: "Call Collaborative Construction". The button was navy on a
+   navy card, so only its words showed and it did not read as a button. Brass
+   with dark text matches the other primary actions on the dark panels. */
+.contact-info .contact-direct {
+  background: var(--brass);
+  border-color: var(--brass);
+  color: var(--navy-950);
+}
+.contact-info .contact-direct:hover,
+.contact-info .contact-direct:focus-visible {
+  background: var(--brass-300);
+  border-color: var(--brass-300);
+  color: var(--navy-950);
+}
+
+/* Projects page: the featured "Deck and Railings" card ran the full width of
+   the page, which made its photo about 840px tall. Halved: half the width, so
+   half the height as well, centred above the two-column grid. */
+.project-gallery .project--featured {
+  width: min(100%, 560px);
+  justify-self: center;
+}
+
+/* About page backdrop ------------------------------------------------------
+   A transparent painted image (assets/img/about-splash.svg: brass brush
+   strokes, paint splashes and fine survey lines) laid behind the whole page.
+   Scoped with :has() to the page that contains `.company-overview`, so no
+   other page changes and no template edit is needed.
+
+   Cream part: `.company-overview` and `.company-principles` already have no
+   background, so the image shows through them from the page itself.
+   Navy part: the page hero is solid navy and would hide it, so the same
+   image is also laid inside the hero as its own layer.
+   The image is static and decorative; it never sits above text because it is
+   a background, not an element. */
+.page-main:has(.company-overview) {
+  background-image: url('../assets/img/about-splash.svg');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+}
+.page-main:has(.company-overview) .about-page-hero {
+  background-image: url('../assets/img/about-splash.svg');
+  background-repeat: no-repeat;
+  background-position: 30% 22%;
+  background-size: cover;
+}

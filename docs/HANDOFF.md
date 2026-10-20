@@ -2,6 +2,20 @@
 
 **Last updated: October 12, 2026.** Read this before `docs/research/00-INDEX.md`. This file exists so a new session can resume without repeating research that already happened. It supersedes nothing else; it points to the current source of truth for each topic rather than duplicating it. If this file and a linked file disagree, trust the linked file and flag the mismatch — this file can go stale faster than the detailed records.
 
+## The correct design (owner confirmed October 20, 2026)
+
+Read this before anything else in this file. Some text further down is out of date.
+
+- The real site is the **navy, brass (gold), black and white** design. It is the branch `design/site-refresh-2026-10`, and it is what is live at https://collaborativeconstructionllc.com.
+- Active work branch: `claude/website-design-refinements-qh7d3f`. It is built on that branch plus the live stylesheet.
+- The About page shows the **logo mark** and company text. It does **not** mention Wesleigh Behn. There is no owner photo, no owner or founder tag and no CEO text. Do not add them back unless the owner asks.
+- The charcoal and orange design (`claude/collaborative-construction-redesign-u3rxhu`, and the "Contractor Industrial" palette described in the Frontend context below) is **not** the real site. Ignore it.
+- The live site is newer than any branch. The deployed pages have different wording, self hosted fonts and company social links that are not in the templates here. The live stylesheet had 38 lines that were never committed; they are now in `css/styles.css`.
+- 151 files are served live but are not in the repo: three fonts in `assets/fonts/` and 148 WebP photos in `assets/img/r/`. A clean build shows broken photos until they are added.
+- **Do not deploy from this repo as it is.** It would replace the live wording, fonts and social links with older versions. Compare the built pages with the live pages first.
+- Claude has no Cloudflare login, so it cannot deploy. The owner deploys.
+
+
 ## 1. Deployment and Git status (verified, not claimed)
 
 - **Live production Worker version**: `28d3bb86-6417-4266-a3b0-c12e28f8c37f` (created 2026-10-12T16:34:30.692Z), Worker `collaborativeconstructionllc-com`, Cloudflare account `0fadcd0965374caa75a44c3aa9784042`.
