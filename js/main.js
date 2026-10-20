@@ -37,7 +37,7 @@
 
      CSS already opens the panel on :hover and :focus-within, so the menu
      works with this file absent. What CSS cannot do is keep aria-expanded
-     honest, or let a tap toggle the panel shut again — so that part lives
+     honest, or let a tap toggle the panel shut again, so that part lives
      here, as a class the same CSS rules respond to.
   ---------------------------------------------------------------------- */
   $$(".nav-group").forEach(group => {
@@ -95,7 +95,7 @@
   }
 
   /* ----------------------------------------------------------------------
-     Word-by-word heading reveal — splits a heading's text into per-word
+     Word-by-word heading reveal, splits a heading's text into per-word
      spans and pops them in with a short stagger as the heading scrolls
      into view, instead of just fading in as one block.
   ---------------------------------------------------------------------- */
@@ -132,55 +132,7 @@
   }
 
   /* ----------------------------------------------------------------------
-     Value circles (About page only). Replaces the earlier hand-rolled
-     OBB physics sim (rectangles that fell, collided, and settled into a
-     pile) with a much simpler CSS-driven approach per user feedback that
-     the physics pile looked glitchy: a fixed 5-column grid of uniform
-     circles that drop into their own grid cell (via a staggered CSS
-     keyframe) the first time the card scrolls into view, then bob gently
-     in place. No requestAnimationFrame loop, no per-frame math — JS only
-     detects "first time visible" and stamps a stagger delay per circle;
-     @keyframes in css/styles.css do the rest.
-  ---------------------------------------------------------------------- */
-  const valuesGrid = $("#values-grid");
-  if (valuesGrid) {
-    const circleEls = $$(".value-circle", valuesGrid);
-    if (prefersReduced || !circleEls.length) {
-      // Reduced motion: CSS shows circles fully settled with no animation,
-      // so there's nothing for JS to do here.
-    } else {
-      const STAGGER_MS = 80;
-      const DROP_DURATION_MS = 650; // must match the circleDrop keyframe duration in css/styles.css
-      circleEls.forEach((el, i) => {
-        const dropDelay = i * STAGGER_MS;
-        el.style.setProperty("--drop-delay", dropDelay + "ms");
-        // The bob animation is declared alongside circleDrop from the start
-        // (see css/styles.css) but given its own delay so it only starts
-        // once this circle's own drop has finished — no mid-fall bobbing,
-        // and no JS timer/class-swap needed to hand off between the two.
-        el.style.setProperty("--bob-delay", (dropDelay + DROP_DURATION_MS) + "ms");
-      });
-
-      let hasFallen = false;
-      const dropIn = () => {
-        if (hasFallen) return;
-        hasFallen = true;
-        valuesGrid.classList.add("is-visible");
-      };
-
-      if ("IntersectionObserver" in window) {
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach(e => { if (e.isIntersecting) dropIn(); });
-        }, { threshold: 0.2 });
-        io.observe(valuesGrid);
-      } else {
-        dropIn();
-      }
-    }
-  }
-
-  /* ----------------------------------------------------------------------
-     Page transitions — smooth directional slide + gold particle shift.
+     Page transitions, smooth directional slide + gold particle shift.
      No color veil; the fixed background stays put so nothing flashes.
      Direction tracks the site's nav order (moving left / right).
   ---------------------------------------------------------------------- */
@@ -297,7 +249,7 @@
   }
 
   /* ----------------------------------------------------------------------
-     Carousel(s) — dots, arrows, keyboard, swipe, slide counter
+     Carousel(s), dots, arrows, keyboard, swipe, slide counter
 
      These no longer advance on their own. Seven galleries on /gallery/ each
      ran a requestAnimationFrame loop forever to paint a progress bar, and up
@@ -307,8 +259,8 @@
      touch or keyboard visitor cannot do.
 
      Photographs of finished work are the reason someone is on this page, so
-     the visitor sets the pace. Everything that let you *choose* a photo —
-     arrows, dots, swipe — is kept, and arrow keys and a "3 / 6" counter are
+     the visitor sets the pace. Everything that let you *choose* a photo,
+     arrows, dots, swipe, is kept, and arrow keys and a "3 / 6" counter are
      new, because with autoplay gone the controls have to carry discovery.
   ---------------------------------------------------------------------- */
   $$(".carousel").forEach((root) => {
@@ -324,7 +276,7 @@
     /* Built here rather than in the templates: it is a readout of state this
        script owns, so on a page where the script never ran there is no "1 / 6"
        sitting next to arrows that do nothing. aria-hidden because the dots
-       and arrow labels already say which photo you are on — a screen reader
+       and arrow labels already say which photo you are on, a screen reader
        does not need to hear the position twice. */
     const count = document.createElement("p");
     count.className = "carousel__count";
@@ -443,7 +395,7 @@
        already in the markup and already referenced by aria-describedby,
        so filling one announces it with the field it belongs to.
 
-       setFieldError does not touch submit logic — the gating conditions
+       setFieldError does not touch submit logic, the gating conditions
        below are unchanged. It only makes the existing refusal legible.
 
        Every DOM call here is feature-checked rather than assumed. Labelling
@@ -489,8 +441,8 @@
         missing.forEach(([n, msg]) => setFieldError(field(n), msg));
         status.className = "form-status err";
         status.textContent = missing.length === 1
-          ? "One field still needs an answer — see the message above it."
-          : "A few fields still need answers — see the messages above them.";
+          ? "One field still needs an answer, see the message above it."
+          : "A few fields still need answers, see the messages above them.";
         focusField(field(missing[0][0]));
         return;
       }
@@ -537,7 +489,7 @@
         } else {
           /* The Worker already returns a per-field `errors` map alongside
              `error` on a 400 (see worker/index.js), and the browser was
-             throwing it away — so a server-side rejection showed only the
+             throwing it away, so a server-side rejection showed only the
              generic "Please check the form fields." Attach each one to its
              control, then focus the first. */
           let firstBad = null;
@@ -549,7 +501,7 @@
               /* Only move focus to something the visitor can actually act on.
                  The Worker can reject project_type, which is a hidden input
                  carrying the context of whichever service page they arrived
-                 from — focusing that would take focus nowhere and leave no
+                 from, focusing that would take focus nowhere and leave no
                  visible explanation. Those cases fall through to the status
                  line below, which prints the server's own message. */
               if (!firstBad && errorSlot(el)) firstBad = el;
@@ -605,7 +557,7 @@
       ).onfinish = () => d.remove();
     }
 
-    // Custom cursor removed — the site now uses the browser/OS default
+    // Custom cursor removed, the site now uses the browser/OS default
     // cursor everywhere (no .cc-cursor-on class is ever added to <html>).
 
     // Burst only on click of an interactive element
@@ -615,7 +567,7 @@
       for (let i = 0; i < n; i++) makeDot(e.clientX, e.clientY);
     });
 
-    // Dust motes — soft floating specks across the screen on fast scroll & back-to-top
+    // Dust motes, soft floating specks across the screen on fast scroll & back-to-top
     function makeDust(driftBias) {
       const d = document.createElement("span");
       d.className = "dust";
@@ -696,7 +648,7 @@
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* ----------------------------------------------------------------------
-     Gold rule draw animation — clip-path left-to-right on scroll-in
+     Gold rule draw animation, clip-path left-to-right on scroll-in
   ---------------------------------------------------------------------- */
   if (!prefersReduced && "IntersectionObserver" in window) {
     const ruleIO = new IntersectionObserver((entries) => {
@@ -739,11 +691,11 @@
      request so the button reads as a plain, quiet arrow. This also drops a
      scroll listener that wrote an inline custom property on every scroll. */
 
-  // Page-glow fixed layer removed — fixed blobs at % positions create visible
+  // Page-glow fixed layer removed, fixed blobs at % positions create visible
   // circular patches against the plain stone background on gallery/about page tops.
 
   /* ----------------------------------------------------------------------
-     Section-level spot orbs — placed behind text/image content areas,
+     Section-level spot orbs, placed behind text/image content areas,
      NOT at edges. No overflow:hidden so they bleed softly into adjacent
      sections instead of cutting off with a hard line.
   ---------------------------------------------------------------------- */
@@ -756,7 +708,7 @@
         { x: "72%", y: "40%", s: 260, c: "243,182,140", op: .20, a: "ambFloat2", d: "20s" },
         { x: "50%", y: "60%", s: 240, c: "232,121,58", op: .18, a: "ambFloat3", d: "24s" },
       ]},
-      // about-page-hero and gallery-intro are short header sections — page-glow
+      // about-page-hero and gallery-intro are short header sections, page-glow
       // already covers them; section spots here create a visible lighter patch.
       { sel: ".about-page-body", spots: [
         { x: "28%", y: "40%", s: 340, c: "217,83,30",   op: .13, a: "ambFloat2", d: "17s" },
@@ -771,7 +723,7 @@
         { x: "66%", y: "60%", s: 300, c: "217,83,30",   op: .13, a: "ambFloat2", d: "23s" },
         { x: "48%", y: "82%", s: 300, c: "243,182,140", op: .11, a: "ambFloat1", d: "20s" },
       ]},
-      // Construction Advisory page — Owner's PM + Clerk-of-the-Works sections
+      // Construction Advisory page, Owner's PM + Clerk-of-the-Works sections
       { sel: ".advisory-pm", spots: [
         { x: "26%", y: "34%", s: 320, c: "217,83,30",   op: .12, a: "ambFloat2", d: "22s" },
         { x: "72%", y: "30%", s: 300, c: "243,182,140", op: .11, a: "ambFloat1", d: "26s" },
@@ -788,7 +740,7 @@
       if (!section) return;
       const pos = getComputedStyle(section).position;
       if (pos === "static") section.style.position = "relative";
-      // NO overflow:hidden — lets blobs bleed softly past section borders
+      // NO overflow:hidden, lets blobs bleed softly past section borders
 
       spots.forEach(({ x, y, s, c, op, a, d }) => {
         const el = document.createElement("span");

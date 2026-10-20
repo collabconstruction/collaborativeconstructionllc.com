@@ -12,7 +12,7 @@
                     Service node per entry in services.json onto a shared
                     page (construction-advisory); "service" emits a single
                     Service node for this page itself, named/described from
-                    this same front matter — use it on a dedicated service
+                    this same front matter, use it on a dedicated service
                     landing page such as the ADU/custom-home/additions/
                     renovation/general-contractor pages)
   Optional:
@@ -63,7 +63,7 @@
   <link rel="stylesheet" href="/css/styles.css">
   {#- Every [data-reveal] block starts at opacity:0 and is only un-hidden by
       main.js, and .motto-word/.rw-word start hidden too. With JavaScript
-      disabled that renders the whole page blank — including the no-JS contact
+      disabled that renders the whole page blank, including the no-JS contact
       fallback inside .form-card, which names the phone number and email for
       exactly this visitor and was itself invisible. This restores the end
       state for them. It cannot affect the scripted path: a <noscript> style
@@ -108,19 +108,22 @@
 
   <header class="site-header">
     <div class="container header-inner">
-      {#- logo-header.png already draws the gold house mark as part of the
-          wordmark (see the .brand .logo comment below), so the separate
-          c-icon.png badge that used to sit beside it was a second house icon
-          next to a logo that already has one. Mobile hid the duplicate under
-          940px already (css/styles.css, "logo-header.png already contains the
-          house mark") with the rationale that it cost 54px of a 390px bar;
-          the same duplication was still rendering, unhidden, above 940px. #}
+      {#- Mark plus live text, not one baked-in image. The previous
+          logo-header.png drew the house icon, the company name AND the
+          tagline inside a single 1762x552 PNG, so the header's only wordmark
+          was pixels: unselectable, invisible to text search, and resampled at
+          every breakpoint. The October 2026 monogram carries no lettering, so
+          the name is set in real type here, the same mark-beside-wordmark
+          lockup the footer already uses (.footer-logo). The name is written
+          out rather than pulled from business.shortName because the line
+          break is a layout decision, not data; the footer does the same. #}
       <a class="brand" href="/" aria-label="{{ business.shortName }} home">
-        <img class="logo" src="{{ business.images.logoHeader }}" alt="{{ business.shortName }}">
+        <img class="logo" src="{{ business.images.logoHeader }}" alt="" width="512" height="512">
+        <span class="brand-wm">Collaborative<br>Construction</span>
       </a>
       <div class="header-right">
         {#- `Services` carries a `dropdown` array in src/_data/nav.json but no
-            template ever rendered it, so it fell through to `<a href="">` —
+            template ever rendered it, so it fell through to `<a href="">`,
             a dead link that just reloaded the current page, on every page of
             the site. That made all five service landing pages reachable only
             from the homepage grid or the footer. It now renders as a real
@@ -228,7 +231,7 @@
       <div class="footer-col">
         <h4>Recent Work</h4>
         {#- These two thumbnails used to hardcode a title, town and image that
-            also appear on /gallery/ — in the footer of every page. Renaming a
+            also appear on /gallery/, in the footer of every page. Renaming a
             project in projects.json would have left this strip quietly
             disagreeing with the gallery it links to, so it now reads the same
             data and shows whichever entries carry `footerThumb`. -#}

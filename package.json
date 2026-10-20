@@ -4,6 +4,7 @@
   "description": "Collaborative Construction LLC website",
   "main": "worker/index.js",
   "_scriptsComment": "build cleans _site first. Eleventy passthrough-copy does not remove output for files deleted from source, so without the clean step a deleted asset stays in _site and gets redeployed. That is exactly how a removed 4.1 MB hero video shipped to production after it had been deleted from git.",
+  "_workbooksComment": "npm run workbooks needs a one-time local setup, not committed: python3.12 -m venv .venv-workbooks && .venv-workbooks/bin/pip install openpyxl==3.1.5. It writes to ~/Desktop/CC-Workbooks/, makes zero network calls, and never touches an existing entry tab unless every cell in it still matches -- see scripts/workbook_lib.py's safe_write.",
   "scripts": {
     "clean": "rm -rf _site",
     "build": "npm run clean && eleventy",
@@ -12,6 +13,8 @@
     "deploy": "npm run build && wrangler deploy",
     "test": "node --experimental-vm-modules --test tests/*.test.mjs",
     "leads": "node scripts/leads.mjs",
+    "workbooks": ".venv-workbooks/bin/python scripts/build-workbooks.py",
+    "analytics:snapshot": "node scripts/fetch-analytics-snapshot.mjs",
     "db:local": "wrangler d1 migrations apply cc-leads --local --config wrangler.local.jsonc",
     "release:check": "npm test && npm run build && node scripts/verify-release-build.mjs && wrangler deploy --dry-run"
   },

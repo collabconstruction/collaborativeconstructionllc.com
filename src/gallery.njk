@@ -48,7 +48,7 @@ breadcrumbName: "Gallery"
               {%- endfor %}
             </div>
             {#- The "2 / 6" counter is built by main.js, not written here, so
-                that all eight carousels on the site get it from one place —
+                that all eight carousels on the site get it from one place,
                 and so it never claims the photos are browsable on a page
                 where the script failed to load. -#}
             {%- if p.images | length > 1 %}
@@ -126,7 +126,7 @@ breadcrumbName: "Gallery"
     <!-- ============================ CTA ============================ -->
     {#- The gallery was a dead end: seven projects and then the footer. This
         is the same `.section.adu.svc-cta` band every service page already
-        closes with, not a new component — the point of the band is that it
+        closes with, not a new component, the point of the band is that it
         looks identical wherever you meet it. -#}
     <section class="section adu svc-cta">
       <div class="container" data-reveal>

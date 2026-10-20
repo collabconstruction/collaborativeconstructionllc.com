@@ -239,7 +239,7 @@ p { margin: 0 0 1.1em; }
 .btn-ghost { background: transparent; color: var(--maroon); border-color: var(--maroon); }
 .btn-ghost:hover { background: var(--maroon); color: #fff; transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
-/* strongest CTA — flat solid orange, with a light sweep on hover (kept as a
+/* strongest CTA, flat solid orange, with a light sweep on hover (kept as a
    tasteful micro-interaction; the gold gradient + glow bloom are gone). */
 .btn-gold {
   background: var(--amber);
@@ -275,13 +275,19 @@ p { margin: 0 0 1.1em; }
   height: var(--header-h);
   display: flex; align-items: center; justify-content: space-between; gap: 20px;
 }
-.brand { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
 .brand .logo {
-  height: 50px; width: auto;
-  /* Uses /assets/logo-header.png — a recolored variant of the master
-     logo.png generated for the dark charcoal header: house icon stays
-     gold, "Collaborative Construction" text is white, and the tagline is
-     red. See scripts/ for how it was derived if it ever needs regenerating. */
+  /* /assets/logo-header.png is the circular house mark, not the old wide
+     house+name+tagline lockup. It carries no lettering, so the company name
+     beside it is real text (.brand-wm). All four brand renditions are derived
+     from one master by `node scripts/build-brand-assets.mjs`, never hand-
+     export them, or the favicon and the header quietly drift apart. */
+  width: 52px; height: 52px; flex: 0 0 auto; object-fit: contain;
+}
+.brand-wm {
+  font-family: var(--font-head); font-weight: 700; color: #fff;
+  font-size: 1.22rem; line-height: 1.04; letter-spacing: .01em;
+  white-space: nowrap;
 }
 
 .header-right { display: flex; align-items: center; gap: 18px; }
@@ -320,9 +326,9 @@ p { margin: 0 0 1.1em; }
    six service landing pages have no combined index page. The trigger is a
    <button>, not a link, so it never advertises a destination it does not have.
    Opening is driven three ways on purpose:
-     :hover        — pointer users
-     :focus-within — keyboard users, with no JS required
-     .is-open      — click/tap, set by js/main.js so aria-expanded stays true
+     :hover:        pointer users
+     :focus-within: keyboard users, with no JS required
+     .is-open:      click/tap, set by js/main.js so aria-expanded stays true
    The CSS paths mean the menu still works if main.js fails to load. */
 .nav-group { position: relative; display: flex; }
 .nav-group__trigger {
@@ -383,7 +389,7 @@ p { margin: 0 0 1.1em; }
 /* ==========================================================================
    PAGE TRANSITION (woosh) + entrance
    ========================================================================== */
-/* Smooth content transitions — quick slide + fade, no color veil.
+/* Smooth content transitions, quick slide + fade, no color veil.
    The fixed background layer stays put, so nothing flashes between pages.
    Direction tracks the site's nav order (moving left vs. right). */
 .page-main { animation: pageIn .5s var(--ease) both; }
@@ -433,14 +439,14 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 [data-reveal][data-reveal="right"] { transform: translateX(44px); }
 [data-reveal][data-reveal="zoom"]  { transform: scale(.92); }
 [data-reveal].is-visible { transform: none !important; }
-/* "Get in Touch" boom entrance — falls in from above tiny, overshoots past
+/* "Get in Touch" boom entrance, falls in from above tiny, overshoots past
    its resting size on the way down (the "boom"), then settles at a much
    larger permanent size than a normal eyebrow. Kept separate from the
    generic [data-reveal] fade above: same is-visible trigger/JS, just its
    own transform/timing so it doesn't affect any other reveal element. */
 /* October 2026 refresh: this used to be clamp(2.4rem, 5.5vw, 3.6rem) in the
    heading serif, which made the "Get in Touch" KICKER render larger than the
-   "Contact Us" <h2> directly beneath it — the heading hierarchy was inverted
+   "Contact Us" <h2> directly beneath it, the heading hierarchy was inverted
    on the single most important section of the site. It is now a normal
    eyebrow drawn from the shared scale, and the h2 is the largest thing in
    the block again. The class and its data-reveal hook are kept so the
@@ -519,7 +525,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
    so the pair reads as statement-then-signature instead of competing. */
 .hero__title { margin: var(--space-5) 0 var(--space-6); }
 /* Measures are in `em`, so each line's column is sized by its own type rather
-   than by the h1's inherited font — a `ch`/`em` cap set on the parent silently
+   than by the h1's inherited font, a `ch`/`em` cap set on the parent silently
    resolves against the wrong font size and is how the old 16ch became seven
    lines of hero headline. */
 .hero__lede {
@@ -764,7 +770,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
     conic-gradient(from 135deg, var(--gold-2), var(--amber), var(--maroon-600), var(--gold-1), var(--gold-2)) border-box;
 }
 /* The gradient frame is static here on purpose. frameSpin animates a
-   registered @property angle, so every frame re-rasterizes the border — fine
+   registered @property angle, so every frame re-rasterizes the border, fine
    for the single about-page portrait, but /gallery/ has seven carousels and
    was running seven of them forever behind the photographs. The frame still
    reads as the same brand detail standing still. */
@@ -772,17 +778,17 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 .carousel__slide { min-width: 100%; position: relative; }
 .carousel__slide img { width: 100%; height: clamp(320px, 56vw, 620px); object-fit: cover; }
 /* Bottom padding reserves the dots row. Captions wrap to two lines on a
-   phone, and at 22px the second line finished level with the dots — they
+   phone, and at 22px the second line finished level with the dots, they
    never actually collided, because the text is left-aligned and the dots are
    centred, but they sat on the same line and read as one muddled row. */
 /* The scrim used to be `linear-gradient(transparent, rgba(26,26,26,.78))`,
-   which only reaches full strength at the very bottom edge of the box — below
+   which only reaches full strength at the very bottom edge of the box, below
    the text. Measured, the caption text occupies roughly 34%-70% of the box
    height, where that gradient was only .27-.55 opaque: white-on-bright-photo
    came out at 1.77:1. Several photographs here are bright (sky-heavy
    exteriors, a white bath), so those captions were genuinely hard to read.
    Ramping the scrim early puts >=.66 opacity under the whole text band, which
-   is 5.7:1 against a pure-white photo — the worst case the images can present. */
+   is 5.7:1 against a pure-white photo, the worst case the images can present. */
 .carousel__caption {
   position: absolute; left: 0; right: 0; bottom: 0; padding: 44px 28px 38px;
   background: linear-gradient(rgba(26,26,26,0) 0%, rgba(26,26,26,.62) 26%,
@@ -791,7 +797,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 }
 /* The arrows used to be opacity:0 until .carousel:hover, so on any phone or
    tablet they never appeared at all and swiping was the only way to reach
-   photo 2 of 6 — undiscoverable. They are visible at rest now; hover and
+   photo 2 of 6, undiscoverable. They are visible at rest now; hover and
    focus still respond, they are just no longer the thing that summons them. */
 .carousel__btn {
   position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
@@ -819,7 +825,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 /* The dot itself is drawn by ::before so the button can be a 28x24 target
    without the dot growing to match. The visible pill is unchanged; what
    changed is what you have to hit. Measured before: a 10x10 dot with 19px
-   between centres, which fails WCAG 2.5.8 (Target Size, Minimum) twice over —
+   between centres, which fails WCAG 2.5.8 (Target Size, Minimum) twice over,
    under 24x24, and too close together to earn the spacing exception, since
    that test asks whether a 24px circle on each centre stays clear of its
    neighbours'. At 28px wide plus the gap, centres are now ~32px apart.
@@ -841,12 +847,12 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 .carousel__dots button.active::before { background: var(--amber); width: 26px; border-radius: 6px; }
 .carousel__dots button:focus-visible { outline: 2px solid #fff; outline-offset: 0; border-radius: 4px; }
 
-/* divider between projects — inherits .section-divider styles */
+/* divider between projects, inherits .section-divider styles */
 .project-divider { padding: 28px 0; }
 .project-divider::before { display: none; } /* section-divider handles layout */
 
 /* Everything after the featured first project pairs up side by side instead
-   of each stacking full-width — the full-bleed carousels were reading as
+   of each stacking full-width, the full-bleed carousels were reading as
    "the gallery takes up the whole screen." Grid auto-wraps as more projects
    are added, two per row, without any per-count logic needed. */
 .projects-grid {
@@ -913,7 +919,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   border-radius: 0 8px 8px 0; color: var(--muted); font-style: italic;
 }
 /* Falling circles now sit behind the whole owner-grid, so the bio column
-   gets its own translucent card here — otherwise circles drifting behind
+   gets its own translucent card here, otherwise circles drifting behind
    the text would fight with it for legibility. */
 .owner-bio {
   position: relative;
@@ -923,7 +929,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   box-shadow: var(--shadow-md);
 }
 .owner-bio p:last-child { margin-bottom: 0; }
-/* Bold lead-in line before each bio paragraph — a little hook to draw the
+/* Bold lead-in line before each bio paragraph, a little hook to draw the
    eye in before the reader commits to the full paragraph. Nudged up and
    to the left of its paragraph (rather than sitting flush above it) so it
    reads like a small pulled-out label, not just another line of body text. */
@@ -965,128 +971,6 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   .owner-tag { left: 16px; bottom: -16px; }
 }
 
-/* Quote now sits inside .owner-card, below the photo/bio grid, above the
-   circles layer (z-index 0). The extra runway beneath it is pure empty
-   space so the falling circles have real room to settle past the quote
-   instead of piling up right at its edge. */
-.owner-quote {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  /* Slightly less dominant than the shared .quote-band__text size used on
-     the homepage — this one sits inside a busier card (photo/bio/circles)
-     so it doesn't need to shout as loud. */
-  font-size: clamp(1.2rem, 2.1vw, 1.7rem);
-}
-/* The later `.quote-band__text { margin: 0 auto; }` rule (shared with the
-   homepage quote band) has the same specificity as `.owner-quote` above and
-   comes after it in the cascade, so it was silently winning and zeroing out
-   the top margin below — the previous "move it down" edit never actually
-   rendered. Bumping specificity here (two classes) so this margin sticks. */
-.quote-band__text.owner-quote {
-  margin: 160px auto 0;
-}
-@media (max-width: 720px) {
-  /* 160px reads as a huge dead-empty gap on a narrow, already-stacked mobile
-     layout — scale it down to something proportionate. */
-  .quote-band__text.owner-quote { margin-top: 70px; }
-}
-/* ---------- value circles (About page) ----------
-   Replaces the earlier hand-rolled physics pile (rectangles that fell,
-   collided and stacked at random — user feedback: "look like shit... so
-   glitchy") with a plain, predictable CSS Grid: 13 uniform circles laid
-   out 5-per-row (5 + 5 + 3, since 13 doesn't divide evenly by 5), each one
-   dropping straight down into its own fixed grid cell the first time the
-   card scrolls into view, then settling into a slow, gentle bob. No JS
-   physics loop — main.js only stamps a stagger delay and toggles two
-   classes; every visual is a CSS @keyframes animation. */
-.values-grid {
-  position: relative;
-  z-index: 0;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 14px;
-  /* Smaller, tighter panel than the old physics runway — sized to its own
-     content instead of reserving a tall worst-case area for a random pile. */
-  max-width: 620px;
-  margin: 40px auto 0;
-  padding: 22px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, .38), rgba(255, 255, 255, .12));
-  border: 1px solid rgba(232, 121, 58, .4); /* soft --gold-2 tint */
-  border-radius: 28px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5);
-}
-.value-circle {
-  justify-self: center;
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 10px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: .64rem;
-  line-height: 1.15;
-  box-shadow: var(--shadow-md);
-  /* Pre-drop state: above the grid and invisible. .is-visible triggers both
-     animations below at once, staggered per circle via --drop-delay/
-     --bob-delay (set inline by main.js). */
-  opacity: 0;
-  transform: translateY(-160px) scale(.5);
-  will-change: transform;
-}
-/* Both animations are declared together (not swapped in via a second
-   class) because when two animations target the same property, the CSS
-   cascade only keeps the LAST-declared one for that property — a separate
-   ".settled" rule swapping in circleBob would silently drop circleDrop's
-   "opacity: 1" forwards-fill and leave circles invisible. Instead, circleBob
-   is given its own animation-delay (dropDelay + drop duration, computed in
-   main.js) so it sits idle — not yet started, not overriding anything —
-   until circleDrop has finished and filled its final (visible, opacity: 1)
-   frame; only then does circleBob take over the transform property. */
-.values-grid.is-visible .value-circle {
-  animation:
-    circleDrop .65s cubic-bezier(.34, 1.56, .64, 1) var(--drop-delay, 0s) both,
-    circleBob 3.4s ease-in-out var(--bob-delay, 0s) infinite;
-}
-@keyframes circleDrop {
-  0%   { opacity: 0; transform: translateY(-160px) scale(.5); }
-  70%  { opacity: 1; transform: translateY(6px) scale(1.03); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-@keyframes circleBob {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-7px); }
-}
-.value-circle.v-maroon { background: var(--maroon); color: var(--white); }
-.value-circle.v-maroon-900 { background: var(--maroon-900); color: var(--white); }
-.value-circle.v-gold { background: var(--amber); color: var(--maroon-900); }
-.value-circle.v-outline { background: var(--cream); color: var(--maroon); border: 2px solid var(--gold-2); }
-
-@media (max-width: 720px) {
-  /* 5 columns at phone widths would crush each circle under ~55px —
-     too small for phrases like "Turning Ideas Into Reality" to stay
-     readable, so mobile drops to 3 columns (13 items = 5 rows: 3+3+3+3+1). */
-  .values-grid {
-    grid-template-columns: repeat(3, 1fr);
-    max-width: 340px;
-    gap: 12px;
-    padding: 18px;
-  }
-  .value-circle { width: 92px; height: 92px; font-size: .62rem; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .value-circle {
-    opacity: 1 !important;
-    transform: none !important;
-    animation: none !important;
-  }
-}
-
 /* ==========================================================================
    FOOTER
    ========================================================================== */
@@ -1099,7 +983,10 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 }
 .footer-top { padding-top: 66px; padding-bottom: 30px; display: grid; grid-template-columns: 1.3fr .8fr .9fr .9fr; gap: 40px; }
 .footer-logo { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
-.footer-logo .c-badge { width: 50px; height: 50px; flex: 0 0 auto; position: relative; top: 5px; }
+/* The old house icon sat high in its own canvas and needed `top: 5px` to look
+   centred against the two-line wordmark. The monogram is centred in its square
+   by scripts/build-brand-assets.mjs, so the nudge would now push it low. */
+.footer-logo .c-badge { width: 50px; height: 50px; flex: 0 0 auto; }
 .footer-logo .wm { font-family: var(--font-head); font-weight: 700; color: #fff; font-size: 1.32rem; line-height: 1.04; }
 .footer-brand .gold { color: var(--gold-1); margin: 0 0 14px; }
 .footer-brand p { font-size: .96rem; color: rgba(255,255,255,.62); max-width: 40ch; }
@@ -1162,7 +1049,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
     radial-gradient(90% 120% at 12% 0%, rgba(217, 83, 30, .16), transparent 55%),
     linear-gradient(135deg, var(--maroon-900), var(--maroon) 62%, var(--maroon-700));
 }
-.adu::after { /* faint gold house-mark watermark */
+.adu::after { /* faint gold monogram watermark (same c-icon.png as the footer badge) */
   content: ""; position: absolute; right: -60px; bottom: -60px; width: 360px; height: 360px;
   background: url('../assets/c-icon.png') center/contain no-repeat; opacity: .05; pointer-events: none;
 }
@@ -1248,7 +1135,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 .dust { position: fixed; border-radius: 50%; pointer-events: none; will-change: transform, opacity; }
 
 /* ==========================================================================
-   CUSTOM CURSOR — removed. The site now uses the default system cursor
+   CUSTOM CURSOR, removed. The site now uses the default system cursor
    everywhere; main.js no longer creates a .cc-cursor element or adds
    .cc-cursor-on to <html>. Rules intentionally deleted rather than left
    dead, to avoid any future `cursor: none` surprise if the class is ever
@@ -1345,7 +1232,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 }
 
 /* ==========================================================================
-   QUOTE BAND — short phrase set directly on the ambient background,
+   QUOTE BAND, short phrase set directly on the ambient background,
    deliberately without a bubble panel so the background shows through.
    ========================================================================== */
 .quote-band { padding: 40px 0; }
@@ -1404,7 +1291,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 }
 
 /* make sure page content sits above glow layer.
-   NOTE: .site-header is intentionally excluded — it keeps its own
+   NOTE: .site-header is intentionally excluded; it keeps its own
    position:sticky / z-index:100 so the fixed mobile nav (a header child)
    paints above main content instead of behind it. */
 .page-main { position: relative; z-index: 1; }
@@ -1414,7 +1301,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
    its normal static position (far below the fold) until scrolling would
    bring its static top above one full viewport-height from the current
    scroll offset, at which point sticky holds it pinned just off the bottom
-   edge — then releases near the very end of the page so it settles into
+   edge, then releases near the very end of the page so it settles into
    place, reading as if the page curtain-reveals it from underneath. No
    negative-margin/z-index overlap hacks needed, so it can't fight the
    document's own scrollHeight the way a bottom:0 + shrink-the-content
@@ -1425,7 +1312,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 .page-main > *:last-child { border-radius: 0; }
 /* The construction-advisory CTA band (.svc-cta) is a full-bleed solid
    maroon section with no cream "bubble" wrapper around it, unlike every
-   other page's last section — rounding its bottom corners the same way
+   other page's last section, rounding its bottom corners the same way
    reads as a broken seam against a hard color block instead of a soft
    curtain edge, so it opts back out to a plain rectangle. */
 .page-main > .svc-cta:last-child { border-radius: 0; }
@@ -1485,7 +1372,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   .header-right { gap: 10px; }
 
   /* In the mobile sheet the dropdown becomes an inline accordion rather than
-     a floating panel — a panel positioned over a sheet that is itself
+     a floating panel, a panel positioned over a sheet that is itself
      overlaying the page is two stacked layers with nowhere to go. */
   .nav-group { display: block; position: static; }
   .nav-group__trigger {
@@ -1502,8 +1389,8 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
        hidden state before switching to a max-height accordion. Two problems.
        A descendant's `visibility: visible` overrides a hidden ancestor, so
        these six links stayed focusable even while the whole drawer was closed.
-       And `max-height: 0` + `overflow: hidden` only clips visually — it never
-       removes anything from the tab order — so they were also focusable while
+       And `max-height: 0` + `overflow: hidden` only clips visually, it never
+       removes anything from the tab order, so they were also focusable while
        the drawer was open and the accordion collapsed. Tying visibility to the
        open state fixes both, and keeps the collapse animation. */
     visibility: hidden;
@@ -1513,7 +1400,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   /* hover must not latch open on touch; tap (.is-open) and focus do the work */
   .nav-group:hover .nav-group__panel { max-height: 0; }
   /* `:focus-within` is satisfied by the trigger button, which sits outside the
-     panel — so keyboard focus still opens it even though the links inside
+     panel, so keyboard focus still opens it even though the links inside
      start unfocusable. */
   .nav-group:focus-within .nav-group__panel,
   .nav-group.is-open .nav-group__panel { max-height: 420px; transform: none; visibility: visible; }
@@ -1525,11 +1412,13 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   .header-cta { gap: 8px; }
   .header-cta .btn { padding: 9px 14px; font-size: .78rem; letter-spacing: .06em; white-space: nowrap; }
 
-  /* .brand .c-badge used to be hidden here: logo-header.png already contains
-     the house mark, so the separate badge was a duplicate costing ~54px of a
-     390px bar. The element itself is gone now (base.njk), so nothing to hide. */
-  .brand { gap: 0; flex: 0 1 auto; min-width: 0; }
-  .brand .logo { max-width: 100%; object-fit: contain; object-position: left center; }
+  /* The old wide logo-header.png needed max-width/object-fit here because it
+     was a 1762x552 lockup being squeezed into a ~390px bar. The monogram is a
+     fixed square and the company name is text beside it, so the lockup simply
+     steps down a size rather than being distorted. */
+  .brand { gap: 10px; flex: 0 1 auto; min-width: 0; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand-wm { font-size: 1.05rem; }
   .two-col, .contact-grid, .owner-grid, .adu-grid { grid-template-columns: 1fr; gap: 38px; }
   .adu-card { position: static; }
   .about .figure::before, .about .figure::after { display: none; }
@@ -1551,7 +1440,6 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
      across this range on its own. The old fixed 70px/56px overrides here and
      at 520px just made the scale harder to reason about. */
   .section-divider { padding: 36px 0; }
-  .brand .logo { height: 40px; }
 }
 @media (max-width: 520px) {
   body { font-size: 16px; }
@@ -1562,7 +1450,13 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   .project-head h2 { font-size: 1.5rem; }
 }
 @media (max-width: 380px) {
-  .brand .logo { height: 34px; }
+  /* At this width the bar carries brand + Get in Touch + call icon + menu
+     toggle, and all four have to stay reachable. The wordmark is the only one
+     already repeated elsewhere on the page (footer lockup, <title>, the H1),
+     so it is the one that gives way; the mark alone still identifies the bar
+     and the link keeps its aria-label. */
+  .brand-wm { display: none; }
+  .brand .logo { width: 40px; height: 40px; }
   .container { padding-inline: 14px; }
   .hero__cta .btn { padding: 12px 18px; font-size: .9rem; }
 }
@@ -1576,7 +1470,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   /* `animation-iteration-count: 1` matters as much as the duration here. Ten
      rules in this file end in `infinite` (the gold portrait frame, the marquee,
      the ambient orbs, the header sheen, the scroll-hint wheel, the divider
-     gem). Shortening an infinite animation to .001ms does not stop it — it
+     gem). Shortening an infinite animation to .001ms does not stop it, it
      restarts it forever, which is a worse outcome than the original. Pinning
      the count to one run lets each animation land on its end state and stop. */
   *, *::before, *::after {
@@ -1658,7 +1552,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 .adu-points.cols-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px 44px; }
 .adu-points.cols-2 li { border-bottom: 0; padding: 9px 0; }
 
-/* .adu already paints its own maroon gradient — the generic bubble-panel
+/* .adu already paints its own maroon gradient, the generic bubble-panel
    background (rgba white, from ".section > .container") would wash it out
    into a muddy pink, same class of bug as the old .adu-card white-out. Strip
    it back to transparent here so the maroon reads clean on both the ADU
@@ -1670,7 +1564,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 .svc-cta .container { max-width: 780px; }
 .svc-cta .eyebrow { color: var(--gold-1); display: inline-block; margin-bottom: 14px; }
 .svc-cta__photo {
-  /* Plain circular frame — no inset square backing behind the photo. The
+  /* Plain circular frame, no inset square backing behind the photo. The
      rect frame + maroon-700 fill used to leave dark corners peeking out
      around the circular portrait, which read as a stray grey/black square. */
   display: block;
@@ -1695,7 +1589,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 /* ==========================================================================
    FAQ / NATIVE DISCLOSURES
    src/_includes/faq.njk. Pattern idea from the pattern-lab's "04 / NATIVE
-   DISCLOSURES" study (MIT) — native <details>/<summary>, no JS, scoped here
+   DISCLOSURES" study (MIT), native <details>/<summary>, no JS, scoped here
    to this site's own tokens rather than the lab's standalone stylesheet.
    The browser supplies the open/close behavior and keyboard support for
    free; this only styles the result.
@@ -1712,7 +1606,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   line-height: 1.4;
 }
 .faq-item summary::-webkit-details-marker { display: none; }
-/* Plus/minus drawn with two bars rather than an icon font or SVG sprite —
+/* Plus/minus drawn with two bars rather than an icon font or SVG sprite,
    one less asset, and it inherits currentColor so hover/focus just works. */
 .faq-item summary::after {
   content: ""; position: absolute; right: 2px; top: 50%; width: 16px; height: 2px;
@@ -1729,7 +1623,7 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
 .faq-item__body p { margin: 0; color: var(--body); max-width: 68ch; }
 /* The open/close itself is the browser's native <details> toggle, which
    has no transition to disable. Only the decorative marker rotation and
-   box-shadow/border fade are motion, so only those are turned off — same
+   box-shadow/border fade are motion, so only those are turned off, same
    per-component convention as the rest of this file. */
 @media (prefers-reduced-motion: reduce) {
   .faq-item, .faq-item summary::before, .faq-item summary::after { transition: none; }
@@ -1812,8 +1706,8 @@ body.is-leaving.leave-back .page-main { transform: translateX(46px); }
   font-size: var(--step-0); color: var(--body);
 }
 
-/* The two engagements this company offers are genuinely different — one builds
-   your house, the other watches someone else build it — so they get separate
+/* The two engagements this company offers are genuinely different, one builds
+   your house, the other watches someone else build it, so they get separate
    bands rather than sitting as peers in one undifferentiated six-up grid. */
 .svc-path { margin-top: var(--space-8); }
 .svc-path__head { max-width: var(--measure-prose); margin-bottom: var(--space-6); }
