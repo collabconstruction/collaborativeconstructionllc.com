@@ -3802,14 +3802,14 @@ figure {
    The images are mixed so no two neighbouring edges repeat. */
 .process-section, .quote-band { isolation: isolate; }
 .process-section::before, .process-section::after, .quote-band::before, .quote-band::after {
- content: ""; position: absolute; left: 0; width: 100%; height: clamp(110px, 15vw, 210px); top: 0; bottom: auto; aspect-ratio: auto; border: 0; border-radius: 0; opacity: .9; z-index: -1; pointer-events: none; transform: none;
+ content: ""; position: absolute; left: 0; width: 100%; height: clamp(110px, 15vw, 210px); top: 0; bottom: auto; aspect-ratio: auto; border: 0; border-radius: 0; opacity: .75; z-index: -1; pointer-events: none; transform: none;
  background-repeat: no-repeat; background-size: cover; background-position: center;
  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 28%, #000 72%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 28%, #000 72%, transparent 100%);
 }
-.process-section::before { background-image: url('../assets/img/gold-lines/2.webp'); }
-.process-section::after { background-image: url('../assets/img/gold-lines/3.webp'); }
-.quote-band::before { background-image: url('../assets/img/gold-lines/3.webp'); }
-.quote-band::after { background-image: url('../assets/img/gold-lines/2.webp'); }
+.process-section::before { background-image: url('../assets/img/swirls/glow-ribbons.webp'); }
+.process-section::after { background-image: url('../assets/img/swirls/fine-gold-threads.webp'); }
+.quote-band::before { background-image: url('../assets/img/swirls/ribbon-wave-sparkle.webp'); }
+.quote-band::after { background-image: url('../assets/img/swirls/long-gold-wave.webp'); }
 .process-section::after, .quote-band::after { top: auto; bottom: 0; transform: rotate(180deg); }
 .quote-band__cite::before { display: none; }
 @media (min-width: 880px) {
@@ -4098,13 +4098,6 @@ figure {
 @media (max-width: 600px) { .brand-wm--image { width: 122px; } }
 @media (max-width: 360px) { .brand-wm--image { width: 108px; } }
 
-/* Temper bright pearl/gold artwork against the scrolled black header. */
-.site-header .brand .logo, .site-header .brand-wm--image img { transition: opacity .35s ease; }
-.site-header.is-stuck .brand .logo, .site-header.is-stuck .brand-wm--image img { opacity: .8; }
-@media (prefers-reduced-motion: reduce) {
- .site-header .brand .logo, .site-header .brand-wm--image img { transition: none; }
-}
-
 /* ==========================================================================
    October 20 owner refinement.
    Appended rather than edited in place, matching how the October 14 block
@@ -4202,16 +4195,14 @@ figure {
   justify-self: center;
 }
 
-/* Supplied gold line images ----------------------------------------------
-   assets/img/gold-lines/: 1.png (two crossing curves), 2.webp (soft ribbons),
-   3.webp (long wave), 4.webp (swirl with specks). All four are transparent, so
-   they sit between a section's background colour and its content.
-   1.png is the hero layer. 2 and 3 are the break strips above. 4 is About. */
+/* Supplied swirl images ---------------------------------------------------
+   assets/img/swirls/: eight transparent images. This early block sets the first
+   few (hero and About); the placement block at the end of the file sets the rest. */
 
 /* Hero: the curves sit on `.hero__bg` itself, which is behind the animated
    contour lines and the text, and in front of the navy. */
 .hero__bg {
-  background-image: url('../assets/img/gold-lines/1.png');
+  background-image: url('../assets/img/swirls/gold-crossing-curves.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -4229,7 +4220,7 @@ figure {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: url('../assets/img/gold-lines/4.webp') center 60% / min(1300px, 100%) auto no-repeat;
+  background: url('../assets/img/swirls/swirl-with-specks.webp') center 60% / min(1300px, 100%) auto no-repeat;
   -webkit-mask-image: radial-gradient(ellipse 52% 50% at 50% 56%, #000 55%, transparent 100%);
   mask-image: radial-gradient(ellipse 52% 50% at 50% 56%, #000 55%, transparent 100%);
 }
@@ -4293,3 +4284,96 @@ body { max-width: var(--page-max); margin-inline: auto; }
    are pulled back inside the column on wide screens. */
 .consent-banner { max-width: var(--page-max); margin-inline: auto; }
 .to-top { right: max(clamp(var(--s-4), 3vw, var(--s-6)), calc((100vw - var(--page-max)) / 2 + clamp(var(--s-4), 3vw, var(--s-6)))); }
+
+/* ==========================================================================
+   Swirl placements (October 20)
+   Eight transparent images live in assets/img/swirls/:
+     gold-crossing-curves.png   two bold gold curves        (home hero)
+     soft-ribbon-flow.webp      cream ribbons, fine lines   (home ADU section)
+     long-gold-wave.webp        one long flowing wave       (quote band edge)
+     swirl-with-specks.webp     ring with gold specks       (About backdrop)
+     ribbon-wave-sparkle.webp   gold line, glass ribbon     (process edge, About hero)
+     fine-gold-threads.webp     hair thin crossing curves   (process edge, towns rail)
+     glow-ribbons.webp          warm glowing ribbons        (process edge, Gallery hero)
+     glow-ribbons-wide.webp     wide glow with dotted lines (service heroes, towns rail, contact)
+   Rules used everywhere: they sit behind text, they are masked so no picture
+   ends on a straight cut, and nothing is clickable.
+   ========================================================================== */
+
+/* Break points. The thin drawn blue and gold waves on the top and bottom edge
+   of the towns rail are replaced by images that sit just OUTSIDE the rail, on
+   the cream above and below it. The rail itself, its town pills and the way
+   they scroll are not touched. */
+.locations--atlas { overflow: visible; }
+.locations--atlas::before,
+.locations--atlas::after {
+  left: 0;
+  width: 100%;
+  height: clamp(80px, 9vw, 130px);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: none;
+  transform: none;
+  opacity: 0.9;
+  z-index: 1;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 70%, transparent 100%);
+}
+.locations--atlas::before { top: auto; bottom: 100%; background-image: url('../assets/img/swirls/fine-gold-threads.webp'); }
+.locations--atlas::after { bottom: auto; top: 100%; background-image: url('../assets/img/swirls/glow-ribbons-wide.webp'); }
+
+/* Page headers. The one thin gold arc that used to be drawn at the foot of
+   every page header is replaced by an image. All six service pages use the
+   same one, so they read as a set. The images are laid on the navy with
+   `screen`, so only their light parts show and the rest stays navy. */
+.about-page-hero::before {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  transform: none;
+  border: 0;
+  border-radius: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: screen;
+  opacity: 0.6;
+}
+.service-page .about-page-hero::before { background-image: url('../assets/img/swirls/ribbon-wave-sparkle.webp'); opacity: 0.9; }
+/* A soft clear window in the middle of every page header, so the title and the
+   line under it never sit on a bright part of a picture (they did, and the
+   subtitle became hard to read). The picture frames the text from both sides. */
+.about-page-hero::before {
+  -webkit-mask-image: radial-gradient(ellipse 36% 78% at 50% 52%, transparent 45%, #000 100%);
+  mask-image: radial-gradient(ellipse 36% 78% at 50% 52%, transparent 45%, #000 100%);
+}
+.page-main:has(.company-overview) .about-page-hero::before { background-image: url('../assets/img/swirls/gold-crossing-curves.png'); }
+.page-main:has(.project-gallery) .about-page-hero::before { background-image: url('../assets/img/swirls/fine-gold-threads.webp'); }
+
+/* Home: the accessory dwelling section and the contact section each get one
+   soft image behind their content. */
+.adu, .contact { isolation: isolate; }
+.adu::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url('../assets/img/swirls/soft-ribbon-flow.webp') center / cover no-repeat;
+  opacity: 0.7;
+}
+.contact::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: min(520px, 70%);
+  z-index: -1;
+  pointer-events: none;
+  background: url('../assets/img/swirls/glow-ribbons-wide.webp') center top / cover no-repeat;
+  opacity: 0.55;
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
+}
