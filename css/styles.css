@@ -409,6 +409,15 @@ em {
   max-width: 62ch;
 }
 
+/* `.advisory-lede` is only ever used on service pages as a standalone
+   paragraph (CTA blocks, feasibility-checklist cards), never beside a
+   left-aligned heading the way `.lede`/`.section-lede` are on the homepage
+   contact section, so it's safe to always center. */
+.advisory-lede {
+  text-align: center;
+  margin-inline: auto;
+}
+
 .sub {
   color: var(--text-muted);
   font-size: var(--fs-sm);
@@ -714,6 +723,14 @@ html.enter-left .page-main {
   letter-spacing: 0.005em;
   color: var(--paper);
   white-space: nowrap;
+  /* Newsreader reserves descender space this text never uses (no
+     descenders in "Collaborative Construction"), so the glyphs sit in the
+     top two-thirds of their own line box. `.brand` centers that whole box
+     against the icon, which visually puts the icon's center at the
+     *bottom* of the letters instead of their middle. Measured via
+     canvas actualBoundingBoxAscent/Descent: the ink's true center sits
+     ~0.137em above the line-box center, so nudge down by that amount. */
+  transform: translateY(0.137em);
 }
 
 .header-right {
@@ -837,6 +854,17 @@ html.enter-left .page-main {
 .nav-group__panel a:focus-visible {
   background: var(--paper);
   color: var(--navy);
+}
+
+/* `.nav a.active` (above) sets white text for the header's dark background;
+   the panel is pale, so that rule alone makes the current service invisible
+   here. Higher specificity wins regardless of source order, so this always
+   overrides it rather than depending on being the later rule. */
+.nav-group__panel a.active {
+  color: var(--navy-400);
+  text-decoration: underline;
+  text-decoration-color: var(--navy-400);
+  text-underline-offset: 3px;
 }
 
 /* Header CTA cluster: a button plus a tap-to-call icon, not one element. */
@@ -1662,6 +1690,7 @@ html.enter-left .page-main {
 .svc-card__head {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--s-4);
 }
 
@@ -2567,6 +2596,7 @@ figure {
   display: grid;
   border-top: 1px solid var(--line);
   max-width: 860px;
+  margin-inline: auto;
 }
 
 .faq-item {
@@ -2576,7 +2606,7 @@ figure {
 .faq-item summary {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: var(--s-4);
   padding: var(--s-5) 0;
   font-family: var(--font-display);
@@ -2613,6 +2643,7 @@ figure {
 .faq-item__body {
   padding-bottom: var(--s-5);
   color: var(--ink-muted);
+  text-align: center;
 }
 
 .faq-item__body p:last-child {
@@ -2978,6 +3009,8 @@ figure {
   font-weight: 500;
   line-height: 1.1;
   color: var(--paper);
+  /* Same ink-vs-line-box offset as .brand-wm; see the comment there. */
+  transform: translateY(0.137em);
 }
 
 .footer-brand p {
@@ -3637,7 +3670,6 @@ figure {
 .location-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; list-style: none; margin: 0; padding: 0; }
 .location-strip li { font-size: .8125rem; color: var(--paper); white-space: nowrap; }
 .location-strip li::before { content: ""; display: inline-block; width: 3px; height: 3px; margin-right: 12px; vertical-align: middle; border-radius: 50%; background: var(--brass); }
-.about-page-hero .hero-lede, .advisory-intro > .container > .advisory-lede { text-align: center; margin-inline: auto; }
 .about-page-hero h1 { margin-inline: auto; text-align: center; }
 .svc-cta p { max-width: 58ch; margin-inline: auto; text-align: center; }
 .owner-grid--text { grid-template-columns: 1fr; }
@@ -3804,7 +3836,7 @@ figure {
 .service-page .section-head .rule { display: none; }
 .service-introduction { background: var(--white); }
 .scope-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-.scope-tile { padding: 26px; border-top: 2px solid var(--brass); background: var(--paper); text-align: left; }
+.scope-tile { padding: 26px; border-top: 2px solid var(--brass); background: var(--paper); text-align: center; }
 .scope-tile__number { display: block; color: var(--navy-400); font-size: .75rem; letter-spacing: .12em; margin-bottom: 20px; }
 .scope-tile h3 { font-size: clamp(1.25rem, 2vw, 1.6rem); margin: 0 0 12px; }
 .scope-tile p { font-size: .95rem; color: var(--ink-muted); margin: 0; }
@@ -3819,6 +3851,12 @@ figure {
 .service-page .service-projects .project-head { display: grid; gap: 10px; margin-bottom: 18px; }
 .service-page .service-projects .project-head h2 { font-size: 1.65rem; }
 .service-details:nth-of-type(even) { background: var(--paper-2); }
+/* Several service pages follow their main .section-head.center block with a
+   plain CTA heading (e.g. "Plan your residential project") that is a
+   .container direct child, not nested in a .section-head, so it never
+   inherited that centering. The `.lede` family already centers itself; this
+   brings the bare heading above it into the same alignment. */
+.service-details .container > h2 { text-align: center; }
 .service-page .svc-cta { background: var(--navy); color: var(--paper); }
 .service-page .svc-cta h2, .service-page .svc-cta p { color: var(--paper); }
 .service-page .svc-cta .eyebrow { color: var(--brass); }
@@ -4096,33 +4134,6 @@ figure {
     font-size: 0.78125rem;
   }
 }
-
-/* Service-page closing block -----------------------------------------------
-   Every service page ends with one section built as a bare <h2> plus one or
-   two `.advisory-lede` paragraphs directly inside the container ("Plan your
-   residential project", "Start with the space you need", and so on). Alone
-   among the sections on those pages it was left-aligned, because it is the
-   only one that does not wrap its heading in `.section-head.center` -- so it
-   read as a block that had come loose rather than a deliberate change of
-   rhythm.
-
-   Scoped to a bare `h2` that is a direct child of `.container`, which is
-   precisely this block: every other heading on these pages sits inside
-   `.section-head`, and every other `.advisory-lede` sits inside an `.svc-card`
-   or a two-column `.body`, so neither is touched. Those must keep their
-   alignment -- centring copy inside a card or beside a photo is the thing this
-   is meant to avoid. */
-.service-page .section > .container > h2 {
-  text-align: center;
-  margin-inline: auto;
-}
-.service-page .section > .container > h2 + .advisory-lede,
-.service-page .section > .container > h2 ~ .advisory-lede {
-  text-align: center;
-  max-width: 68ch;
-  margin-inline: auto;
-}
-
 /* About-page brand contours ------------------------------------------------
    The contour drawing behind the logo mark was masked
    `radial-gradient(ellipse at center, #000 20%, transparent 70%)`, so every
