@@ -34,7 +34,7 @@ The Worker code in this branch is the same as the live Worker (live already answ
 
 ```
 curl -s https://collaborativeconstructionllc.com/css/styles.css | grep -c "footer-motto.is-armed"
-curl -s -o /dev/null -w "%{http_code}\n" https://collaborativeconstructionllc.com/assets/img/swirls/swirl-with-specks.webp
+curl -s -o /dev/null -w "%{http_code}\n" https://collaborativeconstructionllc.com/assets/img/swirls/glow-ribbons.webp
 ```
 
 The first prints a number above 0. The second prints 200. Then open the home page, About and a service page.
