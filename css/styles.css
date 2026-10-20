@@ -3731,7 +3731,12 @@ figure {
   to { transform: translateX(-50%) translateY(calc(var(--drift, 0) * 1px)) scale(1) rotate(var(--contour-tilt, 0deg)); }
 }
 .locations--atlas { padding-block: 14px; overflow: hidden; background: var(--navy); }
-.locations--atlas::before, .locations--atlas::after { content: ""; position: absolute; left: -32px; width: calc(100% + 64px); height: 12px; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='18' viewBox='0 0 1200 18' preserveAspectRatio='none'%3E%3Cpath d='M0 9L93 3 182 12 296 5 423 14 548 4 668 10 803 2 942 11 1065 4 1200 9' fill='none' stroke='%23BDA16A' stroke-width='1.2'/%3E%3Cpath d='M0 14L122 9 235 16 367 8 489 13 634 6 754 15 896 8 1038 14 1200 6' fill='none' stroke='%239DAFC0' stroke-opacity='.55' stroke-width='.8'/%3E%3C/svg%3E"); background-size: 100% 12px; background-repeat: no-repeat; }
+/* Break strips: the thin drawn wave that used to sit on the top and bottom edge of the
+   towns rail is replaced by the supplied gold line images. They sit behind the rail
+   content (z-index -1 inside an isolated stacking context), so the town pills stay on top. */
+.locations--atlas { isolation: isolate; }
+.locations--atlas::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: url('../assets/img/gold-lines/3.webp') center / 100% 100% no-repeat; opacity: .3; }
+.locations--atlas::after { display: none; }
 .locations--atlas::before { top: 0; }
 .locations--atlas::after { bottom: 0; transform: rotate(180deg); }
 .location-window { overflow: hidden; padding-block: 8px; -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
@@ -3798,10 +3803,18 @@ figure {
 .process__body p { max-width: 30ch; margin-inline: auto; }
 .process__step::before { display: none; }
 .process-section, .quote-band { position: relative; overflow: hidden; }
+/* Break strips for the process section and the quote band: same idea as the towns rail.
+   The images are mixed so no two neighbouring edges repeat. */
+.process-section, .quote-band { isolation: isolate; }
 .process-section::before, .process-section::after, .quote-band::before, .quote-band::after {
- content: ""; position: absolute; left: -5%; width: 110%; height: 10px; top: 0; bottom: auto; aspect-ratio: auto; border: 0; border-radius: 0; opacity: .65; z-index: 0; pointer-events: none; transform: none;
- background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='12'%3E%3Cpath d='M0 6Q75 1 150 6T300 6T450 6T600 6T750 6T900 6' fill='none' stroke='%23BDA16A' stroke-width='1.1'/%3E%3Cpath d='M0 9Q100 3 200 9T400 9T600 9T800 9T1000 9' fill='none' stroke='%23BDA16A' stroke-opacity='.35' stroke-width='.7'/%3E%3C/svg%3E"); background-size: 900px 10px;
+ content: ""; position: absolute; left: 0; width: 100%; height: clamp(90px, 12vw, 170px); top: 0; bottom: auto; aspect-ratio: auto; border: 0; border-radius: 0; opacity: .9; z-index: -1; pointer-events: none; transform: none;
+ background-repeat: no-repeat; background-size: cover; background-position: center;
+ -webkit-mask-image: linear-gradient(to bottom, #000 10%, transparent 100%); mask-image: linear-gradient(to bottom, #000 10%, transparent 100%);
 }
+.process-section::before { background-image: url('../assets/img/gold-lines/2.webp'); }
+.process-section::after { background-image: url('../assets/img/gold-lines/3.webp'); }
+.quote-band::before { background-image: url('../assets/img/gold-lines/3.webp'); }
+.quote-band::after { background-image: url('../assets/img/gold-lines/2.webp'); }
 .process-section::after, .quote-band::after { top: auto; bottom: 0; transform: rotate(180deg); }
 .quote-band__cite::before { display: none; }
 @media (min-width: 880px) {
@@ -3814,11 +3827,9 @@ figure {
  .process.is-ready .process__step { animation: processPop .48s var(--ease-out) calc(var(--stage) * .3s) both; }
  .process.is-staged .process__step::before { transform: scaleX(0); }
  .process.is-ready .process__step::before { animation: processLine .36s var(--ease-out) calc(var(--stage) * .3s + .2s) both; }
- .process-section::before, .process-section::after, .quote-band::before, .quote-band::after { animation: tanBorderDrift 22s linear infinite; animation-play-state: var(--decorative-state, running); }
-}
+ }
 @keyframes processPop { from { opacity: 0; transform: translateY(16px) scale(.97); } 75% { opacity: 1; transform: translateY(-2px) scale(1.005); } to { opacity: 1; transform: none; } }
 @keyframes processLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-@keyframes tanBorderDrift { to { background-position-x: 900px; } }
 @media (max-width: 879px) {
  .process { max-width: 580px; margin-inline: auto; }
  .process__step::before { display: block; left: 50%; right: auto; top: auto; bottom: -25px; width: 1px; height: 24px; background: var(--brass); transform-origin: center top; }
@@ -4243,27 +4254,80 @@ figure {
   justify-self: center;
 }
 
-/* About page backdrop ------------------------------------------------------
-   A transparent painted image (assets/img/about-splash.svg: brass brush
-   strokes, paint splashes and fine survey lines) laid behind the whole page.
-   Scoped with :has() to the page that contains `.company-overview`, so no
-   other page changes and no template edit is needed.
+/* Supplied gold line images ----------------------------------------------
+   assets/img/gold-lines/: 1.png (two crossing curves), 2.webp (soft ribbons),
+   3.webp (long wave), 4.webp (swirl with specks). All four are transparent, so
+   they sit between a section's background colour and its content.
+   1.png is the hero layer. 2 and 3 are the break strips above. 4 is About. */
 
-   Cream part: `.company-overview` and `.company-principles` already have no
-   background, so the image shows through them from the page itself.
-   Navy part: the page hero is solid navy and would hide it, so the same
-   image is also laid inside the hero as its own layer.
-   The image is static and decorative; it never sits above text because it is
-   a background, not an element. */
-.page-main:has(.company-overview) {
-  background-image: url('../assets/img/about-splash.svg');
+/* Hero: the curves sit on `.hero__bg` itself, which is behind the animated
+   contour lines and the text, and in front of the navy. */
+.hero__bg {
+  background-image: url('../assets/img/gold-lines/1.png');
   background-repeat: no-repeat;
-  background-position: center top;
   background-size: cover;
+  background-position: center;
 }
-.page-main:has(.company-overview) .about-page-hero {
-  background-image: url('../assets/img/about-splash.svg');
-  background-repeat: no-repeat;
-  background-position: 30% 22%;
-  background-size: cover;
+
+/* About: the swirl is centred behind the whole page, behind the hero text and
+   the page content. It is a pseudo element rather than a plain background so a
+   soft mask can fade the picture's own edges: the wash in the image ends in a
+   straight line that showed as a faint box. `contain` keeps its whole ring and
+   the specks in view. */
+.page-main:has(.company-overview) { position: relative; isolation: isolate; }
+.page-main:has(.company-overview)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url('../assets/img/gold-lines/4.webp') center 60% / min(1300px, 100%) auto no-repeat;
+  -webkit-mask-image: radial-gradient(ellipse 52% 50% at 50% 56%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 52% 50% at 50% 56%, #000 55%, transparent 100%);
+}
+
+/* Footer motto underline -------------------------------------------------
+   Experience, Quality and Trust each get a gold underline that draws in, one
+   after another, the first time the footer scrolls into view. main.js adds
+   `is-armed` (underline hidden) and then `is-in` (underline drawn) once.
+   Without JS the underline is simply shown. */
+.footer-motto { justify-items: start; }
+.footer-motto span { position: relative; width: fit-content; padding-bottom: 6px; }
+.footer-motto span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  /* the words carry trailing letter spacing, so trim it or the line overshoots */
+  right: 0.18em;
+  bottom: 0;
+  height: 2px;
+  background: var(--brass);
+  transform-origin: left center;
+}
+.footer-motto.is-armed span::after { transform: scaleX(0); }
+@media (prefers-reduced-motion: no-preference) {
+  .footer-motto.is-in span::after {
+    transform: scaleX(1);
+    transition: transform 0.7s var(--ease-out);
+  }
+  .footer-motto.is-in span:nth-child(1)::after { transition-delay: 0.1s; }
+  .footer-motto.is-in span:nth-child(2)::after { transition-delay: 0.7s; }
+  .footer-motto.is-in span:nth-child(3)::after { transition-delay: 1.3s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer-motto.is-armed span::after { transform: scaleX(1); }
+}
+.footer-motto.is-in span::after { transform: scaleX(1); }
+
+/* Towns rail wave. Earlier rules in this file (the "atlasEdge" slide, a 6px
+   reduced-motion height and a 12px "final" height) were written for the old
+   thin drawn line and kept forcing its size and motion onto the image. The
+   image fills the whole rail and stays still, so those are cancelled here. */
+.locations--atlas::before {
+  left: 0;
+  width: 100%;
+  height: auto;
+  background-size: 100% 100%;
+  animation: none;
+  transform: none;
 }

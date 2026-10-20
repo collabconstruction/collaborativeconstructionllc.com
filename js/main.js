@@ -943,6 +943,30 @@
   }
 
   /* ----------------------------------------------------------------------
+     Footer motto underline
+
+     Experience, Quality and Trust each draw a gold underline, one after the
+     other, the first time the footer scrolls into view. The stagger itself is
+     CSS (transition-delay per word); this only arms the underline (hidden) and
+     then switches it on once. Armed here rather than in CSS so that without
+     JavaScript the underline is simply visible and nothing is lost.
+  ---------------------------------------------------------------------- */
+  const footerMotto = $(".footer-motto");
+  if (footerMotto) {
+    if (prefersReduced || !("IntersectionObserver" in window)) {
+      footerMotto.classList.add("is-in");
+    } else {
+      footerMotto.classList.add("is-armed");
+      const mottoObserver = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        footerMotto.classList.add("is-in");
+        mottoObserver.disconnect();
+      }, { threshold: 0.6 });
+      mottoObserver.observe(footerMotto);
+    }
+  }
+
+  /* ----------------------------------------------------------------------
      Footer year
   ---------------------------------------------------------------------- */
   const yearEl = $("#year");
