@@ -211,20 +211,37 @@ preloadImage: /assets/img/belmont-pond.jpg
     <section class="locations locations--atlas" aria-label="Nearby communities">
       <div class="location-window" tabindex="0" role="region" aria-label="Nearby communities. Animation pauses on hover or focus.">
         <div class="location-loop">
-          {# Both tracks loop the same src/_data/serviceArea.json list. They were
-             two hand-maintained copies of 28 names; the clone has to stay identical
-             to the real track or the marquee visibly jumps when it wraps, so the
-             duplication was a standing hazard. The clone stays aria-hidden: a
-             screen reader should hear the communities once. #}
           <ul class="location-atlas">
-            {%- for place in serviceArea.communities %}
-            <li><span>{{ place }}</span></li>
-            {%- endfor %}
+            <li><span>East Falmouth</span></li>
+            <li><span>Falmouth</span></li>
+            <li><span>Woods Hole</span></li>
+            <li><span>North Falmouth</span></li>
+            <li><span>West Falmouth</span></li>
+            <li><span>Bourne</span></li>
+            <li><span>Pocasset</span></li>
+            <li><span>Cataumet</span></li>
+            <li><span>Sandwich</span></li>
+            <li><span>Mashpee</span></li>
+            <li><span>Cotuit</span></li>
+            <li><span>Barnstable</span></li>
+            <li><span>Yarmouth</span></li>
+            <li><span>Dennis</span></li>
+            <li><span>Harwich</span></li>
+            <li><span>Brewster</span></li>
+            <li><span>Chatham</span></li>
+            <li><span>Orleans</span></li>
+            <li><span>Plymouth</span></li>
+            <li><span>Kingston</span></li>
+            <li><span>Duxbury</span></li>
+            <li><span>Pembroke</span></li>
+            <li><span>Marshfield</span></li>
+            <li><span>Scituate</span></li>
+            <li><span>Norwell</span></li>
+            <li><span>Hanover</span></li>
+            <li><span>Hingham</span></li>
+            <li><span>Cohasset</span></li>
           </ul>
-          <ul class="location-atlas location-atlas--clone" aria-hidden="true">
-            {%- for place in serviceArea.communities %}
-            <li><span>{{ place }}</span></li>
-            {%- endfor %}
+          <ul class="location-atlas location-atlas--clone" aria-hidden="true"><li><span>East Falmouth</span></li><li><span>Falmouth</span></li><li><span>Woods Hole</span></li><li><span>North Falmouth</span></li><li><span>West Falmouth</span></li><li><span>Bourne</span></li><li><span>Pocasset</span></li><li><span>Cataumet</span></li><li><span>Sandwich</span></li><li><span>Mashpee</span></li><li><span>Cotuit</span></li><li><span>Barnstable</span></li><li><span>Yarmouth</span></li><li><span>Dennis</span></li><li><span>Harwich</span></li><li><span>Brewster</span></li><li><span>Chatham</span></li><li><span>Orleans</span></li><li><span>Plymouth</span></li><li><span>Kingston</span></li><li><span>Duxbury</span></li><li><span>Pembroke</span></li><li><span>Marshfield</span></li><li><span>Scituate</span></li><li><span>Norwell</span></li><li><span>Hanover</span></li><li><span>Hingham</span></li><li><span>Cohasset</span></li>
           </ul>
         </div>
       </div>

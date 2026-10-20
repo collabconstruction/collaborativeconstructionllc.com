@@ -51,13 +51,16 @@ breadcrumbName: "General Contractor"
     </section>
 
     <!-- ============================ SERVICE AREA ============================ -->
-    {#- Was a full "Where We Work" section: eyebrow, heading, rule, and a
-        paragraph naming four towns "and surrounding communities". The strip
-        states the same thing by simply listing the communities, and names all
-        of them instead of four plus an etcetera. Every town shown here is
-        already published in the homepage marquee, so this widens the page's
-        claim to match the site's, not beyond it. -#}
-    {% include "location-strip.njk" %}
+    <section class="section service-details">
+      <div class="container">
+        <div class="section-head center" data-reveal>
+          <span class="eyebrow">Where We Work</span>
+          <h2 data-reveal-words>Serving nearby communities</h2>
+          <hr class="rule">
+        </div>
+        <p class="advisory-lede" data-reveal data-delay="1">Based in East Falmouth, we provide general contracting services throughout nearby communities. Our service area includes Falmouth, Mashpee, Barnstable, Sandwich, and surrounding communities.</p>
+      </div>
+    </section>
 
     <!-- ============================ RELATED PROJECTS ============================ -->
     <section class="section service-projects">

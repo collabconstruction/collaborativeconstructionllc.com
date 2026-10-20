@@ -3731,12 +3731,7 @@ figure {
   to { transform: translateX(-50%) translateY(calc(var(--drift, 0) * 1px)) scale(1) rotate(var(--contour-tilt, 0deg)); }
 }
 .locations--atlas { padding-block: 14px; overflow: hidden; background: var(--navy); }
-/* Break strips: the thin drawn wave that used to sit on the top and bottom edge of the
-   towns rail is replaced by the supplied gold line images. They sit behind the rail
-   content (z-index -1 inside an isolated stacking context), so the town pills stay on top. */
-.locations--atlas { isolation: isolate; }
-.locations--atlas::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: url('../assets/img/gold-lines/3.webp') center / 100% 100% no-repeat; opacity: .3; }
-.locations--atlas::after { display: none; }
+.locations--atlas::before, .locations--atlas::after { content: ""; position: absolute; left: -32px; width: calc(100% + 64px); height: 12px; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='18' viewBox='0 0 1200 18' preserveAspectRatio='none'%3E%3Cpath d='M0 9L93 3 182 12 296 5 423 14 548 4 668 10 803 2 942 11 1065 4 1200 9' fill='none' stroke='%23BDA16A' stroke-width='1.2'/%3E%3Cpath d='M0 14L122 9 235 16 367 8 489 13 634 6 754 15 896 8 1038 14 1200 6' fill='none' stroke='%239DAFC0' stroke-opacity='.55' stroke-width='.8'/%3E%3C/svg%3E"); background-size: 100% 12px; background-repeat: no-repeat; }
 .locations--atlas::before { top: 0; }
 .locations--atlas::after { bottom: 0; transform: rotate(180deg); }
 .location-window { overflow: hidden; padding-block: 8px; -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
@@ -3807,9 +3802,9 @@ figure {
    The images are mixed so no two neighbouring edges repeat. */
 .process-section, .quote-band { isolation: isolate; }
 .process-section::before, .process-section::after, .quote-band::before, .quote-band::after {
- content: ""; position: absolute; left: 0; width: 100%; height: clamp(90px, 12vw, 170px); top: 0; bottom: auto; aspect-ratio: auto; border: 0; border-radius: 0; opacity: .9; z-index: -1; pointer-events: none; transform: none;
+ content: ""; position: absolute; left: 0; width: 100%; height: clamp(110px, 15vw, 210px); top: 0; bottom: auto; aspect-ratio: auto; border: 0; border-radius: 0; opacity: .9; z-index: -1; pointer-events: none; transform: none;
  background-repeat: no-repeat; background-size: cover; background-position: center;
- -webkit-mask-image: linear-gradient(to bottom, #000 10%, transparent 100%); mask-image: linear-gradient(to bottom, #000 10%, transparent 100%);
+ -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 28%, #000 72%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 28%, #000 72%, transparent 100%);
 }
 .process-section::before { background-image: url('../assets/img/gold-lines/2.webp'); }
 .process-section::after { background-image: url('../assets/img/gold-lines/3.webp'); }
@@ -4117,53 +4112,6 @@ figure {
    baseline it overrides.
    ========================================================================== */
 
-/* Location strip -----------------------------------------------------------
-   The band that replaced the "Where We Work" section on the service pages.
-   Dark neutral rather than navy so it reads as a divider between sections
-   instead of a third navy panel, with a brass hairline top and bottom to tie
-   it to the header accent and the section rules. */
-.locations--strip {
-  padding-block: 13px;
-  background: var(--navy-950);
-  border-block: 1px solid rgba(189, 161, 106, 0.55);
-}
-.location-strip li {
-  color: rgba(244, 241, 234, 0.82);
-  letter-spacing: 0.015em;
-}
-/* The leading dot is a separator, so the first name in each visual row should
-   not carry one. CSS cannot see where the flex wrap falls, so every item keeps
-   its dot and the first item of the list drops it -- the common case. */
-.location-strip li:first-child::before {
-  display: none;
-}
-@media (max-width: 600px) {
-  .locations--strip {
-    padding-block: 11px;
-  }
-  .location-strip li {
-    font-size: 0.78125rem;
-  }
-}
-/* About-page brand contours ------------------------------------------------
-   The contour drawing behind the logo mark was masked
-   `radial-gradient(ellipse at center, #000 20%, transparent 70%)`, so every
-   line began fading at a fifth of the way out and was gone by seven tenths.
-   Since the mark itself occupies the middle 69%, the lines were already
-   half-faded where they emerged from behind it and vanished mid-stroke just
-   outside it: the frame appeared, then disappeared, which is the defect.
-
-   Holding full opacity out to 62% and fading to 96% lets each line read as a
-   continuous arc around the mark and finish at the edge of its own box rather
-   than stopping in open space. The fade is kept (an abrupt rectangular cut-off
-   at the SVG's edge would be a worse artefact) -- it just happens where the
-   drawing ends instead of where it starts. */
-.company-brand__contours {
-  opacity: 0.34;
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 62%, transparent 96%);
-  mask-image: radial-gradient(ellipse at center, #000 62%, transparent 96%);
-}
-
 /* ==========================================================================
    October 20 owner pass: centering on the service pages and About, a visible
    contact button, and a smaller featured gallery photo.
@@ -4308,26 +4256,40 @@ figure {
 @media (prefers-reduced-motion: no-preference) {
   .footer-motto.is-in span::after {
     transform: scaleX(1);
-    transition: transform 0.7s var(--ease-out);
+    transition: transform 0.3s var(--ease-out);
   }
-  .footer-motto.is-in span:nth-child(1)::after { transition-delay: 0.1s; }
-  .footer-motto.is-in span:nth-child(2)::after { transition-delay: 0.7s; }
-  .footer-motto.is-in span:nth-child(3)::after { transition-delay: 1.3s; }
+  .footer-motto.is-in span:nth-child(1)::after { transition-delay: 0s; }
+  .footer-motto.is-in span:nth-child(2)::after { transition-delay: 0.15s; }
+  .footer-motto.is-in span:nth-child(3)::after { transition-delay: 0.3s; }
 }
 @media (prefers-reduced-motion: reduce) {
   .footer-motto.is-armed span::after { transform: scaleX(1); }
 }
 .footer-motto.is-in span::after { transform: scaleX(1); }
 
-/* Towns rail wave. Earlier rules in this file (the "atlasEdge" slide, a 6px
-   reduced-motion height and a 12px "final" height) were written for the old
-   thin drawn line and kept forcing its size and motion onto the image. The
-   image fills the whole rail and stays still, so those are cancelled here. */
-.locations--atlas::before {
-  left: 0;
-  width: 100%;
-  height: auto;
-  background-size: 100% 100%;
-  animation: none;
-  transform: none;
-}
+/* About page: one centred company section ---------------------------------
+   The big logo mark and the drawn contour lines beside the text are removed.
+   Hidden with CSS, not only deleted from the template, because the live About
+   page is not built from this template and must change from the stylesheet.
+   The page backdrop (the supplied swirl image, set earlier in this file) stays
+   behind the centred text. */
+.company-brand { display: none; }
+.company-overview__grid { grid-template-columns: 1fr; justify-items: center; }
+.company-overview__copy { max-width: 760px; margin-inline: auto; text-align: center; }
+.company-overview__copy .eyebrow { justify-content: center; }
+.company-overview__copy p { margin-inline: auto; max-width: 60ch; }
+
+/* Zoom out: keep the page a centred column ---------------------------------
+   Zoomed out (or on a very wide monitor) the layout used to keep stretching
+   sideways, with the header, hero and footer running edge to edge across the
+   whole screen. The page is now a centred column no wider than --page-max,
+   and anything wider shows a plain dark margin on each side, like a printed
+   page cut off at its edge. Below --page-max nothing changes, so laptops and
+   phones look exactly as before. Change the one number to taste. */
+:root { --page-max: 1600px; }
+html { background: var(--navy-950); }
+body { max-width: var(--page-max); margin-inline: auto; }
+/* Fixed pieces are placed against the window, not against the column, so they
+   are pulled back inside the column on wide screens. */
+.consent-banner { max-width: var(--page-max); margin-inline: auto; }
+.to-top { right: max(clamp(var(--s-4), 3vw, var(--s-6)), calc((100vw - var(--page-max)) / 2 + clamp(var(--s-4), 3vw, var(--s-6)))); }
