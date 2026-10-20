@@ -3802,7 +3802,7 @@ figure {
    The images are mixed so no two neighbouring edges repeat. */
 .process-section, .quote-band { isolation: isolate; }
 .process-section::before, .process-section::after, .quote-band::before, .quote-band::after {
- content: ""; position: absolute; left: 0; width: 100%; height: clamp(110px, 15vw, 210px); top: 0; bottom: auto; aspect-ratio: auto; border: 0; border-radius: 0; opacity: .75; z-index: -1; pointer-events: none; transform: none;
+ content: ""; position: absolute; left: 0; width: 100%; height: clamp(110px, 15vw, 210px); top: 0; bottom: auto; aspect-ratio: auto; border: 0; border-radius: 0; opacity: .95; z-index: -1; pointer-events: none; transform: none;
  background-repeat: no-repeat; background-size: cover; background-position: center;
  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 28%, #000 72%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 28%, #000 72%, transparent 100%);
 }
@@ -4278,10 +4278,13 @@ body { max-width: var(--page-max); margin-inline: auto; }
 /* Home hero. The supplied crossing-curves image is retired; the hero keeps its
    own animated contour lines and gains the silk ribbon low on the right. */
 .hero__bg {
-  background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp');
+  /* three layers: the crossing curves across the whole hero, and the silk ribbon
+     low on the right. The ribbon is listed twice on purpose: stacking two copies
+     of a soft picture roughly doubles how solid it looks on the navy. */
+  background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'), url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'), url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp');
   background-repeat: no-repeat;
-  background-size: 62% auto;
-  background-position: 108% 100%;
+  background-size: cover, 62% auto, 62% auto;
+  background-position: center, 108% 100%, 108% 100%;
 }
 
 /* Page headers. All six service pages use the same silk ribbon so they read as
@@ -4299,13 +4302,14 @@ body { max-width: var(--page-max); margin-inline: auto; }
   background-size: cover;
   background-position: center;
   mix-blend-mode: screen;
-  opacity: 0.9;
-  -webkit-mask-image: radial-gradient(ellipse 36% 78% at 50% 52%, transparent 45%, #000 100%);
-  mask-image: radial-gradient(ellipse 36% 78% at 50% 52%, transparent 45%, #000 100%);
+  opacity: 1;
+  filter: brightness(1.3) saturate(1.2);
+  -webkit-mask-image: radial-gradient(ellipse 47% 92% at 50% 54%, transparent 52%, #000 100%);
+  mask-image: radial-gradient(ellipse 47% 92% at 50% 54%, transparent 52%, #000 100%);
 }
-.service-page .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'); }
-.page-main:has(.company-overview) .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'); transform: scaleX(-1); }
-.page-main:has(.project-gallery) .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp'); opacity: 0.8; }
+.service-page .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'), url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'); }
+.page-main:has(.company-overview) .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'), url('../assets/img/swirls/on-navy/gold-crossing-curves.png'); transform: scaleX(-1); }
+.page-main:has(.project-gallery) .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp'), url('../assets/img/swirls/on-navy/gold-crossing-curves.png'); }
 
 /* About backdrop, behind the centred company section. */
 .page-main:has(.company-overview) { position: relative; isolation: isolate; }
@@ -4316,7 +4320,7 @@ body { max-width: var(--page-max); margin-inline: auto; }
   z-index: -1;
   pointer-events: none;
   background: url('../assets/img/swirls/glow-ribbons.webp') center 58% / min(1500px, 120%) auto no-repeat;
-  opacity: 0.8;
+  opacity: 1;
   -webkit-mask-image: radial-gradient(ellipse 55% 50% at 50% 56%, #000 50%, transparent 100%);
   mask-image: radial-gradient(ellipse 55% 50% at 50% 56%, #000 50%, transparent 100%);
 }
@@ -4331,7 +4335,7 @@ body { max-width: var(--page-max); margin-inline: auto; }
   z-index: -1;
   pointer-events: none;
   background: url('../assets/img/swirls/glow-ribbons.webp') center / cover no-repeat;
-  opacity: 0.55;
+  opacity: 0.85;
 }
 .contact::before {
   content: "";
@@ -4341,7 +4345,7 @@ body { max-width: var(--page-max); margin-inline: auto; }
   z-index: -1;
   pointer-events: none;
   background: url('../assets/img/swirls/glow-ribbons-wide.webp') center top / cover no-repeat;
-  opacity: 0.6;
+  opacity: 0.9;
   -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
 }
@@ -4350,9 +4354,8 @@ body { max-width: var(--page-max); margin-inline: auto; }
    No blue: the rail has no background colour of its own, so the cream page
    shows through. Behind the town names sits the golden light flare, zoomed up
    so its glow spreads across the rail. The pills are light with navy text.
-   Above and below runs one thin gold line and one thin blue-gray line, drifting
-   slowly in opposite directions. (The thick navy swells tried earlier are gone:
-   less is more.) The rail, the pills and how they scroll are not touched. */
+   Nothing is drawn above or below it: less is more. The rail, the pills and
+   how they scroll are not touched. */
 .locations--atlas {
   overflow: visible;
   background: url('../assets/img/swirls/golden-light-flare.webp') center / 150% 210% no-repeat;
@@ -4365,30 +4368,10 @@ body { max-width: var(--page-max); margin-inline: auto; }
   background: rgba(255, 255, 255, 0.62);
   border-color: rgba(189, 161, 106, 0.6);
 }
+/* No curves above or below the rail. This also hides the older drawn waves
+   that earlier rules still put on its top and bottom edge. */
 .locations--atlas::before,
-.locations--atlas::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 30px;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 1;
-  background-repeat: repeat-x;
-  background-size: 800px 30px, 480px 30px;
-  background-position: 0 0, 0 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='30' viewBox='0 0 800 30'%3E%3Cpath d='M0 14Q200 -8 400 14T800 14' fill='none' stroke='%23bda16a' stroke-width='1.4'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='30' viewBox='0 0 480 30'%3E%3Cpath d='M0 20Q120 4 240 20T480 20' fill='none' stroke='%239daFc0' stroke-width='1' stroke-opacity='.75'/%3E%3C/svg%3E");
-  -webkit-mask-image: none;
-  mask-image: none;
-}
-.locations--atlas::before { top: auto; bottom: 100%; transform: none; animation: railWaveA 44s linear infinite; }
-.locations--atlas::after { bottom: auto; top: 100%; transform: scaleY(-1); animation: railWaveB 52s linear infinite; }
-@keyframes railWaveA { to { background-position: -800px 0, 480px 0; } }
-@keyframes railWaveB { to { background-position: 800px 0, -480px 0; } }
-@media (prefers-reduced-motion: reduce) {
-  .locations--atlas::before, .locations--atlas::after { animation: none; }
-}
+.locations--atlas::after { display: none; }
 
 /* Card hover, slower and smoother -------------------------------------------
    Cards lifted and recoloured in 0.4s, and the service rows slid by animating
