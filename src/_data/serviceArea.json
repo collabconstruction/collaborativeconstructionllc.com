@@ -1,0 +1,36 @@
+{
+  "_comment": "The communities named on the public site, in display order. Extracted verbatim from the hardcoded list that src/index.njk carried twice (the marquee track and its aria-hidden clone) so the same names could not drift apart between the two, and so the service-page location strip renders the same list rather than a second hand-typed one. Adding a name here publishes a service-area claim on every page that renders the strip, so only add a community the owner has confirmed.",
+
+  "_scopeComment": "This is the 'nearby communities' display list and is deliberately separate from src/_data/towns.json, which is the portfolio-project location registry (project tags, JSON-LD contentLocation, sitemap). A town appearing here is NOT a claim that a project was built there, and a town in towns.json is not automatically in the service area.",
+
+  "communities": [
+    "East Falmouth",
+    "Falmouth",
+    "Woods Hole",
+    "North Falmouth",
+    "West Falmouth",
+    "Bourne",
+    "Pocasset",
+    "Cataumet",
+    "Sandwich",
+    "Mashpee",
+    "Cotuit",
+    "Barnstable",
+    "Yarmouth",
+    "Dennis",
+    "Harwich",
+    "Brewster",
+    "Chatham",
+    "Orleans",
+    "Plymouth",
+    "Kingston",
+    "Duxbury",
+    "Pembroke",
+    "Marshfield",
+    "Scituate",
+    "Norwell",
+    "Hanover",
+    "Hingham",
+    "Cohasset"
+  ]
+}

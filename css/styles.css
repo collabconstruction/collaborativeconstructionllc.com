@@ -1076,11 +1076,12 @@ html.enter-left .page-main {
 @keyframes contourBreathe {
   0%,
   100% {
-    transform: translateX(-50%) translateY(calc(var(--drift, 0) * 1px)) scale(1);
+    transform: translateX(-50%) translateY(calc(var(--drift, 0) * 1px))
+      rotate(var(--contour-tilt, 0deg)) scale(1);
   }
   50% {
     transform: translateX(-50%) translateY(calc(var(--drift, 0) * 1px - 10px))
-      scale(1.012);
+      rotate(calc(var(--contour-tilt, 0deg) + 0.5deg)) scale(1.012);
   }
 }
 
@@ -3584,17 +3585,53 @@ figure {
 .hero__copy > .eyebrow::before { display: none; }
 .hero__copy > .eyebrow { padding-left: 0; }
 .hero { padding-block: clamp(2.5rem, 5vw, 4.5rem); }
+/* Contour field. `--contour-tilt` is new here: without a per-line rotation
+   every ellipse sat on the same horizontal axis, so the field still read as a
+   stack of nested rings even once the origins were scattered. The tilt is what
+   makes the lines cross each other. It has to be repeated inside both
+   contourBreathe and contourArrival, because an animation on `transform`
+   replaces the property outright while it runs -- a tilt declared only here
+   would snap to zero on the first animated frame. */
 .hero__bg span { left: var(--contour-x, 64%); bottom: var(--contour-y, -58%); width: var(--contour-w, 160%); aspect-ratio: var(--contour-ratio, 2.1); border-radius: 46% 54% 62% 38%; animation-duration: var(--contour-time, 23s); }
-.hero__bg span:nth-child(2) { --contour-x: 76%; --contour-y: -45%; --contour-w: 142%; --contour-ratio: 2.3; --contour-time: 29s; }
-.hero__bg span:nth-child(3) { --contour-x: 16%; --contour-y: -73%; --contour-w: 130%; --contour-ratio: 1.8; --contour-time: 26s; }
-.hero__bg span:nth-child(4) { --contour-x: 83%; --contour-y: -67%; --contour-w: 116%; --contour-ratio: 1.7; --contour-time: 31s; }
-.hero__bg span:nth-child(5) { --contour-x: -15%; --contour-y: 26%; --contour-w: 95%; --contour-ratio: 1.5; opacity: .11; animation-delay: -7s; }
-.hero__bg span:nth-child(6) { --contour-x: 95%; --contour-y: 12%; --contour-w: 105%; --contour-ratio: 2.4; opacity: .13; animation-delay: -12s; }
-.hero__bg span:nth-child(7) { --contour-x: 32%; --contour-y: -35%; --contour-w: 190%; --contour-ratio: 2.7; opacity: .09; animation-delay: -16s; }
-.hero__bg span:nth-child(8) { --contour-x: 110%; --contour-y: -20%; --contour-w: 138%; --contour-ratio: 1.9; opacity: .12; animation-delay: -19s; }
-.hero-figure { padding: 10px; border: 1px solid var(--brass); background: transparent; }
+.hero__bg span:nth-child(1) { --contour-x: 47%; --contour-y: -62%; --contour-w: 196%; --contour-ratio: 2.1; --contour-tilt: -2.4deg; --contour-time: 19s; animation-delay: -2s; }
+.hero__bg span:nth-child(2) { --contour-x: 76%; --contour-y: -45%; --contour-w: 142%; --contour-ratio: 2.3; --contour-tilt: 3.1deg; --contour-time: 29s; }
+.hero__bg span:nth-child(3) { --contour-x: 16%; --contour-y: -73%; --contour-w: 130%; --contour-ratio: 1.8; --contour-tilt: -4.2deg; --contour-time: 26s; }
+.hero__bg span:nth-child(4) { --contour-x: 83%; --contour-y: -67%; --contour-w: 116%; --contour-ratio: 1.7; --contour-tilt: 5.6deg; --contour-time: 31s; }
+.hero__bg span:nth-child(5) { --contour-x: -15%; --contour-y: 26%; --contour-w: 95%; --contour-ratio: 1.5; --contour-tilt: 2.2deg; --contour-time: 21s; opacity: .11; animation-delay: -7s; }
+.hero__bg span:nth-child(6) { --contour-x: 95%; --contour-y: 12%; --contour-w: 105%; --contour-ratio: 2.4; --contour-tilt: -6.8deg; --contour-time: 34s; opacity: .13; animation-delay: -12s; }
+.hero__bg span:nth-child(7) { --contour-x: 32%; --contour-y: -35%; --contour-w: 190%; --contour-ratio: 2.7; --contour-tilt: 1.4deg; --contour-time: 24s; opacity: .09; animation-delay: -16s; }
+.hero__bg span:nth-child(8) { --contour-x: 110%; --contour-y: -20%; --contour-w: 138%; --contour-ratio: 1.9; --contour-tilt: -3.5deg; --contour-time: 27s; opacity: .12; animation-delay: -19s; }
+/* Four added lines, all starting well off the previous set's origins: two
+   reaching in from the left edge, one high and wide, one tucked bottom-right.
+   Lower opacity than the originals so the field gains density, not weight. */
+.hero__bg span:nth-child(9) { --contour-x: -8%; --contour-y: -6%; --contour-w: 124%; --contour-ratio: 2.8; --contour-tilt: 4.8deg; --contour-time: 37s; opacity: .1; animation-delay: -23s; }
+.hero__bg span:nth-child(10) { --contour-x: 58%; --contour-y: -88%; --contour-w: 172%; --contour-ratio: 2; --contour-tilt: -1.8deg; --contour-time: 22s; opacity: .11; animation-delay: -5s; }
+.hero__bg span:nth-child(11) { --contour-x: 124%; --contour-y: -78%; --contour-w: 132%; --contour-ratio: 1.6; --contour-tilt: 6.2deg; --contour-time: 33s; opacity: .08; animation-delay: -28s; }
+.hero__bg span:nth-child(12) { --contour-x: 6%; --contour-y: 34%; --contour-w: 112%; --contour-ratio: 3; --contour-tilt: -5.1deg; --contour-time: 30s; opacity: .08; animation-delay: -9s; }
+/* The brass box is gone. A hard 1px rectangle around a photograph that is
+   itself fading out drew attention to exactly the edge the fade is meant to
+   dissolve, and boxed the image away from the navy instead of letting it sit
+   in it. */
+.hero-figure { padding: 10px; border: 0; background: transparent; }
 .hero-figure::after { display: none; }
-.hero-figure__stage { inset: 10px; background: transparent; -webkit-mask-image: radial-gradient(ellipse at center, #000 79%, transparent 100%); mask-image: radial-gradient(ellipse at center, #000 79%, transparent 100%); }
+/* Edge fade, per-axis rather than one radial. The radial it replaces pulled
+   the corners in hardest and left the middle of each side comparatively crisp,
+   which reads as a vignette. Two linear gradients composited with `intersect`
+   fade each side by the same amount, so the photograph loses its edge evenly
+   and the corners -- mid-fade on both axes -- go softest of all. The stage's
+   own background is already transparent, so what shows through is the hero. */
+.hero-figure__stage {
+  inset: 10px;
+  background: transparent;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 11%, #000 89%, transparent 100%);
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 11%, #000 89%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
 .hero-figure__cap { left: 11px; bottom: 11px; }
 .locations--strip { padding-block: 14px; }
 .location-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; list-style: none; margin: 0; padding: 0; }
@@ -3658,8 +3695,8 @@ figure {
   .hero__bg span { animation: contourArrival 1.15s cubic-bezier(.15,.8,.2,1) both, contourBreathe var(--contour-time, 23s) ease-in-out 1.15s infinite; }
 }
 @keyframes contourArrival {
-  from { transform: translateX(-50%) translate3d(5vw, -3vh, 0) scale(1.08) rotate(-3deg); opacity: 0; }
-  to { transform: translateX(-50%) translateY(calc(var(--drift, 0) * 1px)) scale(1); }
+  from { transform: translateX(-50%) translate3d(5vw, -3vh, 0) scale(1.08) rotate(calc(var(--contour-tilt, 0deg) - 3deg)); opacity: 0; }
+  to { transform: translateX(-50%) translateY(calc(var(--drift, 0) * 1px)) scale(1) rotate(var(--contour-tilt, 0deg)); }
 }
 .locations--atlas { padding-block: 14px; overflow: hidden; background: var(--navy); }
 .locations--atlas::before, .locations--atlas::after { content: ""; position: absolute; left: -32px; width: calc(100% + 64px); height: 12px; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='18' viewBox='0 0 1200 18' preserveAspectRatio='none'%3E%3Cpath d='M0 9L93 3 182 12 296 5 423 14 548 4 668 10 803 2 942 11 1065 4 1200 9' fill='none' stroke='%23BDA16A' stroke-width='1.2'/%3E%3Cpath d='M0 14L122 9 235 16 367 8 489 13 634 6 754 15 896 8 1038 14 1200 6' fill='none' stroke='%239DAFC0' stroke-opacity='.55' stroke-width='.8'/%3E%3C/svg%3E"); background-size: 100% 12px; background-repeat: no-repeat; }
@@ -4022,4 +4059,85 @@ figure {
 .site-header.is-stuck .brand .logo, .site-header.is-stuck .brand-wm--image img { opacity: .8; }
 @media (prefers-reduced-motion: reduce) {
  .site-header .brand .logo, .site-header .brand-wm--image img { transition: none; }
+}
+
+/* ==========================================================================
+   October 20 owner refinement.
+   Appended rather than edited in place, matching how the October 14 block
+   above works: later wins, and the earlier rule stays readable as the
+   baseline it overrides.
+   ========================================================================== */
+
+/* Location strip -----------------------------------------------------------
+   The band that replaced the "Where We Work" section on the service pages.
+   Dark neutral rather than navy so it reads as a divider between sections
+   instead of a third navy panel, with a brass hairline top and bottom to tie
+   it to the header accent and the section rules. */
+.locations--strip {
+  padding-block: 13px;
+  background: var(--navy-950);
+  border-block: 1px solid rgba(189, 161, 106, 0.55);
+}
+.location-strip li {
+  color: rgba(244, 241, 234, 0.82);
+  letter-spacing: 0.015em;
+}
+/* The leading dot is a separator, so the first name in each visual row should
+   not carry one. CSS cannot see where the flex wrap falls, so every item keeps
+   its dot and the first item of the list drops it -- the common case. */
+.location-strip li:first-child::before {
+  display: none;
+}
+@media (max-width: 600px) {
+  .locations--strip {
+    padding-block: 11px;
+  }
+  .location-strip li {
+    font-size: 0.78125rem;
+  }
+}
+
+/* Service-page closing block -----------------------------------------------
+   Every service page ends with one section built as a bare <h2> plus one or
+   two `.advisory-lede` paragraphs directly inside the container ("Plan your
+   residential project", "Start with the space you need", and so on). Alone
+   among the sections on those pages it was left-aligned, because it is the
+   only one that does not wrap its heading in `.section-head.center` -- so it
+   read as a block that had come loose rather than a deliberate change of
+   rhythm.
+
+   Scoped to a bare `h2` that is a direct child of `.container`, which is
+   precisely this block: every other heading on these pages sits inside
+   `.section-head`, and every other `.advisory-lede` sits inside an `.svc-card`
+   or a two-column `.body`, so neither is touched. Those must keep their
+   alignment -- centring copy inside a card or beside a photo is the thing this
+   is meant to avoid. */
+.service-page .section > .container > h2 {
+  text-align: center;
+  margin-inline: auto;
+}
+.service-page .section > .container > h2 + .advisory-lede,
+.service-page .section > .container > h2 ~ .advisory-lede {
+  text-align: center;
+  max-width: 68ch;
+  margin-inline: auto;
+}
+
+/* About-page brand contours ------------------------------------------------
+   The contour drawing behind the logo mark was masked
+   `radial-gradient(ellipse at center, #000 20%, transparent 70%)`, so every
+   line began fading at a fifth of the way out and was gone by seven tenths.
+   Since the mark itself occupies the middle 69%, the lines were already
+   half-faded where they emerged from behind it and vanished mid-stroke just
+   outside it: the frame appeared, then disappeared, which is the defect.
+
+   Holding full opacity out to 62% and fading to 96% lets each line read as a
+   continuous arc around the mark and finish at the edge of its own box rather
+   than stopping in open space. The fade is kept (an abrupt rectangular cut-off
+   at the SVG's edge would be a worse artefact) -- it just happens where the
+   drawing ends instead of where it starts. */
+.company-brand__contours {
+  opacity: 0.34;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 62%, transparent 96%);
+  mask-image: radial-gradient(ellipse at center, #000 62%, transparent 96%);
 }
