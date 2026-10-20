@@ -4520,3 +4520,4 @@ body { max-width: var(--page-max); margin-inline: auto; }
   #contact-form > .field:has(#cc-message) textarea { min-height: 64px; }
   .contact-info { padding-block: 10px; }
 }
+.process-section::after { display: none; }
