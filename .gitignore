@@ -33,3 +33,6 @@ oauth-client.json
 token.json
 credentials.json
 .cc-private/
+
+# Built by scripts/build-live-overlay.mjs: a copy of the live site plus this branch's changes
+_deploy/
