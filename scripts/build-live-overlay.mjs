@@ -142,6 +142,22 @@ async function main() {
     console.log("Patched the home page hero: Belmont photos, no caption.");
   }
 
+  // Pages and photos this branch changed. The pages come from the repo build (_site), so run
+  // `npm run build` first. Each page already carries the current Facebook link.
+  {
+    const built = ["gallery/index.html", "home-renovation-cape-cod/index.html"];
+    for (const rel of built) {
+      try { await stat(join(ROOT, "_site", rel)); } catch { console.error(`NOT READY: _site/${rel} is missing. Run npm run build first.`); process.exit(1); }
+      await cp(join(ROOT, "_site", rel), join(OUT, rel));
+    }
+    for (const dir of ["assets/img", "assets/img/r"]) {
+      for (const f of (await readdir(join(ROOT, dir))).filter((n) => n.startsWith("newton-suite-"))) {
+        await cp(join(ROOT, dir, f), join(OUT, dir, f));
+      }
+    }
+    console.log("Overlaid the Custom Bath Suite gallery and renovation pages and their 4 photos.");
+  }
+
   // Link replacements applied to the copied live pages (header and footer links and the hidden
   // structured data all carry the same URL). Any older Facebook URL becomes the current one, and the
   // build stops unless the current URL ends up on every page, so a replacement can never silently

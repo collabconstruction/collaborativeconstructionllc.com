@@ -129,22 +129,27 @@
       "title": "Custom Bath Suite",
       "category": "Residential",
       "location": "Newton, MA",
-      "shows": "Soaking tub, double vanity, and glass shower enclosure.",
+      "shows": "Kitchen, living area, pool deck, and bath.",
       "images": [
         {
-          "src": "/assets/img/modern-home-1.jpg",
-          "alt": "Standalone bathtub with custom wood panel accent wall",
-          "caption": "Standalone bathtub with custom wood panel accent wall"
+          "src": "/assets/img/newton-suite-1.jpg",
+          "alt": "Kitchen with island, wood beams and large windows",
+          "caption": "Kitchen with island, wood beams and large windows"
         },
         {
-          "src": "/assets/img/modern-home-3.jpg",
-          "alt": "Custom bathroom vanity with dual sinks and wood panels",
-          "caption": "Custom bathroom vanity with dual sinks and wood panels"
+          "src": "/assets/img/newton-suite-2.jpg",
+          "alt": "Open living area with stone wall, built-in shelving and wood beams",
+          "caption": "Open living area with stone wall, built-in shelving and wood beams"
         },
         {
-          "src": "/assets/img/modern-home-2.jpg",
-          "alt": "Modern glass-enclosed shower with tile interior",
-          "caption": "Modern glass-enclosed shower with tile interior"
+          "src": "/assets/img/newton-suite-3.jpg",
+          "alt": "Deck overlooking a pool and open landscape",
+          "caption": "Deck overlooking a pool and open landscape"
+        },
+        {
+          "src": "/assets/img/newton-suite-4.jpg",
+          "alt": "Soaking tub, wood panel wall and glass shower",
+          "caption": "Soaking tub, wood panel wall and glass shower"
         }
       ]
     },
