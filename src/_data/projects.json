@@ -36,7 +36,10 @@
       "shows": "Exterior and site, living room, hallway, bath, and stair.",
       "footerThumb": {
         "src": "/assets/img/belmont-hero.jpg",
-        "alt": "Custom cedar-clad modern home in Belmont, MA"
+        "alt": "Custom cedar-clad modern home in Belmont, MA",
+        "width": 1280,
+        "height": 837,
+        "widths": [160, 480, 768, 1024, 1280]
       },
       "images": [
         {
@@ -152,7 +155,10 @@
       "shows": "Exterior, skylit hallway, and kitchen.",
       "footerThumb": {
         "src": "/assets/img/modern-home-4.jpg",
-        "alt": "Modern custom residence in Carlisle, MA"
+        "alt": "Modern custom residence in Carlisle, MA",
+        "width": 1024,
+        "height": 682,
+        "widths": [160, 480, 768, 1024]
       },
       "images": [
         {

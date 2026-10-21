@@ -83,7 +83,7 @@ test('construction-advisory keeps its multi-service node and is not affected by 
   const doc = render(pages.find(p => p.url === '/construction-advisory/'));
   const serviceNodes = doc['@graph'].filter(n => n['@type'] === 'Service');
   assert.equal(serviceNodes.length, services.length);
-  for (const n of serviceNodes) assert.ok(n['@id'].startsWith(`${SITE}/construction-advisory#`));
+  for (const n of serviceNodes) assert.ok(n['@id'].startsWith(`${SITE}/construction-advisory/#`));
 });
 
 test('every non-home page links isPartOf back to the single #website node', () => {
@@ -141,19 +141,20 @@ test('the Google Business Profile is present in the business sameAs', () => {
     'the GBP is the strongest local entity signal available and must stay in sameAs');
 });
 
-test('the founder personal LinkedIn stays on the person, and the company LinkedIn is not the business identity', () => {
-  const sameAs = homeBusiness().sameAs;
-  const personal = Object.values(people).flatMap(p => p.sameAs || []).filter(u => u.includes('linkedin.com'));
-  assert.ok(personal.length > 0, 'the founder personal LinkedIn is still recorded in src/_data/people.json');
-  for (const url of personal) {
-    assert.ok(!sameAs.includes(url),
-      'a personal LinkedIn URL is a Person URL; listing it on the business tells Google one URL identifies both a Person and a GeneralContractor');
+test('the public site names no individual: no founder property and no Person node anywhere', () => {
+  // Owner decision, October 21, 2026: no person is named on the public site (the name lives only
+  // in email signatures). The structured data follows, so the business is the only entity.
+  assert.equal(homeBusiness().founder, undefined);
+  for (const page of pages) {
+    const nodes = render(page)['@graph'];
+    assert.ok(!nodes.some(n => n['@type'] === 'Person'), `${page.url} must not emit a Person node`);
   }
-  // As of October 21, 2026 business.social.linkedin is the COMPANY account (the footer link),
-  // so it is no longer the founder's personal profile and must not be declared on the person either.
-  const person = render(pages[1])['@graph'].find(n => n['@type'] === 'Person');
-  assert.ok(!person.sameAs.includes(business.social.linkedin));
-  assert.ok(person.sameAs.some(u => personal.includes(u)));
+  const about = render(pages[1])['@graph'].find(n => n['@type'] === 'AboutPage');
+  assert.equal(about.mainEntity['@id'], `${SITE}/#business`);
+});
+
+test('the company LinkedIn is not listed as the business identity', () => {
+  assert.ok(!homeBusiness().sameAs.includes(business.social.linkedin));
 });
 
 test('business sameAs URLs are canonical, not share or tracking links', () => {

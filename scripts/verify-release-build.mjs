@@ -14,7 +14,12 @@ const siteKey = JSON.parse(read('src/_data/intake.json')).turnstileSiteKey;
 assert.ok(siteKey && html.includes(`data-sitekey="${siteKey}"`));
 assert.match(html, /data-action="contact"/);
 assert.ok(html.indexOf('/js/turnstile-lifecycle.js') >= 0);
-assert.ok(html.indexOf('/js/turnstile-lifecycle.js') < html.indexOf('https://challenges.cloudflare.com/turnstile/v0/api.js'));
+// The page carries no static api.js tag: turnstile-lifecycle.js registers the callbacks first and
+// then injects api.js itself when a visitor heads for the form, so there is nothing to race.
+const lifecycleSource = read('js/turnstile-lifecycle.js');
+assert.ok(!html.includes('https://challenges.cloudflare.com/turnstile/v0/api.js'));
+assert.ok(lifecycleSource.indexOf('window.ccChallengeSuccess') >= 0
+  && lifecycleSource.indexOf('window.ccChallengeSuccess') < lifecycleSource.indexOf('https://challenges.cloudflare.com/turnstile/v0/api.js'));
 for (const callback of ['ccChallengeSuccess','ccChallengeExpired','ccChallengeTimeout','ccChallengeError']) assert.ok(html.includes(`="${callback}"`));
 assert.match(worker, /data\.action === "contact"/);
 assert.match(html, /id="cc-message"[^>]*maxlength="5000"/);

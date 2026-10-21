@@ -5,8 +5,8 @@ import fs from 'node:fs';
 const code = fs.readFileSync(new URL('../js/analytics.js', import.meta.url), 'utf8');
 function setup(choice) {
   const scripts = [], nodes = [];
-  function node(tag) { const n = {tag, listeners:{}, classList:{add(){},remove(){}},setAttribute(){},appendChild(){},remove(){},addEventListener(k,v){this.listeners[k]=v;}}; nodes.push(n); return n; }
-  const sandbox = {window:{__CC_ANALYTICS:{measurementId:'G-TEST',consent:{message:'Consent',accept:'Accept',decline:'Decline'}},ccIntakeContext:{currentPage:()=>'/adu-builder-cape-cod/'}},location:new URL('https://example.com/?email=private@example.com'),Date,encodeURIComponent,setTimeout: f=>f(),requestAnimationFrame:f=>f(),localStorage:{getItem:()=>choice,setItem(){}},document:{readyState:'complete',addEventListener(){},getElementById:()=>null,createElement:node,head:{appendChild:s=>scripts.push(s)},body:{appendChild(){}},documentElement:{classList:{add(){},remove(){}}}}};
+  function node(tag) { const n = {tag, listeners:{}, getBoundingClientRect(){return {height:0};}, classList:{add(){},remove(){}},setAttribute(){},appendChild(){},remove(){},addEventListener(k,v){this.listeners[k]=v;}}; nodes.push(n); return n; }
+  const sandbox = {window:{__CC_ANALYTICS:{measurementId:'G-TEST',consent:{message:'Consent',accept:'Accept',decline:'Decline'}},ccIntakeContext:{currentPage:()=>'/adu-builder-cape-cod/'}},location:new URL('https://collaborativeconstructionllc.com/?email=private@example.com'),Date,encodeURIComponent,setTimeout: f=>f(),requestAnimationFrame:f=>f(),localStorage:{getItem:()=>choice,setItem(){}},document:{readyState:'complete',addEventListener(){},getElementById:()=>null,createElement:node,head:{appendChild:s=>scripts.push(s)},body:{appendChild(){}},documentElement:{style:{setProperty(){}},classList:{add(){},remove(){}}}}};
   vm.runInNewContext(code,sandbox);
   return {window:sandbox.window,scripts,nodes};
 }

@@ -2,9 +2,9 @@
 
 Written October 20, 2026. Read `AGENTS.md` first for which design is the real one.
 
-## Do not run `npm run deploy` or a plain `wrangler deploy`
+## Why this method, instead of `npm run deploy`
 
-A Cloudflare deploy replaces the whole set of public files. The page templates in this repo are older than the live pages (different wording, self hosted fonts, company social links) and 148 photos plus 3 fonts are not committed. Deploying the repo build would roll the live site back.
+A Cloudflare deploy replaces the whole set of public files. As of October 21, 2026 the repo templates, fonts, photos and scripts match the live site, so a plain repo deploy should now give the same site. This method is still the safest, because it starts from a copy of what is live and only lays the changed files on top, so nothing the repo does not know about can be lost.
 
 ## Safe way: live site copy plus only the changed files
 

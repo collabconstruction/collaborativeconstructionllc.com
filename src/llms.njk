@@ -23,9 +23,9 @@ eleventyExcludeFromCollections: true
 - Location: {{ business.address.display | safe }}
 - Website: {{ business.url | safe }}/
 
-## Who runs it
+## Company
 
-{{ people.wesleigh.name | safe }}, {{ people.wesleigh.jobTitle | safe }}. A Massachusetts native with over {{ people.wesleigh.yearsExperience }} years of experience in both residential and commercial construction. He holds a Bachelor's degree from {{ people.wesleigh.alumniOf[0] | safe }} and completed postgraduate studies at the {{ people.wesleigh.alumniOf[1] | safe }}, and has maintained an active Massachusetts Construction Supervisor License (CSL) since {{ people.wesleigh.licensedSince }}.
+Residential construction, additions, renovation and independent project oversight. Contact the company to discuss scope, location and availability.
 
 ## Services
 
@@ -44,6 +44,6 @@ eleventyExcludeFromCollections: true
 
 {# "Services" is a menu heading with no page of its own, so emit its children
    instead; an agent reading this file should see every real URL. -#}
-{% for item in nav.items %}{% if item.dropdown %}{% for sub in item.dropdown %}- {{ business.url | safe }}{{ sub.url | safe }} : {{ sub.summary | safe }}
-{% endfor %}{% else %}- {{ business.url | safe }}{{ item.url | safe }} : {{ item.summary | safe }}
+{% for item in nav.items %}{% if item.dropdown %}{% for sub in item.dropdown %}- {{ business.url | safe }}{{ sub.url | safe }}: {{ sub.summary | safe }}
+{% endfor %}{% else %}- {{ business.url | safe }}{{ item.url | safe }}: {{ item.summary | safe }}
 {% endif %}{% endfor %}

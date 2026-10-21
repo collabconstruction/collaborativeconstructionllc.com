@@ -5,6 +5,12 @@
   var CFG = window.__CC_ANALYTICS;
   if (!CFG) return; // GA4 not configured: stay completely inert.
 
+  // Keep previews and development visits out of the production property.
+  if (!["collaborativeconstructionllc.com", "www.collaborativeconstructionllc.com"].includes(location.hostname)) {
+    window.ccTrack = function () { return false; };
+    return;
+  }
+
   var STORAGE_KEY = "cc-consent";
   var granted = false;
   var loaded = false;
@@ -181,6 +187,12 @@
   function mount() {
     document.body.appendChild(banner);
     document.documentElement.classList.add("has-consent-banner");
+    // The banner wraps to two or three lines on narrow screens, so the
+    // back-to-top button cannot clear it with a fixed offset.
+    document.documentElement.style.setProperty(
+      "--consent-h",
+      banner.getBoundingClientRect().height + "px"
+    );
     // Next frame, so the transition has an initial state to animate from.
     requestAnimationFrame(function () {
       banner.classList.add("is-in");

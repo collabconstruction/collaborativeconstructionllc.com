@@ -15,7 +15,7 @@ function setup(responses, autoRefresh = true) {
   let ids=0, resets=0, now=1000, expired=false;
   const challengeStatus={textContent:""};
   class Payload {constructor(){this.data=new Map(Object.values(fields).map(f=>[f.name,f.value]));}set(k,v){this.data.set(k,v);}delete(k){this.data.delete(k);}append(k,v){this.data.set(k,v);}}
-  const sandbox={window:{crypto:{randomUUID:()=>`uuid-${++ids}`},ccTrack:name=>tracked.push(name),turnstile:{isExpired:()=>expired,reset:()=>{resets++; fields["cf-turnstile-response"].value=""; if(autoRefresh) fresh();}}},Date:{now:()=>now},document:{getElementById:()=>challengeStatus,createElement:()=>({textContent:'',href:''}),createTextNode:text=>({textContent:text})},$:(selector)=>({'#contact-form':form,'.form-status':status,'button[type=submit]':button}[selector]||null),FormData:Payload,AbortController,setTimeout,clearTimeout,fetch:async(url,options)=>{requests.push(options.body.data);const next=responses.shift();if(next instanceof Error)throw next;return{ok:next.httpOk??true,json:async()=>next};}};
+  const sandbox={window:{crypto:{randomUUID:()=>`uuid-${++ids}`},ccTrack:name=>tracked.push(name),turnstile:{isExpired:()=>expired,reset:()=>{resets++; fields["cf-turnstile-response"].value=""; if(autoRefresh) fresh();}}},Date:{now:()=>now},document:{getElementById:()=>challengeStatus,createElement:()=>({textContent:'',href:''}),createTextNode:text=>({textContent:text}),querySelector:()=>null,querySelectorAll:()=>[],readyState:'complete',addEventListener(){}},$:(selector)=>({'#contact-form':form,'.form-status':status,'button[type=submit]':button}[selector]||null),FormData:Payload,AbortController,setTimeout,clearTimeout,fetch:async(url,options)=>{requests.push(options.body.data);const next=responses.shift();if(next instanceof Error)throw next;return{ok:next.httpOk??true,json:async()=>next};}};
   function fresh() { expired=false; const token=`challenge-${now}-${resets}`; fields['cf-turnstile-response'].value=token; sandbox.window.ccChallengeSuccess(token); }
   vm.runInNewContext(fs.readFileSync(new URL('../js/turnstile-lifecycle.js',import.meta.url),'utf8'),sandbox);
   fresh();
@@ -75,10 +75,18 @@ test('server rejection requires new challenge and preserves same submission iden
  s.fields['cf-turnstile-response'].value=old; await s.submit(); assert.equal(s.requests.length,1);
  s.fresh();await s.submit();assert.equal(s.requests.length,2);assert.notEqual(s.requests[1].get('cf-turnstile-response'),old);assert.equal(s.requests[0].get('submission_id'),s.requests[1].get('submission_id'));
 });
-test('lifecycle script registers callbacks before async provider loads',()=>{
- const html=fs.readFileSync(new URL('../src/index.njk',import.meta.url),'utf8');
- assert.ok(html.indexOf('/js/turnstile-lifecycle.js')<html.indexOf('https://challenges.cloudflare.com/turnstile/v0/api.js'));
- for(const callback of ['ccChallengeSuccess','ccChallengeExpired','ccChallengeTimeout','ccChallengeError']) assert.ok(html.includes('="'+callback+'"'));
+test('lifecycle script registers callbacks before it loads the async provider', () => {
+  // The page no longer carries a static api.js tag. turnstile-lifecycle.js registers the callbacks
+  // first and injects api.js itself, only when a visitor heads for the form.
+  const html = fs.readFileSync(new URL('../src/index.njk', import.meta.url), 'utf8');
+  const lifecycle = fs.readFileSync(new URL('../js/turnstile-lifecycle.js', import.meta.url), 'utf8');
+  assert.ok(html.includes('/js/turnstile-lifecycle.js'));
+  assert.ok(!html.includes('https://challenges.cloudflare.com/turnstile/v0/api.js'), 'no static api.js tag that could race the callbacks');
+  assert.ok(lifecycle.indexOf('window.ccChallengeSuccess') < lifecycle.indexOf('https://challenges.cloudflare.com/turnstile/v0/api.js'));
+  for (const callback of ['ccChallengeSuccess', 'ccChallengeExpired', 'ccChallengeTimeout', 'ccChallengeError']) {
+    assert.ok(html.includes('="' + callback + '"'));
+    assert.ok(lifecycle.includes('window.' + callback));
+  }
 });
 
 test('double click cannot send or validate the same challenge twice',async()=>{

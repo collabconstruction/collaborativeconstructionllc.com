@@ -56,13 +56,7 @@
       "url": "/about/",
       "label": "About",
       "key": "about",
-      "summary": "About Wesleigh Behn and the company"
-    },
-    {
-      "url": "/#contact",
-      "label": "Contact",
-      "key": "contact",
-      "summary": "Contact form and information"
+      "summary": "About Collaborative Construction"
     }
   ],
   "footerExtra": [],

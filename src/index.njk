@@ -3,31 +3,25 @@ layout: base.njk
 permalink: /index.html
 canonical: /
 schemaType: home
-# Was 97 characters with no separator after "LLC", so it read as a run-on
-# ("...LLC Residential Construction...") and Google truncated it near 60,
-# cutting the location entirely while showing "Construction" three times.
-# Brand first and exact, then place.
-title: "Collaborative Construction, LLC | Cape Cod & South Shore Builder"
-# The old description spent its first 32 characters repeating the legal name
-# already in the title - the most valuable words in the snippet. Leads with
-# the work and closes with the phone number instead.
-description: "Collaborative Construction, LLC: home building and renovation on Cape Cod, the Islands, and the South Shore. Additions, ADUs, and remodels. Call (508) 440-6981."
-ogTitle: "Residential Construction & Renovation | Cape Cod & South Shore"
-ogDescription: "Working together, working collaboratively, to produce the highest quality construction and renovation projects. New construction, additions, ADUs, and remodels."
-shareImageAlt: "Custom home built by Collaborative Construction"
-twitterDescription: "Working together, working collaboratively, to produce the highest quality construction and renovation projects."
+title: "Collaborative Construction, LLC | Residential Construction & Renovation"
+description: "Residential building, additions, ADUs and home renovation by Collaborative Construction, LLC. Discuss your project at (508) 440-6981."
+ogType: "website"
+ogTitle: "Residential Construction & Renovation"
+ogDescription: "Residential construction, home additions, ADUs, renovation and independent project oversight."
+twitterDescription: "Residential construction, renovation and independent project oversight."
+shareImage: /assets/img/belmont-hero.jpg
+shareImageWidth: 1280
+shareImageHeight: 837
+shareImageAlt: "Residential project photography from the gallery"
 preloadImage: /assets/img/belmont-hero.jpg
+preloadSrcset: "/assets/img/r/belmont-hero-480.webp 480w, /assets/img/r/belmont-hero-768.webp 768w, /assets/img/r/belmont-hero-1024.webp 1024w"
+preloadSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
 ---
-
 
     
     <section class="hero">
-      {# Twelve contour lines, not eight. Each one is positioned, tilted and
-         paced individually in css/styles.css (.hero__bg span:nth-child(n)) --
-         the extra four exist to break up the concentric look the old set had.
-         Decorative only, hence aria-hidden on the wrapper. #}
       <div class="hero__bg" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
       <div class="hero__overlay" aria-hidden="true"></div>
 
@@ -35,7 +29,7 @@ preloadImage: /assets/img/belmont-hero.jpg
         <div class="hero-grid">
           <div class="hero__copy">
             <p class="eyebrow eyebrow--boom">Residential building &amp; project oversight</p><h1 class="hero__title">Residential construction <span class="gem">&amp; renovation.</span></h1>
-            <p class="hero__lede">Custom homes, additions and renovations. We also provide owner's project management and Clerk of the Works oversight.</p>
+            <p class="hero__lede">Custom homes, additions and renovations, plus owner's project management and Clerk of the Works oversight.</p>
             <div class="hero__cta">
               <a href="#contact" class="btn btn-gold">Discuss your project</a>
               <a href="/gallery/" class="btn btn-ghost">View projects</a>
@@ -62,7 +56,7 @@ preloadImage: /assets/img/belmont-hero.jpg
         <div class="section-head" data-reveal>
           <p class="eyebrow">Two ways to work together</p>
           <h2 data-reveal-words>Residential construction <span class="gem">and project oversight.</span></h2>
-          <p class="section-lede">We manage residential construction as your general contractor. If you have already hired a builder, we can provide independent project oversight on your behalf.</p>
+          <p class="section-lede">We're your general contractor for residential construction. Already have a builder? We can provide independent oversight instead.</p>
         </div>
 
         <div class="paths">
@@ -71,7 +65,7 @@ preloadImage: /assets/img/belmont-hero.jpg
               <h3>We build it</h3>
               <span class="tag">Residential</span>
             </div>
-            <p>New construction, additions, accessory dwelling units, renovations, demolition and permitting with coordinated project management.</p>
+            <p>New construction, additions, ADUs, renovations, demolition and permitting, all coordinated under one roof.</p>
             <ul>
               <li>Custom homes and whole-house renovation</li>
               <li>Additions and accessory dwelling units</li>
@@ -86,7 +80,7 @@ preloadImage: /assets/img/belmont-hero.jpg
               <h3>We oversee the work</h3>
               <span class="tag tag--cat">Owner's side</span>
             </div>
-            <p>Independent review of drawings, site progress and construction decisions, with reporting directly to the owner.</p>
+            <p>Independent review of drawings, site progress and decisions, reporting straight to you.</p>
             <ul>
               <li>Owner's Project Management, concept to close-out</li>
               <li>Clerk of the Works, on-site quality and compliance</li>
@@ -116,7 +110,7 @@ preloadImage: /assets/img/belmont-hero.jpg
             <span class="svc-row__n">01</span>
             <div class="svc-row__body">
               <h3>General contracting</h3>
-              <p>Coordination of trades, scheduling, inspections and budgets through a single point of contact.</p>
+              <p>Trades, scheduling, inspections and budget, coordinated through one point of contact.</p>
             </div>
             <span class="svc-row__go" aria-hidden="true">View service</span>
           </a>
@@ -134,7 +128,7 @@ preloadImage: /assets/img/belmont-hero.jpg
             <span class="svc-row__n">03</span>
             <div class="svc-row__body">
               <h3>Accessory dwelling units</h3>
-              <p>Attached and detached units, with property-specific planning and permitting considerations.</p>
+              <p>Attached and detached units, planned around your property and its permitting needs.</p>
             </div>
             <span class="svc-row__go" aria-hidden="true">ADUs</span>
           </a>
@@ -253,14 +247,14 @@ preloadImage: /assets/img/belmont-hero.jpg
             <span class="process__n">01</span>
             <div class="process__body">
               <h3>Conversation</h3>
-              <p>An initial discussion of your project location, scope, budget and timing.</p>
+              <p>A first conversation about your project: location, scope, budget and timing.</p>
             </div>
           </div>
           <div class="process__step" style="--stage:1">
             <span class="process__n">02</span>
             <div class="process__body">
               <h3>Drawings &amp; permits</h3>
-              <p>Working with your architect or designer through scope, selections, local approvals and a schedule that reflects real lead times.</p>
+              <p>We work with your architect or designer on scope, selections, approvals and a schedule based on real lead times.</p>
             </div>
           </div>
           <div class="process__step" style="--stage:2">
@@ -296,7 +290,7 @@ preloadImage: /assets/img/belmont-hero.jpg
             <h2 data-reveal-words>Additional space, <span class="gem">planned for your property.</span></h2>
             <div class="adu-law">
               <h3>Additions and accessory dwelling units</h3>
-              <p>Expand an existing home or explore an attached or detached ADU. The right approach depends on your property, intended use, budget and local requirements.</p>
+              <p>Expand your home, or explore an attached or detached ADU. The right approach depends on your property, how you'll use it, budget and local rules.</p>
               <a href="/adu-builder-cape-cod/">Review the ADU planning checklist <span aria-hidden="true">↗</span></a>
             </div>
             <p class="adu-spec">We specialize in building <strong>ADUs and home additions.</strong></p>
@@ -305,7 +299,7 @@ preloadImage: /assets/img/belmont-hero.jpg
           <aside class="adu-card" data-reveal="right">
             <span class="eyebrow">Plan your project</span>
             <h3>Request a Free Estimate</h3>
-            <p class="sub">Discuss the scope, timing and next steps for your construction project.</p>
+            <p class="sub">Let's talk scope, timing and next steps for your project.</p>
             <ul class="adu-points">
               <li>Residential construction and renovation</li>
               <li>Construction planning and coordination</li>
@@ -324,7 +318,7 @@ preloadImage: /assets/img/belmont-hero.jpg
         <div class="section-head center" data-reveal>
           <p class="eyebrow eyebrow--boom">Get in touch</p>
           <h2 data-reveal-words>Discuss your construction project</h2>
-          <p class="section-lede">Share your project location, scope and timing. You can also contact Collaborative Construction directly.</p>
+          <p class="section-lede">Tell us the location, scope and timing, or just give us a call.</p>
         </div>
         <div class="contact-grid">
 
@@ -336,7 +330,7 @@ preloadImage: /assets/img/belmont-hero.jpg
             <div class="contact-preparation">
               <h4>Helpful details to include:</h4>
               <ul><li>Your project address or town</li><li>A brief description of the work</li><li>Your preferred timeframe</li></ul>
-              <p>Plans are welcome if you have them. An initial enquiry does not require a finished design.</p>
+              <p>Plans are welcome if you have them, but you don't need a finished design to reach out.</p>
             </div>
             <ul class="info-list">
               <li>
@@ -437,7 +431,6 @@ preloadImage: /assets/img/belmont-hero.jpg
               </div>
               
               <script src="/js/turnstile-lifecycle.js"></script>
-              <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
               <div id="cc-turnstile" class="cf-turnstile" data-sitekey="0x4AAAAAAFT7_DoQM-wX5k4h" data-action="contact"
                 data-callback="ccChallengeSuccess" data-expired-callback="ccChallengeExpired"
                 data-timeout-callback="ccChallengeTimeout" data-error-callback="ccChallengeError"
@@ -460,3 +453,4 @@ preloadImage: /assets/img/belmont-hero.jpg
       </div>
     </section>
 
+  
