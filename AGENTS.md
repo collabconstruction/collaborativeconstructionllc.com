@@ -3,7 +3,7 @@
 ## Deployment rules (read before any release or deploy)
 
 1. Read `docs/DEPLOY-LIVE.md` first. It is the single procedure for deploying the public website.
-2. **Never deploy `_site` directly** (no `npm run deploy`, no plain `wrangler deploy`) while the overlay is required. Deploy only the `_deploy` folder built by `scripts/build-live-overlay.mjs`. A direct `_site` deploy would also publish `assets/img/wesleigh-behn.jpg`.
+2. **Never deploy `_site` directly** (no `npm run deploy`, no plain `wrangler deploy`) while the overlay is required. Deploy only the `_deploy` folder built by `scripts/build-live-overlay.mjs`. The owner photo `assets/img/wesleigh-behn.jpg` is excluded from the build and must never be published; do not remove that exclusion.
 3. Keep three states apart and say which one you mean: **pushed** (on a GitHub branch), **merged** (in `main`), **deployed** (live on Cloudflare). Merged does not mean deployed.
 4. **A Claude Cloud session is not logged in to Wrangler or Cloudflare.** It cannot deploy and cannot read Cloudflare. Do not claim Cloudflare facts from it. Use `npm run release:prepare -- --no-cloudflare --allow-branch` there for checks only.
 5. **Never say a deployment succeeded without checking**: the new version id, `npm run release:verify-live`, and the owner seeing the site.

@@ -6,6 +6,7 @@
  *   npm run release:deploy         deploys the prepared folder after two explicit confirmations.
  *   npm run release:verify-live    checks the live site (read only).
  *   npm run release:rollback-info  prints the rollback command for the last release (does not run it).
+ *   npm run release:check-wrangler read only: shows how Wrangler describes the current deployment.
  *
  * Flags: prepare --no-cloudflare   (cloud workspace without Wrangler login: builds and checks, but the result can never be deployed)
  *        prepare --allow-missing /path   (accept a live file that is referenced but not retrievable; recorded in the report)
@@ -15,13 +16,14 @@
  * Every check fails closed. See docs/DEPLOY-LIVE.md.
  */
 import { spawnSync } from "node:child_process";
-import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
+import { readFile, writeFile, readdir } from "node:fs/promises";
 import { createInterface } from "node:readline/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  EXPECTED, PAGES, checkBindings, checkDeployFolder, checkDeployReadiness, hashDir, latestDeploymentId,
-  parseVersionId, parseWhoami, repoFromRemote, rollbackCommand,
+  clearPrepareState, consumePrepareReport, writeReportAtomic,
+  EXPECTED, PAGES, checkBindings, checkDeployFolder, checkDeployReadiness, checkProvenance, classifyOutcome, extractJsonAll, hashDir,
+  parseVersionId, parseWhoami, pickRollbackVersion, repoFromRemote, rollbackCommand,
 } from "./lib/release-lib.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -64,23 +66,25 @@ function repoState() {
   };
 }
 
-function approvedPr(head) {
-  const r = run("gh", ["api", `repos/${EXPECTED.repo}/commits/${head}/pulls`, "--jq", ".[] | select(.merged_at != null) | .number"]);
-  if (r.code !== 0) return { known: false };
-  const n = r.out.split("\n").map((x) => x.trim()).filter((x) => /^\d+$/.test(x))[0];
-  return { known: true, pr: n ? Number(n) : null };
+function provenance(head) {
+  const r = run("gh", ["api", `repos/${EXPECTED.repo}/commits/${head}/pulls`, "--jq", ".[] | {number, merged_at, base: .base.ref, merge_commit_sha}"]);
+  return r.code === 0 ? checkProvenance(r.out, head) : { ok: false, why: "gh could not read the pull requests (not installed or not logged in as a company account)" };
 }
 
 function cloudflare() {
   const who = parseWhoami(run("npx", ["wrangler", "whoami"]).out);
   if (!who.ok) return { ok: false, why: who.why };
   const list = run("npx", ["wrangler", "deployments", "list", "--name", EXPECTED.worker, "--json"]);
-  const id = latestDeploymentId(list.out.slice(list.out.indexOf("[") > -1 ? list.out.indexOf("[") : 0)) ?? latestDeploymentId(list.out);
-  return { ok: true, why: who.why, previousDeploymentId: id };
+  if (list.code !== 0) return { ok: false, why: "could not list production deployments: " + list.out.trim().split("\n").slice(-2).join(" ") };
+  const pick = pickRollbackVersion(list.out);
+  if (!pick.ok) return { ok: false, why: `cannot establish the rollback version: ${pick.why}` };
+  return { ok: true, why: who.why, previousVersionId: pick.versionId, previousDeploymentId: pick.deploymentId };
 }
 
 async function prepare() {
   say("RELEASE PREPARE (no production change)");
+  // An aborted or failed prepare must never leave an older deployable report behind.
+  await clearPrepareState(REL);
   const st = repoState();
   say("\n> Repository and commit");
   if (st.repo !== EXPECTED.repo) stop(`wrong repository: ${st.repo} (expected ${EXPECTED.repo})`);
@@ -95,20 +99,19 @@ async function prepare() {
   if (canDeploy && st.head !== originMain) stop("main is not the same as origin/main (pull first, or push is missing)");
   if (!canDeploy) warn(`branch ${st.branch}: this prepare can be used for checks only`);
   else ok(`on main at ${st.head.slice(0, 7)}, equal to origin/main`);
-  const pr = approvedPr(st.head);
-  if (!pr.known) warn("could not ask GitHub which pull request merged this commit (gh not available or not logged in)");
-  else if (pr.pr) ok(`merged by pull request #${pr.pr}`);
-  else warn("GitHub shows no merged pull request for this commit (direct push?). The owner must confirm it was approved.");
+  const prov = provenance(st.head);
+  if (prov.ok) ok(prov.why);
+  else if (canDeploy) stop("release provenance not established", [prov.why, "Deploy only a commit that GitHub shows as merged into main by a pull request. Log in with: gh auth login"]);
+  else warn(prov.why);
 
   say("\n> Cloudflare account");
-  let cf = { ok: false, previousDeploymentId: null, why: "skipped (--no-cloudflare)" };
+  let cf = { ok: false, previousVersionId: null, previousDeploymentId: null, why: "skipped (--no-cloudflare)" };
   if (flag("no-cloudflare")) warn("Cloudflare not checked. This prepare can never be deployed.");
   else {
     cf = cloudflare();
     if (!cf.ok) stop(cf.why);
     ok(cf.why);
-    if (!cf.previousDeploymentId) stop("could not read the current production deployment id (needed for rollback)");
-    ok(`current production deployment id (for rollback): ${cf.previousDeploymentId}`);
+    ok(`current production version (rollback target): ${cf.previousVersionId}${cf.previousDeploymentId ? " (deployment " + cf.previousDeploymentId + ")" : ""}`);
   }
 
   step("Tests", "npm", ["test"]);
@@ -140,16 +143,15 @@ async function prepare() {
   ok("bindings intact: D1 cc-leads, R2 cc-lead-attachments, email, rate limiter, inbox variables");
 
   const report = {
-    preparedAt: new Date().toISOString(), commit: st.head, branch: st.branch, pullRequest: pr.pr ?? null,
-    cloudflareVerified: cf.ok, previousDeploymentId: cf.previousDeploymentId, folder,
+    preparedAt: new Date().toISOString(), commit: st.head, branch: st.branch, pullRequest: prov.ok ? prov.pr : null,
+    cloudflareVerified: cf.ok, previousVersionId: cf.previousVersionId, previousDeploymentId: cf.previousDeploymentId, folder,
     liveFilesCopied: manifest.copied, acceptedMissing: [...allowed], canDeploy: canDeploy && cf.ok,
   };
-  await mkdir(REL, { recursive: true });
-  await writeFile(join(REL, "prepare.json"), JSON.stringify(report, null, 2));
+  await writeReportAtomic(REL, report);
   say(`\nREADY TO REVIEW: commit ${st.head.slice(0, 7)}, ${folder.files} files, nothing changed in production.`);
   if (report.canDeploy) say(`To deploy: npm run release:deploy -- --confirm ${st.head.slice(0, 7)}`);
   else say("This prepare cannot be deployed (it was run with --no-cloudflare or on a branch).");
-  say(`Rollback target if needed: ${rollbackCommand(cf.previousDeploymentId ?? "<previous id>")}`);
+  say(`Rollback target if needed: ${rollbackCommand(cf.previousVersionId ?? "<previous version id>")}`);
 }
 
 export async function liveChecks(site = EXPECTED.site) {
@@ -158,7 +160,7 @@ export async function liveChecks(site = EXPECTED.site) {
   const get = async (p, init) => { try { return await fetch(site + p, { redirect: "manual", ...init }); } catch (e) { return { status: 0, headers: new Headers(), text: async () => "", err: e.message }; } };
   for (const p of PAGES) { const r = await get(p); check(`page ${p}`, r.status === 200, r.err ? `no answer: ${r.err}` : `HTTP ${r.status}`); }
   const home = await (await get("/")).text();
-  check("home page has Turnstile and honeypot", /cf-turnstile/.test(home) && /data-sitekey=/.test(home) && /honeypot|name="(?:website|company|url|hp)/i.test(home));
+  check("home page has Turnstile and honeypot", /cf-turnstile/.test(home) && /data-sitekey=/.test(home) && /honeypot|cc_x7q2m9|hp-field/i.test(home));
   for (const f of ["/css/styles.css", "/js/main.js", "/js/turnstile-lifecycle.js", "/js/intake-context.js", "/js/gallery.js", "/sitemap.xml", "/llms.txt"]) { const r = await get(f); check(`file ${f}`, r.status === 200, `HTTP ${r.status}`); }
   const robots = await (await get("/robots.txt")).text();
   check("robots.txt has one Sitemap line", (robots.match(/^Sitemap:/gim) ?? []).length === 1);
@@ -187,22 +189,24 @@ async function deploy() {
   say("RELEASE DEPLOY (changes production)");
   const report = JSON.parse(await readFile(join(REL, "prepare.json"), "utf8").catch(() => "null"));
   const st = repoState();
-  run("git", ["fetch", "origin"]);
+  const fetchR = run("git", ["fetch", "origin"]);
   const folder = await hashDir(join(ROOT, "_deploy")).catch(() => ({ sha256: "missing" }));
-  const problems = checkDeployReadiness({ report, head: st.head, originMain: git("rev-parse", "origin/main"), dirtyFiles: st.dirty, folderSha: folder.sha256, branch: st.branch });
+  const cf = cloudflare();
+  const problems = checkDeployReadiness({
+    report, head: st.head, originMain: git("rev-parse", "origin/main"), fetchOk: fetchR.code === 0, dirtyFiles: st.dirty,
+    folderSha: folder.sha256, currentVersionId: cf.ok ? cf.previousVersionId : null, provenance: provenance(st.head), branch: st.branch,
+  });
+  if (!cf.ok) problems.push(cf.why);
   if (!report?.canDeploy) problems.push("the last prepare was not deployable (run npm run release:prepare on main with Cloudflare logged in)");
   if (st.repo !== EXPECTED.repo) problems.push(`wrong repository ${st.repo}`);
   if (problems.length) stop("not safe to deploy", problems);
-  const cf = cloudflare();
-  if (!cf.ok) stop(cf.why);
-  if (cf.previousDeploymentId !== report.previousDeploymentId) say(`NOTE: production changed since prepare (was ${report.previousDeploymentId}, now ${cf.previousDeploymentId}). Rollback target is the newer one.`);
-  const before = cf.previousDeploymentId;
+  const before = cf.previousVersionId;
 
   say(`\nAbout to deploy to ${EXPECTED.site}`);
-  say(`  commit        ${st.head.slice(0, 7)}${report.pullRequest ? " (pull request #" + report.pullRequest + ")" : ""}`);
+  say(`  commit        ${st.head.slice(0, 7)} (pull request #${report.pullRequest})`);
   say(`  files         ${report.folder.files} (fingerprint ${report.folder.sha256.slice(0, 12)})`);
   say(`  account       ${EXPECTED.accountId}, Worker ${EXPECTED.worker}`);
-  say(`  rollback to   ${before}`);
+  say(`  rollback to   version ${before}`);
   if (flagValue("confirm") !== st.head.slice(0, 7)) stop(`add --confirm ${st.head.slice(0, 7)} to proceed`);
   if (!process.stdin.isTTY) stop("an interactive terminal is required: type the confirmation yourself");
   const rl = createInterface({ input: process.stdin, output: process.stdout });
@@ -210,34 +214,65 @@ async function deploy() {
   rl.close();
   if (typed !== "deploy production") stop("confirmation did not match; nothing was deployed");
 
+  // A prepare report is single use: from here on it cannot authorize another deploy.
+  await consumePrepareReport(REL);
+
   const r = run("npx", ["wrangler", "deploy", "--assets", "_deploy"]);
   say(r.out.split("\n").slice(-14).join("\n"));
-  if (r.code !== 0) stop(`wrangler deploy failed. Production may be unchanged. Check: npx wrangler deployments list. Rollback if needed: ${rollbackCommand(before)}`);
-  const versionId = parseVersionId(r.out);
+  const after = cloudflare();
+  let versionId = parseVersionId(r.out);
+  // Did production change? Decide from Cloudflare itself, not only from the exit code.
+  let deployed;
+  if (after.ok) { deployed = after.previousVersionId !== before; versionId = versionId ?? after.previousVersionId; }
+  else deployed = r.code === 0 ? true : null;
+  if (r.code !== 0 && deployed !== true) {
+    const o = classifyOutcome({ deployed });
+    console.error(`\n${o.label}\nwrangler deploy failed. Rollback command if needed (not run): ${rollbackCommand(before)}`);
+    process.exit(o.code);
+  }
 
   const { bad, seoExit } = await verifyLive(EXPECTED.site);
-  const log = { deployedAt: new Date().toISOString(), commit: st.head, pullRequest: report.pullRequest, previousDeploymentId: before, newVersionId: versionId, liveChecksFailed: bad.map((b) => b.name), seoExit };
+  const outcome = classifyOutcome({ deployed: true, liveFailed: bad.length, seoOk: seoExit === 0 });
+  const log = { deployedAt: new Date().toISOString(), commit: st.head, pullRequest: report.pullRequest, previousVersionId: before, newVersionId: versionId, wranglerExit: r.code, outcome: outcome.label, liveChecksFailed: bad.map((b) => b.name), seoExit };
   await writeFile(join(REL, `deploy-${Date.now()}.json`), JSON.stringify(log, null, 2));
-  say(`\nNew deployed version: ${versionId ?? "(not printed; run: npx wrangler deployments list)"}`);
+  say(`\n${outcome.label}`);
+  say(`New deployed version: ${versionId ?? "(unknown; run: npx wrangler deployments list)"}`);
   say(`Previous version:     ${before}`);
   say(`Rollback (not run):   ${rollbackCommand(before)}`);
-  if (bad.length) { console.error(`\nATTENTION: ${bad.length} live check(s) failed. Consider rolling back with the command above and tell the owner.`); process.exit(2); }
-  say("\nDeployed and live checks passed. Also open the site once in a browser, and run the owner approved contact test if the contact area changed.");
+  if (outcome.code === 0) say("\nAlso open the site once in a browser, and run the owner approved contact test if the contact area changed.");
+  else if (outcome.code === 3) console.error("\nThe site is live and its pages answer, but the SEO audit reported problems. Run: python3 scripts/seo_audit.py and read the findings. Decide with the owner whether to roll back.");
+  else console.error("\nConsider rolling back with the command above and tell the owner.");
+  process.exit(outcome.code);
+}
+
+async function checkWrangler() {
+  say("CHECK WRANGLER (read only): confirms the login and shows how Wrangler describes the current deployment");
+  const who = parseWhoami(run("npx", ["wrangler", "whoami"]).out);
+  say(`  ${who.ok ? "PASS" : "FAIL"}  ${who.why}`);
+  if (!who.ok) process.exit(1);
+  const list = run("npx", ["wrangler", "deployments", "list", "--name", EXPECTED.worker, "--json"]);
+  const rows = extractJsonAll(list.out).map((d) => (Array.isArray(d) ? d : d?.deployments ?? d?.result?.deployments)).find((l) => Array.isArray(l) && l.length);
+  say(`  exit ${list.code}; ${Array.isArray(rows) ? rows.length + " deployments" : "no deployment list found in the output"}`);
+  if (Array.isArray(rows) && rows[0]) say(`  keys on a deployment: ${Object.keys(rows[0]).join(", ")}; keys on a version: ${Object.keys(rows[0].versions?.[0] ?? {}).join(", ") || "(no versions array)"}`);
+  const pick = pickRollbackVersion(list.out);
+  say(`  ${pick.ok ? "PASS" : "FAIL"}  ${pick.ok ? `rollback target is version ${pick.versionId}` : pick.why}`);
+  say("Send the 'keys' lines above to the maintainer to confirm they match tests/fixtures. No ids are secret, but nothing is changed.");
+  process.exit(pick.ok ? 0 : 1);
 }
 
 async function rollbackInfo() {
   const files = (await readdir(REL).catch(() => [])).filter((f) => f.startsWith("deploy-")).sort();
   const last = files.length ? JSON.parse(await readFile(join(REL, files[files.length - 1]), "utf8")) : null;
   const prep = JSON.parse(await readFile(join(REL, "prepare.json"), "utf8").catch(() => "null"));
-  const id = last?.previousDeploymentId ?? prep?.previousDeploymentId;
-  if (!id) stop("no recorded deployment id. Run: npx wrangler deployments list");
+  const id = last?.previousVersionId ?? prep?.previousVersionId;
+  if (!id) stop("no recorded version id. Run: npm run release:check-wrangler");
   say(`Last recorded release: ${last ? last.deployedAt + " (version " + last.newVersionId + ")" : "none deployed from this machine"}`);
   say("This command is only printed, never run by the tool:");
   say(`  ${rollbackCommand(id)}`);
 }
 
-const table = { prepare, deploy, "verify-live": () => verifyLive(flagValue("site") ?? EXPECTED.site).then(({ bad }) => process.exit(bad.length ? 1 : 0)), "rollback-info": rollbackInfo };
+const table = { prepare, deploy, "check-wrangler": checkWrangler, "verify-live": () => verifyLive(flagValue("site") ?? EXPECTED.site).then(({ bad }) => process.exit(bad.length ? 1 : 0)), "rollback-info": rollbackInfo };
 if (import.meta.url === `file://${process.argv[1]}`) {
-  if (!table[cmd]) stop("usage: node scripts/release.mjs prepare | deploy | verify-live | rollback-info");
+  if (!table[cmd]) stop("usage: node scripts/release.mjs prepare | deploy | verify-live | rollback-info | check-wrangler");
   await table[cmd]();
 }

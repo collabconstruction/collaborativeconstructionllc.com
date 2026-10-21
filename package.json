@@ -22,7 +22,8 @@
     "release:verify-live": "node scripts/release.mjs verify-live",
     "release:rollback-info": "node scripts/release.mjs rollback-info",
     "release:parity": "node scripts/parity-report.mjs",
-    "deploy:direct-unsafe": "npm run build && wrangler deploy"
+    "deploy:direct-unsafe": "npm run build && wrangler deploy",
+    "release:check-wrangler": "node scripts/release.mjs check-wrangler"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",

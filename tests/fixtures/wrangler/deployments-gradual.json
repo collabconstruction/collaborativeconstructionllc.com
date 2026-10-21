@@ -1,0 +1,39 @@
+[
+  {
+    "id": "5c1d9a52-7a3e-4f0b-9d4c-0a8e2b6f1c33",
+    "source": "wrangler",
+    "strategy": "percentage",
+    "author_email": "owner@example.invalid",
+    "annotations": {
+      "workers/triggered_by": "upload",
+      "workers/message": "release 2026-10-20"
+    },
+    "versions": [
+      {
+        "version_id": "308583ee-8c69-4207-9336-982cc82f3555",
+        "percentage": 100
+      }
+    ],
+    "created_on": "2026-10-20T15:41:08.221Z"
+  },
+  {
+    "id": "9e7b4f10-2c8d-4a65-b0e1-6d3f5a7c8e90",
+    "source": "wrangler",
+    "strategy": "percentage",
+    "author_email": "owner@example.invalid",
+    "annotations": {
+      "workers/triggered_by": "upload"
+    },
+    "versions": [
+      {
+        "version_id": "d44368c2-a776-4c21-a387-2bbba3a5d830",
+        "percentage": 20
+      },
+      {
+        "version_id": "308583ee-8c69-4207-9336-982cc82f3555",
+        "percentage": 80
+      }
+    ],
+    "created_on": "2026-10-21T21:02:44.907Z"
+  }
+]

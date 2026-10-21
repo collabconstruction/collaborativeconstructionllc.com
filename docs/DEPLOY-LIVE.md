@@ -31,7 +31,7 @@ If a step stops, read the message. Every stop says why. Do not work around it.
 | Merged commit on `main` | `14c36e6` |
 | Cloudflare account | `0fadcd0965374caa75a44c3aa9784042` |
 | Worker | `collaborativeconstructionllc-com` |
-| Previous production version (rollback target) | `308583ee-8c69-4207-9336-982cc82f3555` |
+| Previous production version (rollback target, a Worker **version** id) | `308583ee-8c69-4207-9336-982cc82f3555` |
 | New production version | `d44368c2-a776-4c21-a387-2bbba3a5d830` |
 
 Steps taken: PR approved and merged on GitHub; `git checkout main && git pull origin main`; `npm ci`; `npm run build`; `node scripts/verify-release-build.mjs`; `node scripts/build-live-overlay.mjs` (reported READY); `npx wrangler deploy --assets _deploy --dry-run`; `npx wrangler deploy --assets _deploy`; then live checks. The home page, `robots.txt` and the sitemap answered HTTP 200 and the SEO audit inspected nine pages.
@@ -50,20 +50,36 @@ If Wrangler says it is not authenticated, run `npx wrangler login` (it opens a b
 
 ## What `npm run release:prepare` does (no production change)
 1. Confirms the repository is `collabconstruction/collaborativeconstructionllc.com`, the working tree is clean, and you are on `main` equal to `origin/main` (it fetches first).
-2. Asks GitHub which merged pull request produced the commit (warns if it cannot tell).
-3. Checks Wrangler is logged in to the right account and records the current production deployment id. This is the rollback target.
+2. **Provenance:** asks GitHub (`gh`) which merged pull request into `main` has this exact commit as its merge commit. If GitHub cannot confirm it (not logged in, no PR, a direct push), prepare on `main` stops. There is no override: deploy only commits that came through a merged pull request.
+3. Checks Wrangler is logged in to the right account and reads the current production **version** id from `wrangler deployments list --json`. This is the rollback target. A deployment has its own id; `wrangler rollback` needs the version id (`versions[].version_id`), and the tool never uses the deployment id in its place. If the newest deployment lists no version, or splits traffic between versions (a gradual rollout), prepare stops.
 4. Runs the tests (JavaScript and Python), the build and `scripts/verify-release-build.mjs`.
 5. Builds `_deploy` with `scripts/build-live-overlay.mjs`, which must report READY.
 6. **Fails closed on live content:** every file the live pages reference must have been retrieved. If any could not, it stops and lists them. A known one can be accepted with `--allow-missing /path` and is written into the report.
 7. Checks the `_deploy` folder: all nine pages, one H1 and one canonical on each, the home page contact form with Turnstile widget, site key and honeypot, the form scripts, `robots.txt` (repo version, one Sitemap line, `/api/` disallowed, no Cloudflare managed block), the sitemap, at least 150 images, and that every image, script, style and font that a page refers to exists in the folder.
 8. Runs `wrangler deploy --assets _deploy --dry-run` and confirms the bindings are intact: D1 `cc-leads`, R2 `cc-lead-attachments`, email, rate limiter and the inbox variables.
-9. Writes `.release/prepare.json` (commit, folder fingerprint, rollback id). This folder is not committed.
+9. Deletes any older `.release/prepare.json` at the very start (an aborted prepare can never leave an earlier report that deploy would accept), and writes the new one atomically only after every check passed. The report holds the commit, folder fingerprint and rollback version id. The folder is not committed.
+
+Read only helper: `npm run release:check-wrangler` shows how Wrangler describes the current deployment (field names and the chosen rollback version) so the parser can be checked against your real output.
 
 Options: `--no-cloudflare` (cloud workspace without a Wrangler login: runs all local checks, but the result can never be deployed) and `--allow-branch` (run the checks from a branch, also never deployable).
 
 ## What `npm run release:deploy` does
-It refuses unless: you are on `main` equal to `origin/main`, the tree is clean, the prepared commit is the current commit, the `_deploy` fingerprint is unchanged, Cloudflare was verified, a rollback id was recorded, and the prepare is under two hours old. Then it prints the plan, requires `--confirm <7 characters of the commit>` and an interactive typed `deploy production`. It re-reads the current production id, runs `wrangler deploy --assets _deploy`, reads the new version id, runs the live checks (`npm run release:verify-live`, read only) and the SEO audit, writes `.release/deploy-<time>.json`, and prints the previous version and the rollback command. It never runs the rollback itself. It exits with an error and says so if a live check fails.
-It cannot run without a terminal, so an agent cannot confirm for you.
+It refuses unless all of these hold at that moment:
+- you are on `main`, the tree is clean, and `git fetch origin` **succeeded** (a failed fetch blocks the deploy) and shows `main` equals `origin/main`;
+- GitHub shows the commit as the merge commit of a merged pull request into `main` (provenance, checked again now);
+- the prepared commit is the current commit, the `_deploy` fingerprint is unchanged and the prepare is under two hours old;
+- **production has not changed since prepare**: the current production version must equal the rollback version recorded at prepare. If someone deployed in between, it stops and tells you to run prepare again.
+
+Then it prints the plan, requires `--confirm <7 characters of the commit>` and an interactive typed `deploy production`. It moves the prepare report aside (it authorizes one attempt only), runs `wrangler deploy --assets _deploy`, then asks Cloudflare which version is live (it does not rely only on the exit code), runs the live checks and the SEO audit, writes `.release/deploy-<time>.json`, and prints the new version and the rollback command. It never runs the rollback itself and cannot run without a terminal.
+
+Exit codes and what they mean:
+| Code | Meaning |
+|---|---|
+| 0 | Deployed and verified |
+| 1 | Not deployed. Production is unchanged (a check refused, or Wrangler failed and the live version did not change) |
+| 2 | **Deployed**, but one or more live checks failed. Consider rolling back |
+| 3 | **Deployed**, live checks passed, but the SEO audit failed. Read the audit and decide with the owner |
+| 4 | Unknown whether production changed. Run `npx wrangler deployments list` |
 
 ## Contact form safety
 - The release must not change `worker/`, `wrangler.jsonc`, `migrations/`, `schema.sql`, `js/turnstile-lifecycle.js`, `js/intake-context.js`, `js/analytics.js` or `js/api.js` unless the release is about them. Check: `git diff <last release commit> HEAD --stat -- worker wrangler.jsonc migrations schema.sql js`.
@@ -78,7 +94,7 @@ Printed by both commands, never run automatically:
 npx wrangler rollback <previous version id> --message "rollback after release"
 ```
 
-For the October 21 release the target was `308583ee-8c69-4207-9336-982cc82f3555`. `npm run release:rollback-info` prints the last recorded one. A rollback changes only the Worker version and static files. It does not undo database changes (a release does not make any). After a rollback run `npm run release:verify-live` and look at the site. Rolling back needs the owner's approval, except in an emergency where the owner says so.
+The id is a Worker version id, not a deployment id. For the October 21 release the target was `308583ee-8c69-4207-9336-982cc82f3555`. `npm run release:rollback-info` prints the last recorded one. A rollback changes only the Worker version and static files. It does not undo database changes (a release does not make any). After a rollback run `npm run release:verify-live` and look at the site. Rolling back needs the owner's approval, except in an emergency where the owner says so.
 
 ## Common errors
 | Message | Meaning and fix |
@@ -86,12 +102,15 @@ For the October 21 release the target was `308583ee-8c69-4207-9336-982cc82f3555`
 | `Wrangler is not logged in` | Run `npx wrangler login`. |
 | `account ... is not listed` | Logged in to another Cloudflare account. Log out and in with the company account. |
 | `working tree is not clean` | Commit or discard changes. Generated folders (`_site`, `_deploy`, `.release`, `monitoring-output`) are ignored and do not count. |
+| `release provenance not established` | GitHub does not show this commit as a merged PR into `main`, or `gh` is not logged in (`gh auth login`). |
+| `cannot establish the rollback version` | Wrangler's deployment list had no single 100 percent version. Run `npm run release:check-wrangler` and read the message. |
+| `production changed since prepare` | Someone deployed in between. Run prepare again. |
+| `git fetch origin failed` | Network or login problem. Fix it; the deploy will not trust stale remote data. |
 | `main is not the same as origin/main` | `git pull origin main`, or an unpushed commit exists. Deploy only pushed, merged code. |
 | `some live files that pages reference could not be retrieved` | The live site refers to a file it does not serve (or the network failed). Retry. If it repeats, investigate before deploying; a deploy replaces the whole site. |
 | `NOT READY: _site/... is missing` | `npm run build` did not complete. |
 | Overlay says the hero or Facebook link patch failed | The live page markup changed. Update the patch in `scripts/build-live-overlay.mjs`, do not skip it. |
 | `the _deploy folder changed after prepare` | Something edited it. Run prepare again. |
-| `production changed since prepare` (note) | Someone deployed in between. The rollback target shown is the newer version. |
 | All live checks show "no answer" | A proxy blocks Node. Use `NODE_USE_ENV_PROXY=1`. On your Mac this should not happen. |
 
 ## Why the overlay is still required
@@ -99,12 +118,14 @@ A Cloudflare assets deploy replaces the whole public file set. Until October 202
 
 **Current parity (measured October 21, 2026, after PR #12, with `npm run release:parity`):** the repo build has 244 files and the deploy folder has 243; 242 are byte for byte identical. The differences are:
 - `sitemap.xml`: the dates come from git history, so they differ.
-- `assets/img/wesleigh-behn.jpg`: in the repo build but deliberately not served live. **A direct `_site` deploy would publish this owner photo.** This alone is a reason not to deploy `_site` today.
+- `assets/img/wesleigh-behn.jpg`: this owner photo stays in the repository, but the live site deliberately does not serve it. The report found the repo build emitted it, so a direct `_site` deploy would have published it. **Fixed (PR #13):** `eleventy.config.js` excludes it from the build, `scripts/verify-release-build.mjs` fails if it appears in `_site`, the overlay and `checkDeployFolder` refuse a folder containing it, and a regression test builds the site and proves it is absent. Any future preview deploy or overlay migration inherits this because it is in the build itself. To add another never-publish file, extend `FORBIDDEN_FILES` in `scripts/lib/release-lib.mjs` and the filter in `eleventy.config.js`.
 
-So the repo is now very close to being the source of truth, but the overlay stays until the steps below are done.
+So the repo is now very close to being the source of truth, but the overlay stays until the steps below are done. Byte parity of public files does not prove parity of everything else: Worker secrets, Cloudflare dashboard settings (DNS, SSL, WAF, Turnstile widget), and any private files are outside the repository and are not covered by this report.
+
+**The overlay no longer edits live files.** Earlier releases rewrote the hero photos and the Facebook link inside the copied live pages. Those release-specific edits were removed. The overlay now only copies live files, lays this repository's approved files and built pages on top, and then **checks** the result (Belmont hero present, current Facebook link on every page, no old link, forbidden files absent). If a check fails it stops and the fix belongs in the template, so a leftover edit can never silently change an unrelated release. The list of repository files laid over the live copy (`OVERLAY` and the built pages) is still in the script and should be reviewed at each release.
 
 ### How to retire the overlay (future, one step at a time, not done)
-1. Stop the build from emitting `assets/img/wesleigh-behn.jpg` (exclude it in the Eleventy config) and make the sitemap dates stable. Add a test for each.
+1. Make the sitemap dates stable and add a test (the owner photo exclusion is already done and tested).
 2. Make `npm run release:parity` part of `release:prepare` and require "only live = 0, different = 0" for two releases in a row.
 3. Add a preview deploy (below) that deploys the repo build and compare it to live with `release:verify-live --site <preview url>`.
 4. Only then change `release:prepare` to build `_site` directly. Keep `release:parity` as a permanent guard and keep the overlay script for emergencies for one more release.
@@ -129,7 +150,7 @@ An AI agent must not assume cloud access means deployment access. The cloud sess
 - D1 `cc-leads` (binding `DB`), R2 `cc-lead-attachments` (`ATTACHMENTS`), email binding `SEND_EMAIL`, rate limiter `INTAKE_RATE_LIMITER` (5 requests per 60 seconds), variables `LEAD_INBOX` and `LEAD_FROM_ADDRESS`.
 - Secrets (not in the repository, set with `wrangler secret put`): the Turnstile secret key, and optionally an email provider key.
 - Observability on, request bodies not logged.
-- Cloudflare Builds Git connection: **not recorded here. The owner must write down what Settings, Builds shows.** If a repository is connected, a push to `main` could build and deploy without the overlay. Confirm it is disconnected or harmless before relying on this runbook.
+- **Cloudflare Builds (verified October 21, 2026):** an authenticated local Claude session reported no connected build configuration, zero build triggers and zero deploy hooks for `collaborativeconstructionllc-com`, so Wrangler is the only deployment source and a push to `main` does not deploy. This result was reported to us by the owner and was not independently reproduced from the cloud workspace. **Re-verify before every release for now, and at least monthly afterwards** (Cloudflare, Workers and Pages, `collaborativeconstructionllc-com`, Settings, Builds). If a Git repository, trigger or deploy hook ever appears, stop and treat merging to `main` as a possible live deployment.
 - DNS, the `www` redirect, SSL/TLS and security settings are managed in the Cloudflare dashboard and are not changed by a release.
 
 ## Manual steps without the tooling (fallback)
