@@ -1,0 +1,53 @@
+---
+layout: base.njk
+schemaType: webpage
+title: "Privacy | Collaborative Construction, LLC"
+description: "How Collaborative Construction, LLC handles website analytics, security checks and the information you send through the contact form."
+ogType: "website"
+ogTitle: "Privacy | Collaborative Construction, LLC"
+ogDescription: "How we handle analytics, security checks and contact form information."
+twitterDescription: "How we handle analytics, security checks and contact form information."
+shareImage: /assets/img/belmont-hero.jpg
+shareImageWidth: 1280
+shareImageHeight: 837
+shareImageAlt: "Residential project photography"
+schemaName: "Privacy"
+breadcrumbName: "Privacy"
+---
+{#
+  DRAFT. Not built until `privacyPublished` is true in src/_data/business.json.
+  Every [Owner ...] marker below must be replaced before that flag is turned on;
+  tests/privacy-page.test.mjs fails if one is left. Source text and review notes:
+  docs/marketing/privacy-notice-draft.md and docs/marketing/data-inventory.md
+  (branch claude/utm-attribution-proposal).
+#}
+<section class="about-page-hero">
+  <div class="container">
+    <h1>Privacy</h1>
+    <hr class="rule" style="margin:18px auto 0">
+    <p class="hero-lede">How we handle analytics, security checks and the information you send us.</p>
+  </div>
+</section>
+
+<section class="section privacy-page">
+  <div class="container privacy-page__body">
+    <h2>Website analytics</h2>
+    <p>If you choose <strong>Accept</strong> in the cookie notice, we use Google Analytics to learn how people find and use this website. We share with Google Analytics which pages you view, which website sent you to us (the site name only), any campaign tag in the link you used, and whether you tapped our phone number or email, started the contact form or sent it. We do not share what you type into the form, and we do not use this data for advertising.</p>
+    <p>If you choose <strong>Decline</strong>, Google Analytics does not run. We also use Cloudflare Web Analytics, a privacy focused service that counts visits without cookies. It runs whether you accept or decline.</p>
+    <p>You can change your choice by clearing this site's data in your browser. The notice will appear again.</p>
+
+    <h2>Security</h2>
+    <p>Our website runs on Cloudflare. Cloudflare protects the site from abuse and runs a Turnstile check on the contact form. To do this, Cloudflare processes your IP address. We use your IP address to limit repeated form submissions. We do not save it with your inquiry.</p>
+
+    <h2>Contact form and uploads</h2>
+    <p>When you send an inquiry, we receive your name, email, phone number (if you give one), message, project details and any photos or plans you attach. We use them to answer your inquiry and plan your project. They are kept in our private inquiry system and emailed to our company inbox. We do not sell them.</p>
+    <p>[Owner to confirm: how long inquiries and uploads are kept. Do not publish a number until the delete process exists.]</p>
+
+    <h2>Asking us to remove your information</h2>
+    <p>Email <a href="mailto:{{ business.email }}">{{ business.email }}</a> or call <a href="{{ business.phoneHref }}">{{ business.phone }}</a> and tell us what you want removed. We will confirm what we hold and what we can remove.</p>
+    <p>[Owner to confirm: how quickly we answer, and any records we must keep.]</p>
+
+    <h2>Who we are</h2>
+    <p>{{ business.name }}, {{ business.address.display }}.</p>
+  </div>
+</section>

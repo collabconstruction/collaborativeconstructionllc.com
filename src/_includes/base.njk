@@ -208,6 +208,9 @@
           {%- for item in nav.footerExtra %}
           <li><a href="{{ item.url }}">{{ item.label }}</a></li>
           {%- endfor %}
+          {%- if business.privacyPublished %}
+          <li><a href="/privacy/">Privacy</a></li>
+          {%- endif %}
         </ul>
       </div>
 

@@ -4740,3 +4740,7 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
 .nav-group__panel { min-width: 310px; }
 
 .footer-license { margin-top: 10px; font-size: .8rem; letter-spacing: .02em; color: var(--navy-200, #aab4c8); }
+
+.privacy-page__body { max-width: 760px; }
+.privacy-page__body h2 { font-size: clamp(1.3rem, 2vw, 1.7rem); margin: 34px 0 10px; }
+.privacy-page__body p { line-height: 1.65; }
