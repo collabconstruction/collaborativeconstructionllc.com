@@ -4771,22 +4771,25 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
 @keyframes galleryIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
 /* ---- all: collage ---- */
-.gallery-collage { column-count: 3; column-gap: clamp(8px, 1.2vw, 16px); max-width: 1240px; margin: 0 auto; padding-inline: clamp(10px, 2vw, 24px); }
-.gallery-tile { position: relative; margin: 0 0 clamp(8px, 1.2vw, 16px); break-inside: avoid; overflow: hidden; border-radius: 2px; }
+.gallery-collage { column-count: 3; column-gap: clamp(14px, 2.4vw, 34px); max-width: 1280px; margin: 0 auto; padding-inline: clamp(14px, 3vw, 36px); }
+.gallery-tile { position: relative; margin: 0 0 clamp(14px, 2.4vw, 34px); break-inside: avoid; overflow: hidden; border-radius: 2px; }
+.gallery-tile--2 { margin-top: clamp(18px, 4vw, 56px); } .gallery-tile--6 { margin-top: clamp(10px, 2.4vw, 34px); }
 .gallery-tile .gallery-slot { position: relative; inset: auto; width: 100%; height: auto; aspect-ratio: var(--tile, 4 / 3); }
 .gallery-tile .gallery-frame { position: absolute; inset: 0; }
 .gallery-tile--1 { --tile: 4 / 5; } .gallery-tile--2 { --tile: 1 / 1; } .gallery-tile--3 { --tile: 16 / 9; }
 .gallery-tile--4 { --tile: 3 / 2; } .gallery-tile--5 { --tile: 4 / 5; } .gallery-tile--6 { --tile: 16 / 10; }
 .gallery-tile--7 { --tile: 1 / 1; } .gallery-tile--8 { --tile: 4 / 5; }
 .gallery-tile figcaption {
-  position: absolute; inset: auto 0 0 0; padding: 38px 14px 12px; display: flex; flex-direction: column; gap: 2px;
-  color: #fff; pointer-events: none; background: linear-gradient(to top, rgba(10, 18, 34, .55), transparent);
-  opacity: .0; transform: translateY(6px); transition: opacity .35s ease, transform .35s ease;
+  position: absolute; inset: auto 0 0 0; padding: 40px 14px 12px; display: flex; flex-direction: column; gap: 3px;
+  color: #fff; pointer-events: none; background: linear-gradient(to top, rgba(10, 18, 34, .5), transparent);
 }
-.gallery-tile__title { font-family: var(--font-display, Georgia, serif); font-size: 1.15rem; }
-.gallery-tile__town { font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; opacity: .8; }
-.gallery-tile:hover figcaption, .gallery-tile:focus-within figcaption { opacity: 1; transform: none; }
-@media (hover: none) { .gallery-tile figcaption { opacity: 1; transform: none; background: linear-gradient(to top, rgba(10, 18, 34, .42), transparent); } .gallery-tile__title { display: none; } }
+/* The town is always there, small and quiet. The project name appears on hover or focus. */
+.gallery-tile__town { order: 2; font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; opacity: .72; }
+.gallery-tile__title {
+  order: 1; font-family: var(--font-display, Georgia, serif); font-size: 1.15rem;
+  max-height: 0; overflow: hidden; opacity: 0; transition: max-height .35s ease, opacity .35s ease;
+}
+.gallery-tile:hover .gallery-tile__title, .gallery-tile:focus-within .gallery-tile__title { max-height: 2.6em; opacity: 1; }
 
 /* ---- residential: editorial rows ---- */
 .gallery-view--residential { max-width: 1240px; margin: 0 auto; padding-inline: clamp(14px, 3vw, 32px); }

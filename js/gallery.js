@@ -41,25 +41,50 @@
     return { el, frames, dots, idx: 0, timer: null, visible: false, interval: Number(el.dataset.interval) || 6000 };
   }).filter((s) => s.frames.length > 1);
 
+  // Load every frame of a slot as soon as it first comes on screen, and never fade to a photo that
+  // has not finished loading (that would flash the dark background).
+  function preload(s) {
+    if (s.preloaded) return;
+    s.preloaded = true;
+    s.frames.forEach((f) => { const img = f.querySelector("img"); if (img) img.loading = "eager"; });
+  }
+  function ready(frame) {
+    const img = frame.querySelector("img");
+    return !img || (img.complete && img.naturalWidth > 0);
+  }
+
   function step(s) {
+    const next = (s.idx + 1) % s.frames.length;
+    if (!ready(s.frames[next])) return; // try again on the next tick
     s.frames[s.idx].classList.remove("is-live");
     if (s.dots[s.idx]) s.dots[s.idx].classList.remove("is-live");
-    s.idx = (s.idx + 1) % s.frames.length;
+    s.idx = next;
     s.frames[s.idx].classList.add("is-live");
     if (s.dots[s.idx]) s.dots[s.idx].classList.add("is-live");
   }
   function inActiveView(s) { const v = s.el.closest("[data-gallery-view]"); return !v || !v.hidden; }
   function sync(s) {
-    const run = s.visible && !document.hidden && inActiveView(s);
+    const run = s.visible && !s.held && !document.hidden && inActiveView(s);
     if (run && !s.timer) s.timer = setInterval(() => step(s), s.interval);
     else if (!run && s.timer) { clearInterval(s.timer); s.timer = null; }
   }
+
+  // Pause while a visitor hovers or tabs into a slot, so they can look as long as they like.
+  slots.forEach((s) => {
+    const hold = () => { s.held = true; sync(s); };
+    const free = () => { s.held = false; sync(s); };
+    s.el.addEventListener("mouseenter", hold);
+    s.el.addEventListener("mouseleave", free);
+    s.el.addEventListener("focusin", hold);
+    s.el.addEventListener("focusout", free);
+  });
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach((en) => {
       const s = slots.find((x) => x.el === en.target);
       if (!s) return;
       s.visible = en.isIntersecting;
+      if (s.visible) preload(s);
       sync(s);
     });
   }, { threshold: 0.25 });
