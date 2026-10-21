@@ -4679,3 +4679,6 @@ strong {
 a { text-decoration: none; }
 p a:not(.btn), li a:not(.btn), dd a:not(.btn) { font-weight: 650; }
 p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--brass-700); }
+
+/* Page headers: the rule under the title is a third of its old length. */
+.about-page-hero .rule { width: 33%; max-width: 374px; margin-inline: auto; }
