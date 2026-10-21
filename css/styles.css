@@ -4534,39 +4534,15 @@ html { background: var(--bg); }
 .proj-head h3 { margin: 0; text-align: center; }
 .proj-head .rule { margin: 0 auto; }
 
-/* Hero photo edges, three styles. Each frame says which one it wants with
-   data-edge. The fade now lives on the soft frames only, so the other two can
-   show a crisp edge with their own line work. */
-.hero-figure__stage { -webkit-mask-image: none; mask-image: none; }
-.hero-figure__stage > picture[data-edge="soft"] {
-  -webkit-mask-image:
-    linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, #000 11%, #000 89%, transparent 100%);
-  mask-image:
-    linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, #000 11%, #000 89%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
+/* Hero photo: a plain rectangle. No fade, no frame, no corner marks. */
+.hero-figure { padding: 0; }
+.hero-figure__stage {
+  inset: 0; border-radius: 0; background: var(--navy-800);
+  -webkit-mask-image: none; mask-image: none;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .35);
 }
-.hero-figure__stage > picture[data-edge="frame"] img,
-.hero-figure__stage > picture[data-edge="corner"] img { border-radius: 3px; }
-.hero-figure__stage > picture[data-edge="frame"]::after,
-.hero-figure__stage > picture[data-edge="corner"]::after {
-  content: ""; position: absolute; pointer-events: none;
-}
-/* A thin brass line set inside the photo. */
-.hero-figure__stage > picture[data-edge="frame"]::after {
-  inset: 10px; border: 1px solid rgba(197, 165, 106, .85); border-radius: 2px;
-}
-/* Brass corner marks at the top left and bottom right. */
-.hero-figure__stage > picture[data-edge="corner"]::after {
-  inset: 8px;
-  background:
-    linear-gradient(var(--brass), var(--brass)) top left / 34px 2px no-repeat,
-    linear-gradient(var(--brass), var(--brass)) top left / 2px 34px no-repeat,
-    linear-gradient(var(--brass), var(--brass)) bottom right / 34px 2px no-repeat,
-    linear-gradient(var(--brass), var(--brass)) bottom right / 2px 34px no-repeat;
-}
+.hero-figure__stage > picture::after { content: none; }
+.hero-figure__stage img { border-radius: 0; }
 
 /* Recent work band on the home page: three photos, three different frames. */
 .home-work__grid {
