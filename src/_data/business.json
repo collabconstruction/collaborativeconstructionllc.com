@@ -46,6 +46,7 @@
     { "days": "Sunday", "time": "Closed" }
   ],
 
+  "_licenseComment": "Owner to supply from ContractorHub.mass.gov. Never guess. When set, base.njk shows them in the footer and lib/schema.js uses the CSL. Massachusetts says residential contractor advertising, including websites, must show the active HIC registration number. A third party listing (BuildZoom, Mar 27 2026) says an HIC registration is active, but it gives no number.",
   "cslNumber": null,
   "hicNumber": null,
   "insurance": null,

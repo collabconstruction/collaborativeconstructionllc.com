@@ -4738,3 +4738,5 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
 .related-services__ico { width: 38px; height: 38px; }
 .related-services__ico .ico { width: 26px; height: 26px; }
 .nav-group__panel { min-width: 310px; }
+
+.footer-license { margin-top: 10px; font-size: .8rem; letter-spacing: .02em; color: var(--navy-200, #aab4c8); }

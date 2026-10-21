@@ -186,6 +186,9 @@
         </div>
         <p class="footer-motto"><span>Experience</span><span>Quality</span><span>Trust</span></p>
         <p>{{ business.footerBlurb | safe }}</p>
+        {%- if business.hicNumber or business.cslNumber %}
+        <p class="footer-license">{% if business.hicNumber %}MA Home Improvement Contractor Reg. #{{ business.hicNumber }}{% endif %}{% if business.hicNumber and business.cslNumber %} &middot; {% endif %}{% if business.cslNumber %}MA Construction Supervisor License #{{ business.cslNumber }}{% endif %}</p>
+        {%- endif %}
       </div>
 
       <div class="footer-col">
