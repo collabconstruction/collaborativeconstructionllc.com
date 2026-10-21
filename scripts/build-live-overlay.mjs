@@ -32,6 +32,7 @@ const HOST = new URL(SITE).host;
 const OVERLAY = [
   "css/styles.css",
   "js/main.js",
+  "js/analytics.js",
   "assets/img/swirls",
   "assets/img/backgrounds",
   "assets/logo.png",
@@ -200,6 +201,11 @@ async function main() {
     const src = join(ROOT, rel);
     await cp(src, join(OUT, rel), { recursive: true });
     overlaid.push(rel);
+    // A single file must arrive byte for byte, so the live copy cannot silently win.
+    if (/\.(?:js|css)$/.test(rel) && !(await readFile(src)).equals(await readFile(join(OUT, rel)))) {
+      console.error(`NOT READY: ${rel} in _deploy differs from this branch.`);
+      process.exit(1);
+    }
   }
 
   // Everything in the repo's public asset folders that the live site did not have is reported, never added silently.
