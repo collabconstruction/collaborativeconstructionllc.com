@@ -66,7 +66,7 @@ test('tabs are large serif text with no dot, no underline and no box', () => {
 });
 
 test('the gallery is tighter than before: short banner, smaller gaps, shorter bands', () => {
-  assert.match(css, /\.page-main:has\(\.project-gallery\) \.about-page-hero \{ padding-block: 30px 20px; \}/);
+  assert.match(css, /\.page-gallery \.about-page-hero \{ padding-block: 30px 20px; \}/);
   assert.match(galleryCss, /margin-bottom: clamp\(22px, 3\.4vw, 46px\)/);
   assert.match(galleryCss, /min-height: clamp\(300px, 48vh, 480px\)/);
   assert.match(galleryCss, /column-gap: clamp\(10px, 1\.6vw, 20px\)/);
@@ -74,4 +74,12 @@ test('the gallery is tighter than before: short banner, smaller gaps, shorter ba
 
 test('no gallery rule underlines text', () => {
   assert.ok(!/text-decoration\s*:\s*underline/.test(galleryCss));
+});
+
+test('the shorter banner uses a dedicated page class, not :has(), and the class is set on the gallery page only', () => {
+  assert.match(page, /pageClass: page-gallery/);
+  const base = fs.readFileSync(new URL('../src/_includes/base.njk', import.meta.url), 'utf8');
+  assert.match(base, /class="page-main\{% if pageClass %\} \{\{ pageClass \}\}\{% endif %\}"/);
+  assert.ok(!/\.page-main:has\(\.project-gallery\) \.about-page-hero \{ padding-block: 30px/.test(css), 'the :has() version of the new rules is gone');
+  for (const f of ['about.njk', 'index.njk', 'construction-advisory.njk']) assert.ok(!/pageClass: page-gallery/.test(fs.readFileSync(new URL(`../src/${f}`, import.meta.url), 'utf8')));
 });

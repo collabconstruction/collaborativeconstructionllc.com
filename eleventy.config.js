@@ -34,7 +34,9 @@ module.exports = function (eleventyConfig) {
   // cached Google result breaks.
   eleventyConfig.addPassthroughCopy("css");
   eleventyConfig.addPassthroughCopy("js");
-  eleventyConfig.addPassthroughCopy("assets");
+  // The owner's personal photo stays in the repository but must never be published (the live site does not serve it).
+  // Excluding it here also protects any direct build, preview deploy or future migration away from the overlay.
+  eleventyConfig.addPassthroughCopy("assets", { filter: ["**/*", "!img/wesleigh-behn.jpg"] });
   eleventyConfig.addPassthroughCopy({ "robots.txt": "robots.txt" });
 
   // Build the JSON-LD @graph for a page. Everything it emits derives from

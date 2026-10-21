@@ -172,7 +172,7 @@
     </div>
   </header>
 
-  <main class="page-main" id="main" tabindex="-1">
+  <main class="page-main{% if pageClass %} {{ pageClass }}{% endif %}" id="main" tabindex="-1">
 {{ content | safe }}
   </main>
 

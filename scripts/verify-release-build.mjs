@@ -27,6 +27,7 @@ assert.match(worker, /MAX_MESSAGE_CHARS = 5000/);
 assert.ok(html.indexOf('/js/intake-context.js') < html.indexOf('/js/main.js'));
 assert.doesNotMatch(html, /<script[^>]*src="https:\/\/www\.googletagmanager\.com/);
 const files = fs.readdirSync('_site', { recursive: true }).filter(f => fs.statSync(path.join('_site', f)).isFile());
+for (const forbidden of ['assets/img/wesleigh-behn.jpg']) assert.ok(!files.map(f => f.split(path.sep).join('/')).includes(forbidden), `${forbidden} must never be published`);
 for (const file of files) {
   assert.ok(!/(^|[/\\])(?:docs|tests|scripts|migrations|\.git|\.agents|\.claude|node_modules)([/\\]|$)/.test(file), `Private path in build: ${file}`);
   assert.ok(!/\.(?:sql|map|md|toml|jsonc)$/.test(file), `Non-public artifact in build: ${file}`);
