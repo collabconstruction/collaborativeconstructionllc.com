@@ -33,6 +33,7 @@ const OVERLAY = [
   "css/styles.css",
   "js/main.js",
   "assets/img/swirls",
+  "assets/img/backgrounds",
   "assets/logo.png",
   "assets/logo-header.png",
   "assets/c-icon.png",

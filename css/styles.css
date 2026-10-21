@@ -4590,3 +4590,47 @@ html { background: var(--bg); }
   margin: 0 auto; max-width: 62ch; text-align: center;
   font-family: var(--font-display, inherit); font-size: clamp(1.1rem, 1.7vw, 1.4rem); line-height: 1.45; color: var(--navy);
 }
+
+/* Key facts stand out. Bold with a thin brass underline on light sections, white on navy. */
+strong {
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-color: var(--brass);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.about-page-hero strong, .hero strong, .svc-cta strong, .adu strong, .contact strong, .hero__lede strong {
+  color: #fff;
+}
+
+/* About: no picture behind the blue header. */
+.page-main:has(.company-overview) .about-page-hero::before { display: none; }
+
+/* Each service page gets its own header picture, mirrored or moved so no two match. */
+.service-page--gc .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'); }
+.service-page--additions .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'); transform: translateX(-9%); }
+.service-page--adu .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp'); transform: scaleX(-1); }
+.service-page--renovation .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'); transform: scale(-1, -1) translateX(8%); }
+.service-page--custom .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'); transform: scaleX(-1) translateX(-9%); }
+.service-page--advisory .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp'); transform: translateX(10%); }
+
+/* Projects page: a large golden corridor in the middle of the header, and a faint
+   wash of it behind the cards. Both are kept quiet so the photos stay the focus. */
+.page-main:has(.project-gallery) .about-page-hero::before {
+  background-image: url('../assets/img/backgrounds/gold-corridor.webp');
+  background-size: cover;
+  mix-blend-mode: screen;
+  opacity: .38;
+  filter: none;
+  -webkit-mask-image: radial-gradient(ellipse 58% 90% at 50% 50%, #000 20%, transparent 100%);
+  mask-image: radial-gradient(ellipse 58% 90% at 50% 50%, #000 20%, transparent 100%);
+}
+.project-gallery { position: relative; isolation: isolate; }
+.project-gallery::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: url('../assets/img/backgrounds/gold-corridor.webp') center top / cover no-repeat;
+  opacity: .14;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+.page-main:has(.project-gallery) .about-page-hero .hero-lede { color: #eef2fa; }
