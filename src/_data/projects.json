@@ -144,16 +144,6 @@
           "caption": "Modern glass-enclosed exterior home design"
         },
         {
-          "src": "/assets/img/modern-interior-1.jpg",
-          "alt": "Modern hallway with skylights and open floor plan",
-          "caption": "Modern hallway with skylights and open floor plan"
-        },
-        {
-          "src": "/assets/img/modern-interior-2.jpg",
-          "alt": "Modern kitchen with large island overlooking a river view",
-          "caption": "Modern kitchen with large island overlooking a river view"
-        },
-        {
           "src": "/assets/img/carlisle-residence-1.jpg",
           "alt": "Kitchen with island, wood beams and large windows",
           "caption": "Kitchen with island, wood beams and large windows"
@@ -172,6 +162,16 @@
           "src": "/assets/img/carlisle-residence-4.jpg",
           "alt": "Soaking tub, wood panel wall and glass shower",
           "caption": "Soaking tub, wood panel wall and glass shower"
+        },
+        {
+          "src": "/assets/img/modern-interior-1.jpg",
+          "alt": "Modern hallway with skylights and open floor plan",
+          "caption": "Modern hallway with skylights and open floor plan"
+        },
+        {
+          "src": "/assets/img/modern-interior-2.jpg",
+          "alt": "Modern kitchen with large island overlooking a river view",
+          "caption": "Modern kitchen with large island overlooking a river view"
         }
       ]
     },
