@@ -50,11 +50,11 @@
   "hicNumber": null,
   "insurance": null,
 
-  "_socialComment": "Updated October 21, 2026 at the owner direction: facebook is the company profile https://www.facebook.com/profile.php?id=61593017512930 and linkedin is the company account profile, the same links the live site uses (a copied LinkedIn link can end in ?isSelfProfile=true, which only means you are viewing your own profile; leave it off). googleBusinessProfile is unchanged.",
+  "_socialComment": "Updated October 21, 2026 after the browser agent checked both accounts. facebook is the company page https://www.facebook.com/profile.php?id=61595651094549 and linkedin is https://www.linkedin.com/in/collaborative-construction-56761b444/ (a copied LinkedIn link can end in ?isSelfProfile=true; leave it off). The Facebook page with id 61593017512930 is a SEPARATE older page named Collaborative Construction LLC | Falmouth MA that uses a personal name in its email; do not link it. googleBusinessProfile is unchanged.",
   "_canonicalUrlComment": "Use canonical profile URLs, never share/redirect links. The old facebook value was https://www.facebook.com/share/14koskagbeC/?mibextid=wwXIfr - a share link carrying the mibextid click-tracking parameter, which redirects to the value below. A redirecting, parameterised URL is a weak sameAs signal. Verified 2026-10-13 by following the redirect.",
   "social": {
     "googleBusinessProfile": "https://www.google.com/maps?cid=10110650788670469074",
-    "facebook": "https://www.facebook.com/profile.php?id=61593017512930",
+    "facebook": "https://www.facebook.com/profile.php?id=61595651094549",
     "linkedin": "https://www.linkedin.com/in/collaborative-construction-56761b444/"
   },
 

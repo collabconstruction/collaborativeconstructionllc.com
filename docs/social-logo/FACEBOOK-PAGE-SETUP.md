@@ -2,7 +2,7 @@
 
 Written October 21, 2026. Every fact below comes from `src/_data/business.json` or the live website. Nothing is new, so nothing here claims more than the site already does.
 
-Page: https://www.facebook.com/profile.php?id=61593017512930
+Page: https://www.facebook.com/profile.php?id=61595651094549 (corrected October 21, 2026; the id ending 61593017512930 is a different, older page, see SOCIAL-STATUS.md)
 
 Nothing in this file has been applied. Facebook page details cannot be edited by Claude. The post can be scheduled through Metricool, but only after the owner confirms the Metricool page is this page and approves the exact wording.
 
@@ -35,6 +35,6 @@ Text only, no photo. A project photo would imply a job the company is confirmed 
 
 ## 3. Before posting
 
-1. Metricool is connected to a Facebook page with ID 1409900735535950. The page above ends in 61593017512930. Open Metricool, go to the connections screen, and confirm the page name shown is this page.
+1. Metricool is connected to a Facebook page with ID 1409900735535950. The page above ends in 61595651094549. Open Metricool, go to the connections screen, and confirm the page name shown is this page.
 2. Approve the wording above, or change it.
 3. Say when it should go out. Claude then schedules it through Metricool.
