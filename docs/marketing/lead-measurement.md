@@ -42,3 +42,7 @@ Until then, GA4 can still show Facebook and LinkedIn as referrers in many cases,
 
 1. Who counts and records leads each week?
 2. Should we change the analytics so link tags register?
+
+## Referrer tradeoff (proposal branch)
+
+The old setting `page_referrer: ""` hid where visitors came from. That removed credit for ordinary links with no UTM tag, such as a Facebook post or a chamber website. The proposal sends the referring site's origin only (for example `https://www.facebook.com`), never a path or query, and only after consent. Our own site is left out. If you prefer not to share even that, say so and we keep it empty.

@@ -40,3 +40,17 @@ test('denied consent still sends nothing, even with utm tags',()=>{
   const s=setup('denied',{utm_source:'facebook'});
   assert.equal(s.scripts.length,0); assert.equal(s.window.dataLayer,undefined);
 });
+
+function configOf(s){
+  s.nodes.find(n=>n.textContent==='Accept').listeners.click();
+  return s.window.dataLayer.map(v=>Array.from(v)).find(v=>v[0]==='config')[2];
+}
+test('page_referrer is the checked origin only, and empty when missing or our own site',()=>{
+  assert.equal(configOf(setup(null,{referrer:'https://www.facebook.com'})).page_referrer,'https://www.facebook.com');
+  assert.equal(configOf(setup(null,{referrer:''})).page_referrer,'');
+  assert.equal(configOf(setup(null,{referrer:'https://collaborativeconstructionllc.com'})).page_referrer,'');
+});
+test('denied consent sends no referrer',()=>{
+  const s=setup('denied',{referrer:'https://www.facebook.com'});
+  assert.equal(s.window.dataLayer,undefined);
+});

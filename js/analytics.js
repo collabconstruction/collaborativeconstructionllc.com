@@ -108,6 +108,15 @@
     }
   }
 
+  /* Where the visit came from, as an origin only (no path, no query), taken from
+     the value intake-context.js already reduced to an origin. Our own site is
+     left out so moving between pages is not counted as a referral. */
+  function referrerOrigin() {
+    var ctx = window.ccIntakeContext;
+    var r = ctx && typeof ctx.get === "function" ? ctx.get().referrer : "";
+    return r && r !== location.origin ? r : "";
+  }
+
   /* The page path, plus only the three campaign tags (utm_source, utm_medium,
      utm_campaign) that intake-context.js already checked against a strict
      pattern. Any other query value, such as an email address, stays out. */
@@ -134,7 +143,7 @@
       send_page_view: false, allow_google_signals: false,
       allow_ad_personalization_signals: false,
       page_location: pageLocation(),
-      page_referrer: ""
+      page_referrer: referrerOrigin()
     });
     window.gtag("event", "page_view");
     var script = document.createElement("script");
