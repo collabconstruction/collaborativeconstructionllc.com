@@ -27,6 +27,10 @@ Evidence labels: `verified-source` checked repo/tool/public URL, `reported` inhe
 
 Please resolve 1, 2, 3, 4 and 5 before broad marketing/release decisions. Questions 8/9 are next for Cloudflare hardening.
 
+## New evidence to speed up answers 1 and 2
+
+The HIC number **214773** was reported by [BuildZoom](https://www.buildzoom.com/contractor/collaborative-construction-llc-east-falmouth-ma), with its site stating verified active in September 2026. The CSL number **CS-078332**, claimed expiry **2027-01-24**, was displayed by [HomeAdvisor](https://www.homeadvisor.com/rated.Collaborative.153739053.html). These are **third-party leads only**. Verify both against official Massachusetts public registries and current owner-held records, check registration holder/scope and status, and obtain owner consent before copying them to the footer. Separately confirm correct business hours and years-of-experience wording across business directories: their current public profiles differ from the website. No customer review details or project dollars were transferred here.
+
 ## Next 3 actions
 
 1. Owner verifies registration/licensing records without sharing passwords or security codes.
