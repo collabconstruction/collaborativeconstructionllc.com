@@ -1,0 +1,19 @@
+name: Cloudflare Ruleset Watch
+on:
+  workflow_dispatch:
+# Manual trigger only, deliberately not scheduled. Unlike Public Website Health, this job
+# needs an authenticated Cloudflare API token (CLOUDFLARE_API_TOKEN, Zone > Zone WAF > Read,
+# scoped to this zone only) as a repo secret. If that secret does not exist yet, the script
+# reports "skipped" and exits 0 — it never fails the job for a missing credential.
+permissions:
+  contents: read
+jobs:
+  ruleset-watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare live Cloudflare rulesets to the recorded baseline
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: python3 scripts/cloudflare_ruleset_watch.py
