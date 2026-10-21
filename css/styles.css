@@ -4525,3 +4525,11 @@ html { background: var(--bg); }
    (and hidden here, because the live page is not built from the template). The
    filters and cards move up to fill the space. */
 .project-gallery .gallery-note { display: none; }
+
+/* Construction Management: the "Current & Completed Projects" heading and the
+   rule under it are centred, stacked one above the other. (The "Selected
+   Experience" label above it was already removed.) The heading was a flex row
+   with the rule beside it, so it is switched to a centred column. */
+.proj-head { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: var(--s-3); }
+.proj-head h3 { margin: 0; text-align: center; }
+.proj-head .rule { margin: 0 auto; }
