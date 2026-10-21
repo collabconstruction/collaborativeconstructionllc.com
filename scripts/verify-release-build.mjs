@@ -81,6 +81,23 @@ for (const file of htmlFiles) {
   assert.match(pageHtml, /<title>[^<]{5,}<\/title>/, `missing/short <title> on ${file}`);
   assert.match(pageHtml, /<meta name="description" content="[^"]{20,}"/, `missing/short meta description on ${file}`);
 
+  // 3b. One meaningful H1 in the server HTML (not added by JavaScript), text
+  //     extracted with spaces kept, and the Open Graph tags crawlers and social
+  //     previews read. og:url must equal the canonical.
+  const h1s = [...pageHtml.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)].map(m => m[1].replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim());
+  assert.equal(h1s.length, 1, `expected exactly one <h1> in server HTML on ${file}, found ${h1s.length}`);
+  assert.ok(h1s[0].length >= 3, `empty or too short <h1> on ${file}`);
+  // Simple crawlers strip tags without adding spaces, so "building.<br>Clear" reads as "building.Clear".
+  const h1Stripped = (pageHtml.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || '').replace(/<[^>]+>/g, '');
+  assert.doesNotMatch(h1Stripped, /[a-z][.!?,:][A-Za-z]/, `<h1> words run together when markup is stripped on ${file}: "${h1Stripped}"`);
+  for (const prop of ['og:title', 'og:description', 'og:image', 'og:url']) {
+    const values = [...pageHtml.matchAll(new RegExp(`<meta property="${prop}" content="([^"]*)"`, 'g'))].map(m => m[1].trim());
+    assert.equal(values.length, 1, `expected exactly one ${prop} on ${file}, found ${values.length}`);
+    assert.ok(values[0].length > 0, `empty ${prop} on ${file}`);
+  }
+  assert.equal((pageHtml.match(/<link rel="canonical"/g) || []).length, 1, `expected exactly one canonical on ${file}`);
+  assert.equal(pageHtml.match(/<meta property="og:url" content="([^"]+)"/)?.[1], canonicalHref, `og:url differs from canonical on ${file}`);
+
   // 4. JSON-LD must parse and must not collide @id with a node of a
   //    DIFFERENT type already seen on another page (shared nodes like
   //    #business/#website repeating verbatim across pages is correct and
@@ -126,5 +143,13 @@ for (const loc of sitemapLocs) {
   if (sitePath === '/') continue;
   assert.ok(homeHrefs.has(sitePath), `sitemap URL not server-rendered-linked from the homepage: ${sitePath}`);
 }
+
+// 7. robots.txt is the repo's own file. Cloudflare's managed block is added at the
+//    edge; if it ever lands in the build it would be prepended again on every
+//    deploy (seen live on Oct 21, 2026: the block repeated about 9 times).
+const robotsTxt = read('_site/robots.txt');
+assert.doesNotMatch(robotsTxt, /BEGIN Cloudflare Managed/, 'Cloudflare managed robots block must not be in the built robots.txt');
+assert.equal((robotsTxt.match(/^Sitemap:/gm) || []).length, 1, 'robots.txt must have exactly one Sitemap line');
+assert.match(robotsTxt, /^Disallow: \/api\/$/m, 'robots.txt must keep Disallow: /api/');
 
 console.log(`Release build verified: ${files.length} public files, matching trap/challenge contracts, bounded message, private files excluded, local links resolved, sitemap/canonical/robots/JSON-LD invariants held across ${htmlFiles.length} pages.`);
