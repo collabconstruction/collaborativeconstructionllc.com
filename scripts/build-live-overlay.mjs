@@ -11,7 +11,9 @@
  *
  *   1. copies every public file of the live site (crawled from its pages, its
  *      stylesheet, its script and its sitemap), then
- *   2. overlays the few files this branch changed (OVERLAY below).
+ *   2. overlays the few files this branch changed (OVERLAY below) and the pages built from this repo.
+ *
+ * The script does not edit live files in place. It only copies, overlays and then checks.
  *
  * Nothing is deployed by this script. It only writes `_deploy/` and reports.
  *
@@ -21,6 +23,7 @@ import { mkdir, writeFile, readFile, cp, rm, readdir, stat } from "node:fs/promi
 import { dirname, join, posix } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
+import { FACEBOOK_NOW, FACEBOOK_OLD, FORBIDDEN_FILES } from "./lib/release-lib.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "_deploy");
@@ -121,29 +124,6 @@ async function main() {
   }
   if (kept.length) console.log(`Kept ${kept.length} live file(s) that no page links to: ${kept.join(", ")}`);
 
-  // Patch the live home page: swap the hero photos for the Belmont project photos, no caption.
-  // The markup comes from src/_includes/hero-figure.html, the same file the template uses.
-  {
-    const homePath = join(OUT, "index.html");
-    let home = await readFile(homePath, "utf8");
-    const figure = (await readFile(join(ROOT, "src/_includes/hero-figure.html"), "utf8")).trim();
-    if (!/<figure class="hero-figure"[\s\S]*?<\/figure>/.test(home)) {
-      console.error("NOT READY: the live home page has no hero figure to patch (its markup changed).");
-      process.exit(1);
-    }
-    home = home.replace(/<figure class="hero-figure"[\s\S]*?<\/figure>/, () => figure);
-    home = home.replace(/<link rel="preload" as="image"[^>]*>/, () =>
-      '<link rel="preload" as="image" type="image/webp" imagesrcset="/assets/img/r/belmont-hero-480.webp 480w, /assets/img/r/belmont-hero-768.webp 768w, /assets/img/r/belmont-hero-1024.webp 1024w" imagesizes="(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px" fetchpriority="high">');
-    // Safe to run again: if the live page already has this hero the replacement changes nothing.
-    // What must hold afterwards is that the Belmont photos are in the page.
-    if (!home.includes("belmont-hero-1280.webp")) {
-      console.error("NOT READY: the Belmont hero photos are not in the home page after patching.");
-      process.exit(1);
-    }
-    await writeFile(homePath, home);
-    console.log("Patched the home page hero: Belmont photos, no caption.");
-  }
-
   // Pages and photos this branch changed. The pages come from the repo build (_site), so run
   // `npm run build` first. Each page already carries the current Facebook link.
   {
@@ -167,16 +147,12 @@ async function main() {
     console.log("Overlaid every page, llms.txt and robots.txt from this branch's build, plus the 4 Carlisle photos.");
   }
 
-  // Link replacements applied to the copied live pages (header and footer links and the hidden
-  // structured data all carry the same URL). Any older Facebook URL becomes the current one, and the
-  // build stops unless the current URL ends up on every page, so a replacement can never silently
-  // do nothing (and a rerun against a page that already has the right URL still passes).
+  // Checks only, no edits. Every page in _deploy comes from this repo's build (or the live copy for
+  // other files), and the build already carries the approved hero photos and social links. If the
+  // result is wrong, the build or the templates are wrong: stop and fix them at the source instead of
+  // patching the copy. (Earlier releases rewrote the hero and the Facebook URL in place here; that is
+  // gone so a future release cannot be changed by a leftover release-specific edit.)
   {
-    const FACEBOOK_NOW = "https://www.facebook.com/profile.php?id=61595651094549";
-    const FACEBOOK_OLD = [
-      "https://www.facebook.com/people/Collaborative-Construction/61595651094549/",
-      "https://www.facebook.com/profile.php?id=61593017512930",
-    ];
     const htmlFiles = [];
     const walk = async (dir) => {
       for (const entry of await readdir(dir, { withFileTypes: true })) {
@@ -186,20 +162,17 @@ async function main() {
       }
     };
     await walk(OUT);
-    let replaced = 0;
-    for (const file of htmlFiles) {
-      let text = await readFile(file, "utf8");
-      let changed = false;
-      for (const from of FACEBOOK_OLD) {
-        if (text.includes(from)) { replaced += text.split(from).length - 1; text = text.split(from).join(FACEBOOK_NOW); changed = true; }
-      }
-      if (changed) await writeFile(file, text);
-      if (!text.includes(FACEBOOK_NOW)) {
-        console.error(`NOT READY: the Facebook link is missing from ${file}`);
-        process.exit(1);
-      }
+    const home = await readFile(join(OUT, "index.html"), "utf8");
+    if (!home.includes("belmont-hero-1280.webp")) {
+      console.error("NOT READY: the approved Belmont hero photos are not in the home page. Fix src/_includes/hero-figure.html, not the copy.");
+      process.exit(1);
     }
-    console.log(`Facebook link is ${FACEBOOK_NOW} on all ${htmlFiles.length} pages (${replaced} older link(s) replaced).`);
+    for (const file of htmlFiles) {
+      const text = await readFile(file, "utf8");
+      if (!text.includes(FACEBOOK_NOW)) { console.error(`NOT READY: the current Facebook link is missing from ${file}. Fix the template.`); process.exit(1); }
+      for (const old of FACEBOOK_OLD) if (text.includes(old)) { console.error(`NOT READY: ${file} contains an old Facebook link. Fix the template.`); process.exit(1); }
+    }
+    console.log(`Verified without editing: Belmont hero photos present, current Facebook link on all ${htmlFiles.length} pages, no old links.`);
   }
 
   // Overlay the changed files.
@@ -218,6 +191,18 @@ async function main() {
     console.log(`\nReferenced by the live site but not retrievable (${problems.length}):`);
     problems.forEach((p) => console.log("  " + p));
   }
+
+  // Files that must never be published, whatever copied them.
+  for (const f of FORBIDDEN_FILES) {
+    try { await stat(join(OUT, f)); console.error(`NOT READY: ${f} is in the deploy folder and must never be published.`); process.exit(1); } catch { /* absent, as required */ }
+  }
+
+  // Machine readable record for scripts/release.mjs: which live files were copied and which were not retrievable.
+  await mkdir(join(ROOT, ".release"), { recursive: true });
+  await writeFile(join(ROOT, ".release", "overlay-manifest.json"), JSON.stringify({
+    site: SITE, generatedAt: new Date().toISOString(), requests: fetched, copied: ok, overlaid, kept,
+    problems: problems.map((x) => x.trim()),
+  }, null, 2));
 
   // Sanity gates. A deploy replaces the whole site, so refuse to call this ready if it looks incomplete.
   const must = ["index.html", "about/index.html", "gallery/index.html", "construction-advisory/index.html",
