@@ -4697,3 +4697,43 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
 .company-principles article:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(18, 29, 51, .14); }
 .company-principles h2 { margin-block: 12px 10px; }
 .company-principles p { margin: 0; max-width: 30ch; }
+
+/* Light gold line icons. */
+.ico { display: block; color: var(--brass); }
+.nav-group__panel a { display: flex; align-items: center; gap: 12px; }
+.nav-ico { display: inline-grid; place-items: center; width: 36px; height: 36px; flex: none; border-radius: 50%; background: rgba(189, 161, 106, .14); transition: background-color .22s ease, transform .22s ease; }
+.nav-ico .ico { width: 20px; height: 20px; }
+.nav-group__panel a:hover .nav-ico, .nav-group__panel a:focus-visible .nav-ico { background: rgba(189, 161, 106, .3); transform: scale(1.08); }
+.nav-group__panel a.active .nav-ico { background: rgba(189, 161, 106, .3); }
+
+.scope-tile__icon { display: inline-grid; place-items: center; width: 64px; height: 64px; margin-bottom: 14px; border-radius: 50%; border: 1px solid rgba(189, 161, 106, .55); background: rgba(189, 161, 106, .1); transition: transform .3s var(--ease-out, ease), background-color .3s ease; }
+.scope-tile__icon .ico { width: 34px; height: 34px; }
+.scope-tile:hover .scope-tile__icon { transform: translateY(-3px) scale(1.06); background: rgba(189, 161, 106, .22); }
+
+.related-services { padding-block: clamp(26px, 4vw, 44px); background: var(--paper-2); border-top: 1px solid var(--line); }
+.related-services__list { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 14px; list-style: none; margin: 0; padding: 0; }
+.related-services__list a {
+  display: flex; align-items: center; gap: 12px; padding: 10px 20px 10px 12px;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--white); color: var(--navy); font-weight: 600; font-size: .92rem;
+  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+}
+.related-services__list a:hover { transform: translateY(-3px); border-color: var(--brass); box-shadow: 0 10px 22px rgba(18, 29, 51, .14); color: var(--navy); }
+.related-services__ico { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: rgba(189, 161, 106, .16); }
+.related-services__ico .ico { width: 20px; height: 20px; }
+
+/* Each service page gives its picture its own shape, so no two look like the same template. */
+.page-main .service-page .figure picture { -webkit-mask-image: none; mask-image: none; overflow: visible; }
+.service-page--gc .figure img { border-radius: 260px 260px 8px 8px; }
+.service-page--additions .figure img { border-radius: 4px; outline: 1px solid var(--brass); outline-offset: 12px; }
+.service-page--adu .figure img { border-radius: 170px 8px 170px 8px; }
+.service-page--renovation .figure img { border-radius: 18px; border: 3px solid var(--brass); }
+.service-page--custom .figure img { border-radius: 2px; box-shadow: 16px 16px 0 rgba(189, 161, 106, .4); }
+
+/* Icons a little larger and firmer so the light gold still reads on white and paper. */
+.ico { stroke-width: 2; }
+.nav-ico { width: 40px; height: 40px; }
+.nav-ico .ico { width: 26px; height: 26px; }
+.scope-tile__icon .ico { width: 40px; height: 40px; }
+.related-services__ico { width: 38px; height: 38px; }
+.related-services__ico .ico { width: 26px; height: 26px; }
+.nav-group__panel { min-width: 310px; }

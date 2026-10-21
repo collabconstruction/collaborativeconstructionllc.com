@@ -16,6 +16,7 @@ shareImageAlt: "Cedar-clad modern residence in Belmont, Massachusetts"
 schemaName: "General Contractor Falmouth"
 breadcrumbName: "General Contractor"
 ---
+{% from "icons.njk" import icon %}
 
 <div class="service-page service-page--gc">
     <!-- ============================ HERO ============================ -->
@@ -31,7 +32,7 @@ breadcrumbName: "General Contractor"
     <section class="section advisory-intro service-introduction">
       <div class="container">
         <div class="section-head center" data-reveal><h2>What we build</h2></div>
-        <div class="scope-grid" data-reveal><article class="scope-tile"><span class="scope-tile__number">01</span><h3>New homes</h3><p>Construction coordinated with your architect and designer.</p></article><article class="scope-tile"><span class="scope-tile__number">02</span><h3>Additions & ADUs</h3><p>New living space connected to your existing property.</p></article><article class="scope-tile"><span class="scope-tile__number">03</span><h3>Renovation</h3><p>Kitchen, bath and whole-home improvements.</p></article></div>
+        <div class="scope-grid" data-reveal><article class="scope-tile"><span class="scope-tile__icon">{{ icon("custom") | safe }}</span><h3>New homes</h3><p>Construction coordinated with your architect and designer.</p></article><article class="scope-tile"><span class="scope-tile__icon">{{ icon("additions") | safe }}</span><h3>Additions & ADUs</h3><p>New living space connected to your existing property.</p></article><article class="scope-tile"><span class="scope-tile__icon">{{ icon("renovation") | safe }}</span><h3>Renovation</h3><p>Kitchen, bath and whole-home improvements.</p></article></div>
       </div>
     </section>
 
@@ -45,7 +46,7 @@ breadcrumbName: "General Contractor"
         <div class="two-col">
           <div class="body" data-reveal="left"><p class="service-summary">We coordinate scope, permits, trades and schedule, all through <strong>one point of contact</strong>.</p><ul class="service-checks"><li>Clear scope and responsibilities</li><li>Coordinated trades and inspections</li><li>Project decisions documented</li></ul></div>
           <div class="figure" data-reveal="right">
-            <picture><source type="image/webp" srcset="/assets/img/r/monomoscoy-porches-1-160.webp 160w, /assets/img/r/monomoscoy-porches-1-480.webp 480w, /assets/img/r/monomoscoy-porches-1-640.webp 640w" sizes="(min-width: 880px) 560px, 92vw"><img src="/assets/img/monomoscoy-porches-1.jpg" alt="Enclosed porch and upper balcony on Monomoscoy Island, MA" width="640" height="480" loading="lazy" decoding="async"></picture>
+            <picture><source type="image/webp" srcset="/assets/img/r/belmont-pond-160.webp 160w, /assets/img/r/belmont-pond-480.webp 480w, /assets/img/r/belmont-pond-768.webp 768w, /assets/img/r/belmont-pond-1024.webp 1024w, /assets/img/r/belmont-pond-1200.webp 1200w" sizes="(min-width: 880px) 560px, 92vw"><img src="/assets/img/belmont-pond.jpg" alt="The home set in its landscape beside a pond" width="1200" height="927" loading="lazy" decoding="async"></picture>
           </div>
         </div>
       </div>
@@ -140,6 +141,8 @@ breadcrumbName: "General Contractor"
   </div>
 </section>
 
+
+{% include "related-services.njk" %}
 
     <!-- ============================ CTA ============================ -->
     <section class="section adu svc-cta">

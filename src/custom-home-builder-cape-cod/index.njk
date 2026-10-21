@@ -16,6 +16,7 @@ shareImageAlt: "Cedar-clad modern residence in Belmont, Massachusetts"
 schemaName: "Custom Home Builder Massachusetts"
 breadcrumbName: "Custom Homes"
 ---
+{% from "icons.njk" import icon %}
 
 <div class="service-page service-page--custom">
     <!-- ============================ HERO ============================ -->
@@ -31,7 +32,7 @@ breadcrumbName: "Custom Homes"
     <section class="section advisory-intro service-introduction">
       <div class="container">
         <div class="section-head center" data-reveal><h2>From site to finished home</h2></div>
-        <div class="scope-grid" data-reveal><article class="scope-tile"><span class="scope-tile__number">01</span><h3>Planning</h3><p>Review the scope, site conditions and drawings.</p></article><article class="scope-tile"><span class="scope-tile__number">02</span><h3>Construction</h3><p>Coordinate trades, scheduling and inspections.</p></article><article class="scope-tile"><span class="scope-tile__number">03</span><h3>Completion</h3><p>Review final details and handover requirements.</p></article></div>
+        <div class="scope-grid" data-reveal><article class="scope-tile"><span class="scope-tile__icon">{{ icon("plan") | safe }}</span><h3>Planning</h3><p>Review the scope, site conditions and drawings.</p></article><article class="scope-tile"><span class="scope-tile__icon">{{ icon("build") | safe }}</span><h3>Construction</h3><p>Coordinate trades, scheduling and inspections.</p></article><article class="scope-tile"><span class="scope-tile__icon">{{ icon("done") | safe }}</span><h3>Completion</h3><p>Review final details and handover requirements.</p></article></div>
       </div>
     </section>
 
@@ -195,6 +196,8 @@ breadcrumbName: "Custom Homes"
   </div>
 </section>
 
+
+{% include "related-services.njk" %}
 
     <!-- ============================ CTA ============================ -->
     <section class="section adu svc-cta">

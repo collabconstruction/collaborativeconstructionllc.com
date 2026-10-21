@@ -15,6 +15,7 @@ shareImageHeight: 837
 shareImageAlt: "A Collaborative Construction project under management"
 schemaName: "Construction Management"
 ---
+{% from "icons.njk" import icon %}
 
 <div class="service-page service-page--advisory">
     <!-- ============================ HERO ============================ -->
@@ -30,7 +31,7 @@ schemaName: "Construction Management"
     <section class="section advisory-intro service-introduction">
       <div class="container">
         <div class="section-head center" data-reveal><h2>Choose the support you need</h2></div>
-        <div class="scope-grid" data-reveal><article class="scope-tile"><span class="scope-tile__number">01</span><h3>Owner’s project management</h3><p>Coordination and reporting across the project.</p></article><article class="scope-tile"><span class="scope-tile__number">02</span><h3>Clerk of the Works</h3><p>On-site observation of quality and progress.</p></article><article class="scope-tile"><span class="scope-tile__number">03</span><h3>Focused advisory</h3><p>Review specific bids, schedules or project decisions.</p></article></div>
+        <div class="scope-grid" data-reveal><article class="scope-tile"><span class="scope-tile__icon">{{ icon("advisory") | safe }}</span><h3>Owner’s project management</h3><p>Coordination and reporting across the project.</p></article><article class="scope-tile"><span class="scope-tile__icon">{{ icon("clerk") | safe }}</span><h3>Clerk of the Works</h3><p>On-site observation of quality and progress.</p></article><article class="scope-tile"><span class="scope-tile__icon">{{ icon("review") | safe }}</span><h3>Focused advisory</h3><p>Review specific bids, schedules or project decisions.</p></article></div>
       </div>
     </section>
 
@@ -218,6 +219,8 @@ schemaName: "Construction Management"
 
 
     <!-- ============================ CTA BAND ============================ -->
+{% include "related-services.njk" %}
+
     <section class="section adu svc-cta">
       <div class="container" data-reveal>
         <h2 data-reveal-words>Let's talk about your project</h2>

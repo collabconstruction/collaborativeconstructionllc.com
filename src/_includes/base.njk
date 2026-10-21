@@ -1,3 +1,4 @@
+{% from "icons.njk" import icon %}
 {#
   The single page shell. Previously this markup was copy-pasted across four
   HTML files, which is how the head blocks and JSON-LD started to drift.
@@ -149,7 +150,7 @@
             </button>
             <div class="nav-group__panel" id="nav-services">
               {%- for sub in item.dropdown %}
-              <a href="{{ sub.url }}"{% if sub.url == canonical %} class="active" aria-current="page"{% endif %}>{{ sub.label }}</a>
+              <a href="{{ sub.url }}"{% if sub.url == canonical %} class="active" aria-current="page"{% endif %}>{% if sub.icon %}<span class="nav-ico">{{ icon(sub.icon) | safe }}</span>{% endif %}<span>{{ sub.label }}</span></a>
               {%- endfor %}
             </div>
           </div>

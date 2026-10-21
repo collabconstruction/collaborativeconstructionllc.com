@@ -16,6 +16,7 @@ shareImageAlt: "Cedar-clad modern residence in Belmont, Massachusetts"
 schemaName: "Home Renovati"
 breadcrumbName: "Home Renovation"
 ---
+{% from "icons.njk" import icon %}
 
 <div class="service-page service-page--renovation">
     <!-- ============================ HERO ============================ -->
@@ -31,7 +32,7 @@ breadcrumbName: "Home Renovation"
     <section class="section advisory-intro service-introduction">
       <div class="container">
         <div class="section-head center" data-reveal><h2>Make your home work better</h2></div>
-        <div class="scope-grid" data-reveal><article class="scope-tile"><span class="scope-tile__number">01</span><h3>Kitchens</h3><p>Cabinetry, layout and finishes, coordinated start to finish.</p></article><article class="scope-tile"><span class="scope-tile__number">02</span><h3>Bathrooms</h3><p>Plumbing, tile, fixtures and everything in between.</p></article><article class="scope-tile"><span class="scope-tile__number">03</span><h3>Whole homes</h3><p>Structural, mechanical and finish work, planned as one project.</p></article></div>
+        <div class="scope-grid" data-reveal><article class="scope-tile"><span class="scope-tile__icon">{{ icon("kitchen") | safe }}</span><h3>Kitchens</h3><p>Cabinetry, layout and finishes, coordinated start to finish.</p></article><article class="scope-tile"><span class="scope-tile__icon">{{ icon("bath") | safe }}</span><h3>Bathrooms</h3><p>Plumbing, tile, fixtures and everything in between.</p></article><article class="scope-tile"><span class="scope-tile__icon">{{ icon("custom") | safe }}</span><h3>Whole homes</h3><p>Structural, mechanical and finish work, planned as one project.</p></article></div>
       </div>
     </section>
 
@@ -136,6 +137,8 @@ breadcrumbName: "Home Renovation"
   </div>
 </section>
 
+
+{% include "related-services.njk" %}
 
     <!-- ============================ CTA ============================ -->
     <section class="section adu svc-cta">

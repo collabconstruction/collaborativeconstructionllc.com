@@ -17,32 +17,38 @@
         {
           "url": "/general-contractor-falmouth-ma/",
           "label": "General Contracting",
-          "summary": "General contracting in Falmouth and across Cape Cod"
+          "summary": "General contracting in Falmouth and across Cape Cod",
+          "icon": "general"
         },
         {
           "url": "/home-additions-cape-cod/",
           "label": "Home Additions",
-          "summary": "Home additions, from planning and permitting through construction"
+          "summary": "Home additions, from planning and permitting through construction",
+          "icon": "additions"
         },
         {
           "url": "/adu-builder-cape-cod/",
           "label": "ADU Construction",
-          "summary": "Detached and attached accessory dwelling units"
+          "summary": "Detached and attached accessory dwelling units",
+          "icon": "adu"
         },
         {
           "url": "/home-renovation-cape-cod/",
           "label": "Home Renovation",
-          "summary": "Kitchen and bath remodeling, whole-home renovations, interior updates"
+          "summary": "Kitchen and bath remodeling, whole-home renovations, interior updates",
+          "icon": "renovation"
         },
         {
           "url": "/custom-home-builder-cape-cod/",
           "label": "Custom Homes",
-          "summary": "Custom home construction from concept to completion"
+          "summary": "Custom home construction from concept to completion",
+          "icon": "custom"
         },
         {
           "url": "/construction-advisory/",
           "label": "Construction Advisory",
-          "summary": "Owner's project management, Clerk of the Works oversight, and construction advisory"
+          "summary": "Owner's project management, Clerk of the Works oversight, and construction advisory",
+          "icon": "advisory"
         }
       ]
     },

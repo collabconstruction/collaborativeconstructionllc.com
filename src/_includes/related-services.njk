@@ -1,0 +1,10 @@
+{% from "icons.njk" import icon %}
+<section class="related-services" aria-label="Other services">
+  <div class="container">
+    <ul class="related-services__list">
+      {%- for sub in nav.items[1].dropdown %}{% if sub.url != canonical %}
+      <li><a href="{{ sub.url }}"><span class="related-services__ico">{{ icon(sub.icon) | safe }}</span><span>{{ sub.label }}</span></a></li>
+      {%- endif %}{% endfor %}
+    </ul>
+  </div>
+</section>
