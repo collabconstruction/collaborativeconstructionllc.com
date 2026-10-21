@@ -4295,10 +4295,10 @@ body { max-width: var(--page-max); margin-inline: auto; }
   opacity: calc(1 * var(--swirl-strength) * 1.4);
 }
 
-/* Page headers. Each header shows two images, one left of the title and one
-   right of it, both smaller than the header and fully inside it. Three masks
-   work together: the edges fade (so nothing is cut off by the header border),
-   and a clear window in the middle keeps the title and subtitle clean. */
+/* Page headers. One image, centred behind the title (it used to be two, one far
+   left and one far right). It is smaller than the header and fades on every
+   side, so nothing is cut by the header border. Strength comes from
+   --swirl-strength, so it stays a quiet background behind the text. */
 .about-page-hero::before {
   inset: 0;
   width: 100%;
@@ -4308,23 +4308,17 @@ body { max-width: var(--page-max); margin-inline: auto; }
   border: 0;
   border-radius: 0;
   background-repeat: no-repeat;
-  background-size: auto 78%, auto 78%;
-  background-position: 16% 50%, 84% 50%;
+  background-size: auto 92%;
+  background-position: center;
   mix-blend-mode: screen;
   opacity: calc(1 * var(--swirl-strength));
   filter: brightness(1.3) saturate(1.2);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%),
-    radial-gradient(ellipse 40% 80% at 50% 54%, transparent 52%, #000 100%);
-  -webkit-mask-composite: source-in, source-in;
-  mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%),
-    radial-gradient(ellipse 40% 80% at 50% 54%, transparent 52%, #000 100%);
-  mask-composite: intersect, intersect;
+  -webkit-mask-image: radial-gradient(ellipse 46% 52% at 50% 50%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse 46% 52% at 50% 50%, #000 35%, transparent 100%);
 }
-.service-page .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'), url('../assets/img/swirls/on-navy/gold-crossing-curves.png'); }
-.page-main:has(.company-overview) .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'), url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'); }
-.page-main:has(.project-gallery) .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp'), url('../assets/img/swirls/on-navy/gold-crossing-curves.png'); }
+.service-page .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'); }
+.page-main:has(.company-overview) .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'); }
+.page-main:has(.project-gallery) .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp'); }
 
 /* About backdrop: one soft picture, centred and smaller, fading on every side. */
 .page-main:has(.company-overview) { position: relative; isolation: isolate; }
@@ -4521,3 +4515,20 @@ body { max-width: var(--page-max); margin-inline: auto; }
   .contact-info { padding-block: 10px; }
 }
 .process-section::after { display: none; }
+
+/* ADU page: the small-print paragraph under the planning checklist ("This
+   checklist flags what to verify...") is removed at the owner's request. The
+   live page is not built from this template, so the paragraph is also hidden
+   here. It is the only paragraph with this inline style on any page. */
+.advisory-lede[style*="margin-top:24px"] { display: none; }
+
+/* Home: the heading above the "Additions and accessory dwelling units" box is
+   centred over it. */
+#adu .adu-main > div:first-child > .eyebrow { display: flex; justify-content: center; text-align: center; }
+#adu .adu-main > div:first-child > h2 { text-align: center; margin-inline: auto; }
+#adu .adu-main > div:first-child > h2 { max-width: 20ch; }
+
+/* Projects page: the "Project photography shown for reference" note is removed
+   (and hidden here, because the live page is not built from the template). The
+   filters and cards move up to fill the space. */
+.project-gallery .gallery-note { display: none; }
