@@ -17,7 +17,14 @@
 
 1. Open the Worker in the dashboard, Settings, Domains and Routes. See if the workers.dev address is on.
 2. Open the workers.dev address and see what it shows. Look for the owner name.
-3. If nothing needs it, turn it off there. Or set `"workers_dev": false` in `wrangler.jsonc` and deploy. That is a deploy, so it needs the owner's approval.
+3. If nothing needs it, turn it off. Turning it off only in the dashboard may not last: every `wrangler deploy` prints the workers.dev address, which shows it is set again by the deploy. To make it stick, add `"workers_dev": false` to `wrangler.jsonc`, then deploy. That is a config change and a deploy, so it needs the owner's approval. Not done yet.
+   Note from the independent review, October 21, 2026: the same advice. The workers.dev subdomain also contains the account name `wesleighb`, which is why it is worth turning off.
 4. Check that the custom domain still serves the site after.
 
 I changed neither setting.
+
+## Status, October 21, 2026
+
+- The independent reviewer reproduced the `www` HTTP 522 from outside. That confirms the host needs attention. The cause (DNS or routing) still needs the Cloudflare dashboard.
+- Proposed fix, both steps in the dashboard: a proxied `www` DNS record, then a 301 Redirect Rule to `https://collaborativeconstructionllc.com` that keeps the path and query string.
+- Nothing has been changed.
