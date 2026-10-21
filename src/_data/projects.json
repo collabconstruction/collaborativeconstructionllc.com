@@ -35,6 +35,7 @@
   "items": [
     {
       "title": "Custom Residence",
+      "type": "custom-homes",
       "category": "Residential",
       "location": "Belmont, MA",
       "shows": "Exterior and site, living room, hallway, bath, and stair.",
@@ -93,6 +94,7 @@
     },
     {
       "title": "Commercial Dispensary",
+      "type": "commercial",
       "category": "Commercial",
       "location": "Dudley, MA",
       "shows": "Retail floor, lobby, and express pick-up.",
@@ -116,6 +118,7 @@
     },
     {
       "title": "Residential Exterior",
+      "type": "exteriors",
       "category": "Residential",
       "location": "Falmouth, MA",
       "shows": "Front and side exteriors, entry walkway, deck, and gazebo.",
@@ -160,6 +163,7 @@
     },
     {
       "title": "Modern Custom Residence",
+      "type": "custom-homes",
       "category": "Residential",
       "location": "Carlisle, MA",
       "shows": "Exterior, skylit hallway, kitchens, living area, pool deck, and bath.",
@@ -225,6 +229,7 @@
     },
     {
       "title": "Lovell Dormitory",
+      "type": "commercial",
       "category": "Commercial",
       "location": "Rockland, MA",
       "shows": "Front and rear elevations, café and dining commons, recreation room.",
@@ -269,6 +274,7 @@
     },
     {
       "title": "CubeSmart Self Storage",
+      "type": "commercial",
       "category": "Commercial",
       "location": "Hingham, MA",
       "shows": "Street-front exterior, storage corridors, and leasing office.",
@@ -299,27 +305,28 @@
     },
     {
       "title": "Deck and Railings",
+      "type": "decks-and-railings",
       "category": "Residential",
       "location": "New Seabury, MA",
       "shows": "",
       "images": [
         {
           "src": "/assets/img/new-seabury-deck-1.jpg",
-          "alt": "Deck and black railings beside the shingled home in New Seabury, MA",
+          "alt": "Deck and black railings beside the shingled home",
           "w": 640,
           "h": 480,
           "widths": [160, 480, 640]
         },
         {
           "src": "/assets/img/new-seabury-deck-2.jpg",
-          "alt": "Deck steps and railing details in New Seabury, MA",
+          "alt": "Deck steps and railing details",
           "w": 640,
           "h": 480,
           "widths": [160, 480, 640]
         },
         {
           "src": "/assets/img/new-seabury-deck-5.jpg",
-          "alt": "Deck lighting after dark in New Seabury, MA",
+          "alt": "Deck lighting after dark",
           "w": 480,
           "h": 640,
           "widths": [160, 480]
@@ -329,20 +336,21 @@
     },
     {
       "title": "Porches and Upper Balcony",
+      "type": "porches-and-balconies",
       "category": "Residential",
       "location": "Monomoscoy Island, MA",
       "shows": "",
       "images": [
         {
           "src": "/assets/img/monomoscoy-porches-3.jpg",
-          "alt": "Porch exterior and upper railing in Monomoscoy Island, MA",
+          "alt": "Porch exterior and upper railing",
           "w": 2048,
           "h": 1536,
           "widths": [160, 480, 768, 1024, 1440, 1920, 2048]
         },
         {
           "src": "/assets/img/monomoscoy-porches-2.jpg",
-          "alt": "Covered porch across the front of the home in Monomoscoy Island, MA",
+          "alt": "Covered porch across the front of the home",
           "w": 640,
           "h": 480,
           "widths": [160, 480, 640]

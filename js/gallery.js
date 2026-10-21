@@ -1,95 +1,61 @@
-/* Gallery: view switching and quiet auto cycling. No libraries.
-   Without JavaScript every view is shown and each slot shows its first photo. */
+/* Projects page: two plain arrows per project so visitors can click through the photos.
+   No automatic changes and no animation beyond a short fade. No libraries.
+   Without JavaScript the arrows stay hidden and each project shows its first photo. */
 (function () {
   "use strict";
   const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
-  const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const tabs = $$("[data-gallery-tab]");
-  const views = $$("[data-gallery-view]");
-  if (!tabs.length || !views.length) return;
-  const names = views.map((v) => v.dataset.galleryView);
+  $$(".gallery-media").forEach((media) => {
+    const frames = $$(".gallery-frame", media);
+    const prev = media.querySelector(".gallery-arrow--prev");
+    const next = media.querySelector(".gallery-arrow--next");
+    const status = media.querySelector('[role="status"]');
+    if (frames.length < 2 || !prev || !next) return;
 
-  function show(name, push) {
-    if (!names.includes(name)) name = "all";
-    views.forEach((v) => { v.hidden = v.dataset.galleryView !== name; });
-    tabs.forEach((t) => {
-      if (t.dataset.galleryTab === name) t.setAttribute("aria-current", "true");
-      else t.removeAttribute("aria-current");
-    });
-    if (push) {
-      try { history.replaceState(null, "", "#" + name); } catch (_) { /* ignore */ }
+    let idx = 0;
+    prev.hidden = false;
+    next.hidden = false;
+    frames.forEach((f, i) => f.setAttribute("aria-hidden", i === 0 ? "false" : "true"));
+
+    // Photos after the first load lazily. Start loading them when the project is near the screen,
+    // so a click finds the next photo ready.
+    function loadAll() {
+      frames.forEach((f) => { const img = f.querySelector("img"); if (img) img.loading = "eager"; });
     }
-    // Slots in hidden views are paused by the observer, so nothing else to do here.
-    window.dispatchEvent(new Event("scroll"));
-  }
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { loadAll(); io.disconnect(); }
+      }, { rootMargin: "400px 0px" });
+      io.observe(media);
+    } else {
+      loadAll();
+    }
 
-  tabs.forEach((t) => t.addEventListener("click", (e) => {
-    e.preventDefault();
-    show(t.dataset.galleryTab, true);
-  }));
-  window.addEventListener("hashchange", () => show(location.hash.slice(1), false));
-  show(location.hash.slice(1) || "all", false);
+    function go(to) {
+      to = (to + frames.length) % frames.length;
+      if (to === idx) return;
+      const img = frames[to].querySelector("img");
+      const apply = () => {
+        frames[idx].classList.remove("is-live");
+        frames[idx].setAttribute("aria-hidden", "true");
+        idx = to;
+        frames[idx].classList.add("is-live");
+        frames[idx].setAttribute("aria-hidden", "false");
+        if (status) status.textContent = "Photo " + (idx + 1) + " of " + frames.length;
+      };
+      if (img && !(img.complete && img.naturalWidth > 0)) {
+        img.loading = "eager";
+        img.addEventListener("load", apply, { once: true }); // switch when the photo has arrived, never to a blank frame
+      } else {
+        apply();
+      }
+    }
 
-  /* Cycling. Each slot holds stacked frames; one is `is-live`. A slot only runs while it is on
-     screen, in the active view and the tab is visible. Starts are staggered by data-interval. */
-  if (reduced || !("IntersectionObserver" in window)) return;
-
-  const slots = $$("[data-cycle]").map((el) => {
-    const frames = $$(".gallery-frame", el);
-    const dots = el.parentElement ? $$(".gallery-band__dots i", el.parentElement) : [];
-    return { el, frames, dots, idx: 0, timer: null, visible: false, interval: Number(el.dataset.interval) || 6000 };
-  }).filter((s) => s.frames.length > 1);
-
-  // Load every frame of a slot as soon as it first comes on screen, and never fade to a photo that
-  // has not finished loading (that would flash the dark background).
-  function preload(s) {
-    if (s.preloaded) return;
-    s.preloaded = true;
-    s.frames.forEach((f) => { const img = f.querySelector("img"); if (img) img.loading = "eager"; });
-  }
-  function ready(frame) {
-    const img = frame.querySelector("img");
-    return !img || (img.complete && img.naturalWidth > 0);
-  }
-
-  function step(s) {
-    const next = (s.idx + 1) % s.frames.length;
-    if (!ready(s.frames[next])) return; // try again on the next tick
-    s.frames[s.idx].classList.remove("is-live");
-    if (s.dots[s.idx]) s.dots[s.idx].classList.remove("is-live");
-    s.idx = next;
-    s.frames[s.idx].classList.add("is-live");
-    if (s.dots[s.idx]) s.dots[s.idx].classList.add("is-live");
-  }
-  function inActiveView(s) { const v = s.el.closest("[data-gallery-view]"); return !v || !v.hidden; }
-  function sync(s) {
-    const run = s.visible && !s.held && !document.hidden && inActiveView(s);
-    if (run && !s.timer) s.timer = setInterval(() => step(s), s.interval);
-    else if (!run && s.timer) { clearInterval(s.timer); s.timer = null; }
-  }
-
-  // Pause while a visitor hovers or tabs into a slot, so they can look as long as they like.
-  slots.forEach((s) => {
-    const hold = () => { s.held = true; sync(s); };
-    const free = () => { s.held = false; sync(s); };
-    s.el.addEventListener("mouseenter", hold);
-    s.el.addEventListener("mouseleave", free);
-    s.el.addEventListener("focusin", hold);
-    s.el.addEventListener("focusout", free);
-  });
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((en) => {
-      const s = slots.find((x) => x.el === en.target);
-      if (!s) return;
-      s.visible = en.isIntersecting;
-      if (s.visible) preload(s);
-      sync(s);
+    prev.addEventListener("click", () => go(idx - 1));
+    next.addEventListener("click", () => go(idx + 1));
+    media.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") { e.preventDefault(); go(idx - 1); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); go(idx + 1); }
     });
-  }, { threshold: 0.25 });
-  slots.forEach((s) => io.observe(s.el));
-  document.addEventListener("visibilitychange", () => slots.forEach(sync));
-  window.addEventListener("hashchange", () => setTimeout(() => slots.forEach(sync), 0));
-  tabs.forEach((t) => t.addEventListener("click", () => setTimeout(() => slots.forEach(sync), 0)));
+  });
 })();

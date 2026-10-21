@@ -64,3 +64,9 @@ Scope: all nine public pages (home, About, Construction Management, ADU, Home Ad
 | CSL number | Footer shows it only when supplied | `business.cslNumber` is `null` | Owner to supply from ContractorHub |
 
 Still needs owner confirmation: CSL active status and number; whether an HIC registration exists; "held since 2000"; the degree and school wording. Nothing here was verified against public records by Claude and no number was invented. The bold only emphasizes claims that were already on the site; removing it for any claim is a one line change.
+
+## Projects page (renamed from Gallery, one page)
+- The page heading, browser title, breadcrumb and structured data name now say **Projects**, matching the menu. The address stays `/gallery/` so no link or search result breaks.
+- One page, no tabs. Projects are grouped by type: Custom homes, Kitchen remodels, Bath remodels, Pool projects, Exteriors, Decks and railings, Porches and balconies, then **Commercial projects last**. A type with no projects is skipped, so Kitchen, Bath and Pool sections appear as soon as projects of that type are added to `src/_data/projects.json` (field `type`).
+- No town names anywhere on the page, including photo descriptions.
+- Each project has two plain arrows to click through its photos. Nothing changes by itself and the only motion is a quarter second fade.
