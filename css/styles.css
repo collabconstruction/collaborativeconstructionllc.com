@@ -862,9 +862,8 @@ html.enter-left .page-main {
    overrides it rather than depending on being the later rule. */
 .nav-group__panel a.active {
   color: var(--navy-400);
-  text-decoration: underline;
-  text-decoration-color: var(--navy-400);
-  text-underline-offset: 3px;
+  font-weight: 700;
+  text-decoration: none;
 }
 
 /* Header CTA cluster: a button plus a tap-to-call icon, not one element. */
@@ -3956,7 +3955,7 @@ figure {
 .house-range-label { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; font-size: .65rem; margin-top: 16px; color: var(--ink-muted); }
 .house-range-label input { flex: 1; min-width: 100px; width: auto; height: 20px; padding: 0; accent-color: var(--navy); }
 .house-utilities { display: flex; justify-content: space-between; margin-top: 10px; }
-.house-utilities button { background: none; border: 0; padding: 6px 0; font: .65rem var(--font-ui); color: var(--ink-muted); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+.house-utilities button { background: none; border: 0; padding: 6px 0; font: .65rem var(--font-ui); color: var(--ink-muted); cursor: pointer; text-decoration: none; font-weight: 600; }
 .house-copy { padding-top: 28px; }
 .house-copy h2 { font-size: clamp(2.3rem,4vw,3.6rem); max-width: 13ch; line-height: 1.06; margin: 16px 0 22px; }
 .house-copy > p { max-width: 42ch; }
@@ -4591,13 +4590,10 @@ html { background: var(--bg); }
   font-family: var(--font-display, inherit); font-size: clamp(1.1rem, 1.7vw, 1.4rem); line-height: 1.45; color: var(--navy);
 }
 
-/* Key facts stand out. Bold with a thin brass underline on light sections, white on navy. */
+/* Key facts stand out: bold, navy on light sections and white on navy. Nothing on the site is underlined. */
 strong {
-  font-weight: 650;
-  text-decoration: underline;
-  text-decoration-color: var(--brass);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
+  font-weight: 700;
+  text-decoration: none;
 }
 .about-page-hero strong, .hero strong, .svc-cta strong, .adu strong, .contact strong, .hero__lede strong {
   color: #fff;
@@ -4634,3 +4630,52 @@ strong {
   mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
 }
 .page-main:has(.project-gallery) .about-page-hero .hero-lede { color: #eef2fa; }
+
+/* Projects page: everything responds. Tabs lift and fill, cards rise and glow brass,
+   photos zoom slowly, arrows and dots grow. Motion is switched off for people who ask for less. */
+.project-filters button {
+  position: relative; font-weight: 600; letter-spacing: .02em;
+  transition: transform .22s var(--ease-out, ease), background-color .22s ease, color .22s ease, border-color .22s ease, box-shadow .22s ease;
+}
+.project-filters button:hover {
+  transform: translateY(-3px); border-color: var(--brass); color: var(--navy);
+  box-shadow: 0 10px 22px rgba(18, 29, 51, .16);
+}
+.project-filters button:active { transform: translateY(0) scale(.97); box-shadow: none; }
+.project-filters button[aria-pressed="true"] {
+  background: var(--navy); border-color: var(--brass); color: #fff;
+  box-shadow: 0 10px 24px rgba(18, 29, 51, .28), 0 0 0 2px var(--brass);
+}
+.project-filters button[aria-pressed="true"]:hover { color: #fff; transform: translateY(-3px); }
+
+.project-gallery .project {
+  transition: transform .35s var(--ease-out, ease), box-shadow .35s ease, border-color .35s ease;
+}
+.project-gallery .project:hover, .project-gallery .project:focus-within {
+  transform: translateY(-6px);
+  border-color: var(--brass);
+  box-shadow: 0 22px 44px rgba(18, 29, 51, .22), 0 0 0 1px var(--brass);
+}
+.project-gallery .project-head h2 { transition: color .25s ease; }
+.project-gallery .project:hover .project-head h2 { color: var(--navy-600, var(--navy)); }
+.project-gallery .tag { transition: transform .22s ease, background-color .22s ease, color .22s ease; }
+.project-gallery .project:hover .tag--cat { background: var(--brass); color: var(--navy); }
+.project-gallery .carousel__slide img { transition: transform 1.2s var(--ease-out, ease); }
+.project-gallery .project:hover .carousel__slide img { transform: scale(1.045); }
+.project-gallery .carousel { overflow: hidden; }
+.project-gallery .carousel__btn { transition: transform .2s ease, background-color .2s ease, box-shadow .2s ease; }
+.project-gallery .carousel__btn:hover { transform: scale(1.14); box-shadow: 0 0 0 4px rgba(189, 161, 106, .55); }
+.project-gallery .carousel__btn:active { transform: scale(.94); }
+.project-gallery .carousel__dots .dot { transition: transform .2s ease, background-color .2s ease; }
+.project-gallery .carousel__dots .dot:hover { transform: scale(1.5); }
+@media (prefers-reduced-motion: reduce) {
+  .project-filters button, .project-gallery .project, .project-gallery .carousel__slide img,
+  .project-gallery .carousel__btn, .project-gallery .carousel__dots .dot { transition: none; }
+  .project-filters button:hover, .project-gallery .project:hover, .project-gallery .carousel__btn:hover,
+  .project-gallery .project:hover .carousel__slide img { transform: none; }
+}
+
+/* No underlines anywhere. Links inside text are marked by weight and colour instead. */
+a { text-decoration: none; }
+p a:not(.btn), li a:not(.btn), dd a:not(.btn) { font-weight: 650; }
+p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--brass-700); }
