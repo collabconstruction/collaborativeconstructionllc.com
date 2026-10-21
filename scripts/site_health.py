@@ -3,9 +3,17 @@
 
 Each check returns a dict with a `status` of ok, degraded or failed:
   ok        behaves as designed
-  degraded  worth a warning, the site is still serving (www redirect broken, rate limited,
-            an optional asset missing, a slow page)
-  failed    the site itself is not serving (apex page down, wrong content type)
+  degraded  worth a warning, the site is still serving (a rate limit, an optional asset
+            missing, a slow page, or a www redirect that works but isn't quite right —
+            e.g. a temporary 302 instead of 301, or a correct status with the wrong
+            Location)
+  failed    the thing being checked is not doing its job at all (apex page down, wrong
+            content type, or www not redirecting anywhere — no response, a 5xx/522, a 4xx,
+            or www serving the page directly instead of redirecting). www.collaborativeconstructionllc.com
+            returning 522 was exactly the production incident this monitor was extended to
+            catch (docs/releases/2026-10-21-cloudflare-www-redirect-rule.md); if it
+            regresses, that is a real outage for anyone who reaches the site via www, not a
+            cosmetic nitpick, so it fails the job like any other page being down.
 Only `failed` makes the monitor exit non-zero. Degraded results are in the report and in
 the GitHub step summary so they cannot hide behind a green run.
 """
@@ -113,12 +121,20 @@ def check_file(path, fetcher=fetch, base=APEX, required=True):
 
 
 def check_www(path="/about/", query="?monitor=1", fetcher=fetch):
-    """www must answer with one permanent redirect to the same path and query on the apex."""
+    """www must answer with one permanent redirect to the same path and query on the apex.
+
+    Genuine breakage (no redirect happening at all) fails the job: no response, a 5xx/522,
+    any other unexpected status, or www serving the page directly instead of redirecting.
+    A redirect that exists but isn't quite right (wrong Location, or a 302/303/307 instead
+    of a permanent 301/308) is degraded, not failed — www is still routing people to the
+    right page, just not optimally. A 429 is treated as a transient rate limit, not a site
+    fault, and is also degraded.
+    """
     url = WWW + path + query
     r = fetcher(url, "GET", False)
     expected = APEX + path + query
     if r.error or r.status is None:
-        return _result("www redirect", url, "degraded", "www did not answer (timeout or connection error)", r)
+        return _result("www redirect", url, "failed", "www did not answer (timeout or connection error)", r)
     if r.status in (301, 308):
         loc = r.headers.get("location", "")
         if loc == expected:
@@ -127,10 +143,10 @@ def check_www(path="/about/", query="?monitor=1", fetcher=fetch):
     if r.status in (302, 303, 307):
         return _result("www redirect", url, "degraded", f"temporary redirect {r.status}, expected a permanent 301", r, location=r.headers.get("location", ""))
     if r.status == 200:
-        return _result("www redirect", url, "degraded", "www serves the site instead of redirecting (duplicate content)", r)
+        return _result("www redirect", url, "failed", "www serves the site instead of redirecting (the redirect rule is not in effect)", r)
     if r.status == 429:
         return _result("www redirect", url, "degraded", "rate limited (429), could not check", r)
-    return _result("www redirect", url, "degraded", f"HTTP {r.status} on www (522 means Cloudflare cannot reach an origin for this name)", r)
+    return _result("www redirect", url, "failed", f"HTTP {r.status} on www (522 means Cloudflare cannot reach an origin for this name — the original incident this check was added for)", r)
 
 
 def check_contact_endpoint(fetcher=fetch):

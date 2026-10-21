@@ -49,24 +49,34 @@ class WwwTests(unittest.TestCase):
         r = sh.check_www(fetcher=fake({self.url: resp(301, {'Location': self.good}, '')}))
         self.assertEqual(r['status'], 'ok')
 
-    def test_522_is_degraded_and_says_why(self):
+    def test_522_fails_the_check_not_just_degraded(self):
+        """This is the exact original production incident (docs/releases/2026-10-21-
+        cloudflare-www-redirect-rule.md): www not redirecting at all must fail the job,
+        not just warn, since it means real visitors get nothing."""
         r = sh.check_www(fetcher=fake({self.url: resp(522, {}, '')}))
-        self.assertEqual(r['status'], 'degraded')
+        self.assertEqual(r['status'], 'failed')
         self.assertIn('522', r['note'])
 
-    def test_redirect_that_drops_the_query_is_degraded(self):
+    def test_redirect_that_drops_the_query_is_degraded_not_failed(self):
+        """The redirect exists and sends visitors to the right page, just not perfectly —
+        worth a warning, not worth failing the job over."""
         r = sh.check_www(fetcher=fake({self.url: resp(301, {'Location': sh.APEX + '/about/'}, '')}))
         self.assertEqual(r['status'], 'degraded')
 
-    def test_temporary_redirect_is_degraded(self):
+    def test_temporary_redirect_is_degraded_not_failed(self):
         r = sh.check_www(fetcher=fake({self.url: resp(302, {'Location': self.good}, '')}))
         self.assertEqual(r['status'], 'degraded')
 
-    def test_www_serving_the_site_is_degraded(self):
-        self.assertEqual(sh.check_www(fetcher=fake({self.url: resp(200)}))['status'], 'degraded')
+    def test_www_serving_the_site_instead_of_redirecting_fails_the_check(self):
+        """No redirect is happening at all — functionally the same regression as the 522,
+        just a different symptom, so it fails rather than degrades."""
+        self.assertEqual(sh.check_www(fetcher=fake({self.url: resp(200)}))['status'], 'failed')
 
-    def test_timeout_is_degraded(self):
-        self.assertEqual(sh.check_www(fetcher=fake({self.url: resp(None, error='timed out')}))['status'], 'degraded')
+    def test_timeout_fails_the_check(self):
+        self.assertEqual(sh.check_www(fetcher=fake({self.url: resp(None, error='timed out')}))['status'], 'failed')
+
+    def test_rate_limited_429_is_degraded_not_failed(self):
+        self.assertEqual(sh.check_www(fetcher=fake({self.url: resp(429, {}, '')}))['status'], 'degraded')
 
 
 class ContactEndpointTests(unittest.TestCase):
@@ -106,9 +116,18 @@ class RunTests(unittest.TestCase):
         self.assertEqual(sh.overall(results), 'ok')
         self.assertEqual(len(results), len(sh.PAGES) + len(sh.FILES) + len(sh.ASSETS) + 2)
 
-    def test_www_522_alone_is_degraded_so_the_job_stays_up_but_the_report_says_so(self):
+    def test_www_522_alone_fails_the_job_and_raises_a_clearly_visible_alert(self):
+        """www breaking is now a known, previously-fixed regression, not a nice-to-have —
+        it should fail the workflow and raise a GitHub ::error annotation, not just warn."""
         table = self.healthy()
         table[sh.WWW + '/about/?monitor=1'] = resp(522, {}, '')
+        report = sh.build_report(sh.run_all(fake(table)))
+        self.assertEqual(report['overall'], 'failed')
+        self.assertTrue(any(a.startswith('::error') and 'www' in a for a in sh.github_annotations(report)))
+
+    def test_www_wrong_location_alone_is_degraded_not_failed(self):
+        table = self.healthy()
+        table[sh.WWW + '/about/?monitor=1'] = resp(301, {'Location': sh.APEX + '/about/'}, '')
         report = sh.build_report(sh.run_all(fake(table)))
         self.assertEqual(report['overall'], 'degraded')
         self.assertTrue(any(a.startswith('::warning') and 'www' in a for a in sh.github_annotations(report)))
