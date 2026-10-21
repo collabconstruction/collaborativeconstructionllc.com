@@ -26,6 +26,7 @@ git fetch origin
 git checkout claude/website-design-refinements-qh7d3f
 git pull
 npm ci
+npm run build
 node scripts/build-live-overlay.mjs
 ```
 
@@ -46,9 +47,10 @@ The Worker code in this branch is the same as the live Worker (live already answ
 ```
 curl -s https://collaborativeconstructionllc.com/css/styles.css | grep -c "footer-motto.is-armed"
 curl -s -o /dev/null -w "%{http_code}\n" https://collaborativeconstructionllc.com/assets/img/swirls/glow-ribbons.webp
+curl -s -o /dev/null -w "%{http_code}\n" https://collaborativeconstructionllc.com/assets/img/carlisle-residence-1.jpg
 ```
 
-The first prints a number above 0. The second prints 200. Then open the home page, About and a service page.
+The first prints a number above 0. The second and third print 200. Then open the home page, About and a service page.
 
 ## Undo
 
