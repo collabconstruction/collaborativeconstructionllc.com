@@ -145,7 +145,7 @@ async function main() {
   // Pages and photos this branch changed. The pages come from the repo build (_site), so run
   // `npm run build` first. Each page already carries the current Facebook link.
   {
-    const built = ["index.html", "gallery/index.html", "home-renovation-cape-cod/index.html", "custom-home-builder-cape-cod/index.html", "home-additions-cape-cod/index.html", "adu-builder-cape-cod/index.html"];
+    const built = ["index.html", "about/index.html", "gallery/index.html", "construction-advisory/index.html", "general-contractor-falmouth-ma/index.html", "home-additions-cape-cod/index.html", "adu-builder-cape-cod/index.html", "home-renovation-cape-cod/index.html", "custom-home-builder-cape-cod/index.html", "llms.txt"];
     for (const rel of built) {
       try { await stat(join(ROOT, "_site", rel)); } catch { console.error(`NOT READY: _site/${rel} is missing. Run npm run build first.`); process.exit(1); }
       await cp(join(ROOT, "_site", rel), join(OUT, rel));
@@ -155,7 +155,7 @@ async function main() {
         await cp(join(ROOT, dir, f), join(OUT, dir, f));
       }
     }
-    console.log("Overlaid the changed gallery, service pages and the 4 Carlisle photos.");
+    console.log("Overlaid every page and llms.txt from this branch's build, plus the 4 Carlisle photos.");
   }
 
   // Link replacements applied to the copied live pages (header and footer links and the hidden
