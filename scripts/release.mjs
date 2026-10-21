@@ -156,7 +156,7 @@ export async function liveChecks(site = EXPECTED.site) {
   const results = [];
   const check = (name, pass, detail = "") => results.push({ name, pass, detail });
   const get = async (p, init) => { try { return await fetch(site + p, { redirect: "manual", ...init }); } catch (e) { return { status: 0, headers: new Headers(), text: async () => "", err: e.message }; } };
-  for (const p of PAGES) { const r = await get(p); check(`page ${p}`, r.status === 200, `HTTP ${r.status}`); }
+  for (const p of PAGES) { const r = await get(p); check(`page ${p}`, r.status === 200, r.err ? `no answer: ${r.err}` : `HTTP ${r.status}`); }
   const home = await (await get("/")).text();
   check("home page has Turnstile and honeypot", /cf-turnstile/.test(home) && /data-sitekey=/.test(home) && /honeypot|name="(?:website|company|url|hp)/i.test(home));
   for (const f of ["/css/styles.css", "/js/main.js", "/js/turnstile-lifecycle.js", "/js/intake-context.js", "/js/gallery.js", "/sitemap.xml", "/llms.txt"]) { const r = await get(f); check(`file ${f}`, r.status === 200, `HTTP ${r.status}`); }
@@ -173,6 +173,7 @@ export async function liveChecks(site = EXPECTED.site) {
 }
 
 async function verifyLive(site) {
+  if (!process.env.NODE_USE_ENV_PROXY && (process.env.HTTPS_PROXY || process.env.https_proxy)) say("NOTE: a proxy is set. If every check shows no answer, run with NODE_USE_ENV_PROXY=1.");
   say(`LIVE CHECKS on ${site} (read only; the contact form is never submitted)`);
   const res = await liveChecks(site);
   for (const r of res) say(`  ${r.pass ? "PASS" : "FAIL"}  ${r.name}${r.detail ? " (" + r.detail + ")" : ""}`);

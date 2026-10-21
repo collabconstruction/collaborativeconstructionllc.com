@@ -1,6 +1,6 @@
 # Collaborative Construction company workspace
 
-Read `AGENTS.md` for shared project guidance. For company improvement start with `docs/research/00-INDEX.md`; use `docs/research/08-growth-plan.md` for the work queue and `docs/research/09-agent-pipeline.md` for delegation and handoffs.
+Read `AGENTS.md` for shared project guidance, then `docs/DEPLOY-LIVE.md` before any deployment or release work. Never deploy `_site` directly, never claim a deployment succeeded without checking it, and ask the owner before any production change. For company improvement start with `docs/research/00-INDEX.md`; use `docs/research/08-growth-plan.md` for the work queue and `docs/research/09-agent-pipeline.md` for delegation and handoffs.
 
 Company-specific skills are available in `.claude/skills/` and maintained in `.agents/skills/`. Use the relevant skill instead of loading every source file. The independent Claude review requested October 11, 2026 is pending because the account reached its weekly limit; `docs/research/02-claude-company-review.md` records the attempt and links the prepared prompt. Do not describe that review as completed until it actually runs.
 

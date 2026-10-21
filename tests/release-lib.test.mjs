@@ -146,3 +146,20 @@ test("deploy readiness refuses every unsafe state", () => {
 test("rollback command is printed with the recorded id and never needs a guess", () => {
   assert.equal(rollbackCommand(ID1), `npx wrangler rollback ${ID1} --message "rollback after release"`);
 });
+
+import { readFile } from "node:fs/promises";
+
+test("npm run deploy is guarded: it refuses, and the release commands exist", async () => {
+  const pkg = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
+  assert.match(pkg.scripts.deploy, /process\.exit\(1\)/);
+  assert.doesNotMatch(pkg.scripts.deploy, /wrangler/);
+  for (const k of ["release:prepare", "release:deploy", "release:verify-live", "release:rollback-info", "release:parity"]) assert.ok(pkg.scripts[k], k);
+  assert.match(pkg.scripts["deploy:direct-unsafe"], /wrangler deploy/);
+});
+
+test("agent instructions carry the deployment rules", async () => {
+  const agents = await readFile(new URL("../AGENTS.md", import.meta.url), "utf8");
+  const claude = await readFile(new URL("../CLAUDE.md", import.meta.url), "utf8");
+  for (const needle of ["docs/DEPLOY-LIVE.md", "Never deploy `_site` directly", "pushed", "merged", "deployed", "not logged in to Wrangler", "owner's approval"]) assert.ok(agents.includes(needle), needle);
+  assert.ok(claude.includes("docs/DEPLOY-LIVE.md"));
+});
