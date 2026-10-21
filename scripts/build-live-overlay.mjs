@@ -119,6 +119,24 @@ async function main() {
   }
   if (kept.length) console.log(`Kept ${kept.length} live file(s) that no page links to: ${kept.join(", ")}`);
 
+  // Patch the live home page: swap the hero photos for the Belmont project photos, no caption.
+  // The markup comes from src/_includes/hero-figure.html, the same file the template uses.
+  {
+    const homePath = join(OUT, "index.html");
+    let home = await readFile(homePath, "utf8");
+    const figure = (await readFile(join(ROOT, "src/_includes/hero-figure.html"), "utf8")).trim();
+    const before = home;
+    home = home.replace(/<figure class="hero-figure"[\s\S]*?<\/figure>/, () => figure);
+    home = home.replace(/<link rel="preload" as="image"[^>]*>/, () =>
+      '<link rel="preload" as="image" type="image/webp" imagesrcset="/assets/img/r/belmont-hero-480.webp 480w, /assets/img/r/belmont-hero-768.webp 768w, /assets/img/r/belmont-hero-1024.webp 1024w" imagesizes="(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px" fetchpriority="high">');
+    if (home === before || !home.includes("belmont-hero-1280.webp")) {
+      console.error("NOT READY: could not patch the hero in the live home page (its markup changed).");
+      process.exit(1);
+    }
+    await writeFile(homePath, home);
+    console.log("Patched the home page hero: Belmont photos, no caption.");
+  }
+
   // Overlay the changed files.
   const overlaid = [];
   for (const rel of OVERLAY) {

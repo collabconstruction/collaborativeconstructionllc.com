@@ -4240,20 +4240,13 @@ figure {
 .company-overview__copy .eyebrow { justify-content: center; }
 .company-overview__copy p { margin-inline: auto; max-width: 60ch; }
 
-/* Zoom out: keep the page a centred column ---------------------------------
-   Zoomed out (or on a very wide monitor) the layout used to keep stretching
-   sideways, with the header, hero and footer running edge to edge across the
-   whole screen. The page is now a centred column no wider than --page-max,
-   and anything wider shows a plain dark margin on each side, like a printed
-   page cut off at its edge. Below --page-max nothing changes, so laptops and
-   phones look exactly as before. Change the one number to taste. */
-:root { --page-max: 1600px; }
-html { background: var(--navy-950); }
-body { max-width: var(--page-max); margin-inline: auto; }
-/* Fixed pieces are placed against the window, not against the column, so they
-   are pulled back inside the column on wide screens. */
-.consent-banner { max-width: var(--page-max); margin-inline: auto; }
-.to-top { right: max(clamp(var(--s-4), 3vw, var(--s-6)), calc((100vw - var(--page-max)) / 2 + clamp(var(--s-4), 3vw, var(--s-6)))); }
+/* Wide screens and zoomed out: full width, no side bars --------------------
+   Sections run edge to edge, so their backgrounds fill the screen. Only the
+   content is held in a centred column (.container, capped by --wrap), so text
+   never stretches. The page colour behind everything is the page's own cream,
+   so nothing dark shows at the sides. (An earlier version wrapped the whole
+   page in a fixed 1600px column, which left solid black bars on both sides.) */
+html { background: var(--bg); }
 
 /* ==========================================================================
    Swirl placements and card motion (October 20)

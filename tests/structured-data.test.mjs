@@ -141,13 +141,19 @@ test('the Google Business Profile is present in the business sameAs', () => {
     'the GBP is the strongest local entity signal available and must stay in sameAs');
 });
 
-test('the founder personal LinkedIn is never declared as the business identity', () => {
+test('the founder personal LinkedIn stays on the person, and the company LinkedIn is not the business identity', () => {
   const sameAs = homeBusiness().sameAs;
-  assert.ok(!sameAs.includes(business.social.linkedin),
-    'social.linkedin is a Person URL, already declared on the person node; listing it here tells Google one URL identifies both a Person and a GeneralContractor');
-  // It must still be on the person, i.e. moved rather than deleted.
+  const personal = Object.values(people).flatMap(p => p.sameAs || []).filter(u => u.includes('linkedin.com'));
+  assert.ok(personal.length > 0, 'the founder personal LinkedIn is still recorded in src/_data/people.json');
+  for (const url of personal) {
+    assert.ok(!sameAs.includes(url),
+      'a personal LinkedIn URL is a Person URL; listing it on the business tells Google one URL identifies both a Person and a GeneralContractor');
+  }
+  // As of October 21, 2026 business.social.linkedin is the COMPANY account (the footer link),
+  // so it is no longer the founder's personal profile and must not be declared on the person either.
   const person = render(pages[1])['@graph'].find(n => n['@type'] === 'Person');
-  assert.ok(person.sameAs.includes(business.social.linkedin));
+  assert.ok(!person.sameAs.includes(business.social.linkedin));
+  assert.ok(person.sameAs.some(u => personal.includes(u)));
 });
 
 test('business sameAs URLs are canonical, not share or tracking links', () => {
