@@ -1,0 +1,27 @@
+{
+  "zone_id": "5a7f4b95bbd85c1ec0931a6fdd3e1e6d",
+  "recorded_on": "2026-10-21",
+  "recorded_by": "Cloudflare MCP connection, read-only, after creating the www redirect rule (docs/releases/2026-10-21-cloudflare-www-redirect-rule.md)",
+  "managed_ruleset_ids": [
+    "70339d97bdb34195bbf054b1ebe81f76",
+    "b42644f558d04e41ba6afa4c79b51009",
+    "77454fe2d30c4220b5701f6fdfb893ba",
+    "4d21379b4f9f4bb088e0729962c8b3cf"
+  ],
+  "zone_rulesets": [
+    {
+      "id": "d7977d447080408da25ad377f1249d41",
+      "name": "Redirect rules ruleset",
+      "phase": "http_request_dynamic_redirect",
+      "rules": [
+        {
+          "id": "008b4ff7e3cb4092811556e2e4f5a07a",
+          "ref": "redirect_www_to_apex",
+          "action": "redirect",
+          "expression": "http.host eq \"www.collaborativeconstructionllc.com\"",
+          "enabled": true
+        }
+      ]
+    }
+  ]
+}
