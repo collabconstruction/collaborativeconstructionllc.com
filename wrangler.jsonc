@@ -5,6 +5,12 @@
   // If your Worker is named differently, change this line to match.
   "name": "collaborativeconstructionllc-com",
   "main": "worker/index.js",
+
+  // Turn off the public *.workers.dev address (its subdomain contains the account name).
+  // Turning it off only in the dashboard does not last: a deploy sets it again unless
+  // this is false. Nothing in this repo points at the workers.dev address. Before the next
+  // deploy, check the Cloudflare dashboard (Turnstile hostnames, email, monitors) for any use of it.
+  "workers_dev": false,
   "compatibility_date": "2025-06-01",
 
   // Persist coded errors without request-body/customer-field logging.
