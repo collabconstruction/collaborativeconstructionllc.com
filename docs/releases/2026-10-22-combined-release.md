@@ -8,7 +8,42 @@ Status: prepared. Not deployed. The owner deploys.
 - PR #10: crawl and SEO fixes (robots.txt shipped from the repo, one H1, canonical and og checks, `scripts/seo_audit.py`).
 - PR #11: Gallery with three views, cycling photos, Deck and Railings and Porches and Upper Balcony last.
 
-All three are contained in this branch.
+All three are contained in this branch (checked with `git merge-base --is-ancestor`). This one pull request (#12, to `main`) replaces #6, #10 and #11. Close those three after it merges.
+
+## Branches not in this release
+
+| Branch | Content | Status |
+|---|---|---|
+| `claude/utm-attribution-proposal` (PR #7) | Keep checked UTM tags in GA4 | Not included. Owner decides about sharing the referrer origin. Merge after this release, one at a time. |
+| `claude/privacy-page` | Privacy page draft, built only when published | Not included. Needs the owner's text and retention answers. |
+| `claude/workers-dev-off` | Turns off the public workers.dev address | Not included. Do not deploy until the dashboard is checked. Own release. |
+| `research/chatgpt-2026-10-21` (PR #8) | Research documents | Not included. Documents only. |
+| `claude/autonomy-foundation` (PR #9) | Monitor and autonomy tooling | Not included. Stacked on #8. |
+
+## Safe release sequence
+
+1. **Cloudflare Builds check (owner, first).** Open Cloudflare, Workers and Pages, `collaborativeconstructionllc-com`, Settings, Builds. If a Git repository is connected, disconnect it, or confirm it will not deploy on a push. Reason: merging to `main` must never start an automatic build that replaces the live site without the overlay step.
+2. **Merge PR #12 into `main`** on GitHub (owner). `main` then matches what is about to be deployed. The live site is still the old version.
+3. **Deploy from your Mac** (owner), using the commands below. This is the only step that changes the live site.
+4. **Follow up PRs, one at a time:** UTM, privacy page, workers.dev off. Each gets its own release note and checks.
+
+## Mac commands (copy and paste)
+
+    cd ~/Desktop/Personal/CollaborativeConstruction/collaborativeconstructionllc.com
+    git fetch origin && git checkout main && git pull
+    npx wrangler whoami
+    npx wrangler deployments list
+
+Write down the newest deployment id from the last command. Then:
+
+    npm ci
+    npm run build
+    node scripts/verify-release-build.mjs
+    node scripts/build-live-overlay.mjs
+    npx wrangler deploy --assets _deploy --dry-run
+    npx wrangler deploy --assets _deploy
+
+If `wrangler whoami` says you are not logged in, run `npx wrangler login` first. Then follow "After deploy" and "Rollback" below.
 
 ## What is not included
 
