@@ -1,5 +1,15 @@
 # Collaborative Construction agent entrypoint
 
+## Deployment rules (read before any release or deploy)
+
+1. Read `docs/DEPLOY-LIVE.md` first. It is the single procedure for deploying the public website.
+2. **Never deploy `_site` directly** (no `npm run deploy`, no plain `wrangler deploy`) while the overlay is required. Deploy only the `_deploy` folder built by `scripts/build-live-overlay.mjs`. The owner photo `assets/img/wesleigh-behn.jpg` is excluded from the build and must never be published; do not remove that exclusion.
+3. Keep three states apart and say which one you mean: **pushed** (on a GitHub branch), **merged** (in `main`), **deployed** (live on Cloudflare). Merged does not mean deployed.
+4. **A Claude Cloud session is not logged in to Wrangler or Cloudflare.** It cannot deploy and cannot read Cloudflare. Do not claim Cloudflare facts from it. Use `npm run release:prepare -- --no-cloudflare --allow-branch` there for checks only.
+5. **Never say a deployment succeeded without checking**: the new version id, `npm run release:verify-live`, and the owner seeing the site.
+6. **Production deploys, production DNS, secrets, Access or security settings, the D1 database `cc-leads` and the R2 bucket need the owner's approval every time.** Never run `npm run release:deploy` yourself; it needs the owner's terminal confirmation by design.
+7. Tools: `npm run release:prepare` (no production change), `npm run release:deploy`, `npm run release:verify-live`, `npm run release:rollback-info`, `npm run release:parity`.
+
 ## The correct design (owner confirmed October 20, 2026)
 
 Read this before anything else in this file. Some text further down is out of date.
@@ -12,7 +22,7 @@ Read this before anything else in this file. Some text further down is out of da
 - The public site names no individual. There is no founder in the page text or the structured data, and the owner's name lives only in email signatures. `src/_data/people.json` still holds the founder record but nothing renders it. `assets/img/wesleigh-behn.jpg` is still in the repo but is not served live; do not link it from any page.
 - The safest deploy is still the copy-live-then-overlay method in `docs/DEPLOY-LIVE.md`. A plain repo deploy should now produce the same site, but compare the built pages with the live pages first (`scripts/build-live-overlay.mjs` does this copy).
 - **Social accounts (October 21, 2026):** the official Facebook page is `https://www.facebook.com/profile.php?id=61595651094549` and LinkedIn is `https://www.linkedin.com/in/collaborative-construction-56761b444/`. Facebook id 61593017512930 is a separate older page that uses a personal first name in its email; never link it. Full status, open questions and the rules for working in these accounts are in `docs/social-logo/SOCIAL-STATUS.md`; the next browser-agent prompt is `docs/social-logo/BROWSER-PROMPT-2.md`.
-- Claude has no Cloudflare login, so it cannot deploy. The owner deploys.
+- Claude Cloud has no Cloudflare login, so it cannot deploy. The owner deploys from the Mac with `docs/DEPLOY-LIVE.md`.
 
 
 Read `docs/HANDOFF.md` first for current deployment, Git, and business status. For company growth, research, marketing, sales or operating analysis, continue with `docs/research/00-INDEX.md`, then load only relevant documents and a skill in `.agents/skills/`. `docs/research/09-agent-pipeline.md` defines bounded tasks, shared-file ownership and handoffs.

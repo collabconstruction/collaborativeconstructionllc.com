@@ -10,13 +10,20 @@
     "build": "npm run clean && eleventy",
     "serve": "eleventy --serve",
     "dev": "npm run build && wrangler dev --config wrangler.local.jsonc --local",
-    "deploy": "npm run build && wrangler deploy",
+    "deploy": "node -e \"console.error('Do not deploy _site directly. Use: npm run release:prepare, then npm run release:deploy (see docs/DEPLOY-LIVE.md).'); process.exit(1)\"",
     "test": "node --experimental-vm-modules --test tests/*.test.mjs",
     "leads": "node scripts/leads.mjs",
     "workbooks": ".venv-workbooks/bin/python scripts/build-workbooks.py",
     "analytics:snapshot": "node scripts/fetch-analytics-snapshot.mjs",
     "db:local": "wrangler d1 migrations apply cc-leads --local --config wrangler.local.jsonc",
-    "release:check": "npm test && npm run build && node scripts/verify-release-build.mjs && wrangler deploy --dry-run"
+    "release:check": "npm test && npm run build && node scripts/verify-release-build.mjs && wrangler deploy --dry-run",
+    "release:prepare": "node scripts/release.mjs prepare",
+    "release:deploy": "node scripts/release.mjs deploy",
+    "release:verify-live": "node scripts/release.mjs verify-live",
+    "release:rollback-info": "node scripts/release.mjs rollback-info",
+    "release:parity": "node scripts/parity-report.mjs",
+    "deploy:direct-unsafe": "npm run build && wrangler deploy",
+    "release:check-wrangler": "node scripts/release.mjs check-wrangler"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
