@@ -52,3 +52,13 @@ Google allows asking for genuine reviews. It does not allow rewards or asking on
 5. Merge the pull request when the owner is ready.
 6. Analytics UTM fix: see branch `claude/utm-attribution-proposal`, if created.
 7. `www` redirect and `workers.dev` steps: see `docs/marketing/www-and-workers-dev.md`.
+
+## Review response (October 21, 2026)
+
+Independent GitHub review of PR #6 asked for checks on the exact head. On head `21b9e58`, `npm run release:check` passed: 99 tests, release build verified (222 files, 9 pages), `wrangler deploy --dry-run` OK. Python tests also pass.
+
+Added `.github/workflows/release-check.yml` so the same checks run on every pull request. It is read only and deploys nothing.
+
+Deploying (not merging) needs one authorized test inquiry afterward: check it is saved, the notification arrives, no duplicate, no customer data in logs. Keep a rollback ready.
+
+Analytics: see the UTM pull request for the referrer and overlay fixes.
