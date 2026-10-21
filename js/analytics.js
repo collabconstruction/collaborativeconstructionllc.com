@@ -108,6 +108,20 @@
     }
   }
 
+  /* The page path, plus only the three campaign tags (utm_source, utm_medium,
+     utm_campaign) that intake-context.js already checked against a strict
+     pattern. Any other query value, such as an email address, stays out. */
+  function pageLocation() {
+    var ctx = window.ccIntakeContext;
+    var url = location.origin + (ctx ? ctx.currentPage() : "/");
+    if (!ctx || typeof ctx.get !== "function") return url;
+    var c = ctx.get(), parts = [];
+    ["utm_source", "utm_medium", "utm_campaign"].forEach(function (k) {
+      if (c[k]) parts.push(k + "=" + encodeURIComponent(c[k]));
+    });
+    return parts.length ? url + "?" + parts.join("&") : url;
+  }
+
   function grant() {
     granted = true;
     if (loaded) return;
@@ -119,7 +133,7 @@
     window.gtag("config", CFG.measurementId, {
       send_page_view: false, allow_google_signals: false,
       allow_ad_personalization_signals: false,
-      page_location: location.origin + (window.ccIntakeContext ? window.ccIntakeContext.currentPage() : "/"),
+      page_location: pageLocation(),
       page_referrer: ""
     });
     window.gtag("event", "page_view");
