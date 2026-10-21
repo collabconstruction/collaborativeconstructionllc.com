@@ -4664,15 +4664,16 @@ strong {
 .project-gallery .project:hover .carousel__slide img { transform: scale(1.045); }
 .project-gallery .carousel { overflow: hidden; }
 .project-gallery .carousel__btn { transition: transform .2s ease, background-color .2s ease, box-shadow .2s ease; }
-.project-gallery .carousel__btn:hover { transform: scale(1.14); box-shadow: 0 0 0 4px rgba(189, 161, 106, .55); }
-.project-gallery .carousel__btn:active { transform: scale(.94); }
+.project-gallery .carousel__btn:hover { transform: translateY(-50%) scale(1.14); box-shadow: 0 0 0 4px rgba(189, 161, 106, .55); }
+.project-gallery .carousel__btn:active { transform: translateY(-50%) scale(.94); }
 .project-gallery .carousel__dots .dot { transition: transform .2s ease, background-color .2s ease; }
 .project-gallery .carousel__dots .dot:hover { transform: scale(1.5); }
 @media (prefers-reduced-motion: reduce) {
   .project-filters button, .project-gallery .project, .project-gallery .carousel__slide img,
   .project-gallery .carousel__btn, .project-gallery .carousel__dots .dot { transition: none; }
-  .project-filters button:hover, .project-gallery .project:hover, .project-gallery .carousel__btn:hover,
+  .project-filters button:hover, .project-gallery .project:hover,
   .project-gallery .project:hover .carousel__slide img { transform: none; }
+  .project-gallery .carousel__btn:hover, .project-gallery .carousel__btn:active { transform: translateY(-50%); }
 }
 
 /* No underlines anywhere. Links inside text are marked by weight and colour instead. */
