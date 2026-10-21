@@ -1,0 +1,20 @@
+name: Autonomy Scout Dry Run
+# Manual only. No schedule, no secrets, no model calls, no writes. It runs the public health
+# check and shows what the Scout would report. Turning on a schedule or a billed model is an
+# owner decision: see docs/autonomy/COST-CONTROLS.md.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Public health check
+        run: python3 scripts/monitor_public_site.py || true
+      - name: Scout dry run
+        run: python3 scripts/autonomy/run_scout.py monitoring-output/health.json
+      - name: Autonomy tests
+        run: python3 -m unittest tests.test_autonomy tests.test_site_health
