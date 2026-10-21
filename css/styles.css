@@ -4682,3 +4682,8 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
 
 /* Page headers: the rule under the title is a third of its old length. */
 .about-page-hero .rule { width: 33%; max-width: 374px; margin-inline: auto; }
+
+/* Bold text keeps its contrast: white on the navy sections, navy on white cards. */
+.service-editorial strong, .service-summary strong { color: #fff; }
+.adu-card strong, .adu .adu-card strong { color: var(--navy); }
+.adu-spec strong { color: var(--navy); }
