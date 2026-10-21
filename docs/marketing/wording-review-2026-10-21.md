@@ -12,7 +12,7 @@ Scope: all nine public pages (home, About, Construction Management, ADU, Home Ad
 ## What changed
 | Where | Before | After | Why |
 |---|---|---|---|
-| Home, credentials line | "over 30 years" in plain text | **licensed Massachusetts builder** and **over 30 years** both bold | Credentials are the main trust signal |
+| Home, credentials line | "licensed Massachusetts builder", "over 30 years" in plain text | **Massachusetts licensed construction supervisor** and **over 30 years** both bold | Credentials are the main trust signal, and "construction supervisor" matches the license the owner holds (see the credential section) |
 | About, credentials list | plain text | **30 years**, **Construction Supervisor License (CSL)** and **Bachelor's degree, Boston University** bold | Same |
 | About, intro | "worked on both sides of the table: building the work, and representing owners" | "has both built the work and represented owners" | Simpler |
 | Home, "We build it" card | "all coordinated under one roof" | "coordinated by one team" | Removes a cliche |
@@ -46,16 +46,21 @@ Scope: all nine public pages (home, About, Construction Management, ADU, Home Ad
 ## Second pass (after the independent review)
 - **Check marks are now fully page specific.** All three lines on each of the five service pages are different, and each is taken from that page's own text (for example "Rooflines, siding and windows tied in" on Additions). A test fails if any line repeats on another page.
 - **Gallery closing call to action** now uses sentence case ("Discuss your project", "Contact us today") like the other pages.
-- **About heading** is now "Over 30 years of residential and commercial construction experience." The line below it says the project is led by a licensed Massachusetts builder, so the years are attributed to the person leading the work, not to the age of the company.
+- **About heading** is now "Over 30 years of residential and commercial construction experience." The line below it says the project is led by a Massachusetts licensed construction supervisor, so the years are attributed to the person leading the work, not to the age of the company.
 - **Pricing wording** is kept in each hero and closing call to action only. Whether to keep it even there is a positioning decision for the owner: it can make a company sound price driven rather than experience driven.
 
 ## Credential claims: evidence and what the owner must confirm
+**CSL and HIC are different things.** A Construction Supervisor License (CSL) licenses a person to supervise construction work. A Home Improvement Contractor (HIC) registration is a separate registration of the contracting business or individual for residential work, and Massachusetts expects its number in advertising where it applies. Holding one does not mean holding the other.
+
+**Wording change in the final pass:** "licensed Massachusetts builder" (home and About) became "Massachusetts licensed construction supervisor". It says exactly what the owner states they hold (a CSL) and no more. No page now claims an HIC registration, and a test fails if one does while no HIC number is on file.
+
 | Claim on the site | Where | Evidence found in the repository | Status |
 |---|---|---|---|
-| Licensed Massachusetts builder | Home, About | A Construction Supervisor License (CSL) is stated in `src/_data/people.json`. A CSL is a supervisor license, not a Home Improvement Contractor (HIC) registration. | Owner stated. Not checked against ContractorHub. Wording may need review. |
-| CSL held since 2000 | About | `people.json`, supplied by the owner. License number is blank in `business.json` (`null`), by design. | Owner stated. Number and expiry not verified. |
-| Over 30 years of experience | Home, About | `people.json` calls it a personal career figure. `docs/social-logo/` guidance says it is not the company's history. | Owner stated. Presented as the leader's experience, not the company's age. |
-| Bachelor's degree, Boston University; postgraduate studies, Boston Architectural Center | About | `people.json`. The school has been named Boston Architectural College since 2006. | Owner stated. Name choice is the owner's. |
-| HIC and CSL numbers | Footer | Both are `null`, so nothing is shown | Owner must supply from ContractorHub.mass.gov. Never guessed. |
+| Massachusetts licensed construction supervisor | Home, About | A CSL since 2000 is stated in `src/_data/people.json`, supplied by the owner | Owner stated. Not checked against ContractorHub (active status, number, expiry) |
+| CSL held since 2000 | About | Same | Owner stated |
+| Over 30 years of experience | Home, About | `people.json` calls it a personal career figure; social media guidance says it is not the company's history | Owner stated. Written as the leader's experience, not the company's age |
+| Bachelor's degree, Boston University; postgraduate studies, Boston Architectural Center | About | `people.json`. The school has been named Boston Architectural College since 2006 | Owner stated. School name choice is the owner's |
+| HIC registration | Nowhere on the site | `business.hicNumber` is `null`, so the footer shows nothing | Owner to say whether a separate HIC registration exists and supply the number |
+| CSL number | Footer shows it only when supplied | `business.cslNumber` is `null` | Owner to supply from ContractorHub |
 
-Nothing here was verified against public records by Claude. The bold formatting only emphasizes claims that were already on the site. If the owner prefers not to emphasize a claim until it is checked, removing the bold is a one line change per claim.
+Still needs owner confirmation: CSL active status and number; whether an HIC registration exists; "held since 2000"; the degree and school wording. Nothing here was verified against public records by Claude and no number was invented. The bold only emphasizes claims that were already on the site; removing it for any claim is a one line change.
