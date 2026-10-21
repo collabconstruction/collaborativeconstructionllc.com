@@ -132,10 +132,30 @@ async function main() {
       try { await stat(join(ROOT, "_site", rel)); } catch { console.error(`NOT READY: _site/${rel} is missing. Run npm run build first.`); process.exit(1); }
       await cp(join(ROOT, "_site", rel), join(OUT, rel));
     }
-    for (const dir of ["assets/img", "assets/img/r"]) {
-      for (const f of (await readdir(join(ROOT, dir))).filter((n) => n.startsWith("carlisle-residence-"))) {
-        await cp(join(ROOT, dir, f), join(OUT, dir, f));
+    // Every photo referenced by src/_data/projects.json must end up in _deploy, even one that is
+    // new to this branch and so was never served live (the crawl above only grabs what a GET to
+    // the live site actually returns, and a brand new file 404s there until it is deployed).
+    // Compute the exact file list from the data file itself rather than a hardcoded filename
+    // prefix: an earlier version of this script only special cased "carlisle-residence-", which
+    // silently dropped every other project's new photos from the deploy. Deriving it from the
+    // data file means a future photo addition cannot 404 in production by surprise.
+    const projects = JSON.parse(await readFile(join(ROOT, "src/_data/projects.json"), "utf8"));
+    const neededImgFiles = new Set();
+    for (const p of projects.items) {
+      const pics = p.footerThumb ? [...p.images, p.footerThumb] : p.images;
+      for (const img of pics) {
+        const base = img.src.replace("/assets/img/", "").replace(/\.jpe?g$/i, "");
+        neededImgFiles.add(`assets/img/${base}.jpg`);
+        for (const w of img.widths) neededImgFiles.add(`assets/img/r/${base}-${w}.webp`);
       }
+    }
+    let copiedNew = 0;
+    for (const rel of neededImgFiles) {
+      const dest = join(OUT, rel);
+      try { await stat(dest); continue; } catch { /* not already in _deploy from the live crawl */ }
+      await mkdir(dirname(dest), { recursive: true });
+      await cp(join(ROOT, rel), dest);
+      copiedNew++;
     }
     // robots.txt comes from the repo build, never from the live copy: the live copy already
     // carries Cloudflare's managed block, and redeploying it made the block repeat on every deploy.
@@ -144,7 +164,7 @@ async function main() {
       console.error("NOT READY: _deploy/robots.txt contains Cloudflare's managed block; it must come from the repo build.");
       process.exit(1);
     }
-    console.log("Overlaid every page, llms.txt and robots.txt from this branch's build, plus the 4 Carlisle photos.");
+    console.log(`Overlaid every page, llms.txt and robots.txt from this branch's build, plus ${copiedNew} project photo file(s) new to this branch.`);
   }
 
   // Checks only, no edits. Every page in _deploy comes from this repo's build (or the live copy for

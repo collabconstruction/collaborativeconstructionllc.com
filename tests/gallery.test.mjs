@@ -76,7 +76,7 @@ test('the built gallery lists the types in order and prints no town names', asyn
     const html = fs.readFileSync(`${out}/gallery/index.html`, 'utf8');
     const main = html.slice(html.indexOf('class="gallery-stage'), html.indexOf('svc-cta'));
     const headings = [...main.matchAll(/<h2 id="[a-z-]+-heading">([^<]+)<\/h2>/g)].map(m => m[1]);
-    assert.deepEqual(headings, ['Custom homes', 'Exteriors', 'Decks and railings', 'Porches and balconies', 'Commercial projects']);
+    assert.deepEqual(headings, ['Custom homes', 'Kitchen remodels', 'Bath remodels', 'Pool projects', 'Exteriors', 'Decks and railings', 'Porches and balconies', 'Commercial projects']);
     for (const town of ['Belmont', 'Carlisle', 'Falmouth', 'Rockland', 'Dudley', 'Hingham', 'New Seabury', 'Monomoscoy']) assert.ok(!main.includes(town), `${town} appears in the gallery`);
     assert.equal((main.match(/<figure class="gallery-card">/g) || []).length, projects.length, 'every project is shown exactly once');
   } finally { fs.rmSync(out, { recursive: true, force: true }); }

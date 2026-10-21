@@ -38,7 +38,7 @@
       "type": "custom-homes",
       "category": "Residential",
       "location": "Belmont, MA",
-      "shows": "Exterior and site, living room, hallway, bath, and stair.",
+      "shows": "Exterior and site, living room, hallway, bath, stair, and kitchen.",
       "footerThumb": {
         "src": "/assets/img/belmont-hero.jpg",
         "alt": "Custom cedar-clad modern home in Belmont, MA",
@@ -88,6 +88,20 @@
           "w": 709,
           "h": 1066,
           "widths": [160, 480, 709]
+        },
+        {
+          "src": "/assets/img/belmont-exterior-2.jpg",
+          "alt": "Exterior view of the home framed by mature trees",
+          "w": 1600,
+          "h": 600,
+          "widths": [160, 480, 768, 1024, 1440, 1600]
+        },
+        {
+          "src": "/assets/img/belmont-kitchen.jpg",
+          "alt": "Kitchen with board-formed concrete fireplace wall and wood island",
+          "w": 1600,
+          "h": 1064,
+          "widths": [160, 480, 768, 1024, 1440, 1600]
         }
       ],
       "compact": false
@@ -166,7 +180,7 @@
       "type": "custom-homes",
       "category": "Residential",
       "location": "Carlisle, MA",
-      "shows": "Exterior, skylit hallway, kitchens, living area, pool deck, and bath.",
+      "shows": "Exterior, skylit hallway, kitchens, living area, pool deck, bath, and primary bedroom.",
       "footerThumb": {
         "src": "/assets/img/modern-home-4.jpg",
         "alt": "Modern custom residence in Carlisle, MA",
@@ -223,6 +237,41 @@
           "w": 1024,
           "h": 605,
           "widths": [160, 480, 768, 1024]
+        },
+        {
+          "src": "/assets/img/modern-home-1.jpg",
+          "alt": "Towel warmer bars mounted on a wood accent wall above the tub",
+          "w": 533,
+          "h": 800,
+          "widths": [160, 480, 533]
+        },
+        {
+          "src": "/assets/img/modern-home-2.jpg",
+          "alt": "Glass enclosed shower with marble tile and handheld sprayer",
+          "w": 533,
+          "h": 800,
+          "widths": [160, 480, 533]
+        },
+        {
+          "src": "/assets/img/modern-home-3.jpg",
+          "alt": "Double vanity with wood cabinetry and a large mirror",
+          "w": 533,
+          "h": 800,
+          "widths": [160, 480, 533]
+        },
+        {
+          "src": "/assets/img/modern-home-5.jpg",
+          "alt": "Freestanding tub and glass shower framed by wood paneling",
+          "w": 1762,
+          "h": 714,
+          "widths": [160, 480, 768, 1024, 1440, 1762]
+        },
+        {
+          "src": "/assets/img/modern-home-6.jpg",
+          "alt": "Primary bedroom with wood accent wall and reading lights",
+          "w": 868,
+          "h": 654,
+          "widths": [160, 480, 768, 868]
         }
       ],
       "compact": false
@@ -354,6 +403,212 @@
           "w": 640,
           "h": 480,
           "widths": [160, 480, 640]
+        }
+      ],
+      "compact": true
+    },
+    {
+      "title": "Shingle Style Custom Home",
+      "type": "custom-homes",
+      "category": "Residential",
+      "location": "",
+      "shows": "Front porch, rear deck, kitchen and dining area, and exterior shingle and trim detail.",
+      "images": [
+        {
+          "src": "/assets/img/shingle-home-1.jpg",
+          "alt": "Front porch with cedar shingle siding and rocking chairs",
+          "w": 1200,
+          "h": 900,
+          "widths": [160, 480, 768, 1024, 1200]
+        },
+        {
+          "src": "/assets/img/shingle-home-2.jpg",
+          "alt": "Rear deck and walkout patio beneath the shingled home",
+          "w": 1200,
+          "h": 900,
+          "widths": [160, 480, 768, 1024, 1200]
+        },
+        {
+          "src": "/assets/img/shingle-home-3.jpg",
+          "alt": "Kitchen and dining area with a glass pendant chandelier",
+          "w": 1600,
+          "h": 778,
+          "widths": [160, 480, 768, 1024, 1440, 1600]
+        },
+        {
+          "src": "/assets/img/shingle-home-4.jpg",
+          "alt": "Arched porch ceiling and cedar shingle gable detail",
+          "w": 1200,
+          "h": 900,
+          "widths": [160, 480, 768, 1024, 1200]
+        },
+        {
+          "src": "/assets/img/shingle-home-5.jpg",
+          "alt": "Cedar shingle gable peak with triple window",
+          "w": 1200,
+          "h": 900,
+          "widths": [160, 480, 768, 1024, 1200]
+        }
+      ],
+      "compact": false
+    },
+    {
+      "title": "Coastal Bath Remodel",
+      "type": "bath-remodels",
+      "category": "Residential",
+      "location": "",
+      "shows": "Double vanity, walk in shower, and soaking tub.",
+      "images": [
+        {
+          "src": "/assets/img/coastal-bath-1.jpg",
+          "alt": "Double vanity and glass shower in a beadboard bath",
+          "w": 1440,
+          "h": 1004,
+          "widths": [160, 480, 768, 1024, 1440]
+        },
+        {
+          "src": "/assets/img/coastal-bath-2.jpg",
+          "alt": "Pedestal sink and toilet beside a curtained window",
+          "w": 822,
+          "h": 1200,
+          "widths": [160, 480, 768, 822]
+        },
+        {
+          "src": "/assets/img/coastal-bath-3.jpg",
+          "alt": "Soaking tub beneath bay windows with a ladder towel rack",
+          "w": 1440,
+          "h": 964,
+          "widths": [160, 480, 768, 1024, 1440]
+        },
+        {
+          "src": "/assets/img/coastal-bath-4.jpg",
+          "alt": "Soaking tub and glass shower with a ladder towel rack",
+          "w": 780,
+          "h": 1200,
+          "widths": [160, 480, 768, 780]
+        }
+      ],
+      "compact": false
+    },
+    {
+      "title": "Traditional Kitchen",
+      "type": "kitchen-remodels",
+      "category": "Residential",
+      "location": "",
+      "shows": "Kitchen and adjoining dining and living area.",
+      "images": [
+        {
+          "src": "/assets/img/traditional-kitchen-1.jpg",
+          "alt": "Kitchen with stainless range and glass front cabinetry",
+          "w": 1440,
+          "h": 960,
+          "widths": [160, 480, 768, 1024, 1440]
+        },
+        {
+          "src": "/assets/img/traditional-kitchen-2.jpg",
+          "alt": "Open kitchen island viewed from the dining and living area",
+          "w": 1440,
+          "h": 960,
+          "widths": [160, 480, 768, 1024, 1440]
+        }
+      ],
+      "compact": false
+    },
+    {
+      "title": "Fieldstone Kitchen",
+      "type": "kitchen-remodels",
+      "category": "Residential",
+      "location": "",
+      "shows": "",
+      "images": [
+        {
+          "src": "/assets/img/fieldstone-kitchen-1.jpg",
+          "alt": "Kitchen island framed by a fieldstone entryway",
+          "w": 533,
+          "h": 798,
+          "widths": [160, 480, 533]
+        }
+      ],
+      "compact": true
+    },
+    {
+      "title": "Custom Interior Built In",
+      "type": "custom-homes",
+      "category": "Residential",
+      "location": "",
+      "shows": "",
+      "images": [
+        {
+          "src": "/assets/img/custom-interior-built-in-1.jpg",
+          "alt": "Built in window seat and bookshelves beside a fieldstone wall",
+          "w": 868,
+          "h": 579,
+          "widths": [160, 480, 768, 868]
+        }
+      ],
+      "compact": true
+    },
+    {
+      "title": "Pool Cabana",
+      "type": "pool-projects",
+      "category": "Residential",
+      "location": "",
+      "shows": "Pool, cabana, and patio by day and after dark.",
+      "images": [
+        {
+          "src": "/assets/img/pool-cabana-1.jpg",
+          "alt": "Pool and cabana with lounge chairs and dining area",
+          "w": 1440,
+          "h": 960,
+          "widths": [160, 480, 768, 1024, 1440]
+        },
+        {
+          "src": "/assets/img/pool-cabana-2.jpg",
+          "alt": "Cabana patio with lounge chairs and a market umbrella",
+          "w": 800,
+          "h": 1200,
+          "widths": [160, 480, 768, 800]
+        },
+        {
+          "src": "/assets/img/pool-cabana-3.jpg",
+          "alt": "Pool and lit cabana reflected in the water after dark",
+          "w": 1560,
+          "h": 724,
+          "widths": [160, 480, 768, 1024, 1440, 1560]
+        }
+      ],
+      "compact": false
+    },
+    {
+      "title": "Custom Pool",
+      "type": "pool-projects",
+      "category": "Residential",
+      "location": "",
+      "shows": "",
+      "images": [
+        {
+          "src": "/assets/img/custom-pool-1.jpg",
+          "alt": "Rectangular pool and stone patio behind the home",
+          "w": 1440,
+          "h": 954,
+          "widths": [160, 480, 768, 1024, 1440]
+        }
+      ],
+      "compact": true
+    },
+    {
+      "title": "Pool Deck",
+      "type": "pool-projects",
+      "category": "Residential",
+      "location": "",
+      "shows": "",
+      "images": [
+        {
+          "src": "/assets/img/pool-deck-1.jpg",
+          "alt": "Covered deck seating area beside the pool",
+          "w": 1803,
+          "h": 716,
+          "widths": [160, 480, 768, 1024, 1440, 1803]
         }
       ],
       "compact": true
