@@ -4,398 +4,104 @@ permalink: /gallery/index.html
 canonical: /gallery/
 schemaType: gallery
 title: "Gallery | Collaborative Construction, LLC"
-description: "Residential and commercial project photography. Contact Collaborative Construction for the role and scope on individual projects."
+description: "Photos of residential and commercial projects Collaborative Construction, LLC has worked on."
 ogType: "website"
 ogTitle: "Project Gallery | Collaborative Construction, LLC"
-ogDescription: "Completed residential and commercial projects: whole-home renovations, kitchens and baths, additions, and tenant fit-outs."
-twitterDescription: "Completed residential and commercial projects."
+ogDescription: "Photos of residential and commercial projects we have worked on."
+twitterDescription: "Photos of residential and commercial projects we have worked on."
 shareImage: /assets/img/belmont-hero.jpg
 shareImageWidth: 1280
 shareImageHeight: 837
-shareImageAlt: "Residential renovation project photography"
+shareImageAlt: "Cedar-clad modern residence in Belmont, Massachusetts"
 schemaName: "Project Gallery"
 breadcrumbName: "Gallery"
 ---
 
-<!-- ============================ GALLERY INTRO ============================ -->
-    <section class="about-page-hero">
-      <div class="container">
+{#
+  Gallery: three views of the same projects (src/_data/projects.json), each laid out its own way.
+    all          a collage of cycling photo tiles
+    residential  editorial rows, the town set large and faint behind the text
+    commercial   full width bands
+  No buttons, no boxes, no captions inside the photos. Each photo slot cycles through its project's pictures
+  (js/gallery.js). Without JavaScript every view shows one after the other and the first photo of each slot is visible.
+  Deck and Railings and Porches and Upper Balcony are last on purpose.
+#}
+{%- macro pic(img, sizes, first) -%}
+{%- set base = img.src | replace("/assets/img/", "") | replace(".jpg", "") -%}
+<picture><source type="image/webp" srcset="{% for w in img.widths %}/assets/img/r/{{ base }}-{{ w }}.webp {{ w }}w{% if not loop.last %}, {% endif %}{% endfor %}" sizes="{{ sizes }}"><img src="{{ img.src }}" alt="{{ img.alt }}" width="{{ img.w }}" height="{{ img.h }}" {% if first %}decoding="async"{% else %}loading="lazy" decoding="async"{% endif %}></picture>
+{%- endmacro -%}
+{%- macro slot(p, sizes, interval) -%}
+<div class="gallery-slot" data-cycle data-interval="{{ interval }}">
+  {%- for img in p.images %}
+  <div class="gallery-frame{% if loop.first %} is-live{% endif %}">{{ pic(img, sizes, loop.first) }}</div>
+  {%- endfor %}
+</div>
+{%- endmacro -%}
+{%- set order = ["Custom Residence", "Modern Custom Residence", "Lovell Dormitory", "Residential Exterior", "Commercial Dispensary", "CubeSmart Self Storage", "Deck and Railings", "Porches and Upper Balcony"] -%}
 
-        <h1>Gallery</h1>
-        <hr class="rule" style="margin:18px auto 0">
-        <p class="hero-lede">Residential and commercial project photography.</p>
+<section class="about-page-hero">
+  <div class="container">
+    <h1>Gallery</h1>
+    <hr class="rule" style="margin:18px auto 0">
+    <p class="hero-lede">Residential and commercial project photography.</p>
+  </div>
+</section>
+
+<section class="gallery-stage project-gallery">
+  <nav class="gallery-views" aria-label="Project views">
+    <a href="#all" data-gallery-tab="all" aria-current="true">All projects</a>
+    <a href="#residential" data-gallery-tab="residential">Residential</a>
+    <a href="#commercial" data-gallery-tab="commercial">Commercial</a>
+  </nav>
+
+  <div class="gallery-view gallery-view--all" data-gallery-view="all" id="all">
+    <h2 class="visually-hidden">All projects</h2>
+    <div class="gallery-collage">
+      {%- for title in order %}{% set ti = loop.index %}{% for p in projects.items %}{% if p.title == title %}
+      <figure class="gallery-tile gallery-tile--{{ ti }}" data-project-category="{{ p.category }}">
+        {{ slot(p, "(min-width: 1100px) 30vw, (min-width: 640px) 46vw, 92vw", 5200 + (ti * 700)) }}
+        <figcaption><span class="gallery-tile__title">{{ p.title }}</span><span class="gallery-tile__town">{{ p.location }}</span></figcaption>
+      </figure>
+      {%- endif %}{% endfor %}{% endfor %}
+    </div>
+  </div>
+
+  <div class="gallery-view gallery-view--residential" data-gallery-view="residential" id="residential">
+    <h2 class="visually-hidden">Residential projects</h2>
+    {%- for title in order %}{% set ti = loop.index %}{% for p in projects.items %}{% if p.title == title and p.category == "Residential" %}
+    <article class="gallery-row{% if p.compact %} gallery-row--compact{% endif %}" data-reveal>
+      <div class="gallery-row__media">{{ slot(p, "(min-width: 900px) 58vw, 92vw", 6200 + (ti * 600)) }}</div>
+      <div class="gallery-row__text">
+        <span class="gallery-row__town" aria-hidden="true" style="--len: {{ p.location | replace(", MA", "") | length }}">{{ p.location | replace(", MA", "") }}</span>
+        <h3>{{ p.title }}</h3>
+        {%- if p.shows %}<p class="gallery-row__shows">{{ p.shows }}</p>{% endif %}
+        <p class="gallery-row__place">{{ p.location }}</p>
       </div>
-    </section>
+    </article>
+    {%- endif %}{% endfor %}{% endfor %}
+  </div>
 
-    <!-- ============================ PROJECTS ============================ -->
-    <section class="projects project-gallery">
-      <div class="container">
-
-        <div class="project-filters" hidden role="group" aria-label="Filter projects">
-          <button type="button" data-project-filter="All" aria-pressed="true">All projects</button>
-          <button type="button" data-project-filter="Residential" aria-pressed="false">Residential</button>
-          <button type="button" data-project-filter="Commercial" aria-pressed="false">Commercial</button>
-        </div>
-        <p class="project-results" role="status" aria-live="polite"></p>
-        <div class="projects-grid">
-          
-        <article class="project" data-project-category="Residential" data-reveal>
-          <header class="project-head">
-            <h2>Deck and Railings</h2>
-            <p class="project-meta">
-              <span class="tag tag--cat">Residential</span>
-              <span class="tag">New Seabury, MA</span>
-
-            </p></header>
-          <div class="carousel">
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <picture><source type="image/webp" srcset="/assets/img/r/new-seabury-deck-1-160.webp 160w, /assets/img/r/new-seabury-deck-1-480.webp 480w, /assets/img/r/new-seabury-deck-1-640.webp 640w" sizes="(min-width: 1400px) 1240px, (min-width: 1240px) 1120px, 92vw"><img src="/assets/img/new-seabury-deck-1.jpg" alt="Deck and black railings beside the shingled home in New Seabury, MA" width="640" height="480" decoding="async"></picture>
-                
-                <div class="carousel__caption">Deck and black railings beside the shingled home</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/new-seabury-deck-2-160.webp 160w, /assets/img/r/new-seabury-deck-2-480.webp 480w, /assets/img/r/new-seabury-deck-2-640.webp 640w" sizes="(min-width: 1400px) 1240px, (min-width: 1240px) 1120px, 92vw"><img data-src="/assets/img/new-seabury-deck-2.jpg" alt="Deck steps and railing details in New Seabury, MA" width="640" height="480" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Deck steps and railing details</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/new-seabury-deck-3-160.webp 160w, /assets/img/r/new-seabury-deck-3-480.webp 480w, /assets/img/r/new-seabury-deck-3-640.webp 640w" sizes="(min-width: 1400px) 1240px, (min-width: 1240px) 1120px, 92vw"><img data-src="/assets/img/new-seabury-deck-3.jpg" alt="Open deck with surrounding trees in New Seabury, MA" width="640" height="480" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Open deck with surrounding trees</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/new-seabury-deck-4-160.webp 160w, /assets/img/r/new-seabury-deck-4-480.webp 480w, /assets/img/r/new-seabury-deck-4-640.webp 640w" sizes="(min-width: 1400px) 1240px, (min-width: 1240px) 1120px, 92vw"><img data-src="/assets/img/new-seabury-deck-4.jpg" alt="Deck surface and railing in New Seabury, MA" width="640" height="480" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Deck surface and railing</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/new-seabury-deck-5-160.webp 160w, /assets/img/r/new-seabury-deck-5-480.webp 480w" sizes="(min-width: 1400px) 1240px, (min-width: 1240px) 1120px, 92vw"><img data-src="/assets/img/new-seabury-deck-5.jpg" alt="Deck lighting after dark in New Seabury, MA" width="480" height="640" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Deck lighting after dark</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous photo of Deck and Railings">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button class="carousel__btn next" type="button" aria-label="Next photo of Deck and Railings">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-            </button><div class="carousel__dots" role="group" aria-label="Choose a photo of Deck and Railings"></div>
-          </div>
-        </article>
-        
-          
-        <article class="project" data-project-category="Residential" data-reveal>
-          <header class="project-head">
-            <h2>Porches and Upper Balcony</h2>
-            <p class="project-meta">
-              <span class="tag tag--cat">Residential</span>
-              <span class="tag">Monomoscoy Island, MA</span>
-
-            </p></header>
-          <div class="carousel">
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <picture><source type="image/webp" srcset="/assets/img/r/monomoscoy-porches-1-160.webp 160w, /assets/img/r/monomoscoy-porches-1-480.webp 480w, /assets/img/r/monomoscoy-porches-1-640.webp 640w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img src="/assets/img/monomoscoy-porches-1.jpg" alt="Upper balcony and enclosed porch in Monomoscoy Island, MA" width="640" height="480" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Upper balcony and enclosed porch</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/monomoscoy-porches-2-160.webp 160w, /assets/img/r/monomoscoy-porches-2-480.webp 480w, /assets/img/r/monomoscoy-porches-2-640.webp 640w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/monomoscoy-porches-2.jpg" alt="Covered porch across the front of the home in Monomoscoy Island, MA" width="640" height="480" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Covered porch across the front of the home</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/monomoscoy-porches-3-160.webp 160w, /assets/img/r/monomoscoy-porches-3-480.webp 480w, /assets/img/r/monomoscoy-porches-3-768.webp 768w, /assets/img/r/monomoscoy-porches-3-1024.webp 1024w, /assets/img/r/monomoscoy-porches-3-1440.webp 1440w, /assets/img/r/monomoscoy-porches-3-1920.webp 1920w, /assets/img/r/monomoscoy-porches-3-2048.webp 2048w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/monomoscoy-porches-3.jpg" alt="Porch exterior and upper railing in Monomoscoy Island, MA" width="2048" height="1536" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Porch exterior and upper railing</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous photo of Porches and Upper Balcony">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button class="carousel__btn next" type="button" aria-label="Next photo of Porches and Upper Balcony">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-            </button><div class="carousel__dots" role="group" aria-label="Choose a photo of Porches and Upper Balcony"></div>
-          </div>
-        </article>
-        
-          
-        <article class="project" data-project-category="Residential" data-reveal>
-          <header class="project-head">
-            <h2>Custom Residence</h2>
-            <p class="project-meta">
-              <span class="tag tag--cat">Residential</span>
-              <span class="tag">Belmont, MA</span>
-
-            </p></header>
-          <div class="carousel">
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <picture><source type="image/webp" srcset="/assets/img/r/belmont-hero-160.webp 160w, /assets/img/r/belmont-hero-480.webp 480w, /assets/img/r/belmont-hero-768.webp 768w, /assets/img/r/belmont-hero-1024.webp 1024w, /assets/img/r/belmont-hero-1280.webp 1280w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img src="/assets/img/belmont-hero.jpg" alt="Custom cedar-clad modern home exterior" width="1280" height="837" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Exterior: custom cedar-clad modern home</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/belmont-pond-160.webp 160w, /assets/img/r/belmont-pond-480.webp 480w, /assets/img/r/belmont-pond-768.webp 768w, /assets/img/r/belmont-pond-1024.webp 1024w, /assets/img/r/belmont-pond-1200.webp 1200w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/belmont-pond.jpg" alt="The home set in its landscape beside a pond" width="1200" height="927" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Site &amp; landscape: the home set against the pond</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/belmont-living-160.webp 160w, /assets/img/r/belmont-living-480.webp 480w, /assets/img/r/belmont-living-768.webp 768w, /assets/img/r/belmont-living-1024.webp 1024w, /assets/img/r/belmont-living-1280.webp 1280w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/belmont-living.jpg" alt="Open living room with floor-to-ceiling glazing" width="1280" height="851" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Open living room with floor-to-ceiling glazing</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/belmont-hallway-160.webp 160w, /assets/img/r/belmont-hallway-480.webp 480w, /assets/img/r/belmont-hallway-709.webp 709w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/belmont-hallway.jpg" alt="Gallery hallway with custom millwork and stone flooring" width="709" height="1066" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Gallery hallway with custom millwork &amp; stone flooring</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/belmont-bath-160.webp 160w, /assets/img/r/belmont-bath-480.webp 480w, /assets/img/r/belmont-bath-768.webp 768w, /assets/img/r/belmont-bath-785.webp 785w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/belmont-bath.jpg" alt="Spa bath with cedar detailing and soaking tub" width="785" height="1067" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Spa bath with cedar detailing &amp; soaking tub</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/belmont-stair-160.webp 160w, /assets/img/r/belmont-stair-480.webp 480w, /assets/img/r/belmont-stair-709.webp 709w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/belmont-stair.jpg" alt="Floating stair with board-formed concrete and steel" width="709" height="1066" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Floating stair: board-formed concrete &amp; steel</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous photo of Custom Residence">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button class="carousel__btn next" type="button" aria-label="Next photo of Custom Residence">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-            </button><div class="carousel__dots" role="group" aria-label="Choose a photo of Custom Residence"></div>
-          </div>
-        </article>
-        
-          
-        <article class="project" data-project-category="Commercial" data-reveal>
-          <header class="project-head">
-            <h2>Commercial Dispensary</h2>
-            <p class="project-meta">
-              <span class="tag tag--cat">Commercial</span>
-              <span class="tag">Dudley, MA</span>
-
-            </p></header>
-          <div class="carousel">
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <picture><source type="image/webp" srcset="/assets/img/r/greatest-hits-1-160.webp 160w, /assets/img/r/greatest-hits-1-480.webp 480w, /assets/img/r/greatest-hits-1-768.webp 768w, /assets/img/r/greatest-hits-1-1000.webp 1000w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img src="/assets/img/greatest-hits-1.jpg" alt="Commercial dispensary interior retail space" width="1000" height="667" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Interior retail space</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/greatest-hits-2-160.webp 160w, /assets/img/r/greatest-hits-2-480.webp 480w, /assets/img/r/greatest-hits-2-768.webp 768w, /assets/img/r/greatest-hits-2-1000.webp 1000w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/greatest-hits-2.jpg" alt="Commercial dispensary lobby and express pick up" width="1000" height="667" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Lobby &amp; express pick-up</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous photo of Commercial Dispensary">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button class="carousel__btn next" type="button" aria-label="Next photo of Commercial Dispensary">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-            </button><div class="carousel__dots" role="group" aria-label="Choose a photo of Commercial Dispensary"></div>
-          </div>
-        </article>
-        
-          
-        <article class="project" data-project-category="Residential" data-reveal>
-          <header class="project-head">
-            <h2>Residential Exterior</h2>
-            <p class="project-meta">
-              <span class="tag tag--cat">Residential</span>
-              <span class="tag">Falmouth, MA</span>
-
-            </p></header>
-          <div class="carousel">
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <picture><source type="image/webp" srcset="/assets/img/r/residential-1-160.webp 160w, /assets/img/r/residential-1-480.webp 480w, /assets/img/r/residential-1-768.webp 768w, /assets/img/r/residential-1-1024.webp 1024w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img src="/assets/img/residential-1.jpg" alt="Front exterior with driveway and attached garage" width="1024" height="768" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Front exterior with driveway and attached garage</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/residential-2-160.webp 160w, /assets/img/r/residential-2-480.webp 480w, /assets/img/r/residential-2-768.webp 768w, /assets/img/r/residential-2-1024.webp 1024w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/residential-2.jpg" alt="Front entry with custom paver walkway and porch" width="1024" height="768" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Front entry with custom paver walkway and porch</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/residential-3-160.webp 160w, /assets/img/r/residential-3-480.webp 480w, /assets/img/r/residential-3-768.webp 768w, /assets/img/r/residential-3-1024.webp 1024w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/residential-3.jpg" alt="Side exterior with back deck and custom gazebo" width="1024" height="768" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Side exterior with back deck and custom gazebo</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/residential-4-160.webp 160w, /assets/img/r/residential-4-480.webp 480w, /assets/img/r/residential-4-768.webp 768w, /assets/img/r/residential-4-1024.webp 1024w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/residential-4.jpg" alt="Composite back deck with custom railing and lighting" width="1024" height="768" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Composite back deck with custom railing and lighting</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/residential-5-160.webp 160w, /assets/img/r/residential-5-480.webp 480w, /assets/img/r/residential-5-768.webp 768w, /assets/img/r/residential-5-1024.webp 1024w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/residential-5.jpg" alt="Spacious back deck featuring a shaded gazebo area" width="1024" height="768" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Spacious back deck featuring a shaded gazebo area</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous photo of Residential Exterior">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button class="carousel__btn next" type="button" aria-label="Next photo of Residential Exterior">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-            </button><div class="carousel__dots" role="group" aria-label="Choose a photo of Residential Exterior"></div>
-          </div>
-        </article>
-
-        <article class="project" data-project-category="Residential" data-reveal>
-          <header class="project-head">
-            <h2>Modern Custom Residence</h2>
-            <p class="project-meta">
-              <span class="tag tag--cat">Residential</span>
-              <span class="tag">Carlisle, MA</span>
-
-            </p></header>
-          <div class="carousel">
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <picture><source type="image/webp" srcset="/assets/img/r/modern-home-4-160.webp 160w, /assets/img/r/modern-home-4-480.webp 480w, /assets/img/r/modern-home-4-768.webp 768w, /assets/img/r/modern-home-4-1024.webp 1024w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img src="/assets/img/modern-home-4.jpg" alt="Modern glass-enclosed exterior home design" width="1024" height="682" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Modern glass-enclosed exterior home design</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/carlisle-residence-1-160.webp 160w, /assets/img/r/carlisle-residence-1-480.webp 480w, /assets/img/r/carlisle-residence-1-768.webp 768w, /assets/img/r/carlisle-residence-1-868.webp 868w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/carlisle-residence-1.jpg" alt="Kitchen with island, wood beams and large windows" width="868" height="596" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Kitchen with island, wood beams and large windows</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/carlisle-residence-2-160.webp 160w, /assets/img/r/carlisle-residence-2-480.webp 480w, /assets/img/r/carlisle-residence-2-768.webp 768w, /assets/img/r/carlisle-residence-2-868.webp 868w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/carlisle-residence-2.jpg" alt="Open living area with stone wall, built-in shelving and wood beams" width="868" height="579" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Open living area with stone wall, built-in shelving and wood beams</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/carlisle-residence-3-160.webp 160w, /assets/img/r/carlisle-residence-3-480.webp 480w, /assets/img/r/carlisle-residence-3-768.webp 768w, /assets/img/r/carlisle-residence-3-868.webp 868w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/carlisle-residence-3.jpg" alt="Deck overlooking a pool and open landscape" width="868" height="579" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Deck overlooking a pool and open landscape</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/carlisle-residence-4-160.webp 160w, /assets/img/r/carlisle-residence-4-480.webp 480w, /assets/img/r/carlisle-residence-4-768.webp 768w, /assets/img/r/carlisle-residence-4-868.webp 868w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/carlisle-residence-4.jpg" alt="Soaking tub, wood panel wall and glass shower" width="868" height="654" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Soaking tub, wood panel wall and glass shower</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/modern-interior-1-160.webp 160w, /assets/img/r/modern-interior-1-480.webp 480w, /assets/img/r/modern-interior-1-680.webp 680w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/modern-interior-1.jpg" alt="Modern hallway with skylights and open floor plan" width="680" height="1024" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Modern hallway with skylights and open floor plan</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/modern-interior-2-160.webp 160w, /assets/img/r/modern-interior-2-480.webp 480w, /assets/img/r/modern-interior-2-768.webp 768w, /assets/img/r/modern-interior-2-1024.webp 1024w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/modern-interior-2.jpg" alt="Modern kitchen with large island overlooking a river view" width="1024" height="605" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Modern kitchen with large island overlooking a river view</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous photo of Modern Custom Residence">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button class="carousel__btn next" type="button" aria-label="Next photo of Modern Custom Residence">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-            </button><div class="carousel__dots" role="group" aria-label="Choose a photo of Modern Custom Residence"></div>
-          </div>
-        </article>
-        
-          
-        <article class="project" data-project-category="Commercial" data-reveal>
-          <header class="project-head">
-            <h2>Lovell Dormitory</h2>
-            <p class="project-meta">
-              <span class="tag tag--cat">Commercial</span>
-              <span class="tag">Rockland, MA</span>
-
-            </p></header>
-          <div class="carousel">
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <picture><source type="image/webp" srcset="/assets/img/r/Lovell_dorm-160.webp 160w, /assets/img/r/Lovell_dorm-480.webp 480w, /assets/img/r/Lovell_dorm-768.webp 768w, /assets/img/r/Lovell_dorm-1024.webp 1024w, /assets/img/r/Lovell_dorm-1440.webp 1440w, /assets/img/r/Lovell_dorm-1920.webp 1920w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img src="/assets/img/Lovell_dorm.jpg" alt="Lovell Dormitory, a completed 50,000 SF residence hall" width="1920" height="896" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Lovell Dormitory: a completed 50,000 SF residence hall</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/Lovell_dorm_Front-160.webp 160w, /assets/img/r/Lovell_dorm_Front-480.webp 480w, /assets/img/r/Lovell_dorm_Front-768.webp 768w, /assets/img/r/Lovell_dorm_Front-1024.webp 1024w, /assets/img/r/Lovell_dorm_Front-1440.webp 1440w, /assets/img/r/Lovell_dorm_Front-1920.webp 1920w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/Lovell_dorm_Front.jpg" alt="Front exterior of the completed dormitory" width="1920" height="896" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Front exterior of the completed dormitory</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/Lovell_dorm_Rear-160.webp 160w, /assets/img/r/Lovell_dorm_Rear-480.webp 480w, /assets/img/r/Lovell_dorm_Rear-768.webp 768w, /assets/img/r/Lovell_dorm_Rear-1024.webp 1024w, /assets/img/r/Lovell_dorm_Rear-1440.webp 1440w, /assets/img/r/Lovell_dorm_Rear-1920.webp 1920w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/Lovell_dorm_Rear.jpg" alt="Rear exterior and grounds of the dormitory" width="1920" height="1280" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Rear exterior &amp; grounds</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/Lovell_dorm_Cafe-160.webp 160w, /assets/img/r/Lovell_dorm_Cafe-480.webp 480w, /assets/img/r/Lovell_dorm_Cafe-768.webp 768w, /assets/img/r/Lovell_dorm_Cafe-1024.webp 1024w, /assets/img/r/Lovell_dorm_Cafe-1440.webp 1440w, /assets/img/r/Lovell_dorm_Cafe-1920.webp 1920w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/Lovell_dorm_Cafe.jpg" alt="On-site café and dining commons" width="1920" height="1280" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">On-site café &amp; dining commons</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/Lovell_dorm_Rec_Room-160.webp 160w, /assets/img/r/Lovell_dorm_Rec_Room-480.webp 480w, /assets/img/r/Lovell_dorm_Rec_Room-768.webp 768w, /assets/img/r/Lovell_dorm_Rec_Room-1024.webp 1024w, /assets/img/r/Lovell_dorm_Rec_Room-1440.webp 1440w, /assets/img/r/Lovell_dorm_Rec_Room-1920.webp 1920w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/Lovell_dorm_Rec_Room.jpg" alt="Student recreation room" width="1920" height="1280" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Student recreation room</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous photo of Lovell Dormitory">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button class="carousel__btn next" type="button" aria-label="Next photo of Lovell Dormitory">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-            </button><div class="carousel__dots" role="group" aria-label="Choose a photo of Lovell Dormitory"></div>
-          </div>
-        </article>
-        
-          
-        <article class="project" data-project-category="Commercial" data-reveal>
-          <header class="project-head">
-            <h2>CubeSmart Self Storage</h2>
-            <p class="project-meta">
-              <span class="tag tag--cat">Commercial</span>
-              <span class="tag">Hingham, MA</span>
-
-            </p></header>
-          <div class="carousel">
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <picture><source type="image/webp" srcset="/assets/img/r/Cube_Front-160.webp 160w, /assets/img/r/Cube_Front-480.webp 480w, /assets/img/r/Cube_Front-768.webp 768w, /assets/img/r/Cube_Front-1024.webp 1024w, /assets/img/r/Cube_Front-1440.webp 1440w, /assets/img/r/Cube_Front-1920.webp 1920w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img src="/assets/img/Cube_Front.jpg" alt="CubeSmart Self Storage street-front exterior" width="1920" height="896" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Street-front exterior of the completed facility</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/Cube_Lockers-160.webp 160w, /assets/img/r/Cube_Lockers-480.webp 480w, /assets/img/r/Cube_Lockers-768.webp 768w, /assets/img/r/Cube_Lockers-1024.webp 1024w, /assets/img/r/Cube_Lockers-1440.webp 1440w, /assets/img/r/Cube_Lockers-1920.webp 1920w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/Cube_Lockers.jpg" alt="Interior storage lockers and corridors" width="1920" height="896" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Interior storage lockers &amp; corridors</div>
-              </div>
-              <div class="carousel__slide">
-                <picture><source type="image/webp" data-srcset="/assets/img/r/Cube_Office-160.webp 160w, /assets/img/r/Cube_Office-480.webp 480w, /assets/img/r/Cube_Office-768.webp 768w, /assets/img/r/Cube_Office-1024.webp 1024w, /assets/img/r/Cube_Office-1440.webp 1440w, /assets/img/r/Cube_Office-1920.webp 1920w" sizes="(min-width: 1400px) 606px, (min-width: 590px) 46vw, 92vw"><img data-src="/assets/img/Cube_Office.jpg" alt="Leasing office and reception area" width="1920" height="896" loading="lazy" decoding="async"></picture>
-                
-                <div class="carousel__caption">Leasing office &amp; reception</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous photo of CubeSmart Self Storage">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button class="carousel__btn next" type="button" aria-label="Next photo of CubeSmart Self Storage">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-            </button><div class="carousel__dots" role="group" aria-label="Choose a photo of CubeSmart Self Storage"></div>
-          </div>
-        </article>
-        
-        </div><!-- /.projects-grid -->
-
+  <div class="gallery-view gallery-view--commercial" data-gallery-view="commercial" id="commercial">
+    <h2 class="visually-hidden">Commercial projects</h2>
+    {%- for title in order %}{% set ti = loop.index %}{% for p in projects.items %}{% if p.title == title and p.category == "Commercial" %}
+    <article class="gallery-band">
+      {{ slot(p, "100vw", 6000 + (ti * 800)) }}
+      <div class="gallery-band__shade"></div>
+      <div class="gallery-band__text">
+        <h3>{{ p.title }}</h3>
+        <p class="gallery-band__place">{{ p.location }}</p>
+        {%- if p.shows %}<p class="gallery-band__shows">{{ p.shows }}</p>{% endif %}
       </div>
-    </section>
+      <span class="gallery-band__dots" aria-hidden="true">{% for img in p.images %}<i{% if loop.first %} class="is-live"{% endif %}></i>{% endfor %}</span>
+    </article>
+    {%- endif %}{% endfor %}{% endfor %}
+  </div>
+</section>
 
-    <!-- ============================ CTA ============================ --><section class="section adu svc-cta">
-      <div class="container" data-reveal>
-        <h2 data-reveal-words>Discuss Your Project</h2>
-        <p>Let's talk about your project: scope, location and timing.</p>
-        <a href="/#contact" class="btn btn-primary">Contact Us Today</a>
-      </div>
-    </section>
-
-  
+<section class="section adu svc-cta">
+  <div class="container" data-reveal>
+    <h2 data-reveal-words>Discuss Your Project</h2>
+    <p>Let's talk about your project: scope, location and timing.</p>
+    <a href="/#contact" class="btn btn-primary">Contact Us Today</a>
+  </div>
+</section>

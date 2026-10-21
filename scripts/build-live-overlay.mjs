@@ -32,6 +32,7 @@ const HOST = new URL(SITE).host;
 const OVERLAY = [
   "css/styles.css",
   "js/main.js",
+  "js/gallery.js",
   "assets/img/swirls",
   "assets/img/backgrounds",
   "assets/logo.png",
