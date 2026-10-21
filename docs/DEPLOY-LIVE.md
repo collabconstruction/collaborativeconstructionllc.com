@@ -2,6 +2,17 @@
 
 Written October 20, 2026. Read `AGENTS.md` first for which design is the real one.
 
+## Two ways to deploy. Do not mix them up.
+
+| | `npm run deploy` | Safe overlay (`_deploy`) |
+|---|---|---|
+| What it ships | A fresh build of this repo (`_site`) | A copy of the live site plus only the files listed in `OVERLAY` |
+| Risk | Anything live that the repo lacks is removed | Low. Nothing live is lost |
+| Command | `npm run deploy` | `node scripts/build-live-overlay.mjs`, then `npx wrangler deploy --assets _deploy` |
+| Checked by CI | Build only, never the deploy | No. Run it by hand and read `READY` |
+
+Use the safe overlay unless the owner says otherwise. Merging a pull request does not deploy anything by itself. Deploying always needs the owner's separate approval.
+
 ## Why this method, instead of `npm run deploy`
 
 A Cloudflare deploy replaces the whole set of public files. As of October 21, 2026 the repo templates, fonts, photos and scripts match the live site, so a plain repo deploy should now give the same site. This method is still the safest, because it starts from a copy of what is live and only lays the changed files on top, so nothing the repo does not know about can be lost.
