@@ -46,3 +46,7 @@ Until then, GA4 can still show Facebook and LinkedIn as referrers in many cases,
 ## Referrer tradeoff (proposal branch)
 
 The old setting `page_referrer: ""` hid where visitors came from. That removed credit for ordinary links with no UTM tag, such as a Facebook post or a chamber website. The proposal sends the referring site's origin only (for example `https://www.facebook.com`), never a path or query, and only after consent. Our own site is left out. If you prefer not to share even that, say so and we keep it empty.
+
+UTM tags are read from the address of the page being viewed, not from memory. A later page in the same visit is not given tags it never had. GA4 keeps the first tags for the whole visit.
+
+Privacy notice: say that, after consent, the site shares campaign tags and the referring site's name with Google Analytics. Not yet added to the site. Owner to approve wording.

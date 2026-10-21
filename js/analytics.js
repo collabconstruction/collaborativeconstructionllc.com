@@ -118,15 +118,17 @@
   }
 
   /* The page path, plus only the three campaign tags (utm_source, utm_medium,
-     utm_campaign) that intake-context.js already checked against a strict
-     pattern. Any other query value, such as an email address, stays out. */
+     utm_campaign) that this very page address carries, and only when each one
+     passes the same strict pattern intake-context.js uses. Tags remembered from
+     an earlier page are not added to later pages, so a page never looks like it
+     was tagged when it was not. GA4 keeps the first tags for the whole visit. */
   function pageLocation() {
     var ctx = window.ccIntakeContext;
     var url = location.origin + (ctx ? ctx.currentPage() : "/");
-    if (!ctx || typeof ctx.get !== "function") return url;
-    var c = ctx.get(), parts = [];
+    var qs = new URLSearchParams(location.search), parts = [];
     ["utm_source", "utm_medium", "utm_campaign"].forEach(function (k) {
-      if (c[k]) parts.push(k + "=" + encodeURIComponent(c[k]));
+      var v = qs.get(k);
+      if (v && /^[a-zA-Z][a-zA-Z0-9_-]{0,79}$/.test(v)) parts.push(k + "=" + encodeURIComponent(v));
     });
     return parts.length ? url + "?" + parts.join("&") : url;
   }
