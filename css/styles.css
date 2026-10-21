@@ -4533,3 +4533,61 @@ html { background: var(--bg); }
 .proj-head { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: var(--s-3); }
 .proj-head h3 { margin: 0; text-align: center; }
 .proj-head .rule { margin: 0 auto; }
+
+/* Hero photo edges, three styles. Each frame says which one it wants with
+   data-edge. The fade now lives on the soft frames only, so the other two can
+   show a crisp edge with their own line work. */
+.hero-figure__stage { -webkit-mask-image: none; mask-image: none; }
+.hero-figure__stage > picture[data-edge="soft"] {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 11%, #000 89%, transparent 100%);
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 11%, #000 89%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.hero-figure__stage > picture[data-edge="frame"] img,
+.hero-figure__stage > picture[data-edge="corner"] img { border-radius: 3px; }
+.hero-figure__stage > picture[data-edge="frame"]::after,
+.hero-figure__stage > picture[data-edge="corner"]::after {
+  content: ""; position: absolute; pointer-events: none;
+}
+/* A thin brass line set inside the photo. */
+.hero-figure__stage > picture[data-edge="frame"]::after {
+  inset: 10px; border: 1px solid rgba(197, 165, 106, .85); border-radius: 2px;
+}
+/* Brass corner marks at the top left and bottom right. */
+.hero-figure__stage > picture[data-edge="corner"]::after {
+  inset: 8px;
+  background:
+    linear-gradient(var(--brass), var(--brass)) top left / 34px 2px no-repeat,
+    linear-gradient(var(--brass), var(--brass)) top left / 2px 34px no-repeat,
+    linear-gradient(var(--brass), var(--brass)) bottom right / 34px 2px no-repeat,
+    linear-gradient(var(--brass), var(--brass)) bottom right / 2px 34px no-repeat;
+}
+
+/* Recent work band on the home page: three photos, three different frames. */
+.home-work__grid {
+  display: grid; grid-template-columns: 1.35fr .9fr 1.35fr; gap: clamp(16px, 2.4vw, 32px);
+  align-items: center; margin-top: clamp(24px, 3vw, 40px);
+}
+.home-work__tile { margin: 0; position: relative; }
+.home-work__tile picture { display: block; }
+.home-work__tile img { display: block; width: 100%; height: clamp(240px, 30vw, 400px); object-fit: cover; }
+.home-work__tile figcaption { margin-top: 12px; font-size: .9rem; color: var(--muted, #5b6472); text-align: center; }
+.home-work__tile--frame img { border-radius: 8px; outline: 1px solid var(--brass); outline-offset: 7px; }
+.home-work__tile--arch img { border-radius: 999px 999px 4px 4px; height: clamp(300px, 36vw, 470px); }
+.home-work__tile--corner::before, .home-work__tile--corner::after {
+  content: ""; position: absolute; width: 44px; height: 44px; pointer-events: none; z-index: 1;
+}
+.home-work__tile--corner::before { top: -8px; left: -8px; border-top: 2px solid var(--brass); border-left: 2px solid var(--brass); }
+.home-work__tile--corner::after { bottom: 34px; right: -8px; border-bottom: 2px solid var(--brass); border-right: 2px solid var(--brass); }
+.home-work__more { display: flex; justify-content: center; max-width: none; margin: 28px 0 0; }
+@media (max-width: 760px) {
+  .home-work__grid { grid-template-columns: 1fr; }
+  .home-work__tile--arch { max-width: 320px; margin-inline: auto; }
+  .home-work__tile img { height: clamp(220px, 60vw, 320px); }
+  .home-work__tile--arch img { height: clamp(300px, 90vw, 420px); }
+}

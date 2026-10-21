@@ -145,7 +145,7 @@ async function main() {
   // Pages and photos this branch changed. The pages come from the repo build (_site), so run
   // `npm run build` first. Each page already carries the current Facebook link.
   {
-    const built = ["gallery/index.html", "home-renovation-cape-cod/index.html", "custom-home-builder-cape-cod/index.html", "home-additions-cape-cod/index.html", "adu-builder-cape-cod/index.html"];
+    const built = ["index.html", "gallery/index.html", "home-renovation-cape-cod/index.html", "custom-home-builder-cape-cod/index.html", "home-additions-cape-cod/index.html", "adu-builder-cape-cod/index.html"];
     for (const rel of built) {
       try { await stat(join(ROOT, "_site", rel)); } catch { console.error(`NOT READY: _site/${rel} is missing. Run npm run build first.`); process.exit(1); }
       await cp(join(ROOT, "_site", rel), join(OUT, rel));
