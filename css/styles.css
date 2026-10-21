@@ -4816,10 +4816,18 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
 .gallery-band__dots i.is-live { background: var(--brass); transform: scale(1.35); }
 .gallery-band .gallery-frame { transition: opacity 1.6s ease, transform 10s linear; }
 
+/* Very narrow phones (320px): the header was 36px wider than the screen on every page, which made the whole page scroll sideways. */
+@media (max-width: 340px) {
+  .brand-wm { font-size: .72rem; }
+  .brand { gap: 6px; }
+  .brand .logo { width: 38px; height: 38px; }
+  .header-right { gap: 6px; }
+}
+
 /* A shorter banner on this page only */
-.page-main:has(.project-gallery) .about-page-hero { padding-block: 30px 20px; }
-.page-main:has(.project-gallery) .about-page-hero .rule { margin-top: 12px !important; }
-.page-main:has(.project-gallery) .about-page-hero .hero-lede { margin-top: 10px; }
+.page-gallery .about-page-hero { padding-block: 30px 20px; }
+.page-gallery .about-page-hero .rule { margin-top: 12px !important; }
+.page-gallery .about-page-hero .hero-lede { margin-top: 10px; }
 
 @media (max-width: 1000px) { .gallery-collage { column-count: 2; } }
 @media (max-width: 760px) {
