@@ -1,0 +1,59 @@
+name: Falmouth Contractor Watch
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/falmouth-competitor-watch.yml
+      - config/competitor-watch.json
+      - scripts/monitor_competitors.py
+      - tests/test_monitor_competitors.py
+  schedule:
+    - cron: '13 8 * * 1'
+      timezone: America/New_York
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: falmouth-competitor-watch
+  cancel-in-progress: false
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate watcher logic
+        run: python -m unittest discover -s tests -p test_monitor_competitors.py
+      - name: Retrieve last available competitor snapshot
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          mkdir -p previous
+          while read -r run_id; do
+            [ -n "$run_id" ] || continue
+            if gh run download "$run_id" --name "competitor-watch-$run_id" --dir previous >/dev/null 2>&1; then
+              echo "Retrieved baseline from run $run_id"
+              break
+            fi
+          done < <(gh run list --workflow falmouth-competitor-watch.yml --branch main --limit 12 --json databaseId,status --jq '.[] | select(.status == "completed") | .databaseId')
+      - name: Scan public contractor websites
+        run: python scripts/monitor_competitors.py
+      - name: Add summary to GitHub Actions
+        if: always()
+        run: |
+          if [ -f monitoring-output/competitors/report.md ]; then
+            cat monitoring-output/competitors/report.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Save dated reports and snapshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: competitor-watch-${{ github.run_id }}
+          path: monitoring-output/competitors/
+          retention-days: 30
+          if-no-files-found: warn
