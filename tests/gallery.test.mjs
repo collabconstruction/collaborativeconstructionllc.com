@@ -41,3 +41,37 @@ test('each project is listed under its own category only', () => {
   for (const p of projects) assert.ok(['Residential', 'Commercial'].includes(p.category), p.title);
   assert.equal(projects.filter(p => p.category === 'Commercial').length, 3);
 });
+
+const css = fs.readFileSync(new URL('../css/styles.css', import.meta.url), 'utf8');
+const galleryCss = css.slice(css.indexOf('.gallery-stage {'));
+
+test('Residential rows put the town directly under the title, in the same place every time, with no big background word', () => {
+  assert.ok(!page.includes('gallery-row__town'), 'the large faint town word is gone from the markup');
+  assert.ok(!galleryCss.includes('gallery-row__town'), 'and from the styles');
+  const block = page.slice(page.indexOf('<article class="gallery-row'), page.indexOf('</article>', page.indexOf('<article class="gallery-row')));
+  assert.match(block, /<h3>[^<]*<\/h3>\s*<p class="gallery-row__place">/, 'the town line follows the title');
+  assert.ok(block.indexOf('gallery-row__place') < block.indexOf('gallery-row__shows'), 'the short description comes after the town');
+});
+
+test('tabs are large serif text with no dot, no underline and no box', () => {
+  const tabs = galleryCss.slice(galleryCss.indexOf('.gallery-views {'), galleryCss.indexOf('/* shared: a slot'));
+  assert.ok(!/border-radius\s*:\s*50%/.test(tabs), 'no round dot');
+  assert.ok(!/translateY|scale\(0\)/.test(tabs), 'no bobbing or dot animation');
+  assert.ok(!/underline|border-bottom/.test(tabs), 'no underline');
+  assert.ok(!/background\s*:/.test(tabs), 'no box');
+  assert.match(tabs, /min-height:\s*44px/, 'a comfortable tap target');
+  assert.match(tabs, /a\[aria-current="true"\]\s*\{[^}]*color:\s*var\(--navy\)/, 'the active tab is solid navy');
+  assert.match(tabs, /a:not\(:last-child\)::after\s*\{\s*content:\s*"\/"/, 'thin slash between tabs');
+  assert.match(tabs, /focus-visible\s*\{\s*outline:\s*2px solid/, 'keyboard focus stays visible');
+});
+
+test('the gallery is tighter than before: short banner, smaller gaps, shorter bands', () => {
+  assert.match(css, /\.page-main:has\(\.project-gallery\) \.about-page-hero \{ padding-block: 30px 20px; \}/);
+  assert.match(galleryCss, /margin-bottom: clamp\(22px, 3\.4vw, 46px\)/);
+  assert.match(galleryCss, /min-height: clamp\(300px, 48vh, 480px\)/);
+  assert.match(galleryCss, /column-gap: clamp\(10px, 1\.6vw, 20px\)/);
+});
+
+test('no gallery rule underlines text', () => {
+  assert.ok(!/text-decoration\s*:\s*underline/.test(galleryCss));
+});

@@ -20,7 +20,7 @@ breadcrumbName: "Gallery"
 {#
   Gallery: three views of the same projects (src/_data/projects.json), each laid out its own way.
     all          a collage of cycling photo tiles
-    residential  editorial rows, the town set large and faint behind the text
+    residential  editorial rows: title, then the town under it, then a short line
     commercial   full width bands
   No buttons, no boxes, no captions inside the photos. Each photo slot cycles through its project's pictures
   (js/gallery.js). Without JavaScript every view shows one after the other and the first photo of each slot is visible.
@@ -72,10 +72,9 @@ breadcrumbName: "Gallery"
     <article class="gallery-row{% if p.compact %} gallery-row--compact{% endif %}" data-reveal>
       <div class="gallery-row__media">{{ slot(p, "(min-width: 900px) 58vw, 92vw", 6200 + (ti * 600)) }}</div>
       <div class="gallery-row__text">
-        <span class="gallery-row__town" aria-hidden="true" style="--len: {{ p.location | replace(", MA", "") | length }}">{{ p.location | replace(", MA", "") }}</span>
         <h3>{{ p.title }}</h3>
-        {%- if p.shows %}<p class="gallery-row__shows">{{ p.shows }}</p>{% endif %}
         <p class="gallery-row__place">{{ p.location }}</p>
+        {%- if p.shows %}<p class="gallery-row__shows">{{ p.shows }}</p>{% endif %}
       </div>
     </article>
     {%- endif %}{% endfor %}{% endfor %}
