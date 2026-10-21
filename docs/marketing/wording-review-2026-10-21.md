@@ -42,3 +42,20 @@ Scope: all nine public pages (home, About, Construction Management, ADU, Home Ad
 1. Towns served, in one list used everywhere.
 2. Official HIC and CSL registration numbers for the footer (the footer shows them only when supplied).
 3. Whether the tagline stays.
+
+## Second pass (after the independent review)
+- **Check marks are now fully page specific.** All three lines on each of the five service pages are different, and each is taken from that page's own text (for example "Rooflines, siding and windows tied in" on Additions). A test fails if any line repeats on another page.
+- **Gallery closing call to action** now uses sentence case ("Discuss your project", "Contact us today") like the other pages.
+- **About heading** is now "Over 30 years of residential and commercial construction experience." The line below it says the project is led by a licensed Massachusetts builder, so the years are attributed to the person leading the work, not to the age of the company.
+- **Pricing wording** is kept in each hero and closing call to action only. Whether to keep it even there is a positioning decision for the owner: it can make a company sound price driven rather than experience driven.
+
+## Credential claims: evidence and what the owner must confirm
+| Claim on the site | Where | Evidence found in the repository | Status |
+|---|---|---|---|
+| Licensed Massachusetts builder | Home, About | A Construction Supervisor License (CSL) is stated in `src/_data/people.json`. A CSL is a supervisor license, not a Home Improvement Contractor (HIC) registration. | Owner stated. Not checked against ContractorHub. Wording may need review. |
+| CSL held since 2000 | About | `people.json`, supplied by the owner. License number is blank in `business.json` (`null`), by design. | Owner stated. Number and expiry not verified. |
+| Over 30 years of experience | Home, About | `people.json` calls it a personal career figure. `docs/social-logo/` guidance says it is not the company's history. | Owner stated. Presented as the leader's experience, not the company's age. |
+| Bachelor's degree, Boston University; postgraduate studies, Boston Architectural Center | About | `people.json`. The school has been named Boston Architectural College since 2006. | Owner stated. Name choice is the owner's. |
+| HIC and CSL numbers | Footer | Both are `null`, so nothing is shown | Owner must supply from ContractorHub.mass.gov. Never guessed. |
+
+Nothing here was verified against public records by Claude. The bold formatting only emphasizes claims that were already on the site. If the owner prefers not to emphasize a claim until it is checked, removing the bold is a one line change per claim.
