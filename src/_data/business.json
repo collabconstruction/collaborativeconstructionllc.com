@@ -50,11 +50,11 @@
   "hicNumber": null,
   "insurance": null,
 
-  "_socialComment": "Updated October 21, 2026 at the owner direction: facebook and linkedin are now the company accounts, the same links the live site uses. The earlier Facebook page and the founder personal LinkedIn profile were replaced. googleBusinessProfile is unchanged. A LinkedIn link copied from your own browser can end in ?isSelfProfile=true, which only means you are viewing your own profile; leave it off.",
+  "_socialComment": "Updated October 21, 2026 at the owner direction: facebook is the company profile https://www.facebook.com/profile.php?id=61593017512930 and linkedin is the company account profile, the same links the live site uses (a copied LinkedIn link can end in ?isSelfProfile=true, which only means you are viewing your own profile; leave it off). googleBusinessProfile is unchanged.",
   "_canonicalUrlComment": "Use canonical profile URLs, never share/redirect links. The old facebook value was https://www.facebook.com/share/14koskagbeC/?mibextid=wwXIfr - a share link carrying the mibextid click-tracking parameter, which redirects to the value below. A redirecting, parameterised URL is a weak sameAs signal. Verified 2026-10-13 by following the redirect.",
   "social": {
     "googleBusinessProfile": "https://www.google.com/maps?cid=10110650788670469074",
-    "facebook": "https://www.facebook.com/people/Collaborative-Construction/61595651094549/",
+    "facebook": "https://www.facebook.com/profile.php?id=61593017512930",
     "linkedin": "https://www.linkedin.com/in/collaborative-construction-56761b444/"
   },
 

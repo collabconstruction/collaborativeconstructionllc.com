@@ -137,6 +137,35 @@ async function main() {
     console.log("Patched the home page hero: Belmont photos, no caption.");
   }
 
+  // Link replacements applied to the copied live pages (header and footer links and the hidden
+  // structured data all carry the same URL). The build stops if a URL is not found, so a
+  // replacement can never silently do nothing.
+  {
+    const REPLACE = [
+      ["https://www.facebook.com/people/Collaborative-Construction/61595651094549/", "https://www.facebook.com/profile.php?id=61593017512930"],
+    ];
+    const htmlFiles = [];
+    const walk = async (dir) => {
+      for (const entry of await readdir(dir, { withFileTypes: true })) {
+        const full = join(dir, entry.name);
+        if (entry.isDirectory()) await walk(full);
+        else if (entry.name.endsWith(".html")) htmlFiles.push(full);
+      }
+    };
+    await walk(OUT);
+    for (const [from, to] of REPLACE) {
+      let count = 0;
+      for (const file of htmlFiles) {
+        const text = await readFile(file, "utf8");
+        if (!text.includes(from)) continue;
+        count += text.split(from).length - 1;
+        await writeFile(file, text.split(from).join(to));
+      }
+      if (count === 0) { console.error(`NOT READY: replacement not found in the live pages: ${from}`); process.exit(1); }
+      console.log(`Replaced ${count} link(s): ${from} -> ${to}`);
+    }
+  }
+
   // Overlay the changed files.
   const overlaid = [];
   for (const rel of OVERLAY) {
