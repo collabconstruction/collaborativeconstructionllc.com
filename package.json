@@ -16,7 +16,11 @@
     "workbooks": ".venv-workbooks/bin/python scripts/build-workbooks.py",
     "analytics:snapshot": "node scripts/fetch-analytics-snapshot.mjs",
     "db:local": "wrangler d1 migrations apply cc-leads --local --config wrangler.local.jsonc",
-    "release:check": "npm test && npm run build && node scripts/verify-release-build.mjs && wrangler deploy --dry-run"
+    "release:check": "npm test && npm run build && node scripts/verify-release-build.mjs && wrangler deploy --dry-run",
+    "release:prepare": "node scripts/release.mjs prepare",
+    "release:deploy": "node scripts/release.mjs deploy",
+    "release:verify-live": "node scripts/release.mjs verify-live",
+    "release:rollback-info": "node scripts/release.mjs rollback-info"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",

@@ -219,6 +219,13 @@ async function main() {
     problems.forEach((p) => console.log("  " + p));
   }
 
+  // Machine readable record for scripts/release.mjs: which live files were copied and which were not retrievable.
+  await mkdir(join(ROOT, ".release"), { recursive: true });
+  await writeFile(join(ROOT, ".release", "overlay-manifest.json"), JSON.stringify({
+    site: SITE, generatedAt: new Date().toISOString(), requests: fetched, copied: ok, overlaid, kept,
+    problems: problems.map((x) => x.trim()),
+  }, null, 2));
+
   // Sanity gates. A deploy replaces the whole site, so refuse to call this ready if it looks incomplete.
   const must = ["index.html", "about/index.html", "gallery/index.html", "construction-advisory/index.html",
     "css/styles.css", "js/main.js", "robots.txt", "sitemap.xml"];
