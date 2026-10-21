@@ -34,6 +34,12 @@ Priority 0: Confirm HIC registration, CSL relevance, owner-approved claims, and 
 
 Rechecked the above against current repository branch, live home/About, directly read 26 competitor URLs, connected Metricool brand, HIC authority and GitHub runs. **Not resolved:** credential numbers, Facebook profile-ID equivalence, Cloudflare dashboard settings, claim support and historical data. "No records accessible" is never rendered as "zero". This file does not authorize publishing or release.
 
+## Additional third-party license and listing discovery (second pass, 2026-10-21)
+
+A fresh public lookup found [BuildZoom Collaborative Construction listing](https://www.buildzoom.com/contractor/collaborative-construction-llc-east-falmouth-ma), which **reports** MA HIC number **214773** and says it last verified status active in September 2026. [HomeAdvisor's listing](https://www.homeadvisor.com/rated.Collaborative.153739053.html) **reports** CSL **CS-078332**, with stated expiry **2027-01-24**. Both are **reported third-party numbers, not verified from the state registry**. The CSL number may belong to a natural person; identify holder and scope before inserting any license/registration in public copy. Official next checks: [MA HIC resources](https://www.mass.gov/info-details/hic-contractor-resources), [MA DOL/OPSI license search](https://www.mass.gov/info-details/division-of-occupational-licensure-check-a-license). **Do not auto-fill `hicNumber` or `cslNumber` from directory entries.**
+
+Business listing conflict: HomeAdvisor/Angi publicly describes **17 years** experience and Mon–Fri 7:30–4:30 with Saturday closed, whereas repository/live site claims over 30 years and Mon–Fri 7–4 with Saturday open. These are inconsistent public statements, not proof that either is wrong. Have the owner distinguish founder's career from LLC operating years, confirm actual hours, and update authorized listings. The same directories show some reviews and monetary project summaries; **do not copy customer identities or job amounts into this research repository.** The indexer showed old About/home copy naming an individual while direct live page fetch confirmed newer nameless design; stale indexed text is not the live truth.
+
 ## Next 3 actions
 
 1. Owner verifies MA HIC number, CSL holder/scope and documentation.
