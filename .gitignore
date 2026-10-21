@@ -36,3 +36,6 @@ credentials.json
 
 # Built by scripts/build-live-overlay.mjs: a copy of the live site plus this branch's changes
 _deploy/
+
+# Python cache
+__pycache__/
