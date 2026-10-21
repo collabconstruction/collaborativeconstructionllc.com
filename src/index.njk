@@ -3,64 +3,99 @@ layout: base.njk
 permalink: /index.html
 canonical: /
 schemaType: home
-title: "Collaborative Construction, LLC Residential Construction & Renovation | Cape Cod & South Shore"
-description: "Collaborative Construction, LLC professional, client-centered residential construction and renovation. New construction, additions, ADUs, and remodels serving Cape Cod & the Islands and the South Shore."
-ogTitle: "Residential Construction & Renovation | Cape Cod & South Shore"
-ogDescription: "Working together, working collaboratively, to produce the highest quality construction and renovation projects. New construction, additions, ADUs, and remodels."
-shareImageAlt: "Custom home built by Collaborative Construction"
-twitterDescription: "Working together, working collaboratively, to produce the highest quality construction and renovation projects."
-preloadImage: /assets/img/belmont-pond.jpg
+title: "Collaborative Construction, LLC | Residential Construction & Renovation"
+description: "Residential building, additions, ADUs and renovation at affordable, competitive prices. Collaborative Construction, LLC, (508) 440-6981."
+ogType: "website"
+ogTitle: "Residential Construction & Renovation"
+ogDescription: "Residential construction, home additions, ADUs, renovation and independent project oversight."
+twitterDescription: "Residential construction, renovation and independent project oversight."
+shareImage: /assets/img/belmont-hero.jpg
+shareImageWidth: 1280
+shareImageHeight: 837
+shareImageAlt: "Residential project photography from the gallery"
+preloadImage: /assets/img/belmont-hero.jpg
+preloadSrcset: "/assets/img/r/belmont-hero-480.webp 480w, /assets/img/r/belmont-hero-768.webp 768w, /assets/img/r/belmont-hero-1024.webp 1024w"
+preloadSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
 ---
 
-    <!-- ============================ HERO / MOTTO ============================ -->
+    
     <section class="hero">
-      {# Still image, not video. The looping background video was removed at the
-         owner's request (quality), which also removed a 4.1 MB autoplaying
-         download that was the single biggest cause of the 11.9s LCP. #}
-      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__bg" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
       <div class="hero__overlay" aria-hidden="true"></div>
+
       <div class="container">
-        <p class="eyebrow motto-words" id="hero-motto" data-reveal>
-          <span class="motto-word">Experience</span> <span class="dot">·</span> 
-          <span class="motto-word">Quality</span> <span class="dot">·</span> 
-          <span class="motto-word">Trust</span>
-        </p>
-        <h1 class="hero__motto" data-reveal data-delay="1">
-          <em>Working together, working <span class="accent">collaboratively</span>, to produce the highest quality construction and renovation projects.</em>
-          <span class="hero__sub">Residential Construction &amp; Renovation on Cape Cod and the South Shore</span>
-        </h1>
-        <div class="hero__cta" data-reveal data-delay="2">
-          <a href="/gallery" class="btn btn-gold">View Our Work</a>
-          <a href="/about" class="btn btn-gold">About Us</a>
+        <div class="hero-grid">
+          <div class="hero__copy">
+            <p class="eyebrow eyebrow--boom">Residential building &amp; project oversight</p><h1 class="hero__title">Residential construction <span class="gem">&amp; renovation.</span></h1>
+            <p class="hero__lede">Custom homes, additions and renovations at <strong>affordable, competitive prices</strong>, plus owner's project management and Clerk of the Works oversight.</p>
+            <div class="hero__cta">
+              <a href="#contact" class="btn btn-gold">Discuss your project</a>
+              <a href="/gallery/" class="btn btn-ghost">View projects</a>
+            </div>
+            <p class="hero__motto">Experience, Quality, Trust</p>
+          </div>{% include "hero-figure.html" %}
         </div>
       </div>
     </section>
 
-    <section class="facts-strip" aria-label="Company highlights">
-      <div class="facts-track" id="facts-track">
-        <span class="fact">Fully licensed General Contractor</span>
-        <span class="fact-sep" aria-hidden="true">&#9670;</span>
-        <span class="fact">Over 30 years of experience</span>
-        <span class="fact-sep" aria-hidden="true">&#9670;</span>
-        <span class="fact">Family owned &amp; run</span>
-        <span class="fact-sep" aria-hidden="true">&#9670;</span>
-        <span class="fact">Serving Cape Cod, the Islands &amp; the South Shore</span>
-        <span class="fact-sep" aria-hidden="true">&#9670;</span>
-        <span class="fact">New construction, additions &amp; ADUs</span>
-        <span class="fact-sep" aria-hidden="true">&#9670;</span>
-        <span class="fact">Owner's project management &amp; construction advisory</span>
-        <span class="fact-sep" aria-hidden="true">&#9670;</span>
-        <span class="fact">Fully licensed General Contractor</span>
-        <span class="fact-sep" aria-hidden="true">&#9670;</span>
-        <span class="fact">Over 30 years of experience</span>
-        <span class="fact-sep" aria-hidden="true">&#9670;</span>
-        <span class="fact">Family owned &amp; run</span>
-        <span class="fact-sep" aria-hidden="true">&#9670;</span>
-        <span class="fact">Serving Cape Cod, the Islands &amp; the South Shore</span>
-        <span class="fact-sep" aria-hidden="true">&#9670;</span>
-        <span class="fact">New construction, additions &amp; ADUs</span>
-        <span class="fact-sep" aria-hidden="true">&#9670;</span>
-        <span class="fact">Owner's project management &amp; construction advisory</span>
+    
+    <section class="facts-strip" aria-label="Construction services">
+      <div class="container"><div class="facts-track">
+        <div class="fact"><span class="num">Build</span><span class="label">New homes and residential construction</span></div>
+        <div class="fact"><span class="num">Expand</span><span class="label">Home additions and accessory dwelling units</span></div>
+        <div class="fact"><span class="num">Renovate</span><span class="label">Home improvements and remodeling</span></div>
+        <div class="fact"><span class="num">Oversee</span><span class="label">Independent project management and reviews</span></div>
+      </div></div>
+    </section>
+
+    
+    <section class="home-credit" aria-label="About the company">
+      <div class="container">
+        <p>Led by a <strong>licensed Massachusetts builder</strong> with over 30 years in residential and commercial construction, and a direct line to the person doing the work.</p>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Two ways to work together</p>
+          <h2 data-reveal-words>Residential construction <span class="gem">and project oversight.</span></h2>
+          <p class="section-lede">We're your general contractor for residential construction. Already have a builder? We can provide independent oversight instead. Either way, our pricing is <strong>affordable and competitive</strong>.</p>
+        </div>
+
+        <div class="paths">
+          <article class="svc-path" data-reveal data-delay="1">
+            <div class="svc-path__head">
+              <h3>We build it</h3>
+              <span class="tag">Residential</span>
+            </div>
+            <p>New construction, additions, ADUs, renovations, demolition and permitting, all coordinated under one roof.</p>
+            <ul>
+              <li>Custom homes and whole-house renovation</li>
+              <li>Additions and accessory dwelling units</li>
+              <li>Kitchens, baths and interior remodels</li>
+              <li>Permitting and demolition</li>
+            </ul>
+            <a href="/general-contractor-falmouth-ma/" class="btn btn-ghost btn-sm">Residential services</a>
+          </article>
+
+          <article class="svc-path svc-path--advisory" data-reveal data-delay="2">
+            <div class="svc-path__head">
+              <h3>We oversee the work</h3>
+              <span class="tag tag--cat">Owner's side</span>
+            </div>
+            <p>Independent review of drawings, site progress and decisions, reporting straight to you.</p>
+            <ul>
+              <li>Owner's Project Management, concept to close-out</li>
+              <li>Clerk of the Works, on-site quality and compliance</li>
+              <li>Construction advisory and second opinions</li>
+              <li>Bid review, schedule and change-order scrutiny</li>
+            </ul>
+            <a href="/construction-advisory/" class="btn btn-ghost btn-sm">Construction management</a>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -68,21 +103,203 @@ preloadImage: /assets/img/belmont-pond.jpg
       <span class="line"></span><span class="gem"></span><span class="line r"></span>
     </div>
 
-    <!-- ============================ ABOUT US ============================ -->
-    <section class="section about" id="about">
+    
+    <section class="section">
       <div class="container">
-        <div class="two-col">
-          <div class="figure" data-reveal="left">
-            <img src="/assets/img/belmont-hero.jpg" alt="Modern custom home built by Collaborative Construction in Belmont, MA" loading="lazy" width="1280" height="837">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">What we do</p>
+          <h2 data-reveal-words>Our services</h2>
+        </div>
+
+        <div class="svc-list">
+          <a class="svc-row" href="/general-contractor-falmouth-ma/" data-reveal data-delay="1">
+            <span class="svc-row__n">01</span>
+            <div class="svc-row__body">
+              <h3>General contracting</h3>
+              <p>Trades, scheduling, inspections and budget, coordinated through <strong>one point of contact</strong>, at an affordable, competitive price.</p>
+            </div>
+            <span class="svc-row__go" aria-hidden="true">View service</span>
+          </a>
+
+          <a class="svc-row" href="/home-additions-cape-cod/" data-reveal data-delay="2">
+            <span class="svc-row__n">02</span>
+            <div class="svc-row__body">
+              <h3>Home additions</h3>
+              <p>Additional living space coordinated with your existing structure.</p>
+            </div>
+            <span class="svc-row__go" aria-hidden="true">Additions</span>
+          </a>
+
+          <a class="svc-row" href="/adu-builder-cape-cod/" data-reveal data-delay="3">
+            <span class="svc-row__n">03</span>
+            <div class="svc-row__body">
+              <h3>Accessory dwelling units</h3>
+              <p>Attached and detached units, planned around your property and its permitting needs.</p>
+            </div>
+            <span class="svc-row__go" aria-hidden="true">ADUs</span>
+          </a>
+
+          <a class="svc-row" href="/home-renovation-cape-cod/" data-reveal data-delay="4">
+            <span class="svc-row__n">04</span>
+            <div class="svc-row__body">
+              <h3>Renovation &amp; remodeling</h3>
+              <p>Kitchens, baths, whole floors and whole houses, including the structural and code work behind the finishes.</p>
+            </div>
+            <span class="svc-row__go" aria-hidden="true">Renovation</span>
+          </a>
+
+          <a class="svc-row" href="/custom-home-builder-cape-cod/" data-reveal data-delay="5">
+            <span class="svc-row__n">05</span>
+            <div class="svc-row__body">
+              <h3>Custom homes</h3>
+              <p>New construction from a bare lot, coordinated with your architect and designer.</p>
+            </div>
+            <span class="svc-row__go" aria-hidden="true">Custom homes</span>
+          </a>
+
+          <a class="svc-row" href="/construction-advisory/" data-reveal data-delay="6">
+            <span class="svc-row__n">06</span>
+            <div class="svc-row__body">
+              <h3>Construction management &amp; advisory</h3>
+              <p>Owner's project management, Clerk of the Works and advisory: <strong>independent oversight</strong> for property owners.</p>
+            </div>
+            <span class="svc-row__go" aria-hidden="true">Owner's side</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section home-work" aria-labelledby="home-work-heading">
+      <div class="container">
+        <div class="section-head center" data-reveal>
+          <p class="eyebrow">Our work</p>
+          <h2 id="home-work-heading" data-reveal-words>Recent projects</h2>
+        </div>
+        <div class="home-work__grid">
+          <figure class="home-work__tile home-work__tile--frame" data-reveal data-delay="1">
+            <picture><source type="image/webp" srcset="/assets/img/r/carlisle-residence-1-160.webp 160w, /assets/img/r/carlisle-residence-1-480.webp 480w, /assets/img/r/carlisle-residence-1-768.webp 768w, /assets/img/r/carlisle-residence-1-868.webp 868w" sizes="(min-width: 980px) 33vw, 92vw"><img src="/assets/img/carlisle-residence-1.jpg" alt="Kitchen with island, wood beams and large windows" width="868" height="596" loading="lazy" decoding="async"></picture>
+            <figcaption>Modern Custom Residence, Carlisle, MA</figcaption>
+          </figure>
+          <figure class="home-work__tile home-work__tile--arch" data-reveal data-delay="2">
+            <picture><source type="image/webp" srcset="/assets/img/r/belmont-bath-160.webp 160w, /assets/img/r/belmont-bath-480.webp 480w, /assets/img/r/belmont-bath-768.webp 768w, /assets/img/r/belmont-bath-785.webp 785w" sizes="(min-width: 980px) 33vw, 92vw"><img src="/assets/img/belmont-bath.jpg" alt="Spa bath with cedar detailing and soaking tub" width="785" height="1067" loading="lazy" decoding="async"></picture>
+            <figcaption>Custom Residence, Belmont, MA</figcaption>
+          </figure>
+          <figure class="home-work__tile home-work__tile--corner" data-reveal data-delay="3">
+            <picture><source type="image/webp" srcset="/assets/img/r/carlisle-residence-3-160.webp 160w, /assets/img/r/carlisle-residence-3-480.webp 480w, /assets/img/r/carlisle-residence-3-768.webp 768w, /assets/img/r/carlisle-residence-3-868.webp 868w" sizes="(min-width: 980px) 33vw, 92vw"><img src="/assets/img/carlisle-residence-3.jpg" alt="Deck overlooking a pool and open landscape" width="868" height="579" loading="lazy" decoding="async"></picture>
+            <figcaption>Modern Custom Residence, Carlisle, MA</figcaption>
+          </figure>
+        </div>
+        <p class="home-work__more" data-reveal><a href="/gallery/" class="btn btn-ghost">View all projects</a></p>
+      </div>
+    </section>
+
+    <section class="house-section" id="house-explorer" data-house aria-labelledby="house-heading">
+  <div class="container house-layout">
+    <div class="house-art">
+      <div class="house-viewport" tabindex="0" role="img" aria-label="Architectural house drawing. Hover or focus to pause rotation.">
+        <img class="house-poster" src="/assets/models/residential-study.svg" alt="Three-dimensional architectural line drawing of a residential house" width="1000" height="720" loading="lazy">
+      </div>
+    </div>
+    <div class="house-copy">
+      <p class="eyebrow">Residential construction</p>
+      <h2 id="house-heading">Residential construction services.</h2>
+      <p>New homes, additions and renovations. Explore the services below to find the right starting point.</p>
+      <nav class="house-services" aria-label="Explore construction services">
+        
+        <a href="/general-contractor-falmouth-ma/">General Contracting<span aria-hidden="true">↗</span></a>
+        
+        <a href="/home-additions-cape-cod/">Home Additions<span aria-hidden="true">↗</span></a>
+        
+        <a href="/adu-builder-cape-cod/">ADU Construction<span aria-hidden="true">↗</span></a>
+        
+        <a href="/home-renovation-cape-cod/">Home Renovation<span aria-hidden="true">↗</span></a>
+        
+        <a href="/custom-home-builder-cape-cod/">Custom Homes<span aria-hidden="true">↗</span></a>
+        
+        <a href="/construction-advisory/">Construction Advisory<span aria-hidden="true">↗</span></a>
+        
+      </nav>
+
+    </div>
+  </div>
+</section>
+
+
+    
+    <section class="locations locations--atlas" aria-label="Nearby communities">
+      <div class="location-window" tabindex="0" role="region" aria-label="Nearby communities. Animation pauses on hover or focus.">
+        <div class="location-loop">
+          <ul class="location-atlas">
+            <li><span>East Falmouth</span></li>
+            <li><span>Falmouth</span></li>
+            <li><span>Woods Hole</span></li>
+            <li><span>North Falmouth</span></li>
+            <li><span>West Falmouth</span></li>
+            <li><span>Bourne</span></li>
+            <li><span>Pocasset</span></li>
+            <li><span>Cataumet</span></li>
+            <li><span>Sandwich</span></li>
+            <li><span>Mashpee</span></li>
+            <li><span>Cotuit</span></li>
+            <li><span>Barnstable</span></li>
+            <li><span>Yarmouth</span></li>
+            <li><span>Dennis</span></li>
+            <li><span>Harwich</span></li>
+            <li><span>Brewster</span></li>
+            <li><span>Chatham</span></li>
+            <li><span>Orleans</span></li>
+            <li><span>Plymouth</span></li>
+            <li><span>Kingston</span></li>
+            <li><span>Duxbury</span></li>
+            <li><span>Pembroke</span></li>
+            <li><span>Marshfield</span></li>
+            <li><span>Scituate</span></li>
+            <li><span>Norwell</span></li>
+            <li><span>Hanover</span></li>
+            <li><span>Hingham</span></li>
+            <li><span>Cohasset</span></li>
+          </ul>
+          <ul class="location-atlas location-atlas--clone" aria-hidden="true"><li><span>East Falmouth</span></li><li><span>Falmouth</span></li><li><span>Woods Hole</span></li><li><span>North Falmouth</span></li><li><span>West Falmouth</span></li><li><span>Bourne</span></li><li><span>Pocasset</span></li><li><span>Cataumet</span></li><li><span>Sandwich</span></li><li><span>Mashpee</span></li><li><span>Cotuit</span></li><li><span>Barnstable</span></li><li><span>Yarmouth</span></li><li><span>Dennis</span></li><li><span>Harwich</span></li><li><span>Brewster</span></li><li><span>Chatham</span></li><li><span>Orleans</span></li><li><span>Plymouth</span></li><li><span>Kingston</span></li><li><span>Duxbury</span></li><li><span>Pembroke</span></li><li><span>Marshfield</span></li><li><span>Scituate</span></li><li><span>Norwell</span></li><li><span>Hanover</span></li><li><span>Hingham</span></li><li><span>Cohasset</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="section process-section">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Project process</p>
+          <h2 data-reveal-words>From planning to completion</h2></div>
+
+        <div class="process" data-process>
+          <div class="process__step" style="--stage:0">
+            <span class="process__n">01</span>
+            <div class="process__body">
+              <h3>Conversation</h3>
+              <p>A first conversation about your project: location, scope, budget and timing.</p>
+            </div>
           </div>
-          <div class="body" data-reveal="right">
-            <p class="eyebrow">About Us</p>
-            <h2 data-reveal-words>Craftsmanship, built on collaboration</h2>
-            <hr class="rule">
-            <p style="margin-top:24px">At Collaborative Construction, we pride ourselves on a professional, client-centered approach. We specialize in residential construction including new construction, additions, accessory dwelling units, demolitions, permitting, and other renovation projects.</p>
-            <p>The owner and founder, <span class="owner">Wesleigh Behn</span>, brings over 30 years of experience in the construction field, with extensive expertise in custom home building and renovation projects, as well as years of commercial building experience including dormitories, cannabis dispensaries and grow facilities, athletic facilities, multi-family, and more.</p>
-            <p>We also serve owners as their advocate and representative on larger or more complex builds, providing owner's project management, Clerk of the Works oversight, and construction advisory.</p>
-            <p style="margin-bottom:0"><strong>Proudly serving Cape Cod and the Islands and the South Shore.</strong></p>
+          <div class="process__step" style="--stage:1">
+            <span class="process__n">02</span>
+            <div class="process__body">
+              <h3>Drawings &amp; permits</h3>
+              <p>We work with your architect or designer on scope, selections, approvals and a schedule based on real lead times.</p>
+            </div>
+          </div>
+          <div class="process__step" style="--stage:2">
+            <span class="process__n">03</span>
+            <div class="process__body">
+              <h3>Build</h3>
+              <p>Trades sequenced, inspections booked, progress documented. <strong>One point of contact</strong>, the same person who walked the site with you.</p>
+            </div>
+          </div>
+          <div class="process__step" style="--stage:3">
+            <span class="process__n">04</span>
+            <div class="process__body">
+              <h3>Close-out</h3>
+              <p>Final inspections, punch-list review, warranties and manuals, followed by a final walkthrough and handover.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -92,146 +309,178 @@ preloadImage: /assets/img/belmont-pond.jpg
       <span class="line"></span><span class="gem"></span><span class="line r"></span>
     </div>
 
-    <!-- ============================ QUOTE ============================ -->
-    <section class="section quote-band">
-      <div class="container">
-        <blockquote class="quote-band__text" data-reveal>Every project runs on trust between the people building it</blockquote>
-        <span class="quote-band__cite" data-reveal data-delay="1">Wesleigh Behn &middot; Owner &amp; Founder</span>
-      </div>
-    </section>
 
-    <div class="section-divider" data-reveal aria-hidden="true">
-      <span class="line"></span><span class="gem"></span><span class="line r"></span>
-    </div>
 
-    <!-- ============================ ADU / ADDITIONS ============================ -->
+    
     <section class="section adu" id="adu">
       <div class="container">
-        <div class="adu-grid">
-          <div class="adu-main" data-reveal="left">
+        <div class="adu-main">
+          <div data-reveal="left">
             <span class="eyebrow gold-eye">Accessory Dwelling Units &amp; Home Additions</span>
-            <h2 data-reveal-words>Interested in generating rental income or extending your home by adding living space for your family?</h2>
-            <p class="adu-lede">In case you didn't already know…</p>
+            <h2 data-reveal-words>Additional space, <span class="gem">planned for your property.</span></h2>
             <div class="adu-law">
-              <h3>Massachusetts' new ADU law</h3>
-              <p>Massachusetts' new Accessory Dwelling Unit (ADU) law, part of the Affordable Homes Act signed in August 2024, went into effect on February 2, 2025, requiring municipalities to allow ADUs by right in most single-family residential districts. This significant policy shift aims to address the state's housing shortage by simplifying the approval process and providing homeowners with flexible options, such as accommodating aging parents or generating rental income. The law allows for both attached and detached units, subject to certain statewide standards and local restrictions.</p>
+              <h3>Additions and accessory dwelling units</h3>
+              <p>Expand your home, or explore an attached or detached ADU. The right approach depends on your property, how you'll use it, budget and local rules.</p>
+              <a href="/adu-builder-cape-cod/">Review the ADU planning checklist <span aria-hidden="true">↗</span></a>
             </div>
             <p class="adu-spec">We specialize in building <strong>ADUs and home additions.</strong></p>
           </div>
 
           <aside class="adu-card" data-reveal="right">
-            <h3>Free Estimate</h3>
-            <p class="sub">Call us today to get a free estimate.</p>
+            <span class="eyebrow">Plan your project</span>
+            <h3>Request a Free Estimate</h3>
+            <p class="sub">Let's talk scope, timing, budget and next steps. We keep our pricing <strong>affordable and competitive</strong>.</p>
             <ul class="adu-points">
-              <li><span class="ck">✓</span> Fully licensed General Contractor</li>
-              <li><span class="ck">✓</span> Over 30 years of experience</li>
-              <li><span class="ck">✓</span> Family owned &amp; run</li>
+              <li>Residential construction and renovation</li>
+              <li>Construction planning and coordination</li>
+              <li>Direct contact with the owner</li>
             </ul>
-            <a href="tel:+15084406981" class="btn btn-primary">Call Wes &middot; (508) 440-6981</a>
             <p class="adu-llc">Collaborative Construction, LLC</p>
+            <a href="tel:+15084406981" class="btn btn-primary">Call Collaborative Construction <span>(508) 440-6981</span></a>
           </aside>
         </div>
       </div>
     </section>
 
-    <div class="section-divider" data-reveal aria-hidden="true">
-      <span class="line"></span><span class="gem"></span><span class="line r"></span>
-    </div>
-
-    <!-- ============================ CONTACT ============================ -->
+    
     <section class="section contact" id="contact">
       <div class="container">
         <div class="section-head center" data-reveal>
-          <span class="eyebrow eyebrow--boom" data-reveal="boom">Get in Touch</span>
-          <h2 data-reveal-words>Contact Us</h2>
-          <hr class="rule">
+          <p class="eyebrow eyebrow--boom">Get in touch</p>
+          <h2 data-reveal-words>Discuss your construction project</h2>
+          <p class="section-lede">Tell us the location, scope and timing, or just give us a call.</p>
         </div>
         <div class="contact-grid">
 
-          <!-- form -->
-          <div class="form-card" data-reveal="left">
-            <span class="spot-extra" aria-hidden="true"></span>
-            <form id="contact-form" novalidate>
-              <div class="field">
-                <label for="cc-name">Name</label>
-                <input id="cc-name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
-              </div>
-              <div class="field">
-                <label for="cc-email">Email</label>
-                <input id="cc-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-              </div>
-              <div class="field">
-                <label for="cc-message">Message</label>
-                <textarea id="cc-message" name="message" placeholder="Tell us about your project…" required></textarea>
-              </div>
-              {# Enabled now that R2 is on and the ATTACHMENTS binding exists.
-                 The `accept` list mirrors ALLOWED_TYPES in worker/index.js, so
-                 the picker cannot offer a type the server will reject. The
-                 server still revalidates: this attribute is a convenience, not
-                 a control. #}
-              <div class="field">
-                <label for="cc-files">Photos <span style="font-weight:400;color:var(--muted)">(optional, up to 6)</span></label>
-                <label class="dropzone" tabindex="0" role="button" aria-label="Add files">
-                  <span>Drag &amp; drop photos here, or <strong>browse</strong></span>
-                  <input id="cc-files" name="attachments" type="file" multiple
-                         accept="image/jpeg,image/png,image/webp,image/heic,image/heif,application/pdf">
-                </label>
-                <span class="file-pill" hidden>Files attached <span class="count">0</span></span>
-                <ul class="file-list" aria-live="polite"></ul>
-              </div>
-
-              <!-- Honeypot: hidden from people, tempting to bots. Never fill this. -->
-              <div class="hp-field" aria-hidden="true">
-                <label for="cc-company-website">Company website</label>
-                <input id="cc-company-website" name="company_website" type="text" tabindex="-1" autocomplete="off">
-              </div>
-
-              <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Send Message</button>
-              <p class="form-status" role="status" aria-live="polite"></p>
-            </form>
-          </div>
-
           <!-- info -->
-          <div class="contact-info" data-reveal="right">
-            <h3>Contact us to discuss your construction needs.</h3>
-            <p class="lede">Collaborative Construction, LLC</p>
+          <div class="contact-info" data-reveal="left">
+            <p class="eyebrow">Project enquiries</p>
+            <h3>A clear starting point for your project.</h3>
+            <p class="lede">New construction, renovations, additions and construction advisory.</p>
+            <div class="contact-preparation">
+              <h4>Helpful details to include:</h4>
+              <ul><li>Your project address or town</li><li>A brief description of the work</li><li>Your preferred timeframe</li></ul>
+              <p>Plans are welcome if you have them, but you don't need a finished design to reach out.</p>
+            </div>
             <ul class="info-list">
               <li>
-                <a href="https://maps.google.com/?q=East+Falmouth,+MA+02536" target="_blank" rel="noopener" style="display:flex;gap:16px;align-items:flex-start;width:100%">
+                <a class="info-row" href="https://maps.google.com/?q=16+Terry+Lou+Ave,+East+Falmouth,+MA+02536" target="_blank" rel="noopener">
                   <span class="ico" aria-hidden="true">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                   </span>
-                  <div>
-                    <div class="label">Location</div>
-                    <div class="value">East Falmouth, MA 02536</div>
-                  </div>
+                  <span>
+                    <span class="label">Location</span>
+                    <span class="value">East Falmouth, MA 02536</span>
+                  </span>
                 </a>
               </li>
               <li>
-                <a href="mailto:collaborativeconstructiongc@gmail.com" style="display:flex;gap:16px;align-items:flex-start;width:100%">
+                <a class="info-row" href="mailto:collaborativeconstructiongc@gmail.com">
                   <span class="ico" aria-hidden="true">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
                   </span>
-                  <div>
-                    <div class="label">Email</div>
-                    <div class="value">collaborativeconstructiongc@gmail.com</div>
-                  </div>
+                  <span>
+                    <span class="label">Email</span>
+                    <span class="value value--email">collaborativeconstructiongc@gmail.com</span>
+                  </span>
                 </a>
               </li>
               <li>
-                <a href="tel:+15084406981" style="display:flex;gap:16px;align-items:flex-start;width:100%">
+                <a class="info-row" href="tel:+15084406981">
                   <span class="ico" aria-hidden="true">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                   </span>
-                  <div>
-                    <div class="label">Phone</div>
-                    <div class="value">(508) 440-6981</div>
-                  </div>
+                  <span>
+                    <span class="label">Phone</span>
+                    <span class="value">(508) 440-6981</span>
+                  </span>
                 </a>
               </li>
             </ul>
+            <a class="btn btn-gold contact-direct" href="tel:+15084406981">Call Collaborative Construction</a>
+          </div>
+
+          <!-- form -->
+          <div class="form-card" data-reveal="right">
+            <form id="contact-form" action="/api/contact" method="post" enctype="multipart/form-data" novalidate>
+              <p class="form-note">Name, email and a short message are required. Other details are optional.</p>
+              <div class="field">
+                <label for="cc-name">Name</label>
+                <input id="cc-name" name="name" type="text" autocomplete="name" placeholder="Your name" maxlength="120" required aria-describedby="cc-name-error">
+                <p class="field__error" id="cc-name-error"></p>
+              </div>
+              <div class="field">
+                <label for="cc-email">Email</label>
+                <input id="cc-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" maxlength="254" required aria-describedby="cc-email-error">
+                <p class="field__error" id="cc-email-error"></p>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label for="cc-phone">Phone (optional)</label>
+                  <input id="cc-phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
+                </div>
+                <div class="field">
+                  <label for="cc-town">Project town (optional)</label>
+                  <input id="cc-town" name="project_town" type="text" maxlength="100" autocomplete="address-level2">
+                </div>
+              </div>
+              <div class="field">
+                <label for="cc-project-type">Project type (optional)</label>
+                <select id="cc-project-type" name="project_type">
+                  <option value="">Please select if known</option>
+                  <option value="general_contracting">Residential general contracting</option>
+                  <option value="addition">Home addition</option>
+                  <option value="adu">Accessory dwelling unit (ADU)</option>
+                  <option value="renovation">Renovation</option>
+                  <option value="custom_home">Custom home</option>
+                  <option value="advisory">Construction advisory / owner's representation</option>
+                  <option value="other">Other / not sure yet</option>
+                </select>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label for="cc-budget">Budget range (optional)</label>
+                  <input id="cc-budget" name="budget_range" type="text" maxlength="100" placeholder="A range or “not sure yet”">
+                </div>
+                <div class="field">
+                  <label for="cc-timeline">Timing (optional)</label>
+                  <input id="cc-timeline" name="desired_timeline" type="text" maxlength="150" placeholder="e.g. next spring, no fixed date">
+                </div>
+              </div>
+              <div class="field">
+                <label for="cc-message">Message</label>
+                <textarea id="cc-message" name="message" placeholder="What would you like to build or improve? Include your town and timing if known." maxlength="5000" required aria-describedby="cc-message-error"></textarea>
+                <p class="field__error" id="cc-message-error"></p>
+              </div>
+              <div class="field">
+                <label for="cc-files">Photos or plans (optional)</label>
+                <input id="cc-files" name="attachments" type="file" multiple aria-describedby="cc-files-help"
+                       accept="image/jpeg,image/png,image/webp,image/heic,image/heif,application/pdf">
+                <p id="cc-files-help" class="form-note">Up to 6 images or PDFs, 10 MB each and 25 MB total. Please omit financial records and sensitive personal information.</p>
+                <ul class="file-list" aria-live="polite"></ul>
+              </div>
+              
+              <script src="/js/turnstile-lifecycle.js"></script>
+              <div id="cc-turnstile" class="cf-turnstile" data-sitekey="0x4AAAAAAFT7_DoQM-wX5k4h" data-action="contact"
+                data-callback="ccChallengeSuccess" data-expired-callback="ccChallengeExpired"
+                data-timeout-callback="ccChallengeTimeout" data-error-callback="ccChallengeError"
+                data-refresh-expired="auto" data-refresh-timeout="auto"></div>
+              <p id="challenge-status" role="status" aria-live="polite"></p>
+              <noscript><p>Please call <a href="tel:+15084406981">(508) 440-6981</a> or email <a href="mailto:collaborativeconstructiongc@gmail.com">collaborativeconstructiongc@gmail.com</a> to inquire without JavaScript.</p></noscript>
+              <!-- Honeypot: hidden from people, tempting to bots. Never fill this. -->
+              <div class="hp-field" hidden inert aria-hidden="true">
+                <label for="cc-x7q2m9">Leave this field blank</label>
+                <input id="cc-x7q2m9" name="cc_x7q2m9" type="text" tabindex="-1" autocomplete="off"
+                       autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true" data-bwignore>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">Send inquiry</button>
+              <p class="form-status" role="status" aria-live="polite"></p>
+            </form>
           </div>
 
         </div>
       </div>
     </section>
+
+  

@@ -8,29 +8,63 @@
       "summary": "Overview, services, and contact form"
     },
     {
-      "url": "/gallery",
-      "label": "Gallery",
+      "url": "",
+      "label": "Services",
+      "key": "services",
+      "summary": "Our construction and renovation services",
+      "_dropdownComment": "`url` is empty on purpose: there is no combined /services/ index page, so this entry is a menu heading, not a destination. base.njk renders it as a <button> disclosure and the footer/llms.txt expand the children in its place. Do not give it a url without first building a real page there.",
+      "dropdown": [
+        {
+          "url": "/general-contractor-falmouth-ma/",
+          "label": "General Contracting",
+          "summary": "General contracting in Falmouth and across Cape Cod",
+          "icon": "general"
+        },
+        {
+          "url": "/home-additions-cape-cod/",
+          "label": "Home Additions",
+          "summary": "Home additions, from planning and permitting through construction",
+          "icon": "additions"
+        },
+        {
+          "url": "/adu-builder-cape-cod/",
+          "label": "ADU Construction",
+          "summary": "Detached and attached accessory dwelling units",
+          "icon": "adu"
+        },
+        {
+          "url": "/home-renovation-cape-cod/",
+          "label": "Home Renovation",
+          "summary": "Kitchen and bath remodeling, whole-home renovations, interior updates",
+          "icon": "renovation"
+        },
+        {
+          "url": "/custom-home-builder-cape-cod/",
+          "label": "Custom Homes",
+          "summary": "Custom home construction from concept to completion",
+          "icon": "custom"
+        },
+        {
+          "url": "/construction-advisory/",
+          "label": "Construction Advisory",
+          "summary": "Owner's project management, Clerk of the Works oversight, and construction advisory",
+          "icon": "advisory"
+        }
+      ]
+    },
+    {
+      "url": "/gallery/",
+      "label": "Projects",
       "key": "gallery",
       "summary": "Completed residential and commercial projects"
     },
     {
-      "url": "/construction-advisory",
-      "label": "Construction Management",
-      "key": "advisory",
-      "summary": "Construction management services"
-    },
-    {
-      "url": "/about",
+      "url": "/about/",
       "label": "About",
       "key": "about",
-      "summary": "About Wesleigh Behn and the company"
+      "summary": "About Collaborative Construction"
     }
   ],
-  "footerExtra": [
-    {
-      "url": "/#contact",
-      "label": "Contact"
-    }
-  ],
+  "footerExtra": [],
   "_summaryComment": "`summary` is used only by llms.txt, to tell an agent what each page is for. The nav itself renders `label`."
 }

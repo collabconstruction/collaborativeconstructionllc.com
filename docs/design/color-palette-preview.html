@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Collaborative Construction — color palette preview (internal, not published)</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px 20px 80px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f1efe9; color: #1f1b18;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  header.page { max-width: 760px; margin: 0 auto 36px; text-align: center; }
+  header.page h1 { font-size: 1.7rem; margin: 0 0 8px; }
+  header.page p { color: #555; font-size: .95rem; line-height: 1.5; }
+  .note {
+    background: #fff8e1; border: 1px solid #e6d9a8; border-radius: 8px;
+    padding: 10px 14px; font-size: .85rem; color: #5a4b1d; max-width: 760px; margin: 0 auto 32px;
+  }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 28px; }
+
+  .palette-card {
+    border-radius: 14px; overflow: hidden; border: 1px solid rgba(0,0,0,.08);
+    background: var(--bg); box-shadow: 0 6px 20px rgba(0,0,0,.08);
+  }
+  .palette-card .label {
+    padding: 14px 20px 10px; background: rgba(255,255,255,.35);
+  }
+  .palette-card .label .num { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--primary); font-weight: 700; }
+  .palette-card .label h2 { margin: 2px 0 4px; font-size: 1.15rem; color: var(--ink); }
+  .palette-card .label p { margin: 0; font-size: .85rem; color: var(--ink); opacity: .75; line-height: 1.45; }
+
+  .swatches { display: flex; }
+  .swatch { flex: 1; height: 46px; display: flex; align-items: flex-end; justify-content: center; }
+  .swatch span {
+    font-size: .62rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: rgba(255,255,255,.75); color: #222; padding: 1px 5px; border-radius: 4px; margin-bottom: 4px;
+  }
+
+  .mock { padding: 22px 20px 26px; }
+  .mock .eyebrow {
+    font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 700;
+    color: var(--secondary); margin-bottom: 6px;
+  }
+  .mock h3 {
+    font-size: 1.35rem; margin: 0 0 8px; color: var(--ink); line-height: 1.2;
+  }
+  .mock p.body-text { color: var(--ink); opacity: .8; font-size: .9rem; line-height: 1.55; margin: 0 0 16px; max-width: 420px; }
+  .mock .cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+
+  .btn {
+    display: inline-block; padding: 10px 18px; border-radius: 8px; font-size: .88rem; font-weight: 600;
+    cursor: pointer; transition: all .2s ease; border: 1.5px solid transparent;
+  }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:hover { background: var(--secondary); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--primary); border-color: var(--primary); }
+  .btn-ghost:hover { background: var(--primary); color: #fff; }
+
+  .mock a.inline-link { color: var(--primary); text-decoration: underline; font-size: .88rem; }
+  .mock a.inline-link:hover { color: var(--secondary); }
+
+  .mini-card {
+    background: var(--bg-tint); border: 1px solid rgba(0,0,0,.06); border-radius: 10px;
+    padding: 14px 16px; margin-top: 4px; max-width: 420px;
+  }
+  .mini-card .tag {
+    display: inline-block; font-size: .68rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .05em; color: #fff; background: var(--secondary); padding: 2px 8px; border-radius: 10px; margin-bottom: 6px;
+  }
+  .mini-card .title { font-weight: 700; color: var(--ink); font-size: .92rem; margin-bottom: 2px; }
+  .mini-card .desc { color: var(--ink); opacity: .7; font-size: .8rem; }
+
+  footer.page { max-width: 760px; margin: 40px auto 0; text-align: center; font-size: .82rem; color: #666; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="page">
+    <h1>Color palette options — side by side</h1>
+    <p>Six palettes applied to the same mock hero block (heading, body text, primary button, ghost button, link, and a small content card) so you can compare them in context rather than as isolated swatches. Hover the buttons and links in each card to see the hover color.</p>
+  </header>
+
+  <div class="note">
+    Internal design-review file only — not linked from the site, not built by Eleventy, not deployed. Open directly in a browser from this path. Swatch order left→right: Primary (CTA) · Secondary/Accent · Link-hover · Background · Ink/Text.
+  </div>
+
+  <div class="grid">
+
+    <!-- 1. Refined current -->
+    <section class="palette-card" style="--primary:#7a1a1a; --secondary:#b6790a; --bg:#f8f4ec; --bg-tint:#efe6d2; --ink:#211c18;">
+      <div class="label">
+        <div class="num">Option 1</div>
+        <h2>Maroon &amp; Gold — refined</h2>
+        <p>Your current brand, same family, tuned for stronger contrast. Lowest-risk option.</p>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background:#7a1a1a;"><span>#7a1a1a</span></div>
+        <div class="swatch" style="background:#b6790a;"><span>#b6790a</span></div>
+        <div class="swatch" style="background:#d79a1f;"><span>#d79a1f</span></div>
+        <div class="swatch" style="background:#f8f4ec;"><span>#f8f4ec</span></div>
+        <div class="swatch" style="background:#211c18;"><span>#211c18</span></div>
+      </div>
+      <div class="mock">
+        <div class="eyebrow">Cape Cod General Contractor</div>
+        <h3>Additions &amp; renovations built right, the first time.</h3>
+        <p class="body-text">Serving Falmouth and the surrounding Cape since day one — custom homes, ADUs, and full renovations.</p>
+        <div class="cta-row">
+          <span class="btn btn-primary">Request an estimate</span>
+          <span class="btn btn-ghost">View our work</span>
+        </div>
+        <p><a class="inline-link" href="#">See the full project gallery →</a></p>
+        <div class="mini-card">
+          <span class="tag">Featured</span>
+          <div class="title">Falmouth home addition</div>
+          <div class="desc">1,200 sq ft addition completed in 14 weeks.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Coastal -->
+    <section class="palette-card" style="--primary:#1d3557; --secondary:#c08a4e; --bg:#f6f3ec; --bg-tint:#eae2d2; --ink:#1b1f24;">
+      <div class="label">
+        <div class="num">Option 2</div>
+        <h2>Coastal New England</h2>
+        <p>Navy + driftwood + sand. Reads as Cape Cod immediately. My top recommendation.</p>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background:#1d3557;"><span>#1d3557</span></div>
+        <div class="swatch" style="background:#c08a4e;"><span>#c08a4e</span></div>
+        <div class="swatch" style="background:#4a7a96;"><span>#4a7a96</span></div>
+        <div class="swatch" style="background:#f6f3ec;"><span>#f6f3ec</span></div>
+        <div class="swatch" style="background:#1b1f24;"><span>#1b1f24</span></div>
+      </div>
+      <div class="mock">
+        <div class="eyebrow">Cape Cod General Contractor</div>
+        <h3>Additions &amp; renovations built right, the first time.</h3>
+        <p class="body-text">Serving Falmouth and the surrounding Cape since day one — custom homes, ADUs, and full renovations.</p>
+        <div class="cta-row">
+          <span class="btn btn-primary">Request an estimate</span>
+          <span class="btn btn-ghost">View our work</span>
+        </div>
+        <p><a class="inline-link" href="#">See the full project gallery →</a></p>
+        <div class="mini-card">
+          <span class="tag">Featured</span>
+          <div class="title">Falmouth home addition</div>
+          <div class="desc">1,200 sq ft addition completed in 14 weeks.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Industrial -->
+    <section class="palette-card" style="--primary:#2b2d31; --secondary:#d9531e; --bg:#f5f5f3; --bg-tint:#e9e8e5; --ink:#1a1a1a;">
+      <div class="label">
+        <div class="num">Option 3</div>
+        <h2>Contractor Industrial</h2>
+        <p>Charcoal + safety orange. Bold, modern, reads more general-contractor/commercial.</p>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background:#2b2d31;"><span>#2b2d31</span></div>
+        <div class="swatch" style="background:#d9531e;"><span>#d9531e</span></div>
+        <div class="swatch" style="background:#e8743f;"><span>#e8743f</span></div>
+        <div class="swatch" style="background:#f5f5f3;"><span>#f5f5f3</span></div>
+        <div class="swatch" style="background:#1a1a1a;"><span>#1a1a1a</span></div>
+      </div>
+      <div class="mock">
+        <div class="eyebrow">Cape Cod General Contractor</div>
+        <h3>Additions &amp; renovations built right, the first time.</h3>
+        <p class="body-text">Serving Falmouth and the surrounding Cape since day one — custom homes, ADUs, and full renovations.</p>
+        <div class="cta-row">
+          <span class="btn btn-primary">Request an estimate</span>
+          <span class="btn btn-ghost">View our work</span>
+        </div>
+        <p><a class="inline-link" href="#">See the full project gallery →</a></p>
+        <div class="mini-card">
+          <span class="tag">Featured</span>
+          <div class="title">Falmouth home addition</div>
+          <div class="desc">1,200 sq ft addition completed in 14 weeks.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Forest & Cedar -->
+    <section class="palette-card" style="--primary:#2f4a3c; --secondary:#a8713a; --bg:#f7f4ec; --bg-tint:#ece4d2; --ink:#20241f;">
+      <div class="label">
+        <div class="num">Option 4</div>
+        <h2>Forest &amp; Cedar</h2>
+        <p>Deep green + wood tone. Grounded, craftsmanship-forward, distinctive vs. competitors.</p>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background:#2f4a3c;"><span>#2f4a3c</span></div>
+        <div class="swatch" style="background:#a8713a;"><span>#a8713a</span></div>
+        <div class="swatch" style="background:#c98f52;"><span>#c98f52</span></div>
+        <div class="swatch" style="background:#f7f4ec;"><span>#f7f4ec</span></div>
+        <div class="swatch" style="background:#20241f;"><span>#20241f</span></div>
+      </div>
+      <div class="mock">
+        <div class="eyebrow">Cape Cod General Contractor</div>
+        <h3>Additions &amp; renovations built right, the first time.</h3>
+        <p class="body-text">Serving Falmouth and the surrounding Cape since day one — custom homes, ADUs, and full renovations.</p>
+        <div class="cta-row">
+          <span class="btn btn-primary">Request an estimate</span>
+          <span class="btn btn-ghost">View our work</span>
+        </div>
+        <p><a class="inline-link" href="#">See the full project gallery →</a></p>
+        <div class="mini-card">
+          <span class="tag">Featured</span>
+          <div class="title">Falmouth home addition</div>
+          <div class="desc">1,200 sq ft addition completed in 14 weeks.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Modern Craftsman -->
+    <section class="palette-card" style="--primary:#3b4b5c; --secondary:#b5651d; --bg:#f6f4ef; --bg-tint:#eae5db; --ink:#1e2227;">
+      <div class="label">
+        <div class="num">Option 5</div>
+        <h2>Modern Craftsman</h2>
+        <p>Slate blue + copper. Upscale, contemporary — good fit for custom-home positioning.</p>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background:#3b4b5c;"><span>#3b4b5c</span></div>
+        <div class="swatch" style="background:#b5651d;"><span>#b5651d</span></div>
+        <div class="swatch" style="background:#cf7e34;"><span>#cf7e34</span></div>
+        <div class="swatch" style="background:#f6f4ef;"><span>#f6f4ef</span></div>
+        <div class="swatch" style="background:#1e2227;"><span>#1e2227</span></div>
+      </div>
+      <div class="mock">
+        <div class="eyebrow">Cape Cod General Contractor</div>
+        <h3>Additions &amp; renovations built right, the first time.</h3>
+        <p class="body-text">Serving Falmouth and the surrounding Cape since day one — custom homes, ADUs, and full renovations.</p>
+        <div class="cta-row">
+          <span class="btn btn-primary">Request an estimate</span>
+          <span class="btn btn-ghost">View our work</span>
+        </div>
+        <p><a class="inline-link" href="#">See the full project gallery →</a></p>
+        <div class="mini-card">
+          <span class="tag">Featured</span>
+          <div class="title">Falmouth home addition</div>
+          <div class="desc">1,200 sq ft addition completed in 14 weeks.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Warm Minimal -->
+    <section class="palette-card" style="--primary:#1f4e4a; --secondary:#c9a24b; --bg:#faf7f0; --bg-tint:#efe8d6; --ink:#201d19;">
+      <div class="label">
+        <div class="num">Option 6</div>
+        <h2>Warm Minimal</h2>
+        <p>Sand + deep teal. Calmer, editorial, design-build-studio feel.</p>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background:#1f4e4a;"><span>#1f4e4a</span></div>
+        <div class="swatch" style="background:#c9a24b;"><span>#c9a24b</span></div>
+        <div class="swatch" style="background:#3a7069;"><span>#3a7069</span></div>
+        <div class="swatch" style="background:#faf7f0;"><span>#faf7f0</span></div>
+        <div class="swatch" style="background:#201d19;"><span>#201d19</span></div>
+      </div>
+      <div class="mock">
+        <div class="eyebrow">Cape Cod General Contractor</div>
+        <h3>Additions &amp; renovations built right, the first time.</h3>
+        <p class="body-text">Serving Falmouth and the surrounding Cape since day one — custom homes, ADUs, and full renovations.</p>
+        <div class="cta-row">
+          <span class="btn btn-primary">Request an estimate</span>
+          <span class="btn btn-ghost">View our work</span>
+        </div>
+        <p><a class="inline-link" href="#">See the full project gallery →</a></p>
+        <div class="mini-card">
+          <span class="tag">Featured</span>
+          <div class="title">Falmouth home addition</div>
+          <div class="desc">1,200 sq ft addition completed in 14 weeks.</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="page">
+    Generated from the 6 options discussed in chat on 2026-10-12. Fonts here are system defaults, not the site's actual Roboto Slab / Inter / Cormorant Garamond — this file is for color comparison only, not a pixel-accurate mockup. Tell me which option (or which pieces of which options) you want, and I can apply it to the real <code>css/styles.css</code> variables for a true in-site preview.
+  </footer>
+
+</div>
+</body>
+</html>

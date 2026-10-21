@@ -6,8 +6,8 @@
   "shortName": "Collaborative Construction",
   "url": "https://collaborativeconstructionllc.com",
   "tagline": "Experience, Quality, Trust",
-  "description": "Residential construction and renovation built on a professional, client-centered approach, serving Cape Cod and the Islands and the South Shore of Massachusetts.",
-  "footerBlurb": "Residential construction &amp; renovation built on a professional, client-centered approach. Proudly serving Cape Cod &amp; the Islands and the South Shore.",
+  "description": "Residential construction, additions, renovation and independent project oversight.",
+  "footerBlurb": "Residential construction, renovation and independent project oversight. A professional, client-centered approach from planning through completion.",
 
   "email": "collaborativeconstructiongc@gmail.com",
   "phone": "(508) 440-6981",
@@ -46,17 +46,29 @@
     { "days": "Sunday", "time": "Closed" }
   ],
 
+  "_licenseComment": "Owner to supply from ContractorHub.mass.gov. Never guess. When set, base.njk shows them in the footer and lib/schema.js uses the CSL. Massachusetts says residential contractor advertising, including websites, must show the active HIC registration number. A third party listing (BuildZoom, Mar 27 2026) says an HIC registration is active, but it gives no number.",
   "cslNumber": null,
   "hicNumber": null,
   "insurance": null,
 
+  "_socialComment": "Updated October 21, 2026 after the browser agent checked both accounts. facebook is the company page https://www.facebook.com/profile.php?id=61595651094549 and linkedin is https://www.linkedin.com/in/collaborative-construction-56761b444/ (a copied LinkedIn link can end in ?isSelfProfile=true; leave it off). The Facebook page with id 61593017512930 is a SEPARATE older page named Collaborative Construction LLC | Falmouth MA that uses a personal name in its email; do not link it. googleBusinessProfile is unchanged.",
+  "_canonicalUrlComment": "Use canonical profile URLs, never share/redirect links. The old facebook value was https://www.facebook.com/share/14koskagbeC/?mibextid=wwXIfr - a share link carrying the mibextid click-tracking parameter, which redirects to the value below. A redirecting, parameterised URL is a weak sameAs signal. Verified 2026-10-13 by following the redirect.",
   "social": {
-    "facebook": "https://www.facebook.com/share/14koskagbeC/?mibextid=wwXIfr",
-    "linkedin": "https://www.linkedin.com/in/wesleigh-behn-a5b925187"
+    "googleBusinessProfile": "https://www.google.com/maps?cid=10110650788670469074",
+    "facebook": "https://www.facebook.com/profile.php?id=61595651094549",
+    "linkedin": "https://www.linkedin.com/in/collaborative-construction-56761b444/"
+  },
+
+  "_googleComment": "Identifiers for the Google Business Profile, verified 2026-10-13 by resolving the owner-supplied review link. cid is the numeric customer ID used by the canonical Maps URL above; placeId is the Places API identifier. reviewUrl is the owner-supplied link that opens the write-a-review form directly.",
+  "google": {
+    "cid": "10110650788670469074",
+    "placeId": "ChIJ5YdXQ2pxIisR0vO54lI_UIw",
+    "reviewUrl": "https://g.page/r/CdLzueJSP1CMEBM/review"
   },
 
   "images": {
     "logo": "/assets/logo.png",
+    "logoHeader": "/assets/logo-header.png",
     "badge": "/assets/c-icon.png",
     "share": "/assets/img/belmont-hero.jpg",
     "shareWidth": 1280,

@@ -1,0 +1,354 @@
+{
+  "_comment": [
+    "Gallery projects, moved out of src/gallery.njk so the seven entries are",
+    "labelled by one template instead of seven hand-maintained copies.",
+    "",
+    "NOTHING HERE IS A NEW CLAIM. Every title, location, alt text and caption",
+    "is transcribed verbatim from the markup that was already published.",
+    "",
+    "`category` classifies the title and captions that were already there",
+    "(a dispensary, a dormitory and a self-storage facility are commercial;",
+    "the rest are residential). `shows` summarises that project's own",
+    "captions and nothing else - it names which parts of the building the",
+    "photographs cover, not the scope of work performed.",
+    "",
+    "DO NOT add a `role` or `builtBy` field until the owner confirms project",
+    "attribution. Research 'Website Evidence and Business Facts.md' is",
+    "explicit: confirm whether each project was performed by the company or",
+    "represents the founder's earlier employment / oversight experience, and",
+    "do not imply sole company authorship of every pictured building. The",
+    "note in gallery.njk exists because that question is still open.",
+    "",
+    "The '50,000 SF' figure in the Lovell Dormitory caption was already",
+    "published and is preserved verbatim. It has not been independently",
+    "verified here.",
+    "",
+    "`footerThumb` marks the two projects shown in the 'Recent Work' strip in",
+    "every page footer (see src/_includes/base.njk). Those two images and",
+    "alt texts were hardcoded there before and are kept verbatim. The alts",
+    "name the town because a footer thumbnail has no caption beside it.",
+    "",
+    "Deck and Railings and Porches and Upper Balcony were hand written in gallery.njk and moved here (last two on purpose).",
+    "Some photos were dropped from both at the owner's request. `w`, `h` and `widths` are the jpg size and the responsive webp widths",
+    "that exist in assets/img/r; `compact` marks the two projects whose photos are small (under 900px wide), so layouts show them smaller."
+  ],
+  "items": [
+    {
+      "title": "Custom Residence",
+      "category": "Residential",
+      "location": "Belmont, MA",
+      "shows": "Exterior and site, living room, hallway, bath, and stair.",
+      "footerThumb": {
+        "src": "/assets/img/belmont-hero.jpg",
+        "alt": "Custom cedar-clad modern home in Belmont, MA",
+        "width": 1280,
+        "height": 837,
+        "widths": [160, 480, 768, 1024, 1280]
+      },
+      "images": [
+        {
+          "src": "/assets/img/belmont-hero.jpg",
+          "alt": "Custom cedar-clad modern home exterior",
+          "w": 1280,
+          "h": 837,
+          "widths": [160, 480, 768, 1024, 1280]
+        },
+        {
+          "src": "/assets/img/belmont-pond.jpg",
+          "alt": "The home set in its landscape beside a pond",
+          "w": 1200,
+          "h": 927,
+          "widths": [160, 480, 768, 1024, 1200]
+        },
+        {
+          "src": "/assets/img/belmont-living.jpg",
+          "alt": "Open living room with floor-to-ceiling glazing",
+          "w": 1280,
+          "h": 851,
+          "widths": [160, 480, 768, 1024, 1280]
+        },
+        {
+          "src": "/assets/img/belmont-hallway.jpg",
+          "alt": "Gallery hallway with custom millwork and stone flooring",
+          "w": 709,
+          "h": 1066,
+          "widths": [160, 480, 709]
+        },
+        {
+          "src": "/assets/img/belmont-bath.jpg",
+          "alt": "Spa bath with cedar detailing and soaking tub",
+          "w": 785,
+          "h": 1067,
+          "widths": [160, 480, 768, 785]
+        },
+        {
+          "src": "/assets/img/belmont-stair.jpg",
+          "alt": "Floating stair with board-formed concrete and steel",
+          "w": 709,
+          "h": 1066,
+          "widths": [160, 480, 709]
+        }
+      ],
+      "compact": false
+    },
+    {
+      "title": "Commercial Dispensary",
+      "category": "Commercial",
+      "location": "Dudley, MA",
+      "shows": "Retail floor, lobby, and express pick-up.",
+      "images": [
+        {
+          "src": "/assets/img/greatest-hits-1.jpg",
+          "alt": "Commercial dispensary interior retail space",
+          "w": 1000,
+          "h": 667,
+          "widths": [160, 480, 768, 1000]
+        },
+        {
+          "src": "/assets/img/greatest-hits-2.jpg",
+          "alt": "Commercial dispensary lobby and express pick up",
+          "w": 1000,
+          "h": 667,
+          "widths": [160, 480, 768, 1000]
+        }
+      ],
+      "compact": false
+    },
+    {
+      "title": "Residential Exterior",
+      "category": "Residential",
+      "location": "Falmouth, MA",
+      "shows": "Front and side exteriors, entry walkway, deck, and gazebo.",
+      "images": [
+        {
+          "src": "/assets/img/residential-1.jpg",
+          "alt": "Front exterior with driveway and attached garage",
+          "w": 1024,
+          "h": 768,
+          "widths": [160, 480, 768, 1024]
+        },
+        {
+          "src": "/assets/img/residential-2.jpg",
+          "alt": "Front entry with custom paver walkway and porch",
+          "w": 1024,
+          "h": 768,
+          "widths": [160, 480, 768, 1024]
+        },
+        {
+          "src": "/assets/img/residential-3.jpg",
+          "alt": "Side exterior with back deck and custom gazebo",
+          "w": 1024,
+          "h": 768,
+          "widths": [160, 480, 768, 1024]
+        },
+        {
+          "src": "/assets/img/residential-4.jpg",
+          "alt": "Composite back deck with custom railing and lighting",
+          "w": 1024,
+          "h": 768,
+          "widths": [160, 480, 768, 1024]
+        },
+        {
+          "src": "/assets/img/residential-5.jpg",
+          "alt": "Spacious back deck featuring a shaded gazebo area",
+          "w": 1024,
+          "h": 768,
+          "widths": [160, 480, 768, 1024]
+        }
+      ],
+      "compact": false
+    },
+    {
+      "title": "Modern Custom Residence",
+      "category": "Residential",
+      "location": "Carlisle, MA",
+      "shows": "Exterior, skylit hallway, kitchens, living area, pool deck, and bath.",
+      "footerThumb": {
+        "src": "/assets/img/modern-home-4.jpg",
+        "alt": "Modern custom residence in Carlisle, MA",
+        "width": 1024,
+        "height": 682,
+        "widths": [160, 480, 768, 1024]
+      },
+      "images": [
+        {
+          "src": "/assets/img/modern-home-4.jpg",
+          "alt": "Modern glass-enclosed exterior home design",
+          "w": 1024,
+          "h": 682,
+          "widths": [160, 480, 768, 1024]
+        },
+        {
+          "src": "/assets/img/carlisle-residence-1.jpg",
+          "alt": "Kitchen with island, wood beams and large windows",
+          "w": 868,
+          "h": 596,
+          "widths": [160, 480, 768, 868]
+        },
+        {
+          "src": "/assets/img/carlisle-residence-2.jpg",
+          "alt": "Open living area with stone wall, built-in shelving and wood beams",
+          "w": 868,
+          "h": 579,
+          "widths": [160, 480, 768, 868]
+        },
+        {
+          "src": "/assets/img/carlisle-residence-3.jpg",
+          "alt": "Deck overlooking a pool and open landscape",
+          "w": 868,
+          "h": 579,
+          "widths": [160, 480, 768, 868]
+        },
+        {
+          "src": "/assets/img/carlisle-residence-4.jpg",
+          "alt": "Soaking tub, wood panel wall and glass shower",
+          "w": 868,
+          "h": 654,
+          "widths": [160, 480, 768, 868]
+        },
+        {
+          "src": "/assets/img/modern-interior-1.jpg",
+          "alt": "Modern hallway with skylights and open floor plan",
+          "w": 680,
+          "h": 1024,
+          "widths": [160, 480, 680]
+        },
+        {
+          "src": "/assets/img/modern-interior-2.jpg",
+          "alt": "Modern kitchen with large island overlooking a river view",
+          "w": 1024,
+          "h": 605,
+          "widths": [160, 480, 768, 1024]
+        }
+      ],
+      "compact": false
+    },
+    {
+      "title": "Lovell Dormitory",
+      "category": "Commercial",
+      "location": "Rockland, MA",
+      "shows": "Front and rear elevations, café and dining commons, recreation room.",
+      "images": [
+        {
+          "src": "/assets/img/Lovell_dorm.jpg",
+          "alt": "Lovell Dormitory, a completed 50,000 SF residence hall",
+          "w": 1920,
+          "h": 896,
+          "widths": [160, 480, 768, 1024, 1440, 1920]
+        },
+        {
+          "src": "/assets/img/Lovell_dorm_Front.jpg",
+          "alt": "Front exterior of the completed dormitory",
+          "w": 1920,
+          "h": 896,
+          "widths": [160, 480, 768, 1024, 1440, 1920]
+        },
+        {
+          "src": "/assets/img/Lovell_dorm_Rear.jpg",
+          "alt": "Rear exterior and grounds of the dormitory",
+          "w": 1920,
+          "h": 1280,
+          "widths": [160, 480, 768, 1024, 1440, 1920]
+        },
+        {
+          "src": "/assets/img/Lovell_dorm_Cafe.jpg",
+          "alt": "On-site café and dining commons",
+          "w": 1920,
+          "h": 1280,
+          "widths": [160, 480, 768, 1024, 1440, 1920]
+        },
+        {
+          "src": "/assets/img/Lovell_dorm_Rec_Room.jpg",
+          "alt": "Student recreation room",
+          "w": 1920,
+          "h": 1280,
+          "widths": [160, 480, 768, 1024, 1440, 1920]
+        }
+      ],
+      "compact": false
+    },
+    {
+      "title": "CubeSmart Self Storage",
+      "category": "Commercial",
+      "location": "Hingham, MA",
+      "shows": "Street-front exterior, storage corridors, and leasing office.",
+      "images": [
+        {
+          "src": "/assets/img/Cube_Front.jpg",
+          "alt": "CubeSmart Self Storage street-front exterior",
+          "w": 1920,
+          "h": 896,
+          "widths": [160, 480, 768, 1024, 1440, 1920]
+        },
+        {
+          "src": "/assets/img/Cube_Lockers.jpg",
+          "alt": "Interior storage lockers and corridors",
+          "w": 1920,
+          "h": 896,
+          "widths": [160, 480, 768, 1024, 1440, 1920]
+        },
+        {
+          "src": "/assets/img/Cube_Office.jpg",
+          "alt": "Leasing office and reception area",
+          "w": 1920,
+          "h": 896,
+          "widths": [160, 480, 768, 1024, 1440, 1920]
+        }
+      ],
+      "compact": false
+    },
+    {
+      "title": "Deck and Railings",
+      "category": "Residential",
+      "location": "New Seabury, MA",
+      "shows": "",
+      "images": [
+        {
+          "src": "/assets/img/new-seabury-deck-1.jpg",
+          "alt": "Deck and black railings beside the shingled home in New Seabury, MA",
+          "w": 640,
+          "h": 480,
+          "widths": [160, 480, 640]
+        },
+        {
+          "src": "/assets/img/new-seabury-deck-2.jpg",
+          "alt": "Deck steps and railing details in New Seabury, MA",
+          "w": 640,
+          "h": 480,
+          "widths": [160, 480, 640]
+        },
+        {
+          "src": "/assets/img/new-seabury-deck-5.jpg",
+          "alt": "Deck lighting after dark in New Seabury, MA",
+          "w": 480,
+          "h": 640,
+          "widths": [160, 480]
+        }
+      ],
+      "compact": true
+    },
+    {
+      "title": "Porches and Upper Balcony",
+      "category": "Residential",
+      "location": "Monomoscoy Island, MA",
+      "shows": "",
+      "images": [
+        {
+          "src": "/assets/img/monomoscoy-porches-3.jpg",
+          "alt": "Porch exterior and upper railing in Monomoscoy Island, MA",
+          "w": 2048,
+          "h": 1536,
+          "widths": [160, 480, 768, 1024, 1440, 1920, 2048]
+        },
+        {
+          "src": "/assets/img/monomoscoy-porches-2.jpg",
+          "alt": "Covered porch across the front of the home in Monomoscoy Island, MA",
+          "w": 640,
+          "h": 480,
+          "widths": [160, 480, 640]
+        }
+      ],
+      "compact": true
+    }
+  ]
+}

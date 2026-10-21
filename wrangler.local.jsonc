@@ -1,0 +1,10 @@
+{
+  // Synthetic local testing only. No email binding or provider secrets.
+  "name": "cc-intake-local",
+  "main": "worker/index.js",
+  "compatibility_date": "2025-06-01",
+  "assets": { "directory": "./_site", "binding": "ASSETS", "run_worker_first": ["/api/*"] },
+  "vars": { "INTAKE_LOCAL_TEST": "true" },
+  "d1_databases": [{ "binding": "DB", "database_name": "cc-leads", "database_id": "7e094c32-e89e-4efa-95ce-1133a9b4293c" }],
+  "r2_buckets": [{ "binding": "ATTACHMENTS", "bucket_name": "cc-lead-attachments" }]
+}

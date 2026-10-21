@@ -1,0 +1,98 @@
+# Project handoff — start here
+
+**Last updated: October 12, 2026.** Read this before `docs/research/00-INDEX.md`. This file exists so a new session can resume without repeating research that already happened. It supersedes nothing else; it points to the current source of truth for each topic rather than duplicating it. If this file and a linked file disagree, trust the linked file and flag the mismatch — this file can go stale faster than the detailed records.
+
+## The correct design (owner confirmed October 20, 2026)
+
+Read this before anything else in this file. Some text further down is out of date.
+
+- The real site is the **navy, brass (gold), black and white** design. It is the branch `design/site-refresh-2026-10`, and it is what is live at https://collaborativeconstructionllc.com.
+- Active work branch: `claude/website-design-refinements-qh7d3f`. It is built on that branch plus the live stylesheet.
+- The About page shows the **logo mark** and company text. It does **not** mention Wesleigh Behn. There is no owner photo, no owner or founder tag and no CEO text. Do not add them back unless the owner asks.
+- The charcoal and orange design (`claude/collaborative-construction-redesign-u3rxhu`, and the "Contractor Industrial" palette described in the Frontend context below) is **not** the real site. Ignore it.
+- **Repo and live site are in step as of October 21, 2026.** The page templates, the page shell (head, header, footer), the structured data, `llms.txt`, the fonts, the 148 resized photos and the scripts were all rebuilt from the live site and checked: a clean `npm run build` matches every live page line for line, and the hidden structured data on all nine pages is identical to live. The only deliberate differences are two notes the owner removed (the ADU page small print and the Projects page note; the live copies are only hidden with CSS). `robots.txt` on the live site also gets a Cloudflare-managed section added at their edge, and the sitemap's dates come from git history, so neither is expected to match byte for byte.
+- The public site names no individual. There is no founder in the page text or the structured data, and the owner's name lives only in email signatures. `src/_data/people.json` still holds the founder record but nothing renders it. `assets/img/wesleigh-behn.jpg` is still in the repo but is not served live; do not link it from any page.
+- The safest deploy is still the copy-live-then-overlay method in `docs/DEPLOY-LIVE.md`. A plain repo deploy should now produce the same site, but compare the built pages with the live pages first (`scripts/build-live-overlay.mjs` does this copy).
+- **Social accounts (October 21, 2026):** the official Facebook page is `https://www.facebook.com/profile.php?id=61595651094549` and LinkedIn is `https://www.linkedin.com/in/collaborative-construction-56761b444/`. Facebook id 61593017512930 is a separate older page that uses a personal first name in its email; never link it. Full status, open questions and the rules for working in these accounts are in `docs/social-logo/SOCIAL-STATUS.md`; the next browser-agent prompt is `docs/social-logo/BROWSER-PROMPT-2.md`.
+- Claude has no Cloudflare login, so it cannot deploy. The owner deploys.
+
+
+## 1. Deployment and Git status (verified, not claimed)
+
+- **Live production Worker version**: `28d3bb86-6417-4266-a3b0-c12e28f8c37f` (created 2026-10-12T16:34:30.692Z), Worker `collaborativeconstructionllc-com`, Cloudflare account `0fadcd0965374caa75a44c3aa9784042`.
+- **Deployed source commit**: `1a8c15b7423882b1f6d2d2e14b4a835ec749b941` — verified byte-identical for frontend assets (`js/main.js`, `js/turnstile-lifecycle.js`) between the live site and this commit.
+- **Git branches** (as of this update):
+  - `codex/phase1-recovery` — pushed to `origin`, at `1a8c15b...`. This is the durable copy of the verified recovery work; confirmed via `git ls-remote`.
+  - `phase1-release-prep` (local workspace's checked-out branch) — fast-forward merged to `1a8c15b...` locally. **Not pushed to origin** — it has no upstream tracking branch. This was deliberate: pushing it was not authorized.
+  - `main` — still at `e2ba56b...` on origin, unchanged. **Not merged.** Merging recovery work into `main` requires a separate, explicit owner approval; it has not been requested or granted.
+  - A stray local branch `claude/romantic-vaughan-381ed4` (`4586bb9`) and `feature/live-parity-and-features` (`e2ba56b`, matches `main`) also exist locally; neither was touched this session.
+- **Uncommitted working tree**: ~89 files uncommitted/staged in the main workspace (`/Users/marcusbehn/Desktop/Software/Wesbite/CollaberativeConstructionWebsite`, branch `phase1-release-prep`). These are **substantial pre-existing research/skills work predating this session**, deliberately preserved — no destructive Git operation (`reset --hard`, `clean -f`, broad `add -A`) was run against them. The count grew slightly from 86 during this session because this session's own documentation edits (this file, `docs/phase1-status.md`, edits to `docs/research/*`, `docs/operations.md`) are also sitting uncommitted in that same tree. **None of this session's documentation edits have been committed yet** — see section 6.
+- **Isolated verification worktree**: `/Users/marcusbehn/.codex/worktrees/intake-release/CollaberativeConstructionWebsite` (branch `codex/phase1-recovery`) was used to validate the merge safely before touching the real `phase1-release-prep` branch; a separate throwaway worktree (`integration-check-phase1-release-prep`) ran the full test suite + dry-run before the real fast-forward merge happened. Both are safe to leave or remove; neither holds unique work not already in `codex/phase1-recovery`/`phase1-release-prep`.
+
+## 2. Phase 1 — customer intake pipeline
+
+**Status: PASS, verified in production with owner-confirmed email receipt.** Full detail, acceptance-criteria table, and known unresolved technical items live in `docs/phase1-status.md` — read that file for specifics rather than this summary. In short: a real test inquiry on 2026-10-12 was stored once in D1, correctly assigned in the workflow table, retrievable via the private CLI, accepted by the email provider, and the owner personally confirmed it arrived in `collaborativeconstructiongc@gmail.com`. The historical pre-Phase-1 lead (received 2026-09-29) is preserved unchanged.
+
+Three known, non-blocking technical items remain (full detail in `phase1-status.md`): the original Turnstile 403's root cause is undiagnosed (resolved in practice via new diagnostics, not root-caused); a minor mobile horizontal-overflow issue around 390px viewport width; and a D1 migration-ledger bookkeeping gap (migrations 0001/0002 are applied in production but not recorded in the tracking table — do not replay them; this needs its own separate reviewed task).
+
+Five older Phase 1 planning documents (`phase1-production-preflight.md`, `phase1-activation-checklist.md`, `phase1-deliverables.md`, `phase1-final-approval-request.md`, `phase1-release-decision-report.md`) are preserved unmodified as historical pre-deployment records, each now carrying a banner pointing to `phase1-status.md`. Do not delete them; they're the investigation trail.
+
+## 3. Data and account access status
+
+| Source | Status |
+|---|---|
+| Cloudflare / Wrangler / D1 | **Connected, verified working** (confirmed directly during Phase 1 closeout) |
+| Google Search Console | **Connected and verified 2026-10-12**, read-only (`webmasters.readonly`), property `sc-domain:collaborativeconstructionllc.com`. **Refresh token expires ~2026-10-19** — the OAuth app is in Testing publishing status, which caps unverified refresh tokens at 7 days; owner approval needed to flip it to "In production" (details in `docs/research/16-gsc-seo-baseline.md`). MCP tool itself still not visible via `ToolSearch` as of this check — server shows "Connected" via `claude mcp list`, but a genuine new Claude Code process start (not just continuing a conversation) is needed before its tools appear; read-only REST calls remain the working fallback. |
+| GA4 | Unknown — not connected; measurement ID exists in code, reporting access unverified |
+| Google Business Profile | Unknown — not connected; owner must grant manager access or supply a manual export |
+| Google Drive / Gmail | **Connected to the wrong accounts** (checked 2026-10-12) — Drive resolves to `mbehn@mail.endicott.edu`, Gmail to `marcusbehn10@gmail.com`, both personal, not the company mailbox. No business-data read attempted from either. Reconnection steps in `docs/research/06-data-access.md`. |
+
+GA4 and GBP remain an owner-granted-access blocker, not a technical one. The exact procedure to resolve each is in `docs/research/06-data-access.md`. GSC's access blocker is resolved but has its own time-bomb (see above); its connection record lives in `docs/research/16-gsc-seo-baseline.md` rather than being repeated here.
+
+## 4. Business growth status: known vs. unknown
+
+**Known**: the intake pipeline technically works end-to-end (section 2). Current real qualified-inquiry count for the active reporting period is **0** — not because anything is broken, but because no actual customer has submitted a real inquiry since the pipeline started working. Do not report the 2 D1 leads (1 historical, 1 flagged test) as business traction; the scorecard's own definition of "web inquiries" excludes both (`docs/research/10-scorecard.md`).
+
+**Unknown** (business facts, not technical facts — see `docs/research/11-decisions-and-questions.md` for the full numbered list): which services/towns/budget bands to prioritize for the next six months; current estimating/PM capacity; who the real intended lead-response owner is (the technical default is "Wesleigh Behn" on every new lead, unconfirmed as the actual intended owner); exact role on each of the seven portfolio projects (confirmed LLC job vs. prior personal employment vs. unverified — none of the seven currently has a confirmed attribution); current CSL/HIC/insurance details eligible for publication; whether the Islands/South Shore are actual strategic priorities; pricing policy for introductory estimates; marketing budget.
+
+**Correction (2026-10-12, SEO sprint)**: the "whether the public address is storefront-eligible or should be hidden" item above was already resolved in the codebase before this correction — `src/_data/business.json`'s own code comment states the owner already confirmed publishing the home address (`16 Terry Lou Ave, East Falmouth, MA`) and that it matches the Google Business Profile. This line previously listed it as unknown alongside genuinely-unresolved items; it isn't. See `docs/research/17-seo-sprint-report.md` ("Remaining business-information gaps") for the full note.
+
+## 5. Growth priorities (Phase 2)
+
+Full detail, evidence, and the three highest-value next actions with effort/cost/access/approval/deliverable/success-criteria are in **`docs/research/14-phase2-execution-plan.md`** — read that file, not this summary, before doing Phase 2 work. In short, the three highest-value next actions are:
+
+1. Connect GBP, GSC, and GA4 reporting access (owner time only; unblocks every other measurement).
+2. Fix the ADU page's image/caption mismatch and complete its feasibility checklist content (small effort; aligned with the one service line that has sourced local demand evidence).
+3. Resolve the Falmouth residential-exterior case study's attribution with the owner and, if confirmed, prepare it for publication (it's the only one of seven gallery projects physically inside the declared core market, and the business currently has zero case studies with verified role/process).
+
+## 5a. Git integration readiness (2026-10-12 execution sprint)
+
+Re-verified this sprint, no destructive operation run:
+
+- `codex/phase1-recovery` (pushed, `1a8c15b`) ← `main`/`origin/main` (`e2ba56b`, unrelated, unchanged) ← `phase1-release-prep` (local-only, `936cb25`) is **exactly one commit ahead** of `codex/phase1-recovery`'s tip: the documentation commit `936cb25` (`docs(phase1,phase2): record production-verified status and open Phase 2 plan`). Confirmed via `git merge-base --is-ancestor 1a8c15b 936cb25` (true).
+- **Safe integration plan, not yet executed (needs separate approval):**
+  1. Push `phase1-release-prep` to `origin` as a new branch (e.g. `origin/phase1-release-prep` or fast-forward `origin/codex/phase1-recovery` to `936cb25`) — this only adds the one documentation commit on top of already-pushed work; it changes no production code.
+  2. Separately, and only with explicit owner approval, fast-forward `main` to `936cb25` (or open a PR for review first) — `main` currently has no commits that aren't also in `936cb25`'s history, so this would be a clean fast-forward with no merge conflicts, but it is a distinct decision from pushing the recovery/prep branches.
+  3. This sprint's own new local changes (ADU content edit, `phase1-status.md` update, `14-phase2-execution-plan.md` updates, new `15-falmouth-case-study-worksheet.md`) are **not yet committed** as of this writing — see section 6 for the focused-commit plan that keeps them separate from the ~80 unrelated pre-existing uncommitted files currently in the tree (`git status --porcelain=v1 | wc -l` → 80, up from 76 after the prior session's focused commit, because this sprint's edits are sitting on top of that unchanged baseline).
+- **No push to `origin/main`, no merge into `main`, and no push of `phase1-release-prep` was performed this sprint** — all three remain pending owner approval, per the task's explicit constraint.
+
+## 5b. SEO + AI-discoverability engineering sprint (2026-10-12, same day)
+
+**Status: implemented locally, tested, not deployed, not committed.** Full detail in `docs/research/17-seo-sprint-report.md` (before/after, exact files, test evidence, prioritized release proposal) and the "Sprint update" section of `docs/research/16-gsc-seo-baseline.md` (full GSC evidence). In short:
+
+- Fixed a real, minor bug: internal links to `/about`/`/gallery` used bare paths instead of the canonical trailing-slash form, causing an unnecessary 307-redirect hop and a latent "active nav" display bug. Fixed in `nav.json`, `base.njk`, `index.njk`, and the 5 service-page templates.
+- Added a `Service` JSON-LD entity to each of the 5 dedicated service pages (ADU, custom home, additions, renovation, Falmouth GC) — previously only `WebPage`+`BreadcrumbList`. Reuses each page's own already-published title/description verbatim; no new business claims. `lib/schema.js` + 5 front-matter files.
+- Added `tests/structured-data.test.mjs` (9 tests, real data, no build needed) and extended `scripts/verify-release-build.mjs` with sitemap/canonical/JSON-LD/noindex/no-fabricated-review invariants. `npm test`: 82 tests, 80 pass, 2 pre-existing skips, 0 fail. `npm run build` + the extended verify script both pass clean.
+- Re-checked indexing across all 9 sitemap URLs (not just the original 2): 6 remain "URL is unknown to Google" with no per-page technical defect found on any of them; 2 (ADU, gallery) crossed over to indexed *during this same sprint* with zero code change — direct evidence for ordinary crawl-discovery lag, not a code defect.
+- Corrected a stale baseline claim: the legacy `/about.html`/`/gallery.html`/etc. URLs already 307-redirect to their canonical form — they are not live duplicate pages splitting ranking signal today.
+- Checked Cloudflare AI Crawl Control access directly: the project's only available Cloudflare credential cannot read bot-management/firewall settings (`401` on every such endpoint) — this remains a genuine, unresolved access gap, not a non-finding. Needs either the owner checking the dashboard directly or creating a new scoped API token.
+- **Nothing from this sprint has been deployed, pushed, or submitted to Search Console** — all changes are local-only in the same working tree as the rest of this session's uncommitted work (see section 6).
+
+## 6. Next actions for whoever picks this up
+
+- **Decide whether/how to commit this session's documentation edits.** Nothing from this session (this file, `docs/phase1-status.md`, `docs/research/14-phase2-execution-plan.md`, edits to `docs/research/08-growth-plan.md`/`10-scorecard.md`/`11-decisions-and-questions.md`/`00-INDEX.md`, `docs/operations.md`, the five superseded-banner insertions, the SEO sprint's `16-gsc-seo-baseline.md` update and new `17-seo-sprint-report.md`) has been committed. They sit uncommitted alongside the pre-existing ~86 files of unrelated research/skills work. A focused commit covering only this session's documentation changes (not the pre-existing unrelated work, and not a destructive `add -A`) is the clean way to make this durable — do that explicitly rather than assuming it already happened.
+- **The SEO sprint's code changes (section 5b) are also uncommitted** — `lib/schema.js`, `src/_includes/base.njk`, `src/_data/nav.json`, `src/index.njk`, the 5 service-page templates, `scripts/verify-release-build.mjs`, and the new `tests/structured-data.test.mjs`. All tests pass; nothing was deployed. A separate focused commit (distinct from the documentation-only commit above) is the clean way to make this durable.
+- **Do not merge `phase1-release-prep`/`codex/phase1-recovery` into `main`, and do not push `phase1-release-prep`, without separate owner approval.** Both remain local-only or recovery-branch-only by design.
+- **Do not replay D1 migrations** 0001 or 0002 — production already has both migrations' objects; the ledger gap is a separate bookkeeping task.
+- **Do not treat the 2 D1 leads as business traction.**
+- Owner decisions still needed before further Phase 2 work can move past research: see `docs/research/11-decisions-and-questions.md` section "Owner decisions needed first" (10 numbered items) — none of them are technical. The SEO sprint adds two more owner-only actions: explicitly resubmitting `sitemap.xml` in Search Console, and checking Cloudflare's AI Crawl Control dashboard directly (see `17-seo-sprint-report.md`).

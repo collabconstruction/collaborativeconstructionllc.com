@@ -1,0 +1,21 @@
+name: Release Check
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Python tests
+        run: python3 -m unittest discover -s tests -p "test_*.py"
+      - name: Tests, build, release verification, Worker dry run
+        run: npm run release:check

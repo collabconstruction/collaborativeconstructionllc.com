@@ -1,323 +1,107 @@
 ---
 layout: base.njk
-permalink: /gallery.html
-canonical: /gallery
+permalink: /gallery/index.html
+canonical: /gallery/
 schemaType: gallery
 title: "Gallery | Collaborative Construction, LLC"
-description: "A showcase of completed projects by Collaborative Construction, LLC residential construction, kitchen & bath remodels, custom home renovations, and commercial tenant fit-outs."
+description: "Photos of residential and commercial projects Collaborative Construction, LLC has worked on."
+ogType: "website"
 ogTitle: "Project Gallery | Collaborative Construction, LLC"
-ogDescription: "Completed residential and commercial projects on Cape Cod and the South Shore: whole-home renovations, kitchens and baths, additions, and tenant fit-outs."
-shareImageAlt: "A completed Collaborative Construction renovation project"
-twitterDescription: "Completed residential and commercial projects on Cape Cod and the South Shore."
+ogDescription: "Photos of residential and commercial projects we have worked on."
+twitterDescription: "Photos of residential and commercial projects we have worked on."
+shareImage: /assets/img/belmont-hero.jpg
+shareImageWidth: 1280
+shareImageHeight: 837
+shareImageAlt: "Cedar-clad modern residence in Belmont, Massachusetts"
 schemaName: "Project Gallery"
 breadcrumbName: "Gallery"
 ---
 
-    <!-- ============================ GALLERY INTRO ============================ -->
-    <section class="gallery-intro">
-      <div class="container">
-        <div class="two-col">
-          <img class="mark" src="/assets/c-icon.png" alt="" data-reveal="left">
-          <div data-reveal="right">
-            <span class="eyebrow">Our Work</span>
-            <h1>Gallery</h1>
-            <p>Showcasing a sample of completed projects ranging from Residential Construction, Kitchen and Bath Remodels, Custom Home Renovations, and Commercial Tenant Fit-outs.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+{#
+  Gallery: three views of the same projects (src/_data/projects.json), each laid out its own way.
+    all          a collage of cycling photo tiles
+    residential  editorial rows, the town set large and faint behind the text
+    commercial   full width bands
+  No buttons, no boxes, no captions inside the photos. Each photo slot cycles through its project's pictures
+  (js/gallery.js). Without JavaScript every view shows one after the other and the first photo of each slot is visible.
+  Deck and Railings and Porches and Upper Balcony are last on purpose.
+#}
+{%- macro pic(img, sizes, first) -%}
+{%- set base = img.src | replace("/assets/img/", "") | replace(".jpg", "") -%}
+<picture><source type="image/webp" srcset="{% for w in img.widths %}/assets/img/r/{{ base }}-{{ w }}.webp {{ w }}w{% if not loop.last %}, {% endif %}{% endfor %}" sizes="{{ sizes }}"><img src="{{ img.src }}" alt="{{ img.alt }}" width="{{ img.w }}" height="{{ img.h }}" {% if first %}decoding="async"{% else %}loading="lazy" decoding="async"{% endif %}></picture>
+{%- endmacro -%}
+{%- macro slot(p, sizes, interval) -%}
+<div class="gallery-slot" data-cycle data-interval="{{ interval }}">
+  {%- for img in p.images %}
+  <div class="gallery-frame{% if loop.first %} is-live{% endif %}">{{ pic(img, sizes, loop.first) }}</div>
+  {%- endfor %}
+</div>
+{%- endmacro -%}
+{%- set order = ["Custom Residence", "Modern Custom Residence", "Lovell Dormitory", "Residential Exterior", "Commercial Dispensary", "CubeSmart Self Storage", "Deck and Railings", "Porches and Upper Balcony"] -%}
 
-    <div class="section-divider" data-reveal aria-hidden="true">
-      <span class="line"></span><span class="gem"></span><span class="line r"></span>
+<section class="about-page-hero">
+  <div class="container">
+    <h1>Gallery</h1>
+    <hr class="rule" style="margin:18px auto 0">
+    <p class="hero-lede">Residential and commercial project photography.</p>
+  </div>
+</section>
+
+<section class="gallery-stage project-gallery">
+  <nav class="gallery-views" aria-label="Project views">
+    <a href="#all" data-gallery-tab="all" aria-current="true">All projects</a>
+    <a href="#residential" data-gallery-tab="residential">Residential</a>
+    <a href="#commercial" data-gallery-tab="commercial">Commercial</a>
+  </nav>
+
+  <div class="gallery-view gallery-view--all" data-gallery-view="all" id="all">
+    <h2 class="visually-hidden">All projects</h2>
+    <div class="gallery-collage">
+      {%- for title in order %}{% set ti = loop.index %}{% for p in projects.items %}{% if p.title == title %}
+      <figure class="gallery-tile gallery-tile--{{ ti }}" data-project-category="{{ p.category }}">
+        {{ slot(p, "(min-width: 1100px) 30vw, (min-width: 640px) 46vw, 92vw", 5200 + (ti * 700)) }}
+        <figcaption><span class="gallery-tile__title">{{ p.title }}</span><span class="gallery-tile__town">{{ p.location }}</span></figcaption>
+      </figure>
+      {%- endif %}{% endfor %}{% endfor %}
     </div>
+  </div>
 
-    <!-- ============================ PROJECTS ============================ -->
-    <section class="projects">
-      <div class="container">
-
-        <!-- PROJECT 1 -->
-        <article class="project" data-reveal>
-          <div class="project-head">
-            <h2>Custom Residence</h2>
-            <span class="tag">Belmont, MA</span>
-          </div>
-          <div class="carousel" data-interval="4800">
-            <div class="carousel__bar"></div>
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <img src="/assets/img/belmont-hero.jpg" alt="Custom cedar-clad modern home exterior" loading="lazy">
-                <div class="carousel__caption">Exterior: custom cedar-clad modern home</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/belmont-pond.jpg" alt="The home set in its landscape beside a pond" loading="lazy">
-                <div class="carousel__caption">Site &amp; landscape: the home set against the pond</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/belmont-living.jpg" alt="Open living room with floor-to-ceiling glazing" loading="lazy">
-                <div class="carousel__caption">Open living room with floor-to-ceiling glazing</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/belmont-hallway.jpg" alt="Gallery hallway with custom millwork and stone flooring" loading="lazy">
-                <div class="carousel__caption">Gallery hallway with custom millwork &amp; stone flooring</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/belmont-bath.jpg" alt="Spa bath with cedar detailing and soaking tub" loading="lazy">
-                <div class="carousel__caption">Spa bath with cedar detailing &amp; soaking tub</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/belmont-stair.jpg" alt="Floating stair with board-formed concrete and steel" loading="lazy">
-                <div class="carousel__caption">Floating stair: board-formed concrete &amp; steel</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous image">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button class="carousel__btn next" type="button" aria-label="Next image">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-            </button>
-            <div class="carousel__dots" role="tablist" aria-label="Choose slide"></div>
-          </div>
-        </article>
-
-        <!-- divider between the featured project and the paired grid below -->
-        <div class="project-divider section-divider" data-reveal aria-hidden="true">
-          <span class="line"></span><span class="gem"></span><span class="line r"></span>
-        </div>
-
-        <!-- Remaining projects sit side by side in pairs, smaller than the
-             featured one above, and wrap to a new row as more are added. -->
-        <div class="projects-grid">
-
-        <!-- PROJECT 2 -->
-        <article class="project" data-reveal>
-          <div class="project-head">
-            <h2>Commercial Dispensary</h2>
-            <span class="tag">Dudley, MA</span>
-          </div>
-          <div class="carousel" data-interval="4800">
-            <div class="carousel__bar"></div>
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <img src="/assets/img/greatest-hits-1.jpg" alt="Commercial dispensary interior retail space" loading="lazy">
-                <div class="carousel__caption">Interior retail space</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/greatest-hits-2.jpg" alt="Commercial dispensary lobby and express pick up" loading="lazy">
-                <div class="carousel__caption">Lobby &amp; express pick-up</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous image">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button class="carousel__btn next" type="button" aria-label="Next image">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-            </button>
-            <div class="carousel__dots" role="tablist" aria-label="Choose slide"></div>
-          </div>
-        </article>
-
-        <!-- PROJECT 3 -->
-        <article class="project" data-reveal>
-          <div class="project-head">
-            <h2>Residential Exterior</h2>
-            <span class="tag">Falmouth, MA</span>
-          </div>
-          <div class="carousel" data-interval="4800">
-            <div class="carousel__bar"></div>
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <img src="/assets/img/residential-1.jpg" alt="Front exterior with driveway and attached garage" loading="lazy">
-                <div class="carousel__caption">Front exterior with driveway and attached garage</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/residential-2.jpg" alt="Front entry with custom paver walkway and porch" loading="lazy">
-                <div class="carousel__caption">Front entry with custom paver walkway and porch</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/residential-3.jpg" alt="Side exterior with back deck and custom gazebo" loading="lazy">
-                <div class="carousel__caption">Side exterior with back deck and custom gazebo</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/residential-4.jpg" alt="Composite back deck with custom railing and lighting" loading="lazy">
-                <div class="carousel__caption">Composite back deck with custom railing and lighting</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/residential-5.jpg" alt="Spacious back deck featuring a shaded gazebo area" loading="lazy">
-                <div class="carousel__caption">Spacious back deck featuring a shaded gazebo area</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous image">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button class="carousel__btn next" type="button" aria-label="Next image">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-            </button>
-            <div class="carousel__dots" role="tablist" aria-label="Choose slide"></div>
-          </div>
-        </article>
-
-        <!-- PROJECT 4 -->
-        <article class="project" data-reveal>
-          <div class="project-head">
-            <h2>Custom Bath Suite</h2>
-            <span class="tag">Newton, MA</span>
-          </div>
-          <div class="carousel" data-interval="4800">
-            <div class="carousel__bar"></div>
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <img src="/assets/img/modern-home-1.jpg" alt="Standalone bathtub with custom wood panel accent wall" loading="lazy">
-                <div class="carousel__caption">Standalone bathtub with custom wood panel accent wall</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/modern-home-3.jpg" alt="Custom bathroom vanity with dual sinks and wood panels" loading="lazy">
-                <div class="carousel__caption">Custom bathroom vanity with dual sinks and wood panels</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/modern-home-2.jpg" alt="Modern glass-enclosed shower with tile interior" loading="lazy">
-                <div class="carousel__caption">Modern glass-enclosed shower with tile interior</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous image">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button class="carousel__btn next" type="button" aria-label="Next image">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-            </button>
-            <div class="carousel__dots" role="tablist" aria-label="Choose slide"></div>
-          </div>
-        </article>
-
-        <!-- PROJECT 5 -->
-        <article class="project" data-reveal>
-          <div class="project-head">
-            <h2>Modern Custom Residence</h2>
-            <span class="tag">Carlisle, MA</span>
-          </div>
-          <div class="carousel" data-interval="4800">
-            <div class="carousel__bar"></div>
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <img src="/assets/img/modern-home-4.jpg" alt="Modern glass-enclosed exterior home design" loading="lazy">
-                <div class="carousel__caption">Modern glass-enclosed exterior home design</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/modern-interior-1.jpg" alt="Modern hallway with skylights and open floor plan" loading="lazy">
-                <div class="carousel__caption">Modern hallway with skylights and open floor plan</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/modern-interior-2.jpg" alt="Modern kitchen with large island overlooking a river view" loading="lazy">
-                <div class="carousel__caption">Modern kitchen with large island overlooking a river view</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous image">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button class="carousel__btn next" type="button" aria-label="Next image">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-            </button>
-            <div class="carousel__dots" role="tablist" aria-label="Choose slide"></div>
-          </div>
-        </article>
-
-        <!-- PROJECT 6 -->
-        <article class="project" data-reveal>
-          <div class="project-head">
-            <h2>Lovell Dormitory</h2>
-            <span class="tag">Rockland, MA</span>
-          </div>
-          <div class="carousel" data-interval="4800">
-            <div class="carousel__bar"></div>
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <img src="/assets/img/Lovell_dorm.jpg" alt="Lovell Dormitory, a completed 50,000 SF residence hall" loading="lazy">
-                <div class="carousel__caption">Lovell Dormitory: a completed 50,000 SF residence hall</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/Lovell_dorm_Front.jpg" alt="Front exterior of the completed dormitory" loading="lazy">
-                <div class="carousel__caption">Front exterior of the completed dormitory</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/Lovell_dorm_Rear.jpg" alt="Rear exterior and grounds of the dormitory" loading="lazy">
-                <div class="carousel__caption">Rear exterior &amp; grounds</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/Lovell_dorm_Cafe.jpg" alt="On-site café and dining commons" loading="lazy">
-                <div class="carousel__caption">On-site café &amp; dining commons</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/Lovell_dorm_Rec_Room.jpg" alt="Student recreation room" loading="lazy">
-                <div class="carousel__caption">Student recreation room</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous image">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button class="carousel__btn next" type="button" aria-label="Next image">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-            </button>
-            <div class="carousel__dots" role="tablist" aria-label="Choose slide"></div>
-          </div>
-        </article>
-
-        <!-- PROJECT 7 -->
-        <article class="project" data-reveal>
-          <div class="project-head">
-            <h2>CubeSmart Self Storage</h2>
-            <span class="tag">Hingham, MA</span>
-          </div>
-          <div class="carousel" data-interval="4800">
-            <div class="carousel__bar"></div>
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <img src="/assets/img/Cube_Front.jpg" alt="CubeSmart Self Storage street-front exterior" loading="lazy">
-                <div class="carousel__caption">Street-front exterior of the completed facility</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/Cube_Lockers.jpg" alt="Interior storage lockers and corridors" loading="lazy">
-                <div class="carousel__caption">Interior storage lockers &amp; corridors</div>
-              </div>
-              <div class="carousel__slide">
-                <img src="/assets/img/Cube_Office.jpg" alt="Leasing office and reception area" loading="lazy">
-                <div class="carousel__caption">Leasing office &amp; reception</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous image">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button class="carousel__btn next" type="button" aria-label="Next image">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-            </button>
-            <div class="carousel__dots" role="tablist" aria-label="Choose slide"></div>
-          </div>
-        </article>
-
-        </div><!-- /.projects-grid -->
-
-        <!-- ================================================================
-             To add another project, copy the block below (it goes inside
-             .projects-grid above; the first "featured" project stays outside
-             it), update the title, tag, and the <img> slides.
-        ================================================================
-        <article class="project" data-reveal>
-          <div class="project-head">
-            <h2>Project Name</h2>
-            <span class="tag">Town, MA</span>
-          </div>
-          <div class="carousel" data-interval="4800">
-            <div class="carousel__bar"></div>
-            <div class="carousel__track">
-              <div class="carousel__slide">
-                <img src="/assets/img/your-image.jpg" alt="Description" loading="lazy">
-                <div class="carousel__caption">Caption text</div>
-              </div>
-            </div>
-            <button class="carousel__btn prev" type="button" aria-label="Previous image">‹</button>
-            <button class="carousel__btn next" type="button" aria-label="Next image">›</button>
-            <div class="carousel__dots"></div>
-          </div>
-        </article>
-        -->
-
+  <div class="gallery-view gallery-view--residential" data-gallery-view="residential" id="residential">
+    <h2 class="visually-hidden">Residential projects</h2>
+    {%- for title in order %}{% set ti = loop.index %}{% for p in projects.items %}{% if p.title == title and p.category == "Residential" %}
+    <article class="gallery-row{% if p.compact %} gallery-row--compact{% endif %}" data-reveal>
+      <div class="gallery-row__media">{{ slot(p, "(min-width: 900px) 58vw, 92vw", 6200 + (ti * 600)) }}</div>
+      <div class="gallery-row__text">
+        <span class="gallery-row__town" aria-hidden="true" style="--len: {{ p.location | replace(", MA", "") | length }}">{{ p.location | replace(", MA", "") }}</span>
+        <h3>{{ p.title }}</h3>
+        {%- if p.shows %}<p class="gallery-row__shows">{{ p.shows }}</p>{% endif %}
+        <p class="gallery-row__place">{{ p.location }}</p>
       </div>
-    </section>
+    </article>
+    {%- endif %}{% endfor %}{% endfor %}
+  </div>
+
+  <div class="gallery-view gallery-view--commercial" data-gallery-view="commercial" id="commercial">
+    <h2 class="visually-hidden">Commercial projects</h2>
+    {%- for title in order %}{% set ti = loop.index %}{% for p in projects.items %}{% if p.title == title and p.category == "Commercial" %}
+    <article class="gallery-band">
+      {{ slot(p, "100vw", 6000 + (ti * 800)) }}
+      <div class="gallery-band__shade"></div>
+      <div class="gallery-band__text">
+        <h3>{{ p.title }}</h3>
+        <p class="gallery-band__place">{{ p.location }}</p>
+        {%- if p.shows %}<p class="gallery-band__shows">{{ p.shows }}</p>{% endif %}
+      </div>
+      <span class="gallery-band__dots" aria-hidden="true">{% for img in p.images %}<i{% if loop.first %} class="is-live"{% endif %}></i>{% endfor %}</span>
+    </article>
+    {%- endif %}{% endfor %}{% endfor %}
+  </div>
+</section>
+
+<section class="section adu svc-cta">
+  <div class="container" data-reveal>
+    <h2 data-reveal-words>Discuss Your Project</h2>
+    <p>Let's talk about your project: scope, location and timing.</p>
+    <a href="/#contact" class="btn btn-primary">Contact Us Today</a>
+  </div>
+</section>

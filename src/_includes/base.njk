@@ -1,3 +1,4 @@
+{% from "icons.njk" import icon %}
 {#
   The single page shell. Previously this markup was copy-pasted across four
   HTML files, which is how the head blocks and JSON-LD started to drift.
@@ -7,7 +8,14 @@
     description     meta description
     permalink       output URL, e.g. "/about/index.html"
     canonical       canonical path, e.g. "/about"
-    schemaType      selects JSON-LD nodes: home | gallery | services | about
+    schemaType      selects JSON-LD nodes: home | gallery | services | service | about
+                    (home is implicit from url === "/"; "services" emits one
+                    Service node per entry in services.json onto a shared
+                    page (construction-advisory); "service" emits a single
+                    Service node for this page itself, named/described from
+                    this same front matter, use it on a dedicated service
+                    landing page such as the ADU/custom-home/additions/
+                    renovation/general-contractor pages)
   Optional:
     ogType          defaults to "website"
     ogTitle         defaults to title
@@ -25,7 +33,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title }}</title>
   <meta name="description" content="{{ description }}">
-  <meta name="theme-color" content="#821d1d">
+  <meta name="theme-color" content="#121d33">
   <link rel="canonical" href="{{ business.url }}{{ canonical }}">
 
   <meta property="og:type" content="{{ ogType | default('website') }}">
@@ -45,15 +53,34 @@
   {#- The LCP image. It is a CSS background (.hero__bg), so without this the
       browser cannot discover it until styles.css has downloaded and parsed,
       which serialises two round trips before the largest paint even starts. #}
-  {%- if preloadImage %}
+  {%- if preloadSrcset %}
+  <link rel="preload" as="image" type="image/webp" imagesrcset="{{ preloadSrcset }}" imagesizes="{{ preloadSizes }}" fetchpriority="high">
+  {%- elif preloadImage %}
   <link rel="preload" as="image" href="{{ preloadImage }}" fetchpriority="high">
   {%- endif %}
   <link rel="icon" type="image/png" href="/assets/favicon.png">
   <link rel="apple-touch-icon" href="/assets/c-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Inter:wght@400;500;600;700&family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/newsreader-normal-latin.woff2" crossorigin>
+{%- if schemaType == "home" %}
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/newsreader-italic-latin.woff2" crossorigin>
+{%- endif %}
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-normal-latin.woff2" crossorigin>
   <link rel="stylesheet" href="/css/styles.css">
+  {#- Every [data-reveal] block starts at opacity:0 and is only un-hidden by
+      main.js, and .motto-word/.rw-word start hidden too. With JavaScript
+      disabled that renders the whole page blank, including the no-JS contact
+      fallback inside .form-card, which names the phone number and email for
+      exactly this visitor and was itself invisible. This restores the end
+      state for them. It cannot affect the scripted path: a <noscript> style
+      is inert whenever scripting is enabled. -#}
+  <noscript>
+    <style>
+      [data-reveal], .motto-word, .rw-word { opacity: 1 !important; transform: none !important; }
+      /* .rule draws itself in from scaleX(0), so without this every hairline
+         rule on the page is invisible rather than merely un-animated. */
+      .rule { transform: scaleX(1) !important; }
+    </style>
+  </noscript>
   <script>
     /* Apply directional page-entrance class before first paint (no flash) */
     (function () {
@@ -67,68 +94,69 @@
     })();
   </script>
 
-  {#- ---------------------------------------------------------------------
-      Measurement. Driven by src/_data/analytics.json, and emits NOTHING while
-      its values are null, so this ships safely before either account exists and
-      is switched on later by a one-line data edit rather than a code change.
-
-      GA4 loads in <head> so the Consent Mode v2 defaults below are in force
-      before any tag can write a cookie. Everything is denied by default;
-      js/analytics.js only sends `consent: update` after an explicit accept.
-      --------------------------------------------------------------------- #}
+  {# GA is loaded by analytics.js only after explicit consent. #}
   {%- if analytics.ga4MeasurementId %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics.ga4MeasurementId }}"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    /* Denied BEFORE config. The order matters: default-denied first means no
-       analytics cookie is written unless the visitor accepts. */
-    gtag('consent', 'default', {
-      ad_storage: 'denied',
-      ad_user_data: 'denied',
-      ad_personalization: 'denied',
-      analytics_storage: 'denied',
-      wait_for_update: 500
-    });
-    gtag('js', new Date());
-    gtag('config', '{{ analytics.ga4MeasurementId }}');
-    /* Consumed by js/analytics.js. Its existence is the on-switch: with no
-       measurement id this is never defined, and that file returns immediately,
-       so there is no banner and no listeners. */
     window.__CC_ANALYTICS = {
-      consent: {
-        message: {{ analytics.consent.message | dump | safe }},
-        accept: {{ analytics.consent.accept | dump | safe }},
-        decline: {{ analytics.consent.decline | dump | safe }}
-      }
+      measurementId: {{ analytics.ga4MeasurementId | dump | safe }},
+      consent: {{ analytics.consent | dump | safe }}
     };
   </script>
   {%- endif %}
 
   {# Generated from src/_data. Never hand-edit structured data again. #}
   <script type="application/ld+json">
-{{ { url: canonical, title: title, schemaName: schemaName, breadcrumbName: breadcrumbName, schemaType: schemaType, business: business, people: people, services: services.list } | jsonld | safe }}
+{{ { url: canonical, title: title, description: description, schemaName: schemaName, breadcrumbName: breadcrumbName, schemaType: schemaType, business: business, people: people, services: services.list } | jsonld | safe }}
   </script>
 </head>
 <body>
 
-  <div class="bg-fx" aria-hidden="true">
-    <div class="bg-fx__rays"></div>
-    <div class="bg-fx__sparkle"></div>
-    <div class="bg-fx__fill"></div>
-  </div>
-
   <!-- ============================ HEADER ============================ -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
   <header class="site-header">
     <div class="container header-inner">
+      {#- Mark plus live text, not one baked-in image. The previous
+          logo-header.png drew the house icon, the company name AND the
+          tagline inside a single 1762x552 PNG, so the header's only wordmark
+          was pixels: unselectable, invisible to text search, and resampled at
+          every breakpoint. The October 2026 monogram carries no lettering, so
+          the name is set in real type here, the same mark-beside-wordmark
+          lockup the footer already uses (.footer-logo). The name is written
+          out rather than pulled from business.shortName because the line
+          break is a layout decision, not data; the footer does the same. #}
       <a class="brand" href="/" aria-label="{{ business.shortName }} home">
-        <img class="c-badge" src="{{ business.images.badge }}" alt="">
-        <img class="logo" src="{{ business.images.logo }}" alt="{{ business.shortName }}">
+        <img class="logo" src="{{ business.images.logoHeader }}" alt="" width="512" height="512">
+        <span class="brand-wm">Collaborative Construction</span>
       </a>
       <div class="header-right">
-        <nav class="nav" id="primary-nav">
+        {#- `Services` carries a `dropdown` array in src/_data/nav.json but no
+            template ever rendered it, so it fell through to `<a href="">`,
+            a dead link that just reloaded the current page, on every page of
+            the site. That made all five service landing pages reachable only
+            from the homepage grid or the footer. It now renders as a real
+            disclosure: a <button> plus a panel, opened on hover and on
+            :focus-within (so it works for pointer, touch and keyboard with
+            no JavaScript), and expanded inline in the mobile sheet. #}
+        <nav class="nav" id="primary-nav" aria-label="Primary">
           {%- for item in nav.items %}
-          <a href="{{ item.url }}"{% if item.url == canonical %} class="active"{% endif %}>{{ item.label }}</a>
+          {%- if item.dropdown %}
+          {%- set groupActive = false %}
+          {%- for sub in item.dropdown %}{% if sub.url == canonical %}{% set groupActive = true %}{% endif %}{%- endfor %}
+          <div class="nav-group">
+            <button type="button" class="nav-group__trigger{% if groupActive %} active{% endif %}" aria-expanded="false" aria-controls="nav-services">
+              {{ item.label }}
+              <svg class="nav-group__chev" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="nav-group__panel" id="nav-services">
+              {%- for sub in item.dropdown %}
+              <a href="{{ sub.url }}"{% if sub.url == canonical %} class="active" aria-current="page"{% endif %}>{% if sub.icon %}<span class="nav-ico">{{ icon(sub.icon) | safe }}</span>{% endif %}<span>{{ sub.label }}</span></a>
+              {%- endfor %}
+            </div>
+          </div>
+          {%- else %}
+          <a href="{{ item.url }}"{% if item.url == canonical %} class="active" aria-current="page"{% endif %}>{{ item.label }}</a>
+          {%- endif %}
           {%- endfor %}
         </nav>
         <div class="header-cta">
@@ -138,13 +166,13 @@
           </a>
         </div>
         <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-nav">
-          <span></span><span></span><span></span>
+          <span class="line"></span><span class="line"></span><span class="line"></span>
         </button>
       </div>
     </div>
   </header>
 
-  <main class="page-main">
+  <main class="page-main" id="main" tabindex="-1">
 {{ content | safe }}
   </main>
 
@@ -154,17 +182,28 @@
       <div class="footer-brand">
         <div class="footer-logo">
           <img class="c-badge" src="{{ business.images.badge }}" alt="">
-          <span class="wm">Collaborative<br>Construction</span>
+          <span class="wm">Collaborative Construction</span>
         </div>
-        <p class="eyebrow gold motto-words">Experience <span class="dot" style="color:var(--gold-2)">·</span> Quality <span class="dot" style="color:var(--gold-2)">·</span> Trust</p>
+        <p class="footer-motto"><span>Experience</span><span>Quality</span><span>Trust</span></p>
         <p>{{ business.footerBlurb | safe }}</p>
+        {%- if business.hicNumber or business.cslNumber %}
+        <p class="footer-license">{% if business.hicNumber %}MA Home Improvement Contractor Reg. #{{ business.hicNumber }}{% endif %}{% if business.hicNumber and business.cslNumber %} &middot; {% endif %}{% if business.cslNumber %}MA Construction Supervisor License #{{ business.cslNumber }}{% endif %}</p>
+        {%- endif %}
       </div>
 
       <div class="footer-col">
-        <h4>Explore</h4>
+        <h2>Explore</h2>
         <ul class="footer-links">
+          {#- A menu heading has no url, so list its children in its place
+              rather than emitting `<a href="">`. #}
           {%- for item in nav.items %}
+          {%- if item.dropdown %}
+          {%- for sub in item.dropdown %}
+          <li><a href="{{ sub.url }}">{{ sub.label }}</a></li>
+          {%- endfor %}
+          {%- else %}
           <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+          {%- endif %}
           {%- endfor %}
           {%- for item in nav.footerExtra %}
           <li><a href="{{ item.url }}">{{ item.label }}</a></li>
@@ -173,7 +212,7 @@
       </div>
 
       <div class="footer-col">
-        <h4>Contact</h4>
+        <h2>Contact</h2>
         <address class="footer-contact">
           {{ business.name }}<br>
           <a href="{{ business.address.mapUrl }}" target="_blank" rel="noopener">{{ business.address.display }}</a><br><br>
@@ -191,33 +230,33 @@
         </ul>
         {%- endif %}
         <div class="socials">
-          <a href="{{ business.social.facebook }}" aria-label="Facebook" target="_blank" rel="noopener">
+          <a href="{{ business.social.facebook }}" aria-label="Collaborative Construction on Facebook" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>
           </a>
-          <a href="{{ business.social.linkedin }}" aria-label="LinkedIn" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-          </a>
-        </div>
+                  <a href="{{ business.social.linkedin }}" aria-label="Collaborative Construction on LinkedIn" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.5 8.5H3V21h3.5V8.5ZM4.75 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM21 13.5c0-3.3-1.8-5.3-4.4-5.3-1.8 0-2.6 1-3.1 1.8V8.5H10V21h3.5v-7c0-1.8.7-2.8 2.1-2.8 1.4 0 1.9 1 1.9 2.8v7H21v-7.5Z"/></svg></a>
+</div>
       </div>
 
       <div class="footer-col">
-        <h4>Recent Work</h4>
+        <h2>Recent Work</h2>
+        {#- These two thumbnails used to hardcode a title, town and image that
+            also appear on /gallery/, in the footer of every page. Renaming a
+            project in projects.json would have left this strip quietly
+            disagreeing with the gallery it links to, so it now reads the same
+            data and shows whichever entries carry `footerThumb`. -#}
         <div class="footer-projects">
-          <a class="footer-project" href="/gallery">
-            <img src="/assets/img/belmont-hero.jpg" alt="Custom cedar-clad modern home in Belmont, MA" loading="lazy">
-            <span>Custom Residence<small>Belmont, MA</small></span>
+          {%- for p in projects.items %}{% if p.footerThumb %}
+          <a class="footer-project" href="/gallery/"><picture><source type="image/webp" srcset="{%- for w in p.footerThumb.widths %}/assets/img/r/{{ p.footerThumb.src | replace("/assets/img/", "") | replace(".jpg", "") }}-{{ w }}.webp {{ w }}w{% if not loop.last %}, {% endif %}{% endfor -%}" sizes="56px"><img src="{{ p.footerThumb.src }}" alt="{{ p.footerThumb.alt }}" width="{{ p.footerThumb.width }}" height="{{ p.footerThumb.height }}" loading="lazy" decoding="async"></picture>
+            <span>{{ p.title }}<small>{{ p.location }}</small></span>
           </a>
-          <a class="footer-project" href="/gallery">
-            <img src="/assets/img/modern-home-4.jpg" alt="Modern custom residence in Carlisle, MA" loading="lazy">
-            <span>Modern Custom Residence<small>Carlisle, MA</small></span>
-          </a>
+          {%- endif %}{% endfor %}
         </div>
-        <a class="footer-projects-link" href="/gallery">View full gallery &rarr;</a>
+        <a class="footer-projects-link" href="/gallery/">View full gallery &rarr;</a>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;width:100%">
+      <div class="container">
         <span>&copy; <span id="year">2026</span> {{ business.name }}. All rights reserved.</span>
         <span>Website by {{ business.name }}</span>
       </div>
@@ -237,7 +276,14 @@
 
   {#- Before main.js, so the form_start listener is attached before anything
       heavier runs. Inert unless GA4 is configured. #}
+  <script src="/js/intake-context.js"></script>
   <script src="/js/analytics.js"></script>
   <script src="/js/main.js"></script>
+{%- if schemaType == "home" %}
+  <script defer src="/js/house-loader.js"></script>
+{%- endif %}
+{%- if schemaType == "gallery" %}
+  <script defer src="/js/gallery.js"></script>
+{%- endif %}
 </body>
 </html>
