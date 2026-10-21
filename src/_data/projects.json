@@ -126,38 +126,10 @@
       ]
     },
     {
-      "title": "Custom Bath Suite",
-      "category": "Residential",
-      "location": "Newton, MA",
-      "shows": "Kitchen, living area, pool deck, and bath.",
-      "images": [
-        {
-          "src": "/assets/img/newton-suite-1.jpg",
-          "alt": "Kitchen with island, wood beams and large windows",
-          "caption": "Kitchen with island, wood beams and large windows"
-        },
-        {
-          "src": "/assets/img/newton-suite-2.jpg",
-          "alt": "Open living area with stone wall, built-in shelving and wood beams",
-          "caption": "Open living area with stone wall, built-in shelving and wood beams"
-        },
-        {
-          "src": "/assets/img/newton-suite-3.jpg",
-          "alt": "Deck overlooking a pool and open landscape",
-          "caption": "Deck overlooking a pool and open landscape"
-        },
-        {
-          "src": "/assets/img/newton-suite-4.jpg",
-          "alt": "Soaking tub, wood panel wall and glass shower",
-          "caption": "Soaking tub, wood panel wall and glass shower"
-        }
-      ]
-    },
-    {
       "title": "Modern Custom Residence",
       "category": "Residential",
       "location": "Carlisle, MA",
-      "shows": "Exterior, skylit hallway, and kitchen.",
+      "shows": "Exterior, skylit hallway, kitchens, living area, pool deck, and bath.",
       "footerThumb": {
         "src": "/assets/img/modern-home-4.jpg",
         "alt": "Modern custom residence in Carlisle, MA",
@@ -180,6 +152,26 @@
           "src": "/assets/img/modern-interior-2.jpg",
           "alt": "Modern kitchen with large island overlooking a river view",
           "caption": "Modern kitchen with large island overlooking a river view"
+        },
+        {
+          "src": "/assets/img/carlisle-residence-1.jpg",
+          "alt": "Kitchen with island, wood beams and large windows",
+          "caption": "Kitchen with island, wood beams and large windows"
+        },
+        {
+          "src": "/assets/img/carlisle-residence-2.jpg",
+          "alt": "Open living area with stone wall, built-in shelving and wood beams",
+          "caption": "Open living area with stone wall, built-in shelving and wood beams"
+        },
+        {
+          "src": "/assets/img/carlisle-residence-3.jpg",
+          "alt": "Deck overlooking a pool and open landscape",
+          "caption": "Deck overlooking a pool and open landscape"
+        },
+        {
+          "src": "/assets/img/carlisle-residence-4.jpg",
+          "alt": "Soaking tub, wood panel wall and glass shower",
+          "caption": "Soaking tub, wood panel wall and glass shower"
         }
       ]
     },
