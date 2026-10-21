@@ -6,7 +6,8 @@ Written October 21, 2026 from the repo (`schema.sql`, `migrations/`, `worker/ind
 
 | Place | What is in it | Checked how |
 |---|---|---|
-| D1 database `cc-leads`, table `leads` | name, email, phone, message, source page, referrer, campaign tags, optional GA client id, country, user agent, attachment keys, status | `schema.sql`, `migrations/0001` |
+| D1 database `cc-leads`, table `leads`, filled today by the Worker | name, email, phone, message, source page, referrer origin, campaign tags, attachment keys, status | `worker/index.js` INSERT (October 21, 2026) |
+| Same table, columns that exist but the Worker does not fill | GA client id, country, user agent | `schema.sql` versus `worker/index.js` |
 | D1 `lead_workflow`, `lead_stage_history`, `intake_receipts` | project type, town, budget range, timeline, stage, follow up dates, outcome, loss reason, a request fingerprint | `migrations/0002` |
 | R2 bucket `cc-lead-attachments` | photos and plans sent with inquiries (private) | `wrangler.jsonc`, `worker/index.js` |
 | Company mailbox | one email per inquiry, a full copy of the submission | `wrangler.jsonc` (`LEAD_INBOX`) |
