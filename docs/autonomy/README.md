@@ -12,7 +12,7 @@ Written October 21, 2026. Branch `claude/autonomy-foundation`, built on the rese
 | GitHub issue creation by an agent | Proposal only. Needs a scoped token the owner approves |
 | Read only analytics sources (GA4, Search Console, Business Profile, Cloudflare) | Proposal only. Needs owner authorisation |
 
-Files: `PLAN.md` (design and rollout), `THREAT-MODEL.md`, `EVIDENCE-SCHEMA.md`, `COST-CONTROLS.md`, `OPERATOR-GUIDE.md`, `RUNBOOK.md`.
+Files: `HQ-PLAN.md` (private dashboard and MCP plan, approved), `PLAN.md` (design and rollout), `THREAT-MODEL.md`, `EVIDENCE-SCHEMA.md`, `COST-CONTROLS.md`, `OPERATOR-GUIDE.md`, `RUNBOOK.md`.
 
 Tests: `python3 -m unittest discover -s tests -p "test_*.py"` (42 tests when this was written).
 
