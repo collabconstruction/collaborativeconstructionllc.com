@@ -4687,3 +4687,13 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
 .service-editorial strong, .service-summary strong { color: #fff; }
 .adu-card strong, .adu .adu-card strong { color: var(--navy); }
 .adu-spec strong { color: var(--navy); }
+
+/* About: the three steps sit centred inside their own cards, with an even border all round. */
+.company-principles article {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  padding: 36px 28px; border: 1px solid var(--line); border-top: 3px solid var(--brass); border-radius: 4px;
+  min-height: 210px; transition: transform .3s var(--ease-out, ease), box-shadow .3s ease;
+}
+.company-principles article:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(18, 29, 51, .14); }
+.company-principles h2 { margin-block: 12px 10px; }
+.company-principles p { margin: 0; max-width: 30ch; }
