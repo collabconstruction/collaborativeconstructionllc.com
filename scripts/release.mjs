@@ -45,7 +45,7 @@ function stop(m, extra = []) {
 
 function run(file, a, opts = {}) {
   const r = spawnSync(file, a, { cwd: ROOT, encoding: "utf8", env: { ...process.env, NODE_USE_ENV_PROXY: process.env.NODE_USE_ENV_PROXY ?? "1" }, maxBuffer: 64 * 1024 * 1024, ...opts });
-  return { code: r.status ?? 1, out: `${r.stdout ?? ""}${r.stderr ?? ""}` };
+  return { code: r.status ?? 1, started: !r.error, out: `${r.stdout ?? ""}${r.stderr ?? ""}` };
 }
 const git = (...a) => run("git", a).out.trim();
 const step = (title, file, a) => {
@@ -180,9 +180,9 @@ async function verifyLive(site) {
   const res = await liveChecks(site);
   for (const r of res) say(`  ${r.pass ? "PASS" : "FAIL"}  ${r.name}${r.detail ? " (" + r.detail + ")" : ""}`);
   const seo = run("python3", ["scripts/seo_audit.py"]);
-  say(`  ${seo.code === 0 ? "PASS" : "WARN"}  SEO audit of the nine pages (python3 scripts/seo_audit.py) exit ${seo.code}`);
+  say(`  ${!seo.started ? "WARN" : seo.code === 0 ? "PASS" : "WARN"}  SEO audit of the nine pages (python3 scripts/seo_audit.py) ${seo.started ? "exit " + seo.code : "could not start"}`);
   const bad = res.filter((r) => !r.pass);
-  return { bad, seoExit: seo.code };
+  return { bad, seoExit: seo.code, seoRan: seo.started };
 }
 
 async function deploy() {
@@ -229,15 +229,16 @@ async function deploy() {
   });
   const judgement = judgeDeployment({ wranglerExit: r.code, printedVersionId: printed, beforeVersionId: before, observations });
   const rollbackLine = `Rollback (not run):   ${rollbackCommand(before)}`;
-  if (judgement.upload === "failed" && judgement.active !== "confirmed") {
+  if (judgement.upload === "failed") {
+    // Nothing was verified against the live site: report only what is known.
     const o = classifyOutcome({ judgement });
-    console.error(`\n${o.label}\n${o.stages.slice(0, 2).join("\n")}\n${rollbackLine}`);
+    console.error(`\n${o.label}\n${o.stages.join("\n")}\n${rollbackLine}`);
     process.exit(o.code);
   }
 
-  const { bad, seoExit } = await verifyLive(EXPECTED.site);
-  const outcome = classifyOutcome({ judgement, liveFailed: bad.length, seoOk: seoExit === 0 });
-  const log = { deployedAt: new Date().toISOString(), commit: st.head, pullRequest: report.pullRequest, previousVersionId: before, newVersionId: judgement.versionId, wranglerExit: r.code, activeVersion: judgement.active, outcome: outcome.label, liveChecksFailed: bad.map((b) => b.name), seoExit };
+  const { bad, seoExit, seoRan } = await verifyLive(EXPECTED.site);
+  const outcome = classifyOutcome({ judgement, live: { ran: true, failed: bad.length }, seo: { ran: seoRan, ok: seoExit === 0 } });
+  const log = { deployedAt: new Date().toISOString(), commit: st.head, pullRequest: report.pullRequest, previousVersionId: before, newVersionId: judgement.versionId, wranglerExit: r.code, activeVersion: judgement.active, outcome: outcome.label, liveChecksFailed: bad.map((b) => b.name), seoExit, seoRan };
   await writeFile(join(REL, `deploy-${Date.now()}.json`), JSON.stringify(log, null, 2));
   say(`\n${outcome.label}\n`);
   outcome.stages.forEach((l) => say("  " + l));

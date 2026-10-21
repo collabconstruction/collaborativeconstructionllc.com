@@ -73,68 +73,113 @@ test("provenance: only a merged PR into main whose merge commit is this commit c
   assert.equal(checkProvenance(`${PRLINE({ number: 1, merge_commit_sha: "c".repeat(40) })}\n${PRLINE({ number: 2 })}`, head).pr, 2);
 });
 
-const NEW = ID2, OLD = ID1;
+const NEW = ID2, OLD = ID1, OTHER = "11111111-1111-4111-8111-111111111111";
 const obs = (...ids) => ids.map((v) => (v ? { ok: true, versionId: v } : { ok: false }));
 const judge = (over) => judgeDeployment({ wranglerExit: 0, printedVersionId: NEW, beforeVersionId: OLD, observations: obs(NEW), ...over });
+const PASS = { live: { ran: true, failed: 0 }, seo: { ran: true, ok: true } };
 
 test("deployment evidence: Wrangler success alone never counts as verified", () => {
   assert.deepEqual(judge({}), { upload: "succeeded", active: "confirmed", versionId: NEW, note: "Cloudflare lists the new version as current" });
-  // listing unreadable
   assert.equal(judge({ observations: obs(null, null) }).active, "unconfirmed");
   assert.equal(judge({ observations: [] }).active, "unconfirmed");
-  // listing lagging: still the previous version
   const lag = judge({ observations: obs(OLD, OLD, OLD) });
   assert.equal(lag.active, "unconfirmed");
   assert.match(lag.note, /lagging/);
-  // listing shows some other version
-  assert.match(judge({ observations: obs("11111111-1111-4111-8111-111111111111") }).note, /different version/);
-  // a later read confirms after earlier stale reads (eventual consistency)
-  assert.equal(judge({ observations: obs(OLD, null, OLD, NEW) }).active, "confirmed");
-  // no printed id: a changed version is accepted, an unchanged one is not
-  assert.equal(judge({ printedVersionId: null, observations: obs(OLD, NEW) }).versionId, NEW);
-  assert.equal(judge({ printedVersionId: null, observations: obs(OLD) }).active, "unconfirmed");
+  assert.match(judge({ observations: obs(OTHER) }).note, /different version/);
+  assert.equal(judge({ observations: obs(OLD, null, OLD, NEW) }).active, "confirmed", "a later read confirms after stale ones");
+});
+
+test("positive attribution: with no printed version id, a newly seen version is never confirmed as ours", () => {
+  // a concurrent deployment by someone else produced OTHER; Wrangler printed nothing for our upload
+  for (const observations of [obs(OLD, OTHER), obs(OTHER), obs(OLD, NEW), obs(OLD), obs(null), []]) {
+    const j = judge({ printedVersionId: null, observations });
+    assert.equal(j.upload, "succeeded");
+    assert.equal(j.active, "unconfirmed", JSON.stringify(observations));
+    assert.equal(j.versionId, null, "no version id may be claimed");
+    assert.match(j.note, /printed no version id/);
+    assert.equal(classifyOutcome({ judgement: j, ...PASS }).code, 5);
+  }
+  assert.match(judge({ printedVersionId: null, observations: obs(OLD, OTHER) }).note, /cannot be attributed to this deployment/);
+});
+
+test("positive attribution: a version that Wrangler did not print is not accepted when it differs from the printed one", () => {
+  const j = judge({ printedVersionId: NEW, observations: obs(OTHER, OTHER) });
+  assert.equal(j.active, "unconfirmed");
+  assert.match(j.note, /different version/);
+});
+
+test("a failed upload with a changed version is not attributed to us either", () => {
+  const j = judgeDeployment({ wranglerExit: 1, printedVersionId: null, beforeVersionId: OLD, observations: obs(OLD, OTHER) });
+  assert.equal(j.active, "unattributed");
+  assert.equal(j.versionId, null);
+  assert.match(j.note, /cannot be attributed/);
+  const o = classifyOutcome({ judgement: j });
+  assert.equal(o.code, 4);
+  assert.doesNotMatch(o.label, /^DEPLOYED/);
 });
 
 test("a successful upload is never classified as not deployed, even when the listing is stale", () => {
   for (const observations of [obs(OLD), obs(OLD, OLD, OLD, OLD, OLD, OLD), obs(null), []]) {
     const j = judge({ observations });
-    const o = classifyOutcome({ judgement: j, liveFailed: 0, seoOk: true });
-    assert.equal(j.upload, "succeeded");
+    const o = classifyOutcome({ judgement: j, ...PASS });
     assert.notEqual(o.code, 1, "must not say not deployed");
     assert.equal(o.code, 5);
-    assert.match(o.label, /NOT CONFIRMED THE NEW VERSION IS ACTIVE/);
+    assert.match(o.label, /NOT CONFIRMED ACTIVE/);
     assert.match(o.stages[1], /NOT CONFIRMED/);
   }
 });
 
-test("failed upload: not deployed only when Cloudflare shows the previous version; changed or unreadable are reported as such", () => {
+test("failed upload: not deployed only when Cloudflare still shows the previous version", () => {
   const failed = (observations) => judgeDeployment({ wranglerExit: 1, printedVersionId: null, beforeVersionId: OLD, observations });
   assert.equal(classifyOutcome({ judgement: failed(obs(OLD, OLD)) }).code, 1);
   assert.equal(classifyOutcome({ judgement: failed(obs(null, null)) }).code, 4);
-  const changed = failed(obs(OLD, NEW));
-  assert.equal(changed.active, "confirmed");
-  assert.equal(changed.upload, "failed");
-  assert.equal(classifyOutcome({ judgement: changed, liveFailed: 0, seoOk: true }).code, 0);
+  assert.equal(classifyOutcome({ judgement: failed([]) }).code, 4);
 });
 
-test("outcome codes and the four reported stages", () => {
+test("only a printed and matched version with all checks run and passing is reported as verified", () => {
   const ok = judge({});
-  const all = classifyOutcome({ judgement: ok, liveFailed: 0, seoOk: true });
+  const all = classifyOutcome({ judgement: ok, ...PASS });
   assert.equal(all.code, 0);
-  assert.match(all.label, /upload, active version, live checks, SEO audit/);
-  assert.equal(all.stages.length, 4);
+  assert.match(all.label, /^DEPLOYED and verified/);
   assert.match(all.stages[0], /Wrangler upload:\s+succeeded/);
   assert.match(all.stages[1], /confirmed by Cloudflare/);
   assert.match(all.stages[2], /Live HTTP checks:\s+passed/);
   assert.match(all.stages[3], /SEO audit:\s+passed/);
-  assert.equal(classifyOutcome({ judgement: ok, liveFailed: 2 }).code, 2);
-  assert.match(classifyOutcome({ judgement: ok, liveFailed: 2 }).label, /DEPLOYED, BUT 2 LIVE/);
-  assert.equal(classifyOutcome({ judgement: ok, liveFailed: 0, seoOk: false }).code, 3);
-  assert.equal(classifyOutcome({ judgement: ok, liveFailed: 1, seoOk: false }).code, 2);
-  // unconfirmed active version with failed live checks keeps the live failure code, and never says verified
-  const unconfirmed = judge({ observations: obs(OLD) });
-  assert.equal(classifyOutcome({ judgement: unconfirmed, liveFailed: 1 }).code, 2);
-  assert.doesNotMatch(classifyOutcome({ judgement: unconfirmed, liveFailed: 0 }).label, /^DEPLOYED and verified/);
+});
+
+test("each stage reports whether it actually ran", () => {
+  const ok = judge({});
+  const stage = (o, i) => o.stages[i];
+  // nothing ran yet
+  const none = classifyOutcome({ judgement: ok });
+  assert.match(stage(none, 2), /not run/);
+  assert.match(stage(none, 3), /not run/);
+  assert.notEqual(none.code, 0, "unrun checks are never verified");
+  assert.equal(none.code, 3);
+  assert.match(none.label, /LIVE CHECKS DID NOT RUN/);
+  // live ran and passed, SEO could not start
+  const noSeo = classifyOutcome({ judgement: ok, live: { ran: true, failed: 0 }, seo: { ran: false, ok: false } });
+  assert.match(stage(noSeo, 2), /passed/);
+  assert.match(stage(noSeo, 3), /not run/);
+  assert.equal(noSeo.code, 3);
+  assert.match(noSeo.label, /SEO AUDIT DID NOT RUN/);
+  // SEO ran and failed
+  const seoFail = classifyOutcome({ judgement: ok, live: { ran: true, failed: 0 }, seo: { ran: true, ok: false } });
+  assert.match(stage(seoFail, 3), /FAILED/);
+  assert.equal(seoFail.code, 3);
+  // live checks failed
+  const liveFail = classifyOutcome({ judgement: ok, live: { ran: true, failed: 2 }, seo: { ran: true, ok: true } });
+  assert.match(stage(liveFail, 2), /2 FAILED/);
+  assert.equal(liveFail.code, 2);
+  assert.match(liveFail.label, /DEPLOYED, BUT 2 LIVE/);
+  // an unconfirmed version with failed live checks keeps the live failure code and never says verified
+  const unconfirmed = classifyOutcome({ judgement: judge({ observations: obs(OLD) }), live: { ran: true, failed: 1 }, seo: { ran: true, ok: true } });
+  assert.equal(unconfirmed.code, 2);
+  // a failed upload shows the live and SEO stages as not run
+  const failedUp = classifyOutcome({ judgement: judgeDeployment({ wranglerExit: 1, printedVersionId: null, beforeVersionId: OLD, observations: obs(OLD) }) });
+  assert.equal(failedUp.code, 1);
+  assert.match(stage(failedUp, 2), /not run/);
+  assert.match(stage(failedUp, 3), /not run/);
 });
 
 test("polling waits through a stale listing and stops as soon as the new version shows", async () => {
@@ -166,6 +211,9 @@ test("the deploy flow polls before judging and never decides from one read", asy
   assert.ok(dep.indexOf("pollForVersion") > dep.indexOf('"wrangler", "deploy"'));
   assert.ok(dep.indexOf("judgeDeployment") > dep.indexOf("pollForVersion"));
   assert.doesNotMatch(dep, /deployed = after\./, "the old single read decision is gone");
+  assert.ok(dep.indexOf('judgement.upload === "failed"') > -1 && dep.indexOf('judgement.upload === "failed"') < dep.indexOf("verifyLive"), "a failed upload exits before any live check is reported");
+  assert.match(dep, /live: \{ ran: true, failed: bad\.length \}/);
+  assert.match(dep, /seo: \{ ran: seoRan, ok: seoExit === 0 \}/);
 });
 
 test("provenance supports a merge commit, a squash commit and a rebase tip, because each is the PR's merge_commit_sha; later or direct commits are not supported", () => {

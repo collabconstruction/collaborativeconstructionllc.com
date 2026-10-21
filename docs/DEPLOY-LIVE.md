@@ -79,7 +79,7 @@ Live HTTP checks:       passed
 SEO audit:              passed
 ```
 
-The words "deployed and verified" appear only when all four are good. If Cloudflare cannot confirm the active version, the result says so plainly and the release is treated as unverified. It never runs the rollback itself and cannot run without a terminal.
+The words "deployed and verified" appear only when all four are good. Each line says whether that check actually ran (`not run` is shown, never assumed to pass). The active version is confirmed only when the version id that **Wrangler printed for this upload** is the one Cloudflare lists. If Wrangler prints no id, a version that appears in Cloudflare's list is never attributed to this release, because another deployment could have run at the same time: the result is "not confirmed" (code 5). The same applies when Wrangler fails but a new version appears: it is reported as unknown (code 4), not as ours. It never runs the rollback itself and cannot run without a terminal.
 
 Exit codes and what they mean:
 | Code | Meaning |
@@ -87,9 +87,9 @@ Exit codes and what they mean:
 | 0 | Deployed and verified |
 | 1 | Not deployed. Production is unchanged (a check refused, or Wrangler failed and Cloudflare still lists the previous version) |
 | 2 | **Deployed**, but one or more live checks failed. Consider rolling back |
-| 3 | **Deployed**, live checks passed, but the SEO audit failed. Read the audit and decide with the owner |
-| 4 | Unknown whether production changed (Wrangler failed and Cloudflare could not be read). Run `npx wrangler deployments list` |
-| 5 | **Deployed** (Wrangler succeeded), but Cloudflare has not confirmed the new version is active (listing unreadable, lagging or showing another version). Not verified: wait a minute, run `npm run release:check-wrangler`, and check the site |
+| 3 | **Deployed** and confirmed active, but the live checks or the SEO audit did not run, or the SEO audit failed. Read the audit and decide with the owner |
+| 4 | Unknown (Wrangler failed and Cloudflare could not be read, or it failed and a new version appeared that cannot be attributed to this release). Run `npx wrangler deployments list` |
+| 5 | **Deployed** (Wrangler succeeded), but Cloudflare has not confirmed the new version is active (Wrangler printed no id, or the listing is unreadable, lagging or shows another version). Not verified: wait a minute, run `npm run release:check-wrangler`, and check the site |
 
 ## Provenance: which merges are supported
 The tool deploys only a commit that GitHub reports as the **merge commit of a merged pull request into `main`** (`merge_commit_sha` of the pull request equals the commit you have checked out). Nothing else counts as approval.
