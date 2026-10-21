@@ -70,16 +70,42 @@ It refuses unless all of these hold at that moment:
 - the prepared commit is the current commit, the `_deploy` fingerprint is unchanged and the prepare is under two hours old;
 - **production has not changed since prepare**: the current production version must equal the rollback version recorded at prepare. If someone deployed in between, it stops and tells you to run prepare again.
 
-Then it prints the plan, requires `--confirm <7 characters of the commit>` and an interactive typed `deploy production`. It moves the prepare report aside (it authorizes one attempt only), runs `wrangler deploy --assets _deploy`, then asks Cloudflare which version is live (it does not rely only on the exit code), runs the live checks and the SEO audit, writes `.release/deploy-<time>.json`, and prints the new version and the rollback command. It never runs the rollback itself and cannot run without a terminal.
+Then it prints the plan, requires `--confirm <7 characters of the commit>` and an interactive typed `deploy production`. It moves the prepare report aside (it authorizes one attempt only), runs `wrangler deploy --assets _deploy`, then asks Cloudflare which version is active. Cloudflare's deployment list can lag a fresh deployment, so it reads the list up to six times, ten seconds apart, and stops as soon as the new version shows. One stale read never decides anything, and a successful upload is never reported as "not deployed". It then runs the live checks and the SEO audit, writes `.release/deploy-<time>.json`, and prints four separate results and the rollback command:
+
+```
+Wrangler upload:        succeeded
+Active version:         confirmed by Cloudflare (<version id>)
+Live HTTP checks:       passed
+SEO audit:              passed
+```
+
+The words "deployed and verified" appear only when all four are good. If Cloudflare cannot confirm the active version, the result says so plainly and the release is treated as unverified. It never runs the rollback itself and cannot run without a terminal.
 
 Exit codes and what they mean:
 | Code | Meaning |
 |---|---|
 | 0 | Deployed and verified |
-| 1 | Not deployed. Production is unchanged (a check refused, or Wrangler failed and the live version did not change) |
+| 1 | Not deployed. Production is unchanged (a check refused, or Wrangler failed and Cloudflare still lists the previous version) |
 | 2 | **Deployed**, but one or more live checks failed. Consider rolling back |
 | 3 | **Deployed**, live checks passed, but the SEO audit failed. Read the audit and decide with the owner |
-| 4 | Unknown whether production changed. Run `npx wrangler deployments list` |
+| 4 | Unknown whether production changed (Wrangler failed and Cloudflare could not be read). Run `npx wrangler deployments list` |
+| 5 | **Deployed** (Wrangler succeeded), but Cloudflare has not confirmed the new version is active (listing unreadable, lagging or showing another version). Not verified: wait a minute, run `npm run release:check-wrangler`, and check the site |
+
+## Provenance: which merges are supported
+The tool deploys only a commit that GitHub reports as the **merge commit of a merged pull request into `main`** (`merge_commit_sha` of the pull request equals the commit you have checked out). Nothing else counts as approval.
+
+| How the pull request was merged | Supported? |
+|---|---|
+| "Create a merge commit" | Yes. This is how PR #12 was merged (commit `14c36e6`), so this case has been run for real. |
+| "Squash and merge" | Expected to work: GitHub records the squashed commit on `main` as the pull request's merge commit. Not yet exercised; the unit test covers the data shape only. |
+| "Rebase and merge" | Expected to work for the final (tip) commit on `main`, which GitHub records as the merge commit. Not yet exercised. |
+| A commit pushed straight to `main` | **No.** There is no merged pull request. |
+| A commit added to `main` after the merge (even a one line fix) | **No.** The checked-out commit is not the merge commit. |
+| A pull request merged into a branch other than `main` | **No.** |
+
+Standard practice: merge release pull requests with "Create a merge commit", pull `main`, and deploy immediately, before anything else lands on `main`. If another commit lands first, open and merge a pull request for the deploy target again (an empty release pull request is acceptable) rather than deploying an unreviewed commit.
+
+**There is no bypass flag, and none will be added to make a hypothetical workflow convenient.** If a real situation ever needs an exception (for example an emergency hotfix while GitHub is unavailable), it is a separate decision for the owner: follow the "Manual steps without the tooling" fallback below yourself with written owner approval recorded in the release notes, or change `checkProvenance` in `scripts/lib/release-lib.mjs` in a pull request the owner reviews, with tests that show what is newly allowed and why. Agents must not do either on their own.
 
 ## Contact form safety
 - The release must not change `worker/`, `wrangler.jsonc`, `migrations/`, `schema.sql`, `js/turnstile-lifecycle.js`, `js/intake-context.js`, `js/analytics.js` or `js/api.js` unless the release is about them. Check: `git diff <last release commit> HEAD --stat -- worker wrangler.jsonc migrations schema.sql js`.
@@ -102,7 +128,8 @@ The id is a Worker version id, not a deployment id. For the October 21 release t
 | `Wrangler is not logged in` | Run `npx wrangler login`. |
 | `account ... is not listed` | Logged in to another Cloudflare account. Log out and in with the company account. |
 | `working tree is not clean` | Commit or discard changes. Generated folders (`_site`, `_deploy`, `.release`, `monitoring-output`) are ignored and do not count. |
-| `release provenance not established` | GitHub does not show this commit as a merged PR into `main`, or `gh` is not logged in (`gh auth login`). |
+| `release provenance not established` | GitHub does not show this commit as the merge commit of a merged PR into `main`, or `gh` is not logged in (`gh auth login`). See "Provenance: which merges are supported". |
+| `NOT CONFIRMED THE NEW VERSION IS ACTIVE` | Wrangler uploaded, but Cloudflare's listing did not show the new version within about a minute. Run `npm run release:check-wrangler` and look at the site before saying anything is live. |
 | `cannot establish the rollback version` | Wrangler's deployment list had no single 100 percent version. Run `npm run release:check-wrangler` and read the message. |
 | `production changed since prepare` | Someone deployed in between. Run prepare again. |
 | `git fetch origin failed` | Network or login problem. Fix it; the deploy will not trust stale remote data. |

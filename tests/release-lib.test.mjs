@@ -6,7 +6,7 @@ import { join } from "node:path";
 import { execFileSync } from "node:child_process";
 import {
   EXPECTED, PAGES, extractJsonAll, FACEBOOK_NOW, FACEBOOK_OLD, FORBIDDEN_FILES, pageFile, repoFromRemote, parseWhoami, extractJson, pickRollbackVersion,
-  checkProvenance, classifyOutcome, parseVersionId, checkBindings, hashDir, localRefs, checkDeployFolder, checkDeployReadiness,
+  checkProvenance, classifyOutcome, judgeDeployment, pollForVersion, parseVersionId, checkBindings, hashDir, localRefs, checkDeployFolder, checkDeployReadiness,
   rollbackCommand, clearPrepareState, writeReportAtomic, consumePrepareReport,
 } from "../scripts/lib/release-lib.mjs";
 
@@ -73,16 +73,112 @@ test("provenance: only a merged PR into main whose merge commit is this commit c
   assert.equal(checkProvenance(`${PRLINE({ number: 1, merge_commit_sha: "c".repeat(40) })}\n${PRLINE({ number: 2 })}`, head).pr, 2);
 });
 
-test("outcome distinguishes not deployed, deployed with failed verification, and unknown", () => {
-  assert.equal(classifyOutcome({ deployed: false }).code, 1);
-  assert.match(classifyOutcome({ deployed: false }).label, /unchanged/);
-  assert.equal(classifyOutcome({ deployed: null }).code, 4);
-  assert.equal(classifyOutcome({ deployed: true, liveFailed: 2 }).code, 2);
-  assert.match(classifyOutcome({ deployed: true, liveFailed: 2 }).label, /DEPLOYED, BUT 2 LIVE/);
-  assert.equal(classifyOutcome({ deployed: true, liveFailed: 0, seoOk: false }).code, 3);
-  assert.match(classifyOutcome({ deployed: true, seoOk: false }).label, /SEO AUDIT FAILED/);
-  assert.equal(classifyOutcome({ deployed: true, liveFailed: 0, seoOk: true }).code, 0);
-  assert.equal(classifyOutcome({ deployed: true, liveFailed: 1, seoOk: false }).code, 2);
+const NEW = ID2, OLD = ID1;
+const obs = (...ids) => ids.map((v) => (v ? { ok: true, versionId: v } : { ok: false }));
+const judge = (over) => judgeDeployment({ wranglerExit: 0, printedVersionId: NEW, beforeVersionId: OLD, observations: obs(NEW), ...over });
+
+test("deployment evidence: Wrangler success alone never counts as verified", () => {
+  assert.deepEqual(judge({}), { upload: "succeeded", active: "confirmed", versionId: NEW, note: "Cloudflare lists the new version as current" });
+  // listing unreadable
+  assert.equal(judge({ observations: obs(null, null) }).active, "unconfirmed");
+  assert.equal(judge({ observations: [] }).active, "unconfirmed");
+  // listing lagging: still the previous version
+  const lag = judge({ observations: obs(OLD, OLD, OLD) });
+  assert.equal(lag.active, "unconfirmed");
+  assert.match(lag.note, /lagging/);
+  // listing shows some other version
+  assert.match(judge({ observations: obs("11111111-1111-4111-8111-111111111111") }).note, /different version/);
+  // a later read confirms after earlier stale reads (eventual consistency)
+  assert.equal(judge({ observations: obs(OLD, null, OLD, NEW) }).active, "confirmed");
+  // no printed id: a changed version is accepted, an unchanged one is not
+  assert.equal(judge({ printedVersionId: null, observations: obs(OLD, NEW) }).versionId, NEW);
+  assert.equal(judge({ printedVersionId: null, observations: obs(OLD) }).active, "unconfirmed");
+});
+
+test("a successful upload is never classified as not deployed, even when the listing is stale", () => {
+  for (const observations of [obs(OLD), obs(OLD, OLD, OLD, OLD, OLD, OLD), obs(null), []]) {
+    const j = judge({ observations });
+    const o = classifyOutcome({ judgement: j, liveFailed: 0, seoOk: true });
+    assert.equal(j.upload, "succeeded");
+    assert.notEqual(o.code, 1, "must not say not deployed");
+    assert.equal(o.code, 5);
+    assert.match(o.label, /NOT CONFIRMED THE NEW VERSION IS ACTIVE/);
+    assert.match(o.stages[1], /NOT CONFIRMED/);
+  }
+});
+
+test("failed upload: not deployed only when Cloudflare shows the previous version; changed or unreadable are reported as such", () => {
+  const failed = (observations) => judgeDeployment({ wranglerExit: 1, printedVersionId: null, beforeVersionId: OLD, observations });
+  assert.equal(classifyOutcome({ judgement: failed(obs(OLD, OLD)) }).code, 1);
+  assert.equal(classifyOutcome({ judgement: failed(obs(null, null)) }).code, 4);
+  const changed = failed(obs(OLD, NEW));
+  assert.equal(changed.active, "confirmed");
+  assert.equal(changed.upload, "failed");
+  assert.equal(classifyOutcome({ judgement: changed, liveFailed: 0, seoOk: true }).code, 0);
+});
+
+test("outcome codes and the four reported stages", () => {
+  const ok = judge({});
+  const all = classifyOutcome({ judgement: ok, liveFailed: 0, seoOk: true });
+  assert.equal(all.code, 0);
+  assert.match(all.label, /upload, active version, live checks, SEO audit/);
+  assert.equal(all.stages.length, 4);
+  assert.match(all.stages[0], /Wrangler upload:\s+succeeded/);
+  assert.match(all.stages[1], /confirmed by Cloudflare/);
+  assert.match(all.stages[2], /Live HTTP checks:\s+passed/);
+  assert.match(all.stages[3], /SEO audit:\s+passed/);
+  assert.equal(classifyOutcome({ judgement: ok, liveFailed: 2 }).code, 2);
+  assert.match(classifyOutcome({ judgement: ok, liveFailed: 2 }).label, /DEPLOYED, BUT 2 LIVE/);
+  assert.equal(classifyOutcome({ judgement: ok, liveFailed: 0, seoOk: false }).code, 3);
+  assert.equal(classifyOutcome({ judgement: ok, liveFailed: 1, seoOk: false }).code, 2);
+  // unconfirmed active version with failed live checks keeps the live failure code, and never says verified
+  const unconfirmed = judge({ observations: obs(OLD) });
+  assert.equal(classifyOutcome({ judgement: unconfirmed, liveFailed: 1 }).code, 2);
+  assert.doesNotMatch(classifyOutcome({ judgement: unconfirmed, liveFailed: 0 }).label, /^DEPLOYED and verified/);
+});
+
+test("polling waits through a stale listing and stops as soon as the new version shows", async () => {
+  let calls = 0, sleeps = 0;
+  const seq = [{ ok: true, versionId: OLD }, { ok: false }, { ok: true, versionId: OLD }, { ok: true, versionId: NEW }, { ok: true, versionId: NEW }];
+  const o = await pollForVersion({ read: async () => seq[calls++], sleep: async () => { sleeps++; }, wanted: NEW, before: OLD, attempts: 6, delayMs: 1 });
+  assert.equal(o.length, 4);
+  assert.equal(sleeps, 3);
+  assert.equal(judge({ observations: o }).active, "confirmed");
+});
+
+test("polling gives up after the allowed attempts and reports what it saw", async () => {
+  let calls = 0;
+  const o = await pollForVersion({ read: async () => { calls++; return { ok: true, versionId: OLD }; }, sleep: async () => {}, wanted: NEW, before: OLD, attempts: 4, delayMs: 1 });
+  assert.equal(calls, 4);
+  assert.equal(judge({ observations: o }).active, "unconfirmed");
+});
+
+test("without a printed id, polling stops at the first version different from the previous one", async () => {
+  const seq = [{ ok: true, versionId: OLD }, { ok: true, versionId: NEW }];
+  let i = 0;
+  const o = await pollForVersion({ read: async () => seq[i++], sleep: async () => {}, wanted: null, before: OLD, attempts: 6, delayMs: 1 });
+  assert.equal(o.length, 2);
+});
+
+test("the deploy flow polls before judging and never decides from one read", async () => {
+  const src = await readFile(new URL("../scripts/release.mjs", import.meta.url), "utf8");
+  const dep = src.slice(src.indexOf("async function deploy()"), src.indexOf("async function checkWrangler"));
+  assert.ok(dep.indexOf("pollForVersion") > dep.indexOf('"wrangler", "deploy"'));
+  assert.ok(dep.indexOf("judgeDeployment") > dep.indexOf("pollForVersion"));
+  assert.doesNotMatch(dep, /deployed = after\./, "the old single read decision is gone");
+});
+
+test("provenance supports a merge commit, a squash commit and a rebase tip, because each is the PR's merge_commit_sha; later or direct commits are not supported", () => {
+  const head = "d".repeat(40);
+  for (const strategy of ["merge commit", "squash", "rebase tip"]) {
+    assert.equal(checkProvenance(PRLINE({ merge_commit_sha: head, number: 77 }), head).ok, true, strategy);
+  }
+  // a commit pushed after the merge is not the merge commit, even if it is on main
+  assert.equal(checkProvenance(PRLINE({ merge_commit_sha: "e".repeat(40) }), head).ok, false);
+  // a direct push to main has no associated merged pull request
+  assert.equal(checkProvenance("", head).ok, false);
+  // a pull request merged into another branch does not authorize a deploy from main
+  assert.equal(checkProvenance(PRLINE({ merge_commit_sha: head, base: "release" }), head).ok, false);
 });
 
 test("new version id is read from deploy output", () => {

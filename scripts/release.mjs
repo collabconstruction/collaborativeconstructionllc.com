@@ -23,7 +23,7 @@ import { fileURLToPath } from "node:url";
 import {
   clearPrepareState, consumePrepareReport, writeReportAtomic,
   EXPECTED, PAGES, checkBindings, checkDeployFolder, checkDeployReadiness, checkProvenance, classifyOutcome, extractJsonAll, hashDir,
-  parseVersionId, parseWhoami, pickRollbackVersion, repoFromRemote, rollbackCommand,
+  judgeDeployment, parseVersionId, parseWhoami, pickRollbackVersion, pollForVersion, repoFromRemote, rollbackCommand,
 } from "./lib/release-lib.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -219,28 +219,34 @@ async function deploy() {
 
   const r = run("npx", ["wrangler", "deploy", "--assets", "_deploy"]);
   say(r.out.split("\n").slice(-14).join("\n"));
-  const after = cloudflare();
-  let versionId = parseVersionId(r.out);
-  // Did production change? Decide from Cloudflare itself, not only from the exit code.
-  let deployed;
-  if (after.ok) { deployed = after.previousVersionId !== before; versionId = versionId ?? after.previousVersionId; }
-  else deployed = r.code === 0 ? true : null;
-  if (r.code !== 0 && deployed !== true) {
-    const o = classifyOutcome({ deployed });
-    console.error(`\n${o.label}\nwrangler deploy failed. Rollback command if needed (not run): ${rollbackCommand(before)}`);
+  const printed = parseVersionId(r.out);
+  // Cloudflare's deployment list can lag a fresh deployment, so read it several times before concluding anything.
+  say("\nAsking Cloudflare which version is active (up to about a minute)...");
+  const observations = await pollForVersion({
+    read: () => { const c = cloudflare(); return c.ok ? { ok: true, versionId: c.previousVersionId } : { ok: false }; },
+    sleep: (ms) => new Promise((res) => setTimeout(res, ms)),
+    wanted: printed, before, attempts: Number(process.env.RELEASE_POLL_ATTEMPTS ?? 6), delayMs: Number(process.env.RELEASE_POLL_MS ?? 10_000),
+  });
+  const judgement = judgeDeployment({ wranglerExit: r.code, printedVersionId: printed, beforeVersionId: before, observations });
+  const rollbackLine = `Rollback (not run):   ${rollbackCommand(before)}`;
+  if (judgement.upload === "failed" && judgement.active !== "confirmed") {
+    const o = classifyOutcome({ judgement });
+    console.error(`\n${o.label}\n${o.stages.slice(0, 2).join("\n")}\n${rollbackLine}`);
     process.exit(o.code);
   }
 
   const { bad, seoExit } = await verifyLive(EXPECTED.site);
-  const outcome = classifyOutcome({ deployed: true, liveFailed: bad.length, seoOk: seoExit === 0 });
-  const log = { deployedAt: new Date().toISOString(), commit: st.head, pullRequest: report.pullRequest, previousVersionId: before, newVersionId: versionId, wranglerExit: r.code, outcome: outcome.label, liveChecksFailed: bad.map((b) => b.name), seoExit };
+  const outcome = classifyOutcome({ judgement, liveFailed: bad.length, seoOk: seoExit === 0 });
+  const log = { deployedAt: new Date().toISOString(), commit: st.head, pullRequest: report.pullRequest, previousVersionId: before, newVersionId: judgement.versionId, wranglerExit: r.code, activeVersion: judgement.active, outcome: outcome.label, liveChecksFailed: bad.map((b) => b.name), seoExit };
   await writeFile(join(REL, `deploy-${Date.now()}.json`), JSON.stringify(log, null, 2));
-  say(`\n${outcome.label}`);
-  say(`New deployed version: ${versionId ?? "(unknown; run: npx wrangler deployments list)"}`);
+  say(`\n${outcome.label}\n`);
+  outcome.stages.forEach((l) => say("  " + l));
+  say(`\nNew version:          ${judgement.versionId ?? "(unknown; run: npx wrangler deployments list)"}`);
   say(`Previous version:     ${before}`);
-  say(`Rollback (not run):   ${rollbackCommand(before)}`);
+  say(rollbackLine);
   if (outcome.code === 0) say("\nAlso open the site once in a browser, and run the owner approved contact test if the contact area changed.");
   else if (outcome.code === 3) console.error("\nThe site is live and its pages answer, but the SEO audit reported problems. Run: python3 scripts/seo_audit.py and read the findings. Decide with the owner whether to roll back.");
+  else if (outcome.code === 5) console.error("\nThe upload succeeded but Cloudflare has not shown the new version as active. Wait a minute and run: npm run release:check-wrangler. Treat the release as unverified until it shows the version above.");
   else console.error("\nConsider rolling back with the command above and tell the owner.");
   process.exit(outcome.code);
 }

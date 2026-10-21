@@ -221,13 +221,67 @@ export function checkDeployReadiness({ report, head, originMain, fetchOk, dirtyF
   return problems;
 }
 
-/** Final outcome of a deploy run. Exit codes: 0 all good; 1 nothing was deployed; 2 deployed but live checks failed; 3 deployed, live checks passed, SEO audit failed; 4 unknown whether it deployed. */
-export function classifyOutcome({ deployed, liveFailed = 0, seoOk = true }) {
-  if (deployed === false) return { code: 1, label: "NOT DEPLOYED: production is unchanged" };
-  if (deployed === null || deployed === undefined) return { code: 4, label: "UNKNOWN: could not confirm whether production changed. Run: npx wrangler deployments list" };
-  if (liveFailed > 0) return { code: 2, label: `DEPLOYED, BUT ${liveFailed} LIVE CHECK(S) FAILED` };
-  if (!seoOk) return { code: 3, label: "DEPLOYED, live checks passed, BUT THE SEO AUDIT FAILED" };
-  return { code: 0, label: "DEPLOYED and verified" };
+/**
+ * What happened to production after `wrangler deploy`, from three separate pieces of evidence:
+ *   upload  - did the Wrangler command exit 0
+ *   active  - does Cloudflare's own deployment list show the new version as current
+ *   (live HTTP checks and the SEO audit are judged separately in classifyOutcome)
+ * Cloudflare's listing can lag a fresh deployment, so `observations` is a series of reads over time and one stale
+ * read never decides anything. A successful upload is never reported as "not deployed".
+ */
+export function judgeDeployment({ wranglerExit, printedVersionId, beforeVersionId, observations = [] }) {
+  const upload = wranglerExit === 0 ? "succeeded" : "failed";
+  const good = observations.filter((o) => o?.ok && o.versionId);
+  const latest = good[good.length - 1];
+  if (upload === "succeeded") {
+    if (printedVersionId) {
+      if (good.some((o) => o.versionId === printedVersionId)) return { upload, active: "confirmed", versionId: printedVersionId, note: "Cloudflare lists the new version as current" };
+      if (!good.length) return { upload, active: "unconfirmed", versionId: printedVersionId, note: "Cloudflare's deployment list could not be read after the upload" };
+      if (latest.versionId === beforeVersionId) return { upload, active: "unconfirmed", versionId: printedVersionId, note: "Cloudflare still lists the previous version (the listing may be lagging)" };
+      return { upload, active: "unconfirmed", versionId: printedVersionId, note: `Cloudflare lists a different version (${latest.versionId}) as current` };
+    }
+    const changed = good.find((o) => o.versionId !== beforeVersionId);
+    if (changed) return { upload, active: "confirmed", versionId: changed.versionId, note: "Cloudflare lists a new version as current (Wrangler did not print its id)" };
+    return { upload, active: "unconfirmed", versionId: null, note: "Wrangler printed no version id and Cloudflare shows no new version yet" };
+  }
+  if (good.some((o) => o.versionId !== beforeVersionId)) return { upload, active: "confirmed", versionId: good.find((o) => o.versionId !== beforeVersionId).versionId, note: "Wrangler reported an error, but Cloudflare lists a new version as current" };
+  if (good.length && good.every((o) => o.versionId === beforeVersionId)) return { upload, active: "not-changed", versionId: null, note: "Cloudflare still lists the previous version" };
+  return { upload, active: "unknown", versionId: null, note: "Wrangler failed and Cloudflare's deployment list could not be read" };
+}
+
+/** Reads Cloudflare's current version repeatedly until it shows `wanted` (or something other than `before` when wanted is unknown). Pure apart from the injected read and sleep. */
+export async function pollForVersion({ read, sleep, wanted, before, attempts = 6, delayMs = 10_000 }) {
+  const observations = [];
+  for (let i = 0; i < attempts; i++) {
+    const o = await read();
+    observations.push(o);
+    if (o?.ok && (wanted ? o.versionId === wanted : o.versionId !== before)) break;
+    if (i < attempts - 1) await sleep(delayMs);
+  }
+  return observations;
+}
+
+/**
+ * Final outcome. Exit codes: 0 deployed and everything verified; 1 not deployed; 2 deployed but live checks failed;
+ * 3 deployed and active, live checks passed, SEO audit failed; 4 unknown whether production changed;
+ * 5 deployed (Wrangler succeeded) but Cloudflare has not confirmed the new version is active.
+ */
+export function classifyOutcome({ judgement, liveFailed = 0, seoOk = true }) {
+  const j = judgement;
+  const stages = [
+    `Wrangler upload:        ${j.upload}`,
+    `Active version:         ${j.active === "confirmed" ? "confirmed by Cloudflare (" + j.versionId + ")" : j.active === "not-changed" ? "unchanged (previous version still current)" : "NOT CONFIRMED: " + j.note}`,
+    `Live HTTP checks:       ${liveFailed > 0 ? liveFailed + " FAILED" : liveFailed === 0 && j.active !== "not-changed" && j.active !== "unknown" ? "passed" : "not run"}`,
+    `SEO audit:              ${seoOk ? "passed" : "FAILED"}`,
+  ];
+  let code, label;
+  if (j.upload === "failed" && j.active === "not-changed") ({ code, label } = { code: 1, label: "NOT DEPLOYED: Wrangler failed and Cloudflare still lists the previous version" });
+  else if (j.upload === "failed" && j.active === "unknown") ({ code, label } = { code: 4, label: "UNKNOWN: Wrangler failed and Cloudflare could not be read. Run: npx wrangler deployments list" });
+  else if (liveFailed > 0) ({ code, label } = { code: 2, label: `DEPLOYED, BUT ${liveFailed} LIVE CHECK(S) FAILED` });
+  else if (j.active !== "confirmed") ({ code, label } = { code: 5, label: "DEPLOYED (Wrangler succeeded), BUT CLOUDFLARE HAS NOT CONFIRMED THE NEW VERSION IS ACTIVE. Do not call this verified. Run: npx wrangler deployments list" });
+  else if (!seoOk) ({ code, label } = { code: 3, label: "DEPLOYED and active, live checks passed, BUT THE SEO AUDIT FAILED" });
+  else ({ code, label } = { code: 0, label: "DEPLOYED and verified (upload, active version, live checks, SEO audit)" });
+  return { code, label, stages };
 }
 
 export const rollbackCommand = (id) => `npx wrangler rollback ${id} --message "rollback after release"`;
