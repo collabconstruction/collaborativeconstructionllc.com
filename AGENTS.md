@@ -1,5 +1,27 @@
 # Collaborative Construction agent entrypoint
 
+## GitHub workflow (read before every task — governs all website development)
+
+Repository: `collabconstruction/collaborativeconstructionllc.com` on GitHub, remote `origin`. This is the standing process for all work on this site; it replaced an earlier ad hoc flow after an empty, no-op branch (`update/website-improvements`) was accidentally pushed from a stale clone on October 21, 2026.
+
+1. **Orient before touching anything.** Run `git worktree list`, `pwd`, `git branch --show-current`, `git status --short`. Never assume a folder holds "the work" just because it exists — Desktop clones and old release worktrees accumulate and are frequently stale or clean. A branch whose `git status` is clean and whose HEAD already matches `origin/main` has no pending work; find whichever worktree/branch actually shows uncommitted changes or commits ahead of its upstream.
+2. **Start new work from the latest `origin/main`**, on its own branch or an isolated `git worktree` (`git fetch origin main && git worktree add <path> -b <branch> origin/main`). Keep unrelated changes out of that branch. Never touch another session's in-progress worktree or branch without being asked.
+3. **Before calling a task finished**, inspect every changed and untracked file (`git status`, `git diff --stat`). Exclude credentials, `.env*` files, generated build output (`_site/`, `_deploy/`, `node_modules/`), temp files, and anything unrelated to the task at hand. Then run `npm test` and `npm run build` (add `node scripts/verify-release-build.mjs` for release-bound work).
+4. **Commit only the files that belong to the task** — `git add <specific paths>`, never `git add -A`/`git add .` on a branch that might be carrying unrelated changes — with a short, meaningful commit message. Push the branch (`git push -u origin <branch>` the first time) and open or update a PR against `main` (`gh pr create --base main --draft ...`, then `gh pr edit`/re-push for updates).
+5. **Verify the push actually landed**: `git log origin/<branch> -1` should show the new commit, and the PR diff should contain real changes. If the working tree is clean and there's nothing to commit, say so and go find the real worktree — never create an empty commit or a no-op PR to make it look like something happened.
+6. **Commit, push, and opening/updating a draft PR are pre-approved as routine parts of development work.** Merging a PR and deploying to production are never included in that — they're always separate steps that need the owner's explicit go-ahead, given fresh each time, never inferred from an earlier approval.
+7. **After merge approval, to ship a public release**, use the protected two-step release script (not a single `npm run release` — the actual scripts are `release:prepare` and `release:deploy`):
+   ```
+   git switch main
+   git pull --ff-only origin main
+   npm run release:prepare
+   npm run release:deploy -- --confirm <first 7 characters of the commit hash>
+   ```
+   `release:deploy` also requires typing `deploy production` at an interactive prompt by design — that confirmation is typed by the owner, never by an agent. `docs/DEPLOY-LIVE.md` is the detailed, authoritative procedure this summarizes; read it in full before a real release.
+8. **Never bypass these safeguards**: no direct `wrangler deploy`, no skipping `release:prepare`'s checks, no deploying from an unmerged branch. Never modify production D1, R2, secrets, DNS, or the contact-form bindings as a side effect of a website release — those are their own deliberate, separately-approved changes.
+9. **After any deploy**, verify live: the active Worker version id, that canonical pages return 200, and that the actual changed content is visible on the live page — not just that the deploy command exited without error.
+10. **After every completed task, report**: worktree and branch used; files changed; tests passed/failed; commit hash; whether pushed to GitHub and the PR link; whether merged; whether deployed; and anything still needing the owner's approval.
+
 ## Deployment rules (read before any release or deploy)
 
 1. Read `docs/DEPLOY-LIVE.md` first. It is the single procedure for deploying the public website.
