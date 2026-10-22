@@ -1199,15 +1199,19 @@ html.enter-left .page-main {
   color: var(--brass);
 }
 
-/* The framed image. Aspect-ratio box with a brass offset border, the
-   "drawn" frame. The best residential photography available is 1024x768,
-   so the frame is deliberately capped to never upscale past native. */
+/* The framed image. Aspect-ratio box with a flush brass border drawn
+   directly around the photo itself (no offset duplicate rectangle). The
+   best residential photography available is 1024x768, so the frame is
+   deliberately capped to never upscale past native. */
 .hero-figure {
   position: relative;
   aspect-ratio: 4 / 3;
   max-width: 560px;
   margin-inline: auto;
   width: 100%;
+  padding: 10px;
+  border: 1px solid var(--brass);
+  background: transparent;
   /* Entrance is CSS, for the same reason `.hero__title` has one: this figure
      holds the LCP image, and `data-reveal` kept it at opacity:0 until main.js
      had loaded, parsed and run its observer: 934ms of measured LCP delay. The
@@ -1225,21 +1229,6 @@ html.enter-left .page-main {
   to {
     transform: none;
   }
-}
-
-.hero-figure::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  transform: translate(14px, 14px);
-  border: 1px solid var(--brass);
-  opacity: 0.6;
-  pointer-events: none;
-  transition: transform 0.6s var(--ease-out);
-}
-
-.hero-figure:hover::after {
-  transform: translate(18px, 18px);
 }
 
 .hero-figure__stage {
@@ -2049,18 +2038,6 @@ html.enter-left .page-main {
   height: 100%;
   object-fit: cover;
   object-position: center 22%;
-}
-
-/* Replaces the spinning conic-gradient frame: a static drawn offset rule. */
-.owner-photo-wrap::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  transform: translate(12px, 12px);
-  border: 1px solid var(--brass);
-  border-radius: var(--radius-lg);
-  pointer-events: none;
-  z-index: -1;
 }
 
 .owner-tag {
@@ -3507,11 +3484,6 @@ figure {
     width: 100%;
   }
 
-  .hero-figure::after,
-  .owner-photo-wrap::after {
-    transform: translate(8px, 8px);
-  }
-
   .facts-track {
     grid-template-columns: 1fr 1fr;
     gap: var(--s-5) var(--s-4);
@@ -3592,8 +3564,6 @@ figure {
 .hero__bg span:nth-child(6) { --contour-x: 95%; --contour-y: 12%; --contour-w: 105%; --contour-ratio: 2.4; opacity: .13; animation-delay: -12s; }
 .hero__bg span:nth-child(7) { --contour-x: 32%; --contour-y: -35%; --contour-w: 190%; --contour-ratio: 2.7; opacity: .09; animation-delay: -16s; }
 .hero__bg span:nth-child(8) { --contour-x: 110%; --contour-y: -20%; --contour-w: 138%; --contour-ratio: 1.9; opacity: .12; animation-delay: -19s; }
-.hero-figure { padding: 10px; border: 1px solid var(--brass); background: transparent; }
-.hero-figure::after { display: none; }
 .hero-figure__stage { inset: 10px; background: transparent; -webkit-mask-image: radial-gradient(ellipse at center, #000 79%, transparent 100%); mask-image: radial-gradient(ellipse at center, #000 79%, transparent 100%); }
 .hero-figure__cap { left: 11px; bottom: 11px; }
 .locations--strip { padding-block: 14px; }
@@ -3606,7 +3576,6 @@ figure {
 .owner-grid--text { grid-template-columns: 1fr; }
 .owner-grid--text .owner-bio { max-width: 76ch; margin-inline: auto; }
 .owner-photo-wrap { isolation: isolate; padding: 10px 10px 48px 0; }
-.owner-photo-wrap::after { inset: 12px 0 40px 12px; transform: none; z-index: 0; }
 .owner-photo { z-index: 1; }
 .owner-tag { position: relative; z-index: 2; margin: -58px 0 0 20px; padding: 24px 20px 20px; width: fit-content; max-width: calc(100% - 20px); color: var(--paper); }
 .owner-tag::before { content: ""; position: absolute; inset: 0 -8px -5px -14px; border-radius: 47% 53% 40% 60% / 60% 38% 62% 40%; background: var(--navy); border: 1px solid var(--brass); z-index: -1; transform: rotate(-5deg); }
@@ -3635,7 +3604,6 @@ figure {
   .project-gallery .projects-grid { grid-template-columns: 1fr; }
   .project-gallery .project { padding: 16px; }
   .project-gallery .project-head { min-height: 0; }
-  .owner-photo-wrap::after { transform: none; }
   .location-strip { gap: 7px 14px; }
 }
 /* Contain offscreen reveal offsets without clipping individual photo frames. */
@@ -3649,7 +3617,6 @@ figure {
 .about-page-hero .container { text-align: center; }
 .about-page-hero .motto-words { display: flex; justify-content: center; gap: .7em; flex-wrap: wrap; }
 .about-page-hero .motto-words .dot { display: none; }
-.owner-photo-wrap::after { display: none; }
 .owner-tag .eyebrow { display: block; text-align: center; }
 .owner-tag { text-align: center; }
 .owner-bio { text-align: center; }
