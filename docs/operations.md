@@ -46,6 +46,17 @@ Queue exports include all leads plus overdue, missing-follow-up, unassigned, att
 
 Manual add writes core data first, which triggers an accountable default workflow before enrichment; a command failure after insertion can therefore leave a valid default record. Inspect the private queue before retrying a failed add to avoid duplicates. Manual adds are not idempotent. Website request deduplication uses its separate receipt mechanism.
 
+## Local dashboard viewer (added 2026-10-12)
+
+A queue export is JSON; `scripts/dashboard.mjs` turns an existing export into a readable local view without adding any new server, Worker route, or public endpoint, consistent with the "no public administrator endpoint" decision above.
+
+```sh
+node scripts/leads.mjs queue --local --out /absolute/private/location/queue.json
+node scripts/dashboard.mjs --in /absolute/private/location/queue.json --out /absolute/private/location/dashboard.html
+```
+
+Open `dashboard.html` directly from the local filesystem. It is a single self-contained file: no network calls, no external scripts/fonts/CDNs, client-side search/filter/sort only. It renders the same exception flags as the queue export (overdue, unassigned, missing follow-up, notification/attachment exceptions) as colored badges, with summary counts at the top. Customer-submitted free text (name, message, etc.) is HTML-escaped before rendering. The output file follows the same discipline as every other export here: an absolute path outside the repository, written with permissions 600, and never overwritten, generate a fresh file (or delete the old one yourself) rather than relying on the tool to replace it. It still contains customer information: keep it outside Git, outside any cloud-synced folder, and delete it once you're done reviewing it. This does not replace staff attachment retrieval, which remains the Cloudflare R2 dashboard directly (see `docs/research/18-indexing-audit.md` Section 6a and the decision recorded just above, no attachment-download endpoint exists, and this viewer does not add one).
+
 ## Weekly report and known limits
 
 The report returns aggregate JSON only, with generation time, environment and an inclusive-start/exclusive-end received-date cohort. Current-stage counts are snapshot counts, not counts of historical consultations or estimates. The mean response time includes nonnegative recorded durations; invalid timestamps and missing responses have separate counts. Empty cohorts have zero total inquiries and null SQL sums/averages. Never infer no business activity from a missing export or an empty unverified local database.
