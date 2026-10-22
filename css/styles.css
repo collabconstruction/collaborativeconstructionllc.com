@@ -717,7 +717,7 @@ html.enter-left .page-main {
    breakpoint. It replaced a 1762x552 PNG with the name baked in. */
 .brand-wm {
   font-family: var(--font-display);
-  font-size: 1.0625rem;
+  font-size: 1.6rem;
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: 0.005em;
@@ -1227,15 +1227,19 @@ html.enter-left .page-main {
   color: var(--brass);
 }
 
-/* The framed image. Aspect-ratio box with a brass offset border, the
-   "drawn" frame. The best residential photography available is 1024x768,
-   so the frame is deliberately capped to never upscale past native. */
+/* The framed image. Aspect-ratio box with a flush brass border drawn
+   directly around the photo itself (no offset duplicate rectangle). The
+   best residential photography available is 1024x768, so the frame is
+   deliberately capped to never upscale past native. */
 .hero-figure {
   position: relative;
   aspect-ratio: 4 / 3;
   max-width: 560px;
   margin-inline: auto;
   width: 100%;
+  padding: 10px;
+  border: 1px solid var(--brass);
+  background: transparent;
   /* Entrance is CSS, for the same reason `.hero__title` has one: this figure
      holds the LCP image, and `data-reveal` kept it at opacity:0 until main.js
      had loaded, parsed and run its observer: 934ms of measured LCP delay. The
@@ -1253,21 +1257,6 @@ html.enter-left .page-main {
   to {
     transform: none;
   }
-}
-
-.hero-figure::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  transform: translate(14px, 14px);
-  border: 1px solid var(--brass);
-  opacity: 0.6;
-  pointer-events: none;
-  transition: transform 0.6s var(--ease-out);
-}
-
-.hero-figure:hover::after {
-  transform: translate(18px, 18px);
 }
 
 .hero-figure__stage {
@@ -1539,8 +1528,9 @@ html.enter-left .page-main {
 }
 
 /* 12. Two paths ============================================================ */
-/* The real differentiator: the company both builds and represents owners.
-   Nobody in the 14-brand competitor scan sits on both sides of the table. */
+/* Building is the primary business; owner's-side oversight is a secondary
+   offering layered on top. The grid is weighted ~3:1 so the page reads that
+   way instead of presenting two equal-weight paths. */
 
 .paths {
   display: grid;
@@ -1549,7 +1539,8 @@ html.enter-left .page-main {
 
 @media (min-width: 820px) {
   .paths {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 3fr 1.3fr;
+    align-items: start;
   }
 }
 
@@ -1575,6 +1566,15 @@ html.enter-left .page-main {
 
 .svc-path--advisory {
   border-top-color: var(--brass);
+}
+
+@media (min-width: 820px) {
+  /* Narrower column from the 3:1.3 split above needs tighter padding and
+     type so it doesn't look cramped next to the wider building card. */
+  .svc-path--advisory {
+    padding: var(--s-5);
+    font-size: 0.94rem;
+  }
 }
 
 .svc-path__head {
@@ -2078,18 +2078,6 @@ html.enter-left .page-main {
   height: 100%;
   object-fit: cover;
   object-position: center 22%;
-}
-
-/* Replaces the spinning conic-gradient frame: a static drawn offset rule. */
-.owner-photo-wrap::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  transform: translate(12px, 12px);
-  border: 1px solid var(--brass);
-  border-radius: var(--radius-lg);
-  pointer-events: none;
-  z-index: -1;
 }
 
 .owner-tag {
@@ -3511,7 +3499,7 @@ figure {
   }
 
   .brand-wm {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -3538,11 +3526,6 @@ figure {
 
   .hero__cta .btn {
     width: 100%;
-  }
-
-  .hero-figure::after,
-  .owner-photo-wrap::after {
-    transform: translate(8px, 8px);
   }
 
   .facts-track {
@@ -3640,6 +3623,8 @@ figure {
 .hero__bg span:nth-child(10) { --contour-x: 58%; --contour-y: -88%; --contour-w: 172%; --contour-ratio: 2; --contour-tilt: -1.8deg; --contour-time: 22s; opacity: .11; animation-delay: -5s; }
 .hero__bg span:nth-child(11) { --contour-x: 124%; --contour-y: -78%; --contour-w: 132%; --contour-ratio: 1.6; --contour-tilt: 6.2deg; --contour-time: 33s; opacity: .08; animation-delay: -28s; }
 .hero__bg span:nth-child(12) { --contour-x: 6%; --contour-y: 34%; --contour-w: 112%; --contour-ratio: 3; --contour-tilt: -5.1deg; --contour-time: 30s; opacity: .08; animation-delay: -9s; }
+.hero-figure__stage { inset: 10px; background: transparent; -webkit-mask-image: radial-gradient(ellipse at center, #000 79%, transparent 100%); mask-image: radial-gradient(ellipse at center, #000 79%, transparent 100%); }
+.hero-figure__cap { left: 11px; bottom: 11px; }
 .locations--strip { padding-block: 14px; }
 .location-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; list-style: none; margin: 0; padding: 0; }
 .location-strip li { font-size: .8125rem; color: var(--paper); white-space: nowrap; }
@@ -3649,7 +3634,6 @@ figure {
 .owner-grid--text { grid-template-columns: 1fr; }
 .owner-grid--text .owner-bio { max-width: 76ch; margin-inline: auto; }
 .owner-photo-wrap { isolation: isolate; padding: 10px 10px 48px 0; }
-.owner-photo-wrap::after { inset: 12px 0 40px 12px; transform: none; z-index: 0; }
 .owner-photo { z-index: 1; }
 .owner-tag { position: relative; z-index: 2; margin: -58px 0 0 20px; padding: 24px 20px 20px; width: fit-content; max-width: calc(100% - 20px); color: var(--paper); }
 .owner-tag::before { content: ""; position: absolute; inset: 0 -8px -5px -14px; border-radius: 47% 53% 40% 60% / 60% 38% 62% 40%; background: var(--navy); border: 1px solid var(--brass); z-index: -1; transform: rotate(-5deg); }
@@ -3671,14 +3655,13 @@ figure {
 .footer-motto { display: grid; gap: 5px; }
 .footer-motto span { display: block; }
 @media (max-width: 600px) {
-  .brand-wm { display: block; color: var(--white); font-size: .875rem; }
+  .brand-wm { display: block; color: var(--white); font-size: 1.3rem; }
   .brand { gap: 8px; }
   .header-right { gap: 10px; }
   .brand .logo { width: 34px; height: 34px; }
   .project-gallery .projects-grid { grid-template-columns: 1fr; }
   .project-gallery .project { padding: 16px; }
   .project-gallery .project-head { min-height: 0; }
-  .owner-photo-wrap::after { transform: none; }
   .location-strip { gap: 7px 14px; }
 }
 /* Contain offscreen reveal offsets without clipping individual photo frames. */
@@ -3692,7 +3675,6 @@ figure {
 .about-page-hero .container { text-align: center; }
 .about-page-hero .motto-words { display: flex; justify-content: center; gap: .7em; flex-wrap: wrap; }
 .about-page-hero .motto-words .dot { display: none; }
-.owner-photo-wrap::after { display: none; }
 .owner-tag .eyebrow { display: block; text-align: center; }
 .owner-tag { text-align: center; }
 .owner-bio { text-align: center; }
@@ -4506,7 +4488,7 @@ html { background: var(--bg); }
 .proj-head h3 { margin: 0; text-align: center; }
 .proj-head .rule { margin: 0 auto; }
 
-/* Hero photo: a plain rectangle with the brass offset frame from `.hero-figure::after`. No fade, no corner marks. */
+/* Hero photo: a plain rectangle. No fade, no frame, no corner marks. */
 .hero-figure { padding: 0; }
 .hero-figure__stage {
   inset: 0; border-radius: 0; background: var(--navy-800);
