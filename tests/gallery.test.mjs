@@ -8,10 +8,10 @@ const script = fs.readFileSync(new URL('../js/gallery.js', import.meta.url), 'ut
 const groupsBlock = page.match(/set groups = \[([\s\S]*?)\] -%\}/)[1];
 const groupTypes = [...groupsBlock.matchAll(/type: "([a-z-]+)"/g)].map(m => m[1]);
 
-test('one page, grouped by type: residential types first, Decks then Porches last among them, Commercial last of all', () => {
-  assert.deepEqual(groupTypes, ['custom-homes', 'kitchen-remodels', 'bath-remodels', 'pool-projects', 'exteriors', 'decks-and-railings', 'porches-and-balconies', 'commercial']);
+test('one page, grouped by type: residential types first, Decks and railings last among them, Commercial last of all', () => {
+  assert.deepEqual(groupTypes, ['custom-homes', 'kitchen-remodels', 'bath-remodels', 'pool-projects', 'decks-and-railings', 'commercial']);
   assert.equal(groupTypes.at(-1), 'commercial');
-  assert.deepEqual(groupTypes.slice(-3, -1), ['decks-and-railings', 'porches-and-balconies']);
+  assert.equal(groupTypes.at(-2), 'decks-and-railings');
   for (const p of projects) assert.ok(groupTypes.includes(p.type), `${p.title} has a known type (${p.type})`);
   for (const p of projects.filter(x => x.type === 'commercial')) assert.equal(p.category, 'Commercial', p.title);
   for (const p of projects.filter(x => x.type !== 'commercial')) assert.equal(p.category, 'Residential', p.title);
@@ -76,7 +76,7 @@ test('the built gallery lists the types in order and prints no town names', asyn
     const html = fs.readFileSync(`${out}/gallery/index.html`, 'utf8');
     const main = html.slice(html.indexOf('class="gallery-stage'), html.indexOf('svc-cta'));
     const headings = [...main.matchAll(/<h2 id="[a-z-]+-heading">([^<]+)<\/h2>/g)].map(m => m[1]);
-    assert.deepEqual(headings, ['Custom homes', 'Exteriors', 'Decks and railings', 'Porches and balconies', 'Commercial projects']);
+    assert.deepEqual(headings, ['Custom homes', 'Kitchen remodels', 'Bath remodels', 'Pool projects', 'Decks and railings', 'Commercial projects']);
     for (const town of ['Belmont', 'Carlisle', 'Falmouth', 'Rockland', 'Dudley', 'Hingham', 'New Seabury', 'Monomoscoy']) assert.ok(!main.includes(town), `${town} appears in the gallery`);
     assert.equal((main.match(/<figure class="gallery-card">/g) || []).length, projects.length, 'every project is shown exactly once');
   } finally { fs.rmSync(out, { recursive: true, force: true }); }
