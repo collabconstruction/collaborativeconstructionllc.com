@@ -3640,31 +3640,6 @@ figure {
 .hero__bg span:nth-child(10) { --contour-x: 58%; --contour-y: -88%; --contour-w: 172%; --contour-ratio: 2; --contour-tilt: -1.8deg; --contour-time: 22s; opacity: .11; animation-delay: -5s; }
 .hero__bg span:nth-child(11) { --contour-x: 124%; --contour-y: -78%; --contour-w: 132%; --contour-ratio: 1.6; --contour-tilt: 6.2deg; --contour-time: 33s; opacity: .08; animation-delay: -28s; }
 .hero__bg span:nth-child(12) { --contour-x: 6%; --contour-y: 34%; --contour-w: 112%; --contour-ratio: 3; --contour-tilt: -5.1deg; --contour-time: 30s; opacity: .08; animation-delay: -9s; }
-/* The brass box is gone. A hard 1px rectangle around a photograph that is
-   itself fading out drew attention to exactly the edge the fade is meant to
-   dissolve, and boxed the image away from the navy instead of letting it sit
-   in it. */
-.hero-figure { padding: 10px; border: 0; background: transparent; }
-.hero-figure::after { display: none; }
-/* Edge fade, per-axis rather than one radial. The radial it replaces pulled
-   the corners in hardest and left the middle of each side comparatively crisp,
-   which reads as a vignette. Two linear gradients composited with `intersect`
-   fade each side by the same amount, so the photograph loses its edge evenly
-   and the corners -- mid-fade on both axes -- go softest of all. The stage's
-   own background is already transparent, so what shows through is the hero. */
-.hero-figure__stage {
-  inset: 10px;
-  background: transparent;
-  -webkit-mask-image:
-    linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, #000 11%, #000 89%, transparent 100%);
-  mask-image:
-    linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, #000 11%, #000 89%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
-}
-.hero-figure__cap { left: 11px; bottom: 11px; }
 .locations--strip { padding-block: 14px; }
 .location-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; list-style: none; margin: 0; padding: 0; }
 .location-strip li { font-size: .8125rem; color: var(--paper); white-space: nowrap; }
@@ -3849,8 +3824,6 @@ figure {
 .service-editorial h2, .service-editorial h3, .service-editorial p { color: var(--paper); }
 .service-editorial .eyebrow { color: var(--brass); }
 .service-editorial .service-summary { font-family: var(--font-display); font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.35; }
-.service-checks { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 14px; }
-.service-checks li { border-top: 1px solid rgba(189,161,106,.3); padding-top: 12px; }
 .service-projects { background: var(--white); }
 .service-page .service-projects .project { padding-block: 0; }
 .service-page .service-projects .project-head { display: grid; gap: 10px; margin-bottom: 18px; }
@@ -4533,7 +4506,7 @@ html { background: var(--bg); }
 .proj-head h3 { margin: 0; text-align: center; }
 .proj-head .rule { margin: 0 auto; }
 
-/* Hero photo: a plain rectangle. No fade, no frame, no corner marks. */
+/* Hero photo: a plain rectangle with the brass offset frame from `.hero-figure::after`. No fade, no corner marks. */
 .hero-figure { padding: 0; }
 .hero-figure__stage {
   inset: 0; border-radius: 0; background: var(--navy-800);
@@ -4729,6 +4702,10 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
 .service-page--adu .figure img { border-radius: 170px 8px 170px 8px; }
 .service-page--renovation .figure img { border-radius: 18px; border: 3px solid var(--brass); }
 .service-page--custom .figure img { border-radius: 2px; box-shadow: 16px 16px 0 rgba(189, 161, 106, .4); }
+
+/* The "recent work" carousels get a clean brass-lined frame too, no fade. */
+.page-main .service-page .carousel { border: 1px solid var(--brass); background: var(--navy-800); }
+.page-main .service-page .carousel__slide > picture { -webkit-mask-image: none; mask-image: none; }
 
 /* Icons a little larger and firmer so the light gold still reads on white and paper. */
 .ico { stroke-width: 2; }
