@@ -38,6 +38,7 @@ const OVERLAY = [
   "js/gallery.js",
   "assets/img/swirls",
   "assets/img/backgrounds",
+  "assets/img/textures",
   "assets/logo.png",
   "assets/logo-header.png",
   "assets/c-icon.png",
