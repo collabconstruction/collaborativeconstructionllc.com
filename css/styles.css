@@ -80,7 +80,6 @@
     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
     U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
 /* 02. Tokens =============================================================== */
 
 :root {
@@ -4863,11 +4862,10 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
   }
 }
 
-/* About and Projects whitespace -------------------------------------------
-   The texture masters are pale transparent line art, so using them unchanged
-   on cream made them effectively disappear. These four placements tint the
-   selected assets into the site's navy/brass palette and scale them as broad
-   architectural watermarks behind the actual content. */
+/* About and Projects full-section artwork ---------------------------------
+   Three owner-selected transparent masters fill their sections edge to edge.
+   The shared low-opacity navy treatment keeps them architectural and prevents
+   any one image from reading like a sticker placed in empty space. */
 .company-credentials,
 .company-principles,
 .gallery-stage.project-gallery {
@@ -4883,87 +4881,46 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
   z-index: 1;
 }
 
-.company-credentials::after {
+.company-credentials::after,
+.company-principles::after,
+.gallery-stage.project-gallery::before {
   content: "";
   position: absolute;
-  right: -9%;
-  bottom: -18%;
+  inset: 0;
   z-index: 0;
-  width: min(980px, 74vw);
-  aspect-ratio: 1100 / 825;
+  display: block;
   pointer-events: none;
-  background: url('../assets/img/textures/texture-wave-network.png') center / contain no-repeat;
-  opacity: 0.2;
-  filter: brightness(0) saturate(100%) invert(68%) sepia(29%) saturate(700%) hue-rotate(3deg) brightness(93%);
-  -webkit-mask-image: radial-gradient(ellipse 72% 78% at 50% 50%, #000 36%, transparent 100%);
-  mask-image: radial-gradient(ellipse 72% 78% at 50% 50%, #000 36%, transparent 100%);
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.1;
+  filter: brightness(0) saturate(100%) invert(17%) sepia(22%) saturate(1100%) hue-rotate(176deg) brightness(90%);
+  transform: scale(1.04);
+}
+
+.company-credentials::after {
+  background-image: url('../assets/img/textures/texture-network-frame.webp');
+  background-position: center 58%;
 }
 
 .company-principles::after {
-  top: -28%;
-  right: -7%;
-  width: min(900px, 68vw);
-  opacity: 0.13;
-  filter: brightness(0) saturate(100%) invert(17%) sepia(22%) saturate(1100%) hue-rotate(176deg) brightness(90%);
-}
-
-.gallery-stage.project-gallery::before,
-.gallery-stage.project-gallery::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  display: block;
-  width: min(1180px, 86vw);
-  pointer-events: none;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  background-image: url('../assets/img/textures/texture-sweeping-wave.webp');
+  background-position: center 62%;
 }
 
 .gallery-stage.project-gallery::before {
-  top: 4%;
-  left: -12%;
-  aspect-ratio: 1100 / 825;
-  background-image: url('../assets/img/textures/texture-wave-ribbon.png');
-  opacity: 0.12;
-  filter: brightness(0) saturate(100%) invert(17%) sepia(22%) saturate(1100%) hue-rotate(176deg) brightness(90%);
-  transform: rotate(-8deg);
-}
-
-.gallery-stage.project-gallery::after {
-  right: -10%;
-  bottom: 7%;
-  aspect-ratio: 1100 / 619;
-  background-image: url('../assets/img/textures/texture-dot-grid.png');
-  opacity: 0.18;
-  filter: brightness(0) saturate(100%) invert(68%) sepia(29%) saturate(700%) hue-rotate(3deg) brightness(93%);
-  transform: rotate(4deg);
+  background-image: url('../assets/img/textures/texture-diagonal-streaks.webp');
+  background-position: center;
 }
 
 @media (max-width: 680px) {
-  .company-credentials::after {
-    right: -34%;
-    bottom: -4%;
-    width: 128vw;
-  }
-
-  .company-principles::after {
-    top: -8%;
-    right: -48%;
-    width: 142vw;
-  }
-
-  .gallery-stage.project-gallery::before,
-  .gallery-stage.project-gallery::after {
-    width: 132vw;
-  }
-
+  .company-credentials::after,
+  .company-principles::after,
   .gallery-stage.project-gallery::before {
-    left: -48%;
-  }
-
-  .gallery-stage.project-gallery::after {
-    right: -44%;
+    background-size: auto 108%;
+    transform: scale(1.08);
   }
 }
 
@@ -5002,100 +4959,5 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
 
   .svc-path > ul {
     align-self: start;
-  }
-}
-
-
-/* 26. Texture accents ======================================================
-   Four owner-supplied line-art watermarks (drafting-grid dots, a soft
-   corner-bubble cluster, two survey-contour-style wave patterns), one per
-   section, placed in otherwise-empty corner whitespace the same way the ADU
-   section's c-icon watermark already works (see .adu::after above): a
-   fixed-size, non-repeating background image behind the section's content,
-   low opacity, no pointer events. Every rule below uses the same opacity,
-   z-index and sizing formula on purpose, so the four read as one family
-   rather than four unrelated effects. Only the image, aspect ratio and
-   corner differ per section.
-
-   The project-gallery page was intentionally skipped: it already carries
-   its own full-bleed photo watermark (.project-gallery::before,
-   gold-corridor.webp), and a second texture there would read as cluttered
-   rather than architectural. The homepage "Recent projects" grid
-   (.home-work) was clean of any existing decoration and is used instead.
-
-   Reduced-motion/print are unaffected since these are static images, not
-   animations. */
-
-#services,
-.company-principles,
-.home-work,
-.advisory-pm {
-  overflow: hidden;
-}
-
-#services > .container,
-.company-principles > .container,
-.home-work > .container,
-.advisory-pm > .container {
-  position: relative;
-  z-index: 1;
-}
-
-#services::after,
-.company-principles::after,
-.home-work::after,
-.advisory-pm::after {
-  content: "";
-  position: absolute;
-  top: -48px;
-  right: -48px;
-  width: clamp(280px, 32vw, 460px);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  /* These masters are already near-transparent line art (unlike the solid
-     c-icon mark .adu::after dims), so they need far less additional
-     opacity reduction - full alpha already reads as a soft watermark. */
-  opacity: 0.85;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Homepage: "What we do" services, drafting-grid dots. */
-#services::after {
-  aspect-ratio: 1100 / 619;
-  background-image: url("../assets/img/textures/texture-dot-grid.png");
-}
-
-/* About: company principles cards, soft corner-bubble cluster. */
-.company-principles::after {
-  aspect-ratio: 1100 / 619;
-  background-image: url("../assets/img/textures/texture-corner-bubbles.png");
-}
-
-/* Homepage: Recent projects grid, survey-contour wave. */
-.home-work::after {
-  aspect-ratio: 1100 / 825;
-  background-image: url("../assets/img/textures/texture-wave-ribbon.png");
-}
-
-/* Construction advisory: Owner's Project Management, contour wave with
-   survey-marker nodes, fitting the oversight/reporting theme. Tinted
-   brass-700 (not brass-300 like the other three) because this section's
-   background is --paper-2 and brass-300 reads too faint against tan;
-   brass-700 is the project's own documented AA-adjacent token for text on
-   paper-2 (4.70:1, see the contrast table at the top of this file), so
-   reusing it here for a non-text watermark is a known-safe choice. */
-.advisory-pm::after {
-  aspect-ratio: 1100 / 825;
-  background-image: url("../assets/img/textures/texture-wave-network.png");
-}
-
-@media (max-width: 759px) {
-  #services::after,
-  .company-principles::after,
-  .home-work::after,
-  .advisory-pm::after {
-    width: clamp(220px, 46vw, 320px);
   }
 }

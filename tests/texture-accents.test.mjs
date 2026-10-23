@@ -6,13 +6,12 @@ import { join } from 'node:path';
 const ROOT = new URL('..', import.meta.url).pathname;
 
 const textures = [
-  'texture-dot-grid.png',
-  'texture-corner-bubbles.png',
-  'texture-wave-ribbon.png',
-  'texture-wave-network.png',
+  'texture-diagonal-streaks.webp',
+  'texture-sweeping-wave.webp',
+  'texture-network-frame.webp',
 ];
 
-test('all four published background texture assets exist and are non-empty', () => {
+test('the three selected full-section texture assets exist and are non-empty', () => {
   for (const name of textures) {
     const p = join(ROOT, 'assets/img/textures', name);
     assert.ok(existsSync(p), `assets/img/textures/${name} must exist`);
@@ -25,26 +24,25 @@ test('the protected live overlay publishes the texture directory', () => {
   const overlay = readFileSync(join(ROOT, 'scripts/build-live-overlay.mjs'), 'utf8');
 
   assert.match(overlay, /const OVERLAY = \[[\s\S]*"assets\/img\/textures"/);
+  assert.match(overlay, /rel === "assets\/img\/textures"[\s\S]*await rm\(join\(OUT, rel\)/);
 });
 
-test('all four source texture masters exist in brand/textures', () => {
+test('all three source texture masters exist in brand/textures', () => {
   for (const name of textures) {
-    const srcName = name.replace(/^texture-/, 'src-');
+    const srcName = name.replace(/^texture-/, 'src-').replace(/\.webp$/, '.png');
     const p = join(ROOT, 'brand/textures', srcName);
     assert.ok(existsSync(p), `brand/textures/${srcName} must exist`);
   }
 });
 
-test('stylesheet defines texture accents for all four sections', () => {
+test('stylesheet uses only the three selected textures as full-section artwork', () => {
   const css = readFileSync(join(ROOT, 'css/styles.css'), 'utf8');
 
-  // Check section rules
-  assert.match(css, /#services::after/);
+  assert.match(css, /\.company-credentials::after/);
   assert.match(css, /\.company-principles::after/);
-  assert.match(css, /\.home-work::after/);
-  assert.match(css, /\.advisory-pm::after/);
+  assert.match(css, /\.gallery-stage\.project-gallery::before/);
+  assert.doesNotMatch(css, /texture-(?:dot-grid|corner-bubbles|wave-ribbon|wave-network)/);
 
-  // Check all four asset URLs
   for (const name of textures) {
     assert.ok(css.includes(`../assets/img/textures/${name}`), `css must reference ${name}`);
   }
@@ -69,11 +67,11 @@ test('homepage service paths share desktop title, copy, list and action anchors'
   assert.match(css, /\.svc-path__head\s*\{[^}]*grid-template-rows:\s*minmax\(3rem, auto\) minmax\(2\.5rem, auto\)/s);
 });
 
-test('all four selected textures have visible theme-tinted About or Projects placements', () => {
+test('About and Projects textures cover their complete sections with one consistent treatment', () => {
   const css = readFileSync(join(ROOT, 'css/styles.css'), 'utf8');
 
-  assert.match(css, /\.company-credentials::after\s*\{[^}]*texture-wave-network\.png[^}]*opacity:\s*0\.2[^}]*filter:/s);
-  assert.match(css, /\.company-principles::after\s*\{[^}]*width:\s*min\(900px, 68vw\)[^}]*opacity:\s*0\.13[^}]*filter:/s);
-  assert.match(css, /\.gallery-stage\.project-gallery::before\s*\{[^}]*texture-wave-ribbon\.png[^}]*opacity:\s*0\.12[^}]*filter:/s);
-  assert.match(css, /\.gallery-stage\.project-gallery::after\s*\{[^}]*texture-dot-grid\.png[^}]*opacity:\s*0\.18[^}]*filter:/s);
+  assert.match(css, /\.company-credentials::after,\s*\.company-principles::after,\s*\.gallery-stage\.project-gallery::before\s*\{[^}]*inset:\s*0[^}]*width:\s*100%[^}]*height:\s*100%[^}]*background-size:\s*cover[^}]*opacity:\s*0\.1[^}]*filter:/s);
+  assert.match(css, /\.company-credentials::after\s*\{[^}]*texture-network-frame\.webp/s);
+  assert.match(css, /\.company-principles::after\s*\{[^}]*texture-sweeping-wave\.webp/s);
+  assert.match(css, /\.gallery-stage\.project-gallery::before\s*\{[^}]*texture-diagonal-streaks\.webp/s);
 });
