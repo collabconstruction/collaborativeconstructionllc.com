@@ -24,7 +24,7 @@ jobs:
     if: github.repository == 'collabconstruction/collaborativeconstructionllc.com' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 35
-    environment: production
+    environment: "Pushing Live"
     env:
       GH_TOKEN: ${{ github.token }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -37,7 +37,7 @@ jobs:
           set -euo pipefail
           [[ "$CI_DEPLOY_APPROVAL_SHA" =~ ^[a-f0-9]{40}$ ]] || { echo "Provide a full 40-character commit SHA"; exit 1; }
           [[ "$CI_DEPLOY_APPROVAL_SHA" == "$GITHUB_SHA" ]] || { echo "Approved SHA must equal current main"; exit 1; }
-          [[ -n "$CLOUDFLARE_API_TOKEN" && -n "$CLOUDFLARE_ACCOUNT_ID" ]] || { echo "Configure production environment secrets CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID"; exit 1; }
+          [[ -n "$CLOUDFLARE_API_TOKEN" && -n "$CLOUDFLARE_ACCOUNT_ID" ]] || { echo "Configure Pushing Live environment secrets CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID"; exit 1; }
           echo "Owner-approved release target: $GITHUB_SHA"
           echo "Dispatch actor: $GITHUB_ACTOR"
       - name: Check out approved main commit

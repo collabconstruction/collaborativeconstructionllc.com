@@ -8,7 +8,7 @@ When the owner has explicitly approved a **specific website release** in the cur
 
 **One-time owner setup (no API keys in chat, source files or commands):**
 
-1. In GitHub, open this repository's **Settings → Environments**, create/select the `production` environment, and restrict deployments to `main`. Add environment secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. The token must be created inside the company Cloudflare account with the smallest Worker deployment permissions/resources that work for this Worker; Cloudflare currently documents the scoped **Edit Cloudflare Workers** token for CI.
+1. In GitHub, open this repository's **Settings → Environments**, create/select the `Pushing Live` environment (the existing owner-configured environment), and restrict deployments to `main`. Add environment secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. The token must be created inside the company Cloudflare account with the smallest Worker deployment permissions/resources that work for this Worker; Cloudflare currently documents the scoped **Edit Cloudflare Workers** token for CI.
 2. If desired, enable GitHub Environment required reviewers. That adds an explicit GitHub UI approval, not a terminal confirmation; it is optional depending on the owner's acceptable risk and repository plan.
 3. Never share the token with an AI, in a message, in `.env`, or in Git history. If these secrets are absent, the workflow **fails before it prepares/deploys**. This setup must be done by the owner using GitHub/Cloudflare account interfaces once.
 
@@ -186,12 +186,12 @@ Use a second Worker with its own name and no production bindings (no `cc-leads`,
 | | Local Claude Code on the Mac | Claude Cloud session | GitHub Actions |
 |---|---|---|---|
 | Edit, test, commit, push, open pull requests | Yes | Yes | PR checks in `release-check` |
-| Wrangler and Cloudflare authentication | Owner's Wrangler login | No direct credentials | Scoped GitHub `production` environment secrets, after owner setup |
+| Wrangler and Cloudflare authentication | Owner's Wrangler login | No direct credentials | Scoped GitHub `Pushing Live` environment secrets, after owner setup |
 | Run `release:prepare` | Yes | Only with `--no-cloudflare` for local checks | Yes, during the manual-dispatch deploy workflow |
 | Run `release:deploy` | Yes, owner terminal confirmation | Indirectly dispatches approved workflow, after explicit approval | Yes, only via `--github-approved` exact-SHA workflow context |
 | Reads GitHub pull requests | `gh` | GitHub tools | Yes |
 
-An AI agent must not assume cloud access means Cloudflare access. The cloud session itself remains credential-free; the restricted workflow performs the release on GitHub's runner. Until production environment secrets are set and an end-to-end run is verified, treat this as implemented but **not proven operational**.
+An AI agent must not assume cloud access means Cloudflare access. The cloud session itself remains credential-free; the restricted workflow performs the release on GitHub's runner. Until the `Pushing Live` environment secrets are set and an end-to-end run is verified, treat this as implemented but **not proven operational**.
 
 ## Current manual Cloudflare configuration (from `wrangler.jsonc`)
 - Worker `collaborativeconstructionllc-com`, entry `worker/index.js`, compatibility date 2025-06-01.
