@@ -32,18 +32,35 @@ function readJsonSafe(file) {
 function listRunDirs(root) {
   if (!fs.existsSync(root)) return [];
   return fs.readdirSync(root, { withFileTypes: true })
-    .filter(e => e.isDirectory() && fs.existsSync(path.join(root, e.name, 'report.md')))
+    .filter(e => {
+      const hasLower = fs.existsSync(path.join(root, e.name, 'report.md'));
+      const hasUpper = fs.existsSync(path.join(root, e.name, 'REPORT.md'));
+      return e.isDirectory() && (hasLower || hasUpper);
+    })
     .map(e => e.name)
     .sort();
 }
 
 function parseRunId(runId) {
+  // Try timestamp format: YYYYMMDDTHHMMSSZ
   const m = runId.match(/^(\d{8})T(\d{6})Z/);
-  if (!m) return null;
-  const [, ymd, hms] = m;
-  const iso = `${ymd.slice(0, 4)}-${ymd.slice(4, 6)}-${ymd.slice(6, 8)}T${hms.slice(0, 2)}:${hms.slice(2, 4)}:${hms.slice(4, 6)}Z`;
-  const date = new Date(iso);
-  return Number.isNaN(date.getTime()) ? null : date;
+  if (m) {
+    const [, ymd, hms] = m;
+    const iso = `${ymd.slice(0, 4)}-${ymd.slice(4, 6)}-${ymd.slice(6, 8)}T${hms.slice(0, 2)}:${hms.slice(2, 4)}:${hms.slice(4, 6)}Z`;
+    const date = new Date(iso);
+    return Number.isNaN(date.getTime()) ? null : date;
+  }
+  
+  // Try date format: YYYY-MM-DD
+  const d = runId.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (d) {
+    const [, year, month, day] = d;
+    const iso = `${year}-${month}-${day}T00:00:00Z`;
+    const date = new Date(iso);
+    return Number.isNaN(date.getTime()) ? null : date;
+  }
+  
+  return null;
 }
 
 function isNewerThan(runId, checkpoint) {
@@ -54,8 +71,17 @@ function isNewerThan(runId, checkpoint) {
   return runDate > checkpointDate;
 }
 
-function extractFindings(reportPath, sourcesPath, nextTasksPath) {
+function extractFindings(runDir, root) {
   const findings = [];
+  
+  // Try both report.md and REPORT.md
+  let reportPath = path.join(root, runDir, 'report.md');
+  if (!fs.existsSync(reportPath)) {
+    reportPath = path.join(root, runDir, 'REPORT.md');
+  }
+  
+  let sourcesPath = path.join(root, runDir, 'sources.json');
+  let nextTasksPath = path.join(root, runDir, 'next-tasks.md');
   
   // Read report
   let reportText;
@@ -105,6 +131,7 @@ function extractFindings(reportPath, sourcesPath, nextTasksPath) {
         text: text,
         hasSource: !!sources.source || !!sources.sources,
         sourceType: sources.source || 'unknown',
+        root: root,
       };
     }
   }
@@ -116,19 +143,13 @@ function extractFindings(reportPath, sourcesPath, nextTasksPath) {
   return findings;
 }
 
-function generateActionId() {
-  // Read existing ACTION_QUEUE.md to find the highest ID
-  try {
-    const queueContent = fs.readFileSync(ACTION_QUEUE_FILE, 'utf8');
-    const matches = queueContent.match(/### ACT-(\d+)/g);
-    if (matches && matches.length > 0) {
-      const maxId = Math.max(...matches.map(m => parseInt(m.replace('### ACT-', ''))));
-      return `ACT-${String(maxId + 1).padStart(3, '0')}`;
-    }
-  } catch {
-    // File doesn't exist or can't be read
+function getNextActionId(queueContent) {
+  const matches = queueContent.match(/### ACT-(\d+)/g);
+  if (matches && matches.length > 0) {
+    const maxId = Math.max(...matches.map(m => parseInt(m.replace('### ACT-', ''))));
+    return maxId + 1;
   }
-  return 'ACT-001';
+  return 1;
 }
 
 function categorizeFinding(finding) {
@@ -174,6 +195,14 @@ function formatQueueItem(id, finding, runId, runDate) {
   const category = categorizeFinding(finding);
   const priority = prioritizeFinding(finding);
   
+  // Determine report filename (try both cases)
+  const reportFile = fs.existsSync(path.join(finding.root, runId, 'report.md')) 
+    ? 'report.md' 
+    : 'REPORT.md';
+  
+  // Use relative path from docs/ai-operations/ to the report
+  const relativePath = path.relative('docs/ai-operations', path.join(finding.root, runId, reportFile));
+  
   return `### ${id} — ${finding.text.slice(0, 80)}${finding.text.length > 80 ? '...' : ''}
 
 **Category:** ${category}
@@ -184,7 +213,7 @@ function formatQueueItem(id, finding, runId, runDate) {
 **Confidence:** ${finding.hasSource ? 'medium' : 'low'}
 
 **Evidence:**
-- Report: [report.md](../../${path.join(finding.root, runId, 'report.md')})
+- Report: [${reportFile}](../../${relativePath})
 ${finding.hasSource ? '- Source validated in sources.json' : '- No source validation'}
 
 **Business impact:**
@@ -238,14 +267,10 @@ function main() {
         continue;
       }
 
-      const reportPath = path.join(root, runId, 'report.md');
-      const sourcesPath = path.join(root, runId, 'sources.json');
-      const nextTasksPath = path.join(root, runId, 'next-tasks.md');
-
       console.log(`[ingest-intelligence] processing ${runId}`);
       processedRuns++;
 
-      const findings = extractFindings(reportPath, sourcesPath, nextTasksPath);
+      const findings = extractFindings(runId, root);
       console.log(`[ingest-intelligence] extracted ${findings.length} findings from ${runId}`);
       findingsExtracted += findings.length;
 
@@ -256,10 +281,13 @@ function main() {
           : '# Action Queue — Central Work Tracker\n\n## Current queue\n\n*No items yet*\n';
         
         let newContent = queueContent;
-        for (const finding of findings) {
-          finding.root = root; // Add root for link generation
-          const id = generateActionId();
-          const item = formatQueueItem(id, finding, runId, runDate);
+        
+        // Generate all IDs for this report at once to prevent duplicates
+        const nextId = getNextActionId(queueContent);
+        
+        for (let i = 0; i < findings.length; i++) {
+          const id = `ACT-${String(nextId + i).padStart(3, '0')}`;
+          const item = formatQueueItem(id, findings[i], runId, runDate);
           
           // Insert before the final section (if any) or append
           const insertPoint = newContent.lastIndexOf('##');
@@ -270,7 +298,10 @@ function main() {
           }
         }
         
-        fs.writeFileSync(ACTION_QUEUE_FILE, newContent, 'utf8');
+        // Atomic write: write to temp file first, then rename
+        const tempPath = ACTION_QUEUE_FILE + '.tmp';
+        fs.writeFileSync(tempPath, newContent, 'utf8');
+        fs.renameSync(tempPath, ACTION_QUEUE_FILE);
         console.log(`[ingest-intelligence] updated ${ACTION_QUEUE_FILE}`);
       }
     }

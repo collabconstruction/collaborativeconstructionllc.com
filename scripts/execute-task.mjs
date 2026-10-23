@@ -15,7 +15,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const TASK_ID = process.argv[2];
-const BRANCH_ARG = process.argv.find(arg => arg.startsWith('--branch'));
+const BRANCH_ARG = process.argv.find(arg => arg.startsWith('--branch='));
 const BRANCH_NAME = BRANCH_ARG ? BRANCH_ARG.split('=')[1] : null;
 const DRY_RUN = process.argv.includes('--dry-run');
 
@@ -173,7 +173,10 @@ function main() {
       new RegExp(`(### ${TASK_ID}.*?\\*\\*Status:\\*\\*)\\s*${status}`),
       `$1 IN_PROGRESS`
     );
-    fs.writeFileSync(ACTION_QUEUE_FILE, updatedQueue, 'utf8');
+    // Atomic write
+    const tempPath = ACTION_QUEUE_FILE + '.tmp';
+    fs.writeFileSync(tempPath, updatedQueue, 'utf8');
+    fs.renameSync(tempPath, ACTION_QUEUE_FILE);
     console.log(`[execute-task] updated ${TASK_ID} status to IN_PROGRESS`);
   } else {
     console.log(`[execute-task] would update ${TASK_ID} status to IN_PROGRESS`);
