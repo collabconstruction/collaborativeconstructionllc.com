@@ -73,7 +73,7 @@ function main() {
 
   if (!SUMMARY && !TASKS_COMPLETED.length && !NEXT_ACTION) {
     console.error('[record-session] Provide at least one of: --summary, --tasks-completed, --next-action');
-    console.error('[record-session] Usage: node scripts/record-session.mjs [--summary <text>] [--tasks-completed <id,id,...>] [--next-action <text>]');
+    console.error('[record-session] Usage: node scripts/record-session.mjs --summary=<text> --tasks-completed=<id,id,...> --next-action=<text>');
     process.exit(1);
   }
 
@@ -84,8 +84,10 @@ function main() {
   let updated = updateSystemState(stateContent, SUMMARY, TASKS_COMPLETED, NEXT_ACTION);
   updated = updateLastUpdated(updated);
 
-  // Write back
-  fs.writeFileSync(SYSTEM_STATE_FILE, updated, 'utf8');
+  // Atomic write
+  const tempPath = SYSTEM_STATE_FILE + '.tmp';
+  fs.writeFileSync(tempPath, updated, 'utf8');
+  fs.renameSync(tempPath, SYSTEM_STATE_FILE);
   console.log(`[record-session] updated ${SYSTEM_STATE_FILE}`);
 
   console.log('[record-session] session recorded:');
