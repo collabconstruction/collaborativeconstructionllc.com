@@ -176,57 +176,12 @@
       "compact": false
     },
     {
-      "title": "Modern Custom Residence",
-      "type": "custom-homes",
-      "category": "Residential",
-      "location": "Carlisle, MA",
-      "shows": "Skylit hallway, living area, and primary bedroom.",
-      "footerThumb": {
-        "src": "/assets/img/modern-interior-1.jpg",
-        "alt": "Modern custom residence in Carlisle, MA",
-        "width": 680,
-        "height": 1024,
-        "widths": [160, 480, 680]
-      },
-      "images": [
-        {
-          "src": "/assets/img/modern-interior-1.jpg",
-          "alt": "Modern hallway with skylights and open floor plan",
-          "w": 680,
-          "h": 1024,
-          "widths": [160, 480, 680]
-        },
-        {
-          "src": "/assets/img/carlisle-residence-2.jpg",
-          "alt": "Open living area with stone wall, built-in shelving and wood beams",
-          "w": 868,
-          "h": 579,
-          "widths": [160, 480, 768, 868]
-        },
-        {
-          "src": "/assets/img/modern-home-6.jpg",
-          "alt": "Primary bedroom with wood accent wall and reading lights",
-          "w": 868,
-          "h": 654,
-          "widths": [160, 480, 768, 868]
-        }
-      ],
-      "compact": true
-    },
-    {
       "title": "Modern Kitchen",
       "type": "kitchen-remodels",
       "category": "Residential",
       "location": "Carlisle, MA",
       "shows": "Kitchen with island and a river view.",
       "images": [
-        {
-          "src": "/assets/img/carlisle-residence-1.jpg",
-          "alt": "Kitchen with island, wood beams and large windows",
-          "w": 868,
-          "h": 596,
-          "widths": [160, 480, 768, 868]
-        },
         {
           "src": "/assets/img/modern-interior-2.jpg",
           "alt": "Modern kitchen with large island overlooking a river view",
@@ -235,7 +190,7 @@
           "widths": [160, 480, 768, 1024]
         }
       ],
-      "compact": false
+      "compact": true
     },
     {
       "title": "Modern Bath Remodel",
@@ -295,6 +250,13 @@
           "w": 868,
           "h": 579,
           "widths": [160, 480, 768, 868]
+        },
+        {
+          "src": "/assets/img/pool-deck-1.jpg",
+          "alt": "Covered deck seating area beside the pool",
+          "w": 1803,
+          "h": 716,
+          "widths": [160, 480, 768, 1024, 1440, 1803]
         }
       ],
       "compact": true
@@ -562,6 +524,13 @@
           "widths": [160, 480, 533]
         },
         {
+          "src": "/assets/img/carlisle-residence-1.jpg",
+          "alt": "Kitchen with island, wood beams and large windows",
+          "w": 868,
+          "h": 596,
+          "widths": [160, 480, 768, 868]
+        },
+        {
           "src": "/assets/img/custom-interior-built-in-1.jpg",
           "alt": "Built in window seat and bookshelves beside a fieldstone wall",
           "w": 868,
@@ -615,23 +584,6 @@
           "w": 1440,
           "h": 954,
           "widths": [160, 480, 768, 1024, 1440]
-        }
-      ],
-      "compact": true
-    },
-    {
-      "title": "Pool Deck",
-      "type": "pool-projects",
-      "category": "Residential",
-      "location": "",
-      "shows": "",
-      "images": [
-        {
-          "src": "/assets/img/pool-deck-1.jpg",
-          "alt": "Covered deck seating area beside the pool",
-          "w": 1803,
-          "h": 716,
-          "widths": [160, 480, 768, 1024, 1440, 1803]
         }
       ],
       "compact": true
