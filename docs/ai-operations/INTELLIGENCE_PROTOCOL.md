@@ -41,6 +41,24 @@ For each new report:
 
 ### Step 3: Extract actionable findings
 
+The local helper may create `DISCOVERED` proposals after reports have been
+synced:
+
+```bash
+# Inspect without writing
+node scripts/ingest-intelligence.mjs --dry-run
+
+# Optionally bound discovery to reports newer than a run ID or ISO timestamp
+node scripts/ingest-intelligence.mjs --dry-run --since 20261023T120000Z
+```
+
+The helper deliberately reads proposed tasks from `next-tasks.md` first. When
+that file has no list items, it falls back only to explicitly allowlisted
+action/recommendation sections in `report.md` or `REPORT.md`. It does not turn
+source lists, reference URLs, arbitrary bullets, or report prose into queue
+items. A successful extraction is still only a proposal and requires the
+manual validation below.
+
 From each validated report, extract:
 
 - **Finding:** What was discovered (short, specific description)
@@ -67,6 +85,12 @@ Compare each finding against:
 - **New finding:** Create new action queue item
 - **Contradictory evidence:** Flag for review, don't auto-accept either
 - **Stale report:** If report date > 30 days old, flag for freshness check
+
+The helper stores a stable finding key in each generated queue item and skips
+that key on later runs. Historical queue entries that predate finding keys are
+deduplicated at run level, so migrating the tool cannot multiply old items.
+Queue writes are atomic and status counters are recalculated from `ACT-*`
+records after every write.
 
 ### Step 5: Classify and prioritize
 
@@ -203,15 +227,18 @@ cat docs/health/runs/<latest-run-id>/next-tasks.md
 
 ## Testing the protocol
 
-To verify the protocol works with synthetic data:
+Synthetic ingestion is covered without adding report fixtures to the public
+repository:
 
-1. Create a test report under `docs/health/runs/test-001/report.md`
-2. Create matching `sources.json` and `next-tasks.md`
-3. Run the ingestion workflow manually
-4. Verify ACTION_QUEUE.md is updated correctly
-5. Verify duplicates are detected
-6. Verify conflicts are flagged
-7. Clean up test data
+```bash
+node --test tests/intelligence-ingestion.test.mjs
+```
+
+The test creates temporary report trees outside the repository and verifies
+section boundaries, source-bullet exclusion, run/checkpoint parsing, relative
+evidence links, counter reconciliation, dry-run behavior, and rerun
+idempotency. Conflict detection and semantic merging remain manual review
+steps; the extractor never advances an item beyond `DISCOVERED`.
 
 ## Common pitfalls
 
@@ -221,3 +248,5 @@ To verify the protocol works with synthetic data:
 - **Ignoring privacy:** Never put raw customer data in the repo
 - **Assuming recent means current:** Re-verify stale findings before acting
 - **Implementing without approval:** Check approval requirements before coding
+- **Treating extraction as verification:** Generated items stay DISCOVERED until a person or authorized agent reads the full evidence
+- **Linking absent artifacts as evidence:** Record the missing artifact and recover it before advancing the item

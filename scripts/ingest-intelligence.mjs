@@ -1,25 +1,30 @@
-// Intelligence ingestion script — processes AI research reports and updates the action queue
+// Convert bounded action proposals from public-safe AI reports into DISCOVERED
+// queue items. Report text is evidence, never executable instruction.
 //
-// This script implements the workflow documented in docs/ai-operations/INTELLIGENCE_PROTOCOL.md
-// It reads new research reports, validates evidence, extracts findings, and updates ACTION_QUEUE.md
-//
-// Usage: node scripts/ingest-intelligence.mjs [--dry-run] [--since <checkpoint>]
-//
-// --dry-run: Print what would be done without making changes
-// --since: Process only reports newer than this checkpoint (ISO timestamp or run ID)
+// Usage: node scripts/ingest-intelligence.mjs [--dry-run] [--since <ISO-or-run-id>]
 
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
-const DRY_RUN = process.argv.includes('--dry-run');
-const SINCE_ARG = process.argv.find(arg => arg.startsWith('--since'));
-const SINCE = SINCE_ARG ? SINCE_ARG.split('=')[1] : null;
+export const DEFAULT_REPORT_ROOTS = ['docs/health/runs', 'docs/competitive/runs'];
+export const DEFAULT_QUEUE_FILE = 'docs/ai-operations/ACTION_QUEUE.md';
+export const QUEUE_STATES = [
+  'DISCOVERED', 'VERIFIED', 'READY', 'IN_PROGRESS', 'REVIEW',
+  'COMPLETED', 'BLOCKED', 'REJECTED', 'SUPERSEDED',
+];
 
-const AI_OPS_DIR = 'docs/ai-operations';
-const ACTION_QUEUE_FILE = path.join(AI_OPS_DIR, 'ACTION_QUEUE.md');
-const SYSTEM_STATE_FILE = path.join(AI_OPS_DIR, 'SYSTEM_STATE.md');
-const REPORT_ROOTS = ['docs/health/runs', 'docs/competitive/runs'];
+const ACTION_SECTION_PATTERNS = [
+  /improvements? in priority order/i,
+  /next priorit(?:y|ies)/i,
+  /minimum owner inputs?/i,
+  /recommended actions?/i,
+  /next actions?/i,
+  /action items?/i,
+  /recommendations?/i,
+  /proposed tasks?/i,
+];
 
 function readJsonSafe(file) {
   try {
@@ -29,297 +34,324 @@ function readJsonSafe(file) {
   }
 }
 
-function listRunDirs(root) {
+export function listRunDirs(root) {
   if (!fs.existsSync(root)) return [];
   return fs.readdirSync(root, { withFileTypes: true })
-    .filter(e => {
-      const hasLower = fs.existsSync(path.join(root, e.name, 'report.md'));
-      const hasUpper = fs.existsSync(path.join(root, e.name, 'REPORT.md'));
-      return e.isDirectory() && (hasLower || hasUpper);
-    })
-    .map(e => e.name)
+    .filter((entry) => entry.isDirectory()
+      && ['report.md', 'REPORT.md'].some((name) => fs.existsSync(path.join(root, entry.name, name))))
+    .map((entry) => entry.name)
     .sort();
 }
 
-function parseRunId(runId) {
-  // Try timestamp format: YYYYMMDDTHHMMSSZ
-  const m = runId.match(/^(\d{8})T(\d{6})Z/);
-  if (m) {
-    const [, ymd, hms] = m;
-    const iso = `${ymd.slice(0, 4)}-${ymd.slice(4, 6)}-${ymd.slice(6, 8)}T${hms.slice(0, 2)}:${hms.slice(2, 4)}:${hms.slice(4, 6)}Z`;
-    const date = new Date(iso);
+export function parseRunId(value) {
+  if (typeof value !== 'string') return null;
+  const timestamp = value.match(/^(\d{8})T(\d{6})Z(?:[-_].*)?$/);
+  if (timestamp) {
+    const [, ymd, hms] = timestamp;
+    const date = new Date(`${ymd.slice(0, 4)}-${ymd.slice(4, 6)}-${ymd.slice(6, 8)}T${hms.slice(0, 2)}:${hms.slice(2, 4)}:${hms.slice(4, 6)}Z`);
     return Number.isNaN(date.getTime()) ? null : date;
   }
-  
-  // Try date format: YYYY-MM-DD
-  const d = runId.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (d) {
-    const [, year, month, day] = d;
-    const iso = `${year}-${month}-${day}T00:00:00Z`;
-    const date = new Date(iso);
-    return Number.isNaN(date.getTime()) ? null : date;
-  }
-  
-  return null;
+
+  const day = value.match(/^(\d{4})-(\d{2})-(\d{2})(?:[-_].*)?$/);
+  if (!day) return null;
+  const date = new Date(`${day[1]}-${day[2]}-${day[3]}T00:00:00Z`);
+  return Number.isNaN(date.getTime()) ? null : date;
 }
 
-function isNewerThan(runId, checkpoint) {
-  if (!checkpoint) return true;
-  const runDate = parseRunId(runId);
-  if (!runDate) return true;
-  const checkpointDate = new Date(checkpoint);
-  return runDate > checkpointDate;
+export function parseCheckpoint(value) {
+  if (!value) return null;
+  const runDate = parseRunId(value);
+  if (runDate) return runDate;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    throw new Error(`Invalid --since checkpoint: ${value}`);
+  }
+  return date;
 }
 
-function extractFindings(runDir, root) {
-  const findings = [];
-  
-  // Try both report.md and REPORT.md
-  let reportPath = path.join(root, runDir, 'report.md');
-  if (!fs.existsSync(reportPath)) {
-    reportPath = path.join(root, runDir, 'REPORT.md');
-  }
-  
-  let sourcesPath = path.join(root, runDir, 'sources.json');
-  let nextTasksPath = path.join(root, runDir, 'next-tasks.md');
-  
-  // Read report
-  let reportText;
-  try {
-    reportText = fs.readFileSync(reportPath, 'utf8');
-  } catch {
-    return findings;
-  }
+function normalizeText(text) {
+  return text
+    .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
+    .replace(/[*_`#]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
 
-  // Read sources for validation
-  const sources = readJsonSafe(sourcesPath) || {};
-  
-  // Read next-tasks for proposed actions
-  let nextTasksText;
-  try {
-    nextTasksText = fs.readFileSync(nextTasksPath, 'utf8');
-  } catch {
-    nextTasksText = '';
-  }
+function isActionSection(section) {
+  return ACTION_SECTION_PATTERNS.some((pattern) => pattern.test(section));
+}
 
-  // Simple extraction: look for sections that describe findings
-  // This is a basic implementation; a more sophisticated version would use
-  // structured parsing based on the actual report format
-  const lines = reportText.split('\n');
-  let currentSection = null;
-  let currentFinding = null;
+function isActionCandidate(text) {
+  if (text.length < 12) return false;
+  if (/^https?:\/\//i.test(text)) return false;
+  if (/^[^:]{1,80}:\s*https?:\/\//i.test(text)) return false;
+  if (/^(sources?|references?|evidence|api evidence)\b/i.test(text)) return false;
+  return true;
+}
 
-  for (const line of lines) {
-    // Detect section headers (## or ###)
-    if (line.match(/^#{2,3}\s+/)) {
-      if (currentFinding) {
-        findings.push(currentFinding);
-        currentFinding = null;
-      }
-      currentSection = line.replace(/^#{2,3}\s+/, '').trim();
+export function extractActionCandidates(markdown, { allowAllSections = false } = {}) {
+  const candidates = [];
+  let section = '';
+
+  for (const line of markdown.split(/\r?\n/)) {
+    const heading = line.match(/^#{1,4}\s+(.+?)\s*$/);
+    if (heading) {
+      section = normalizeText(heading[1]);
       continue;
     }
 
-    // Look for finding patterns (lines starting with -, *, or numbered)
-    if (line.match(/^[-*]\s+/) || line.match(/^\d+\.\s+/)) {
-      if (currentFinding) {
-        findings.push(currentFinding);
-      }
-      const text = line.replace(/^[-*\d.]\s+/, '').trim();
-      currentFinding = {
-        section: currentSection,
-        text: text,
-        hasSource: !!sources.source || !!sources.sources,
-        sourceType: sources.source || 'unknown',
-        root: root,
-      };
-    }
+    const item = line.match(/^\s*(?:[-*+]\s+|\d+[.)]\s+)(.+?)\s*$/);
+    if (!item || (!allowAllSections && !isActionSection(section))) continue;
+    const text = normalizeText(item[1]);
+    if (isActionCandidate(text)) candidates.push({ section, text });
   }
 
-  if (currentFinding) {
-    findings.push(currentFinding);
-  }
-
-  return findings;
+  return candidates;
 }
 
-function getNextActionId(queueContent) {
-  const matches = queueContent.match(/### ACT-(\d+)/g);
-  if (matches && matches.length > 0) {
-    const maxId = Math.max(...matches.map(m => parseInt(m.replace('### ACT-', ''))));
-    return maxId + 1;
-  }
-  return 1;
+export function findingKey({ root, runId, text }) {
+  const normalized = normalizeText(text).toLowerCase();
+  return crypto.createHash('sha256').update(`${root}\n${runId}\n${normalized}`).digest('hex').slice(0, 20);
+}
+
+export function extractFindings(runDir, root) {
+  const reportFile = ['report.md', 'REPORT.md']
+    .map((name) => path.join(root, runDir, name))
+    .find((file) => fs.existsSync(file));
+  if (!reportFile) return [];
+
+  const reportText = fs.readFileSync(reportFile, 'utf8');
+  const nextTasksFile = path.join(root, runDir, 'next-tasks.md');
+  const nextTasksText = fs.existsSync(nextTasksFile) ? fs.readFileSync(nextTasksFile, 'utf8') : '';
+  const sources = readJsonSafe(path.join(root, runDir, 'sources.json'));
+  const fromNextTasks = extractActionCandidates(nextTasksText, { allowAllSections: true });
+  const candidates = fromNextTasks.length > 0 ? fromNextTasks : extractActionCandidates(reportText);
+
+  return candidates.map((candidate) => ({
+    ...candidate,
+    root,
+    reportFile,
+    sourceValidated: Boolean(sources && (sources.source || sources.sources)),
+    key: findingKey({ root, runId: runDir, text: candidate.text }),
+  }));
 }
 
 function categorizeFinding(finding) {
-  const text = finding.text.toLowerCase();
-  const section = finding.section?.toLowerCase() || '';
-
-  if (text.includes('seo') || text.includes('search') || text.includes('indexing') || section.includes('seo')) {
-    return 'SEO and local search';
-  }
-  if (text.includes('form') || text.includes('contact') || text.includes('inquiry') || text.includes('lead')) {
-    return 'Lead intake and communications';
-  }
-  if (text.includes('performance') || text.includes('speed') || text.includes('uptime') || text.includes('available')) {
-    return 'Website availability and reliability';
-  }
-  if (text.includes('content') || text.includes('copy') || text.includes('page') || text.includes('portfolio')) {
-    return 'Content and portfolio';
-  }
-  if (text.includes('competitor') || text.includes('market') || text.includes('positioning')) {
-    return 'Business growth and profitability';
-  }
-  if (text.includes('test') || text.includes('automation') || text.includes('workflow')) {
-    return 'Automation health';
-  }
-  
+  const value = `${finding.section} ${finding.text}`.toLowerCase();
+  if (/seo|search|indexing|business profile|\bgbp\b/.test(value)) return 'SEO and local search';
+  if (/form|contact|inquiry|lead/.test(value)) return 'Lead intake and communications';
+  if (/performance|speed|uptime|availability/.test(value)) return 'Website availability and reliability';
+  if (/content|copy|page|portfolio|case stud/.test(value)) return 'Content and portfolio';
+  if (/metric|analytics|measurement|ga4/.test(value)) return 'Analytics and measurement';
+  if (/competitor|market|positioning|profit/.test(value)) return 'Business growth and profitability';
+  if (/test|automation|workflow|scheduled/.test(value)) return 'Automation health';
   return 'Technical debt';
 }
 
 function prioritizeFinding(finding) {
   const text = finding.text.toLowerCase();
-  
-  if (text.includes('critical') || text.includes('broken') || text.includes('down') || text.includes('error') || text.includes('fail')) {
-    return 'high';
-  }
-  if (text.includes('important') || text.includes('should') || text.includes('improve')) {
-    return 'medium';
-  }
-  
+  if (/critical|broken|\bdown\b|error|\bfail/.test(text)) return 'high';
+  if (/important|should|improve|restore|reconcile/.test(text)) return 'medium';
   return 'low';
 }
 
-function formatQueueItem(id, finding, runId, runDate) {
-  const category = categorizeFinding(finding);
-  const priority = prioritizeFinding(finding);
-  
-  // Determine report filename (try both cases)
-  const reportFile = fs.existsSync(path.join(finding.root, runId, 'report.md')) 
-    ? 'report.md' 
-    : 'REPORT.md';
-  
-  // Use relative path from docs/ai-operations/ to the report
-  const relativePath = path.relative('docs/ai-operations', path.join(finding.root, runId, reportFile));
-  
-  return `### ${id} — ${finding.text.slice(0, 80)}${finding.text.length > 80 ? '...' : ''}
+function getNextActionId(queueContent) {
+  const ids = [...queueContent.matchAll(/^### ACT-(\d+)\b/gm)].map((match) => Number(match[1]));
+  return ids.length ? Math.max(...ids) + 1 : 1;
+}
 
-**Category:** ${category}
-**Priority:** ${priority}
+function formatQueueItem(id, finding, runId, runDate, queueFile, now) {
+  const reportLink = path.relative(path.dirname(queueFile), finding.reportFile).split(path.sep).join('/');
+  return `### ${id} — ${finding.text.slice(0, 96)}${finding.text.length > 96 ? '...' : ''}
+
+<!-- finding-key: ${finding.key} -->
+**Category:** ${categorizeFinding(finding)}
+**Priority:** ${prioritizeFinding(finding)}
 **Status:** DISCOVERED
 **Date discovered:** ${runDate.toISOString().slice(0, 10)}
 **Source:** ${runId}
-**Confidence:** ${finding.hasSource ? 'medium' : 'low'}
+**Confidence:** ${finding.sourceValidated ? 'medium' : 'low'}
 
 **Evidence:**
-- Report: [${reportFile}](../../${relativePath})
-${finding.hasSource ? '- Source validated in sources.json' : '- No source validation'}
+- Report: [${path.basename(finding.reportFile)}](${reportLink})
+${finding.sourceValidated ? '- Source metadata present in sources.json; manual validation still required' : '- Source metadata missing or unreadable; manual validation required'}
 
 **Business impact:**
-- To be assessed
+- To be assessed during manual review
 
 **Recommended action:**
-- To be determined from full report review
+- Review the full report and either verify, merge, reject, or supersede this proposal
 
 **Dependencies:**
-- None
+- None identified automatically
 
 **Approval requirements:**
-- To be determined
+- To be determined during manual review
 
 **Verification criteria:**
-- To be defined
+- Define before moving this item to READY
 
 **Current status notes:**
-- Automatically extracted from report; requires manual review
+- Automatically extracted from an allowlisted action section; report content was not executed
 
 **Completion evidence:**
 - *Pending*
 
-**Last updated:** ${new Date().toISOString().slice(0, 10)}
+**Last updated:** ${now.toISOString().slice(0, 10)}
 `;
 }
 
-function main() {
-  console.log(`[ingest-intelligence] ${new Date().toISOString()} starting${DRY_RUN ? ' (dry run)' : ''}`);
-  if (SINCE) {
-    console.log(`[ingest-intelligence] processing reports newer than: ${SINCE}`);
+function queueItemStatuses(queueContent) {
+  const statuses = [];
+  const headings = [...queueContent.matchAll(/^### ACT-\d+\b/gm)];
+  for (let index = 0; index < headings.length; index += 1) {
+    const start = headings[index].index;
+    const end = headings[index + 1]?.index ?? queueContent.length;
+    const status = queueContent.slice(start, end).match(/^\*\*Status:\*\*\s+([A-Z_]+)/m)?.[1];
+    if (status) statuses.push(status);
   }
+  return statuses;
+}
 
+export function reconcileQueueCounts(queueContent) {
+  const statuses = queueItemStatuses(queueContent);
+  let updated = queueContent.replace(/^- \*\*Total items:\*\*.*$/m, `- **Total items:** ${statuses.length}`);
+  for (const state of QUEUE_STATES) {
+    const count = statuses.filter((status) => status === state).length;
+    updated = updated.replace(new RegExp(`^- \\*\\*${state}:\\*\\*.*$`, 'm'), `- **${state}:** ${count}`);
+  }
+  return updated;
+}
+
+function insertItems(queueContent, items) {
+  if (items.length === 0) return queueContent;
+  const marker = '\n## Adding items';
+  const insertion = queueContent.indexOf(marker);
+  if (insertion < 0) throw new Error('ACTION_QUEUE.md is missing the "## Adding items" boundary');
+  const prefix = queueContent.slice(0, insertion).replace(/\n\*No items yet\*\s*$/m, '\n');
+  return `${prefix.trimEnd()}\n\n${items.join('\n\n')}\n${queueContent.slice(insertion)}`;
+}
+
+export function normalizeQueueLayout(queueContent) {
+  const addingMarker = '\n## Adding items';
+  const addingIndex = queueContent.indexOf(addingMarker);
+  const firstItemIndex = queueContent.indexOf('\n### ACT-');
+  if (addingIndex < 0) throw new Error('ACTION_QUEUE.md is missing the "## Adding items" boundary');
+  if (firstItemIndex < 0 || firstItemIndex < addingIndex) return queueContent;
+
+  const exampleIndex = queueContent.indexOf('\n## Example item', firstItemIndex);
+  if (exampleIndex < 0) throw new Error('Legacy queue items have no "## Example item" boundary');
+  const itemBlock = queueContent.slice(firstItemIndex, exampleIndex).trim();
+  const withoutLegacyBlock = `${queueContent.slice(0, firstItemIndex).trimEnd()}\n\n${queueContent.slice(exampleIndex).trimStart()}`;
+  const normalizedAddingIndex = withoutLegacyBlock.indexOf(addingMarker);
+  return `${withoutLegacyBlock.slice(0, normalizedAddingIndex).trimEnd()}\n\n${itemBlock}\n${withoutLegacyBlock.slice(normalizedAddingIndex)}`;
+}
+
+function atomicWrite(file, content) {
+  const temp = `${file}.${process.pid}.tmp`;
+  try {
+    fs.writeFileSync(temp, content, 'utf8');
+    fs.renameSync(temp, file);
+  } finally {
+    if (fs.existsSync(temp)) fs.unlinkSync(temp);
+  }
+}
+
+export function ingestReports({
+  roots = DEFAULT_REPORT_ROOTS,
+  queueFile = DEFAULT_QUEUE_FILE,
+  since = null,
+  dryRun = false,
+  now = new Date(),
+} = {}) {
+  const checkpoint = parseCheckpoint(since);
+  const original = fs.readFileSync(queueFile, 'utf8');
+  const knownKeys = new Set([...original.matchAll(/<!-- finding-key: ([a-f0-9]{20}) -->/g)].map((match) => match[1]));
+  const knownLegacy = new Set([...original.matchAll(/^\*\*Source:\*\*\s+(.+)$/gm)].map((match) => match[1].trim()));
+  const pending = [];
   let totalRuns = 0;
   let processedRuns = 0;
-  let findingsExtracted = 0;
+  let duplicateFindings = 0;
 
-  for (const root of REPORT_ROOTS) {
-    const runDirs = listRunDirs(root);
-    totalRuns += runDirs.length;
-
-    for (const runId of runDirs) {
-      if (!isNewerThan(runId, SINCE)) {
-        console.log(`[ingest-intelligence] skipping ${runId} (older than checkpoint)`);
-        continue;
-      }
-
+  for (const root of roots) {
+    for (const runId of listRunDirs(root)) {
+      totalRuns += 1;
       const runDate = parseRunId(runId);
-      if (!runDate) {
-        console.warn(`[ingest-intelligence] cannot parse date from ${runId}, skipping`);
-        continue;
-      }
+      if (!runDate || (checkpoint && runDate <= checkpoint)) continue;
+      processedRuns += 1;
 
-      console.log(`[ingest-intelligence] processing ${runId}`);
-      processedRuns++;
-
-      const findings = extractFindings(runId, root);
-      console.log(`[ingest-intelligence] extracted ${findings.length} findings from ${runId}`);
-      findingsExtracted += findings.length;
-
-      if (!DRY_RUN && findings.length > 0) {
-        // Append to ACTION_QUEUE.md
-        const queueContent = fs.existsSync(ACTION_QUEUE_FILE) 
-          ? fs.readFileSync(ACTION_QUEUE_FILE, 'utf8')
-          : '# Action Queue — Central Work Tracker\n\n## Current queue\n\n*No items yet*\n';
-        
-        let newContent = queueContent;
-        
-        // Generate all IDs for this report at once to prevent duplicates
-        const nextId = getNextActionId(queueContent);
-        
-        for (let i = 0; i < findings.length; i++) {
-          const id = `ACT-${String(nextId + i).padStart(3, '0')}`;
-          const item = formatQueueItem(id, findings[i], runId, runDate);
-          
-          // Insert before the final section (if any) or append
-          const insertPoint = newContent.lastIndexOf('##');
-          if (insertPoint > 0) {
-            newContent = newContent.slice(0, insertPoint) + item + '\n' + newContent.slice(insertPoint);
-          } else {
-            newContent += '\n' + item + '\n';
-          }
+      for (const finding of extractFindings(runId, root)) {
+        if (knownKeys.has(finding.key)) {
+          duplicateFindings += 1;
+          continue;
         }
-        
-        // Atomic write: write to temp file first, then rename
-        const tempPath = ACTION_QUEUE_FILE + '.tmp';
-        fs.writeFileSync(tempPath, newContent, 'utf8');
-        fs.renameSync(tempPath, ACTION_QUEUE_FILE);
-        console.log(`[ingest-intelligence] updated ${ACTION_QUEUE_FILE}`);
+        // Queues created before finding keys existed are treated as already
+        // ingested at run granularity. This prevents a migration rerun from
+        // multiplying historical items; manual reconciliation remains visible.
+        if (knownLegacy.has(runId)) {
+          duplicateFindings += 1;
+          continue;
+        }
+        knownKeys.add(finding.key);
+        pending.push({ finding, runId, runDate });
       }
     }
   }
 
-  console.log('[ingest-intelligence] summary:');
-  console.log(`  total runs found: ${totalRuns}`);
-  console.log(`  runs processed: ${processedRuns}`);
-  console.log(`  findings extracted: ${findingsExtracted}`);
-  
-  if (DRY_RUN) {
-    console.log('[ingest-intelligence] dry run — no files were modified');
-  } else {
-    console.log('[ingest-intelligence] ACTION_QUEUE.md updated');
-    console.log('[ingest-intelligence] review and categorize items, then update SYSTEM_STATE.md');
+  let nextId = getNextActionId(original);
+  const items = pending.map(({ finding, runId, runDate }) => {
+    const id = `ACT-${String(nextId).padStart(3, '0')}`;
+    nextId += 1;
+    return formatQueueItem(id, finding, runId, runDate, queueFile, now);
+  });
+  const normalized = normalizeQueueLayout(original);
+  const content = reconcileQueueCounts(insertItems(normalized, items));
+  if (!dryRun && content !== original) atomicWrite(queueFile, content);
+
+  return {
+    totalRuns,
+    processedRuns,
+    findingsExtracted: pending.length + duplicateFindings,
+    itemsAdded: pending.length,
+    duplicateFindings,
+    changed: content !== original,
+    content,
+  };
+}
+
+function parseCliArgs(argv) {
+  let since = null;
+  for (let index = 0; index < argv.length; index += 1) {
+    if (argv[index] === '--since') {
+      if (!argv[index + 1] || argv[index + 1].startsWith('--')) throw new Error('--since requires a value');
+      since = argv[index + 1];
+      index += 1;
+    } else if (argv[index].startsWith('--since=')) {
+      since = argv[index].slice('--since='.length);
+      if (!since) throw new Error('--since requires a value');
+    } else if (argv[index] !== '--dry-run') {
+      throw new Error(`Unknown argument: ${argv[index]}`);
+    }
   }
+  return { since, dryRun: argv.includes('--dry-run') };
+}
+
+function main() {
+  const options = parseCliArgs(process.argv.slice(2));
+  const result = ingestReports(options);
+  console.log(`[ingest-intelligence] runs found: ${result.totalRuns}`);
+  console.log(`[ingest-intelligence] runs processed: ${result.processedRuns}`);
+  console.log(`[ingest-intelligence] findings seen: ${result.findingsExtracted}`);
+  console.log(`[ingest-intelligence] duplicate findings skipped: ${result.duplicateFindings}`);
+  console.log(`[ingest-intelligence] queue items added: ${result.itemsAdded}`);
+  console.log(options.dryRun ? '[ingest-intelligence] dry run; no files changed' : '[ingest-intelligence] queue counters reconciled');
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
-  main();
+  try {
+    main();
+  } catch (error) {
+    console.error(`[ingest-intelligence] ${error.message}`);
+    process.exitCode = 1;
+  }
 }

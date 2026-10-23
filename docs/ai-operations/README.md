@@ -43,9 +43,10 @@ When beginning work:
 
 1. AI agents (Grok, ChatGPT, Claude Cloud Routines, GitHub Actions) produce reports
 2. Reports are stored in their designated locations (see `SOURCE_REGISTRY.md`)
-3. The intelligence protocol reads new reports, validates evidence, and extracts actionable findings
-4. Findings are compared against existing work to avoid duplication
-5. New actionable items are added to `ACTION_QUEUE.md`
+3. Run `node scripts/ingest-intelligence.mjs --dry-run` to inspect bounded action proposals
+4. The helper prefers `next-tasks.md`, otherwise reads only explicit action sections, and skips stable duplicate keys
+5. Run without `--dry-run` to add `DISCOVERED` proposals and reconcile queue counters atomically
+6. Read the full report and validate evidence before advancing any item
 
 ### Action execution
 
@@ -68,6 +69,7 @@ When beginning work:
 This system integrates with existing Collaborative Construction automation:
 
 - **Report ingestion:** `scripts/sync-reports.mjs` and `scripts/build-research-index.mjs` (already implemented)
+- **Queue proposal ingestion:** `scripts/ingest-intelligence.mjs` with synthetic regression coverage
 - **Agent pipeline:** `docs/research/09-agent-pipeline.md` (roles, handoffs, boundaries)
 - **Research base:** `docs/research/` (company facts, competitors, opportunities)
 - **Skills:** `.agents/skills/` (specialized company intelligence tools)

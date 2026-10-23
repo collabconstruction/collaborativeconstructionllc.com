@@ -185,7 +185,8 @@ node scripts/sync-reports.mjs
 # Rebuild research index
 node scripts/build-research-index.mjs
 
-# Ingest intelligence into action queue
+# Preview bounded proposals, then ingest after reviewing the full reports
+node scripts/ingest-intelligence.mjs --dry-run
 node scripts/ingest-intelligence.mjs
 
 # Execute a task
@@ -356,25 +357,25 @@ node scripts/leads.mjs report --local --from 2026-10-01T00:00:00Z --to 2026-10-1
 ## Current Status
 
 **Last updated:** October 23, 2026  
-**Branch:** `service-page-hero-images`  
 **Live site:** https://collaborativeconstructionllc.com  
 **Design:** Navy, brass (gold), black and white (branch `design/site-refresh-2026-10`)
 
 **Recent work:**
 - AI intelligence and execution system created
 - Central action queue established
-- Intelligence ingestion scripts added
+- Intelligence ingestion bounded to explicit action sections and tested for idempotency
+- Queue counters reconciled; source/reference extraction noise retained as rejected audit history
 - Integration with existing report workflow
 
 **Known blockers:**
-- Claude Cloud Routines not yet activated
-- Grok/ChatGPT scheduled tasks not configured
-- No real research reports processed yet
+- Historical October 18/19 queue evidence artifacts are not present on the stabilization branch
+- External source schedules must be confirmed in `SOURCE_REGISTRY.md`; planned does not mean active
+- Similar findings and evidence conflicts still require full-report manual review
 
-**Next actions (owner decision needed):**
-1. Activate Claude Cloud Routines at claude.ai/code/routines
-2. Configure Grok and ChatGPT scheduled tasks
-3. Test intelligence ingestion with real reports
+**Next actions:**
+1. Recover or intentionally archive the missing historical report artifacts
+2. Reconcile the 11 historical DISCOVERED proposals against evidence and Git history
+3. Confirm external source schedules before depending on their coverage
 
 ## File Reading Priority for Agents
 

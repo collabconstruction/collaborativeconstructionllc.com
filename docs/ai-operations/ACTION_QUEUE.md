@@ -5,15 +5,15 @@
 
 ## Queue status
 
-- **Total items:** 0
-- **DISCOVERED:** 0
+- **Total items:** 18
+- **DISCOVERED:** 11
 - **VERIFIED:** 0
 - **READY:** 0
 - **IN_PROGRESS:** 0
 - **REVIEW:** 0
 - **COMPLETED:** 0
 - **BLOCKED:** 0
-- **REJECTED:** 0
+- **REJECTED:** 7
 - **SUPERSEDED:** 0
 
 ## Lifecycle states
@@ -96,7 +96,660 @@ DISCOVERED → VERIFIED → READY → IN_PROGRESS → REVIEW → COMPLETED
 
 ## Current queue
 
-*No items yet — system initialization. Items will be added as research reports are processed.*
+Integrity checkpoint (2026-10-23): 18 historical items were created by the
+pre-stabilization broad parser from local health-report artifacts. They remain
+proposals and are not implementation authority. ACT-009 through ACT-015 were
+source/reference bullets rather than actions and are retained as REJECTED audit
+history. The remaining DISCOVERED items require full evidence recovery,
+deduplication, and manual verification before they can advance.
+
+### ACT-001 — 1. Restore an approved, usable public website. Review and release the persistent...
+
+**Category:** SEO and local search
+**Priority:** low
+**Status:** DISCOVERED
+**Date discovered:** 2026-10-18
+**Source:** 2026-10-18
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-18/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-002 — 2. Make measurement trustworthy. Use the business GA4 property, exclude preview/...
+
+**Category:** Lead intake and communications
+**Priority:** high
+**Status:** DISCOVERED
+**Date discovered:** 2026-10-18
+**Source:** 2026-10-18
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-18/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-003 — 3. Build evidence and local referrals. Publish two verified local case studies w...
+
+**Category:** Lead intake and communications
+**Priority:** medium
+**Status:** DISCOVERED
+**Date discovered:** 2026-10-18
+**Source:** 2026-10-18
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-18/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-004 — Decide timing for the public website release after reviewing the prepared websit...
+
+**Category:** Lead intake and communications
+**Priority:** low
+**Status:** DISCOVERED
+**Date discovered:** 2026-10-18
+**Source:** 2026-10-18
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-18/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-005 — Identify the genuine manager LinkedIn account for administering a proper company...
+
+**Category:** Lead intake and communications
+**Priority:** low
+**Status:** DISCOVERED
+**Date discovered:** 2026-10-18
+**Source:** 2026-10-18
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-18/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-006 — Provide access through the Google Business Profile owner dashboard or a sanction...
+
+**Category:** Lead intake and communications
+**Priority:** low
+**Status:** DISCOVERED
+**Date discovered:** 2026-10-18
+**Source:** 2026-10-18
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-18/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-007 — Confirm priority services/towns, earliest available start/capacity and minimum s...
+
+**Category:** Website availability and reliability
+**Priority:** low
+**Status:** DISCOVERED
+**Date discovered:** 2026-10-18
+**Source:** 2026-10-18
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-18/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-008 — For a real company-performance diagnosis, supply sanitized counts for calls/refe...
+
+**Category:** Lead intake and communications
+**Priority:** low
+**Status:** DISCOVERED
+**Date discovered:** 2026-10-18
+**Source:** 2026-10-18
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-18/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-009 — Google website closures: https://developers.google.com/search/docs/crawling-inde...
+
+**Category:** SEO and local search
+**Priority:** low
+**Status:** REJECTED
+**Date discovered:** 2026-10-18
+**Source:** 2026-10-18
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-18/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-010 — GA4 key-event configuration: https://support.google.com/analytics/answer/1312848...
+
+**Category:** Technical debt
+**Priority:** low
+**Status:** REJECTED
+**Date discovered:** 2026-10-18
+**Source:** 2026-10-18
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-18/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-011 — GBP local ranking guidance: https://support.google.com/business/answer/7091
+
+**Category:** Technical debt
+**Priority:** low
+**Status:** REJECTED
+**Date discovered:** 2026-10-18
+**Source:** 2026-10-18
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-18/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-012 — Local scheduled-task requirements: https://learn.chatgpt.com/docs/automations?su...
+
+**Category:** Automation health
+**Priority:** low
+**Status:** REJECTED
+**Date discovered:** 2026-10-18
+**Source:** 2026-10-18
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-18/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-013 — Cape Associates: https://www.capeassociates.com/
+
+**Category:** Technical debt
+**Priority:** low
+**Status:** REJECTED
+**Date discovered:** 2026-10-18
+**Source:** 2026-10-18
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-18/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-014 — REEF: https://capecodbuilder.com/
+
+**Category:** Technical debt
+**Priority:** low
+**Status:** REJECTED
+**Date discovered:** 2026-10-18
+**Source:** 2026-10-18
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-18/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-015 — API evidence: google-public.json, indexing.json, metricool-facebook.json, metric...
+
+**Category:** SEO and local search
+**Priority:** low
+**Status:** REJECTED
+**Date discovered:** 2026-10-18
+**Source:** 2026-10-18
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-18/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-016 — 1. Approve and execute the prepared website release through existing checks; mai...
+
+**Category:** Technical debt
+**Priority:** low
+**Status:** DISCOVERED
+**Date discovered:** 2026-10-19
+**Source:** 2026-10-19
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-19/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-017 — 2. Reconcile the one stored record against known tests through private operation...
+
+**Category:** Lead intake and communications
+**Priority:** low
+**Status:** DISCOVERED
+**Date discovered:** 2026-10-19
+**Source:** 2026-10-19
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-19/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
+
+### ACT-018 — 3. Establish correct GBP performance reporting and genuine manager-administered ...
+
+**Category:** Lead intake and communications
+**Priority:** low
+**Status:** DISCOVERED
+**Date discovered:** 2026-10-19
+**Source:** 2026-10-19
+**Confidence:** low
+
+**Evidence:**
+- Report artifact: `docs/health/runs/2026-10-19/report.md` (not present in this branch; recover before verification)
+- No source validation
+
+**Business impact:**
+- To be assessed
+
+**Recommended action:**
+- To be determined from full report review
+
+**Dependencies:**
+- None
+
+**Approval requirements:**
+- To be determined
+
+**Verification criteria:**
+- To be defined
+
+**Current status notes:**
+- Automatically extracted from report; requires manual review
+
+**Completion evidence:**
+- *Pending*
+
+**Last updated:** 2026-10-23
 
 ## Adding items
 
@@ -199,654 +852,6 @@ Periodically review the queue and:
 - Merge duplicate items
 - Remove items that are no longer relevant
 - Archive completed items older than 6 months (move to separate file or delete)
-
-### ACT-001 — 1. Restore an approved, usable public website. Review and release the persistent...
-
-**Category:** SEO and local search
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-18
-**Source:** 2026-10-18
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-18/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-002 — 2. Make measurement trustworthy. Use the business GA4 property, exclude preview/...
-
-**Category:** Lead intake and communications
-**Priority:** high
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-18
-**Source:** 2026-10-18
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-18/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-003 — 3. Build evidence and local referrals. Publish two verified local case studies w...
-
-**Category:** Lead intake and communications
-**Priority:** medium
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-18
-**Source:** 2026-10-18
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-18/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-004 — Decide timing for the public website release after reviewing the prepared websit...
-
-**Category:** Lead intake and communications
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-18
-**Source:** 2026-10-18
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-18/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-005 — Identify the genuine manager LinkedIn account for administering a proper company...
-
-**Category:** Lead intake and communications
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-18
-**Source:** 2026-10-18
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-18/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-006 — Provide access through the Google Business Profile owner dashboard or a sanction...
-
-**Category:** Lead intake and communications
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-18
-**Source:** 2026-10-18
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-18/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-007 — Confirm priority services/towns, earliest available start/capacity and minimum s...
-
-**Category:** Website availability and reliability
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-18
-**Source:** 2026-10-18
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-18/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-008 — For a real company-performance diagnosis, supply sanitized counts for calls/refe...
-
-**Category:** Lead intake and communications
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-18
-**Source:** 2026-10-18
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-18/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-009 — Google website closures: https://developers.google.com/search/docs/crawling-inde...
-
-**Category:** SEO and local search
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-18
-**Source:** 2026-10-18
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-18/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-010 — GA4 key-event configuration: https://support.google.com/analytics/answer/1312848...
-
-**Category:** Technical debt
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-18
-**Source:** 2026-10-18
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-18/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-011 — GBP local ranking guidance: https://support.google.com/business/answer/7091
-
-**Category:** Technical debt
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-18
-**Source:** 2026-10-18
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-18/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-012 — Local scheduled-task requirements: https://learn.chatgpt.com/docs/automations?su...
-
-**Category:** Automation health
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-18
-**Source:** 2026-10-18
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-18/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-013 — Cape Associates: https://www.capeassociates.com/
-
-**Category:** Technical debt
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-18
-**Source:** 2026-10-18
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-18/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-014 — REEF: https://capecodbuilder.com/
-
-**Category:** Technical debt
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-18
-**Source:** 2026-10-18
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-18/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-015 — API evidence: google-public.json, indexing.json, metricool-facebook.json, metric...
-
-**Category:** SEO and local search
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-18
-**Source:** 2026-10-18
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-18/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-016 — 1. Approve and execute the prepared website release through existing checks; mai...
-
-**Category:** Technical debt
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-19
-**Source:** 2026-10-19
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-19/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-017 — 2. Reconcile the one stored record against known tests through private operation...
-
-**Category:** Lead intake and communications
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-19
-**Source:** 2026-10-19
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-19/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
-
-### ACT-018 — 3. Establish correct GBP performance reporting and genuine manager-administered ...
-
-**Category:** Lead intake and communications
-**Priority:** low
-**Status:** DISCOVERED
-**Date discovered:** 2026-10-19
-**Source:** 2026-10-19
-**Confidence:** low
-
-**Evidence:**
-- Report: [report.md](../../../health/runs/2026-10-19/report.md)
-- No source validation
-
-**Business impact:**
-- To be assessed
-
-**Recommended action:**
-- To be determined from full report review
-
-**Dependencies:**
-- None
-
-**Approval requirements:**
-- To be determined
-
-**Verification criteria:**
-- To be defined
-
-**Current status notes:**
-- Automatically extracted from report; requires manual review
-
-**Completion evidence:**
-- *Pending*
-
-**Last updated:** 2026-10-23
 
 ## Example item
 
