@@ -1,0 +1,70 @@
+name: Approved Production Deploy
+
+# No push or pull_request trigger. An authorized operator/agent must explicitly
+# dispatch this workflow with the exact merged commit approved by the owner.
+on:
+  workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: "Exact 40-character SHA on current main approved for production"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: collaborative-construction-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Validate, release, and verify production
+    if: github.repository == 'collabconstruction/collaborativeconstructionllc.com' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment: production
+    env:
+      GH_TOKEN: ${{ github.token }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CI_DEPLOY_APPROVAL_SHA: ${{ inputs.commit_sha }}
+    steps:
+      - name: Verify SHA and authentication configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$CI_DEPLOY_APPROVAL_SHA" =~ ^[a-f0-9]{40}$ ]] || { echo "Provide a full 40-character commit SHA"; exit 1; }
+          [[ "$CI_DEPLOY_APPROVAL_SHA" == "$GITHUB_SHA" ]] || { echo "Approved SHA must equal current main"; exit 1; }
+          [[ -n "$CLOUDFLARE_API_TOKEN" && -n "$CLOUDFLARE_ACCOUNT_ID" ]] || { echo "Configure production environment secrets CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID"; exit 1; }
+          echo "Owner-approved release target: $GITHUB_SHA"
+          echo "Dispatch actor: $GITHUB_ACTOR"
+      - name: Check out approved main commit
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Set up Python 3
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Release prepare (all tests, source provenance, overlay, bindings, dry run)
+        run: npm run release:prepare
+      - name: Deploy exact approved commit and verify live website
+        run: npm run release:deploy -- --confirm "${GITHUB_SHA:0:7}" --github-approved
+      - name: Final release report
+        if: always()
+        shell: bash
+        run: |
+          echo "## Collaborative Construction production release" >> "$GITHUB_STEP_SUMMARY"
+          echo "Commit: $GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
+          echo "Initiated by GitHub actor: $GITHUB_ACTOR" >> "$GITHUB_STEP_SUMMARY"
+          echo "See above steps for Wrangler version, post-deploy verification and rollback target. Never assume production success solely because this workflow was started." >> "$GITHUB_STEP_SUMMARY"
