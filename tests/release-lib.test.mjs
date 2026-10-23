@@ -422,6 +422,6 @@ test("npm run deploy is guarded: it refuses, and the release commands exist", as
 test("agent instructions carry the deployment rules", async () => {
   const agents = await readFile(new URL("../AGENTS.md", import.meta.url), "utf8");
   const claude = await readFile(new URL("../CLAUDE.md", import.meta.url), "utf8");
-  for (const needle of ["docs/DEPLOY-LIVE.md", "Never deploy `_site` directly", "pushed", "merged", "deployed", "not logged in to Wrangler", "owner's approval"]) assert.ok(agents.includes(needle), needle);
+  for (const needle of ["docs/DEPLOY-LIVE.md", "Never deploy `_site` directly", "pushed", "merged", "deployed", "no inherent Wrangler/Cloudflare login", "specific fresh owner approval", "approved-production-deploy.yml"]) assert.ok(agents.includes(needle), needle);
   assert.ok(claude.includes("docs/DEPLOY-LIVE.md"));
 });
