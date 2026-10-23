@@ -4836,6 +4836,29 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
   transform: rotate(7deg);
 }
 
+/* The CTA ribbons use the same picture as that page's own header, so a page
+   reads as one consistent piece of artwork instead of two unrelated swirls. */
+.service-page--gc .svc-cta > .container::before,
+.service-page--gc .svc-cta > .container::after,
+.service-page--renovation .svc-cta > .container::before,
+.service-page--renovation .svc-cta > .container::after {
+  background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp');
+}
+
+.service-page--additions .svc-cta > .container::before,
+.service-page--additions .svc-cta > .container::after,
+.service-page--custom .svc-cta > .container::before,
+.service-page--custom .svc-cta > .container::after {
+  background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png');
+}
+
+.service-page--adu .svc-cta > .container::before,
+.service-page--adu .svc-cta > .container::after,
+.service-page--advisory .svc-cta > .container::before,
+.service-page--advisory .svc-cta > .container::after {
+  background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp');
+}
+
 /* Keep the image-led editorial sections compact and consistent even when an
    original is portrait-oriented (the ADU hallway is much taller than the
    other service photography). */
