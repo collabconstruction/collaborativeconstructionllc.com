@@ -4552,13 +4552,23 @@ strong {
 /* About: no picture behind the blue header. */
 .page-main:has(.company-overview) .about-page-hero::before { display: none; }
 
-/* Each service page gets its own header picture, mirrored or moved so no two match. */
-.service-page--gc .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'); }
-.service-page--additions .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'); transform: translateX(-9%); }
-.service-page--adu .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp'); transform: scaleX(-1); }
-.service-page--renovation .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'); transform: scale(-1, -1) translateX(8%); }
-.service-page--custom .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'); transform: scaleX(-1) translateX(-9%); }
-.service-page--advisory .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp'); transform: translateX(10%); }
+.service-page .about-page-hero::before {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: min(1350px, 90vw) auto;
+  opacity: 0.14;
+  filter: brightness(1.0) saturate(1.0);
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000 25%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000 25%, transparent 100%);
+}
+
+/* Each service page gets its own header picture, all centered in the exact same spot. */
+.service-page--gc .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'); transform: none; }
+.service-page--additions .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'); transform: none; }
+.service-page--adu .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp'); transform: none; }
+.service-page--renovation .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'); transform: none; }
+.service-page--custom .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'); transform: none; }
+.service-page--advisory .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp'); transform: none; }
 
 /* Projects page: a large golden corridor in the middle of the header, and a faint
    wash of it behind the cards. Both are kept quiet so the photos stay the focus. */
