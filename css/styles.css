@@ -4934,6 +4934,54 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
   }
 }
 
+/* Carry the page artwork all the way to the top of About and Projects. The
+   gallery-only layer begins below its title band, so the matching hero layer
+   closes that visual gap. Both use a soft brass treatment behind the copy. */
+.page-main:has(.company-overview) .about-page-hero::before {
+  display: block;
+  background-image: url('../assets/img/textures/texture-sweeping-wave.webp');
+  background-size: cover;
+  background-position: center 66%;
+  mix-blend-mode: screen;
+  opacity: 0.14;
+  filter: brightness(0) saturate(100%) invert(68%) sepia(29%) saturate(700%) hue-rotate(3deg) brightness(93%);
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.page-gallery .about-page-hero::before {
+  display: block;
+  background-image: url('../assets/img/textures/texture-diagonal-streaks.webp');
+  background-size: cover;
+  background-position: center 34%;
+  mix-blend-mode: screen;
+  opacity: 0.26;
+  filter: brightness(0) saturate(100%) invert(72%) sepia(28%) saturate(450%) hue-rotate(7deg) brightness(94%);
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.page-gallery .about-page-hero {
+  background-image: linear-gradient(112deg, rgba(201, 173, 119, 0.12), transparent 48%, rgba(201, 173, 119, 0.08));
+}
+
+.gallery-stage.project-gallery {
+  background-image: linear-gradient(125deg, rgba(201, 173, 119, 0.035), transparent 48%, rgba(201, 173, 119, 0.045));
+}
+
+.gallery-stage.project-gallery::before {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+@media (max-width: 680px) {
+  .page-main:has(.company-overview) .about-page-hero::before,
+  .page-gallery .about-page-hero::before {
+    background-size: auto 156%;
+    background-position: center 38%;
+  }
+}
+
 /* Homepage service paths share vertical anchors at desktop. The building
    path remains wider, but both cards now align their title/tag block,
    description, flexible list area and final action. */

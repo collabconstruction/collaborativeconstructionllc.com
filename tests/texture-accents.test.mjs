@@ -75,3 +75,11 @@ test('About and Projects textures cover their complete sections with one consist
   assert.match(css, /\.company-principles::after\s*\{[^}]*texture-sweeping-wave\.webp/s);
   assert.match(css, /\.gallery-stage\.project-gallery::before\s*\{[^}]*texture-diagonal-streaks\.webp/s);
 });
+
+test('About and Projects hero images continue the section artwork behind each page title', () => {
+  const css = readFileSync(join(ROOT, 'css/styles.css'), 'utf8');
+
+  assert.match(css, /\.page-main:has\(\.company-overview\) \.about-page-hero::before\s*\{[^}]*display:\s*block[^}]*texture-sweeping-wave\.webp[^}]*opacity:\s*0\.14/s);
+  assert.match(css, /\.page-gallery \.about-page-hero::before\s*\{[^}]*texture-diagonal-streaks\.webp[^}]*background-size:\s*cover[^}]*opacity:\s*0\.26/s);
+  assert.match(css, /\.gallery-stage\.project-gallery\s*\{[^}]*linear-gradient\(125deg, rgba\(201, 173, 119/s);
+});
