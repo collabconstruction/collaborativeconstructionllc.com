@@ -200,6 +200,11 @@ async function main() {
   const overlaid = [];
   for (const rel of OVERLAY) {
     const src = join(ROOT, rel);
+    // This curated directory is replaced as a unit so a retired texture that
+    // was harvested from the live stylesheet cannot survive the next deploy.
+    if (rel === "assets/img/textures") {
+      await rm(join(OUT, rel), { recursive: true, force: true });
+    }
     await cp(src, join(OUT, rel), { recursive: true });
     overlaid.push(rel);
   }
