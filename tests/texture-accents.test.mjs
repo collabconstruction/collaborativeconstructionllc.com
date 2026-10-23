@@ -21,6 +21,12 @@ test('all four published background texture assets exist and are non-empty', () 
   }
 });
 
+test('the protected live overlay publishes the texture directory', () => {
+  const overlay = readFileSync(join(ROOT, 'scripts/build-live-overlay.mjs'), 'utf8');
+
+  assert.match(overlay, /const OVERLAY = \[[\s\S]*"assets\/img\/textures"/);
+});
+
 test('all four source texture masters exist in brand/textures', () => {
   for (const name of textures) {
     const srcName = name.replace(/^texture-/, 'src-');
