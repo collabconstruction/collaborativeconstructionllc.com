@@ -40,7 +40,7 @@
      02 Tokens         09 Hero              16 Owner        23 Page heads
      03 Reset          10 Buttons           17 Quote band   24 Utilities
      04 Typography     11 Credentials       18 ADU/advisory 25 Responsive
-     05 Layout         12 Two paths         19 Gallery
+     05 Layout         12 Two paths         19 Gallery      26 Textures
      06 Motion         13 Services          20 FAQ
      07 Header         14 Locations rail    21 Contact/form
    ========================================================================= */
@@ -4750,3 +4750,97 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
   .gallery-frame, .gallery-arrow { transition: none; }
 }
 
+
+/* 26. Texture accents ======================================================
+   Four owner-supplied line-art watermarks (drafting-grid dots, a soft
+   corner-bubble cluster, two survey-contour-style wave patterns), one per
+   section, placed in otherwise-empty corner whitespace the same way the ADU
+   section's c-icon watermark already works (see .adu::after above): a
+   fixed-size, non-repeating background image behind the section's content,
+   low opacity, no pointer events. Every rule below uses the same opacity,
+   z-index and sizing formula on purpose, so the four read as one family
+   rather than four unrelated effects. Only the image, aspect ratio and
+   corner differ per section.
+
+   The project-gallery page was intentionally skipped: it already carries
+   its own full-bleed photo watermark (.project-gallery::before,
+   gold-corridor.webp), and a second texture there would read as cluttered
+   rather than architectural. The homepage "Recent projects" grid
+   (.home-work) was clean of any existing decoration and is used instead.
+
+   Reduced-motion/print are unaffected since these are static images, not
+   animations. */
+
+#services,
+.company-principles,
+.home-work,
+.advisory-pm {
+  overflow: hidden;
+}
+
+#services > .container,
+.company-principles > .container,
+.home-work > .container,
+.advisory-pm > .container {
+  position: relative;
+  z-index: 1;
+}
+
+#services::after,
+.company-principles::after,
+.home-work::after,
+.advisory-pm::after {
+  content: "";
+  position: absolute;
+  top: -48px;
+  right: -48px;
+  width: clamp(280px, 32vw, 460px);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  /* These masters are already near-transparent line art (unlike the solid
+     c-icon mark .adu::after dims), so they need far less additional
+     opacity reduction - full alpha already reads as a soft watermark. */
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Homepage: "What we do" services, drafting-grid dots. */
+#services::after {
+  aspect-ratio: 1100 / 619;
+  background-image: url("../assets/img/textures/texture-dot-grid.png");
+}
+
+/* About: company principles cards, soft corner-bubble cluster. */
+.company-principles::after {
+  aspect-ratio: 1100 / 619;
+  background-image: url("../assets/img/textures/texture-corner-bubbles.png");
+}
+
+/* Homepage: Recent projects grid, survey-contour wave. */
+.home-work::after {
+  aspect-ratio: 1100 / 825;
+  background-image: url("../assets/img/textures/texture-wave-ribbon.png");
+}
+
+/* Construction advisory: Owner's Project Management, contour wave with
+   survey-marker nodes, fitting the oversight/reporting theme. Tinted
+   brass-700 (not brass-300 like the other three) because this section's
+   background is --paper-2 and brass-300 reads too faint against tan;
+   brass-700 is the project's own documented AA-adjacent token for text on
+   paper-2 (4.70:1, see the contrast table at the top of this file), so
+   reusing it here for a non-text watermark is a known-safe choice. */
+.advisory-pm::after {
+  aspect-ratio: 1100 / 825;
+  background-image: url("../assets/img/textures/texture-wave-network.png");
+}
+
+@media (max-width: 759px) {
+  #services::after,
+  .company-principles::after,
+  .home-work::after,
+  .advisory-pm::after {
+    width: clamp(220px, 46vw, 320px);
+  }
+}
