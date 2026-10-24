@@ -1,0 +1,28 @@
+{
+  "observed_at": "2026-10-19T05:57:00Z",
+  "run_type": "manual continuation",
+  "files": [
+    "google-public.json",
+    "inquiry-aggregates.json"
+  ],
+  "scheduler": "construction-daily-company-health-and-growth-analysis",
+  "scheduled_execution": "completed 2026-10-19T12:34Z; first verified local run",
+  "inquiry_window": "2026-10-01T00:00:00.000Z inclusive to 2026-10-19T00:00:00.000Z exclusive",
+  "test_exclusion_status": "unreconciled; do not count raw cohort as customers",
+  "last_refreshed": "2026-10-19T12:34Z",
+  "metricool_requested_fields": [
+    "FBEV17",
+    "FBEV03",
+    "FBEV04",
+    "FBEV34",
+    "FBEV49",
+    "LIEV01",
+    "LIEV04",
+    "LIEV22",
+    "LIEV21",
+    "LIEV23"
+  ],
+  "metricool_period": "2026-10-17T00:00:00-04:00 to 2026-10-19T08:34:00-04:00",
+  "metricool_rows": "requested field order plus final date; null missing",
+  "inquiry_scheduled": "inquiry-aggregates-scheduled.json"
+}

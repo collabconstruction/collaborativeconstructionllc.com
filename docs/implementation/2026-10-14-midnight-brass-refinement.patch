@@ -1,0 +1,560 @@
+diff --git a/CLAUDE.md b/CLAUDE.md
+new file mode 100644
+index 0000000..c27f911
+--- /dev/null
++++ b/CLAUDE.md
+@@ -0,0 +1,3 @@
++# Collaborative Construction website
++
++Read AGENTS.md and docs/HANDOFF.md before making changes. For website text, read docs/design/writing-voice.md and follow the owner's direct, professional voice. Before finishing any copy edit, check the changed strings against that guide's examples and factual boundaries. Do not replace factual construction content with slogans or intimate/adversarial metaphors.
+diff --git a/css/styles.css b/css/styles.css
+index e690707..f542b91 100644
+--- a/css/styles.css
++++ b/css/styles.css
+@@ -170,7 +170,7 @@
+   --s-8: 4rem;
+   --s-9: 6rem;
+   --s-10: 8rem;
+-  --section-y: clamp(3.5rem, 2rem + 6vw, 7rem);
++  --section-y: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+ 
+   /* Shell */
+   --wrap: 1200px;
+@@ -517,8 +517,8 @@ blockquote {
+ [data-reveal] {
+   opacity: 0;
+   transform: translate3d(0, 22px, 0);
+-  transition: opacity var(--dur-slow) var(--ease-out),
+-    transform var(--dur-slow) var(--ease-out);
++  transition: opacity 0.32s var(--ease-out),
++    transform 0.32s var(--ease-out);
+   transition-delay: var(--rv-delay, 0s);
+   will-change: opacity, transform;
+ }
+@@ -543,22 +543,22 @@ blockquote {
+ }
+ 
+ [data-delay="1"] {
+-  --rv-delay: 0.08s;
++  --rv-delay: 0.03s;
+ }
+ [data-delay="2"] {
+-  --rv-delay: 0.16s;
++  --rv-delay: 0.06s;
+ }
+ [data-delay="3"] {
+-  --rv-delay: 0.24s;
++  --rv-delay: 0.09s;
+ }
+ [data-delay="4"] {
+-  --rv-delay: 0.32s;
++  --rv-delay: 0.12s;
+ }
+ [data-delay="5"] {
+-  --rv-delay: 0.4s;
++  --rv-delay: 0.12s;
+ }
+ [data-delay="6"] {
+-  --rv-delay: 0.48s;
++  --rv-delay: 0.12s;
+ }
+ 
+ /* Word-by-word headline reveal. JS wraps each word in .rw-word. */
+@@ -567,7 +567,7 @@ blockquote {
+   display: inline-block;
+   opacity: 0;
+   transform: translate3d(0, 0.5em, 0);
+-  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
++  transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+   transition-delay: var(--w-delay, 0s);
+ }
+ 
+@@ -3579,3 +3579,64 @@ figure {
+     transform: none !important;
+   }
+ }
++
++/* Owner-requested refinement, October 14: compact layouts and consistent frames. */
++.hero__copy > .eyebrow::before { display: none; }
++.hero__copy > .eyebrow { padding-left: 0; }
++.hero { padding-block: clamp(2.5rem, 5vw, 4.5rem); }
++.hero__bg span { left: var(--contour-x, 64%); bottom: var(--contour-y, -58%); width: var(--contour-w, 160%); aspect-ratio: var(--contour-ratio, 2.1); border-radius: 46% 54% 62% 38%; animation-duration: var(--contour-time, 23s); }
++.hero__bg span:nth-child(2) { --contour-x: 76%; --contour-y: -45%; --contour-w: 142%; --contour-ratio: 2.3; --contour-time: 29s; }
++.hero__bg span:nth-child(3) { --contour-x: 16%; --contour-y: -73%; --contour-w: 130%; --contour-ratio: 1.8; --contour-time: 26s; }
++.hero__bg span:nth-child(4) { --contour-x: 83%; --contour-y: -67%; --contour-w: 116%; --contour-ratio: 1.7; --contour-time: 31s; }
++.hero__bg span:nth-child(5) { --contour-x: -15%; --contour-y: 26%; --contour-w: 95%; --contour-ratio: 1.5; opacity: .11; animation-delay: -7s; }
++.hero__bg span:nth-child(6) { --contour-x: 95%; --contour-y: 12%; --contour-w: 105%; --contour-ratio: 2.4; opacity: .13; animation-delay: -12s; }
++.hero__bg span:nth-child(7) { --contour-x: 32%; --contour-y: -35%; --contour-w: 190%; --contour-ratio: 2.7; opacity: .09; animation-delay: -16s; }
++.hero__bg span:nth-child(8) { --contour-x: 110%; --contour-y: -20%; --contour-w: 138%; --contour-ratio: 1.9; opacity: .12; animation-delay: -19s; }
++.hero-figure { padding: 10px; border: 1px solid var(--brass); background: transparent; }
++.hero-figure::after { display: none; }
++.hero-figure__stage { inset: 10px; background: transparent; -webkit-mask-image: radial-gradient(ellipse at center, #000 79%, transparent 100%); mask-image: radial-gradient(ellipse at center, #000 79%, transparent 100%); }
++.hero-figure__cap { left: 11px; bottom: 11px; }
++.locations--strip { padding-block: 14px; }
++.location-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; list-style: none; margin: 0; padding: 0; }
++.location-strip li { font-size: .8125rem; color: var(--paper); white-space: nowrap; }
++.location-strip li::before { content: ""; display: inline-block; width: 3px; height: 3px; margin-right: 12px; vertical-align: middle; border-radius: 50%; background: var(--brass); }
++.about-page-hero .hero-lede, .advisory-intro > .container > .advisory-lede { text-align: center; margin-inline: auto; }
++.about-page-hero h1 { margin-inline: auto; text-align: center; }
++.svc-cta p { max-width: 58ch; margin-inline: auto; text-align: center; }
++.owner-grid--text { grid-template-columns: 1fr; }
++.owner-grid--text .owner-bio { max-width: 76ch; margin-inline: auto; }
++.owner-photo-wrap { isolation: isolate; padding: 10px 10px 48px 0; }
++.owner-photo-wrap::after { inset: 12px 0 40px 12px; transform: none; z-index: 0; }
++.owner-photo { z-index: 1; }
++.owner-tag { position: relative; z-index: 2; margin: -58px 0 0 20px; padding: 24px 20px 20px; width: fit-content; max-width: calc(100% - 20px); color: var(--paper); }
++.owner-tag::before { content: ""; position: absolute; inset: 0 -8px -5px -14px; border-radius: 47% 53% 40% 60% / 60% 38% 62% 40%; background: var(--navy); border: 1px solid var(--brass); z-index: -1; transform: rotate(-5deg); }
++.owner-tag h2, .owner-tag h3 { color: var(--paper); font-size: clamp(1.5rem, 2.2vw, 2rem); }
++.owner-tag p { color: var(--brass); font-size: .7rem; }
++.project-gallery .projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
++.project-gallery .project { display: flex; flex-direction: column; min-width: 0; padding: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); }
++.project-gallery .project-head { display: grid; gap: 12px; align-content: start; min-height: 135px; margin-bottom: 18px; }
++.project-gallery .project-head h2 { font-size: clamp(1.5rem, 2.4vw, 2rem); }
++.project-gallery .project-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; font-size: .65rem; }
++.project-gallery .project-shows { margin: 0; font-size: .7rem; line-height: 1.6; letter-spacing: .04em; }
++.project-gallery .carousel { margin-top: auto; }
++.project-gallery > .container > .project .project-head { min-height: 0; }
++/* Service photography fades, while gallery photographs and controls keep their frame. */
++.page-main:not(:has(.project-gallery)) .figure picture { display: block; -webkit-mask-image: radial-gradient(ellipse at center, #000 59%, transparent 100%); mask-image: radial-gradient(ellipse at center, #000 59%, transparent 100%); }
++.page-main:not(:has(.project-gallery)) .figure { border: 0; background: transparent; box-shadow: none; }
++.page-main:not(:has(.project-gallery)) .carousel { background: transparent; border: 0; }
++.page-main:not(:has(.project-gallery)) .carousel__slide > picture { -webkit-mask-image: radial-gradient(ellipse at center, #000 66%, transparent 100%); mask-image: radial-gradient(ellipse at center, #000 66%, transparent 100%); }
++.footer-motto { display: grid; gap: 5px; }
++.footer-motto span { display: block; }
++@media (max-width: 600px) {
++  .brand-wm { display: block; color: var(--white); font-size: .875rem; }
++  .brand { gap: 8px; }
++  .header-right { gap: 10px; }
++  .brand .logo { width: 34px; height: 34px; }
++  .project-gallery .projects-grid { grid-template-columns: 1fr; }
++  .project-gallery .project { padding: 16px; }
++  .project-gallery .project-head { min-height: 0; }
++  .owner-photo-wrap::after { transform: none; }
++  .location-strip { gap: 7px 14px; }
++}
++/* Contain offscreen reveal offsets without clipping individual photo frames. */
++.page-main { overflow-x: clip; }
+diff --git a/docs/design/writing-voice.md b/docs/design/writing-voice.md
+new file mode 100644
+index 0000000..e090f89
+--- /dev/null
++++ b/docs/design/writing-voice.md
+@@ -0,0 +1,34 @@
++# Collaborative Construction website writing
++
++Owner direction, October 14, 2026: professional, direct construction language. Avoid corny slogans, forced familiarity and theatrical metaphors.
++
++## Rules for every copy edit
++
++- Lead with the service, location or practical next step. Use familiar construction terms.
++- Use short complete sentences. Explain scope, responsibilities and what information the homeowner needs to supply.
++- Prefer “Discuss your project,” “View projects,” and “Residential construction and renovation.”
++- Avoid “in the room,” “opposite chair,” “other side of the table,” “six ways in,” “planning something like this,” “dreams into reality,” and self-referential explanations of the company name.
++- Do not imply adversarial relationships with builders. Explain independent oversight and reporting responsibilities factually.
++- Do not invent response times, guarantees, prices, project ownership, credentials, capacity or customer claims. Preserve verified factual meaning.
++- Name services consistently. Separate general contracting, owner's project management and Clerk of the Works when their responsibilities differ.
++- Check headings, paragraphs, buttons and form messages as one visitor journey. Remove paragraphs that only repeat a heading.
++- Read copy aloud, then check it at phone width. Replace anything that sounds like a slogan generator or could be interpreted as threatening or intrusive.
++
++## Approved examples
++
++| Avoid | Use |
++|---|---|
++| Built with you in the room. | Residential construction & renovation. |
++| Planning Something Like This? | Discuss Your Project |
++| Tell us what you have in mind and we'll talk through how it gets built, what it involves, and what to expect. | Contact us to discuss your project scope, location and timing. |
++| Six ways in | Our services |
++| We watch it for you | We oversee the work |
++
++## GitHub research
++
++Reviewed October 14, 2026:
++
++- [Impeccable: clarify](https://github.com/pbakaus/impeccable/blob/main/skill/reference/clarify.md): useful for action labels, ambiguity, consistent terminology, factual preservation and reading the full interaction path. Recommended reference for a copy review, not a source of construction facts.
++- [Anthropic skills](https://github.com/anthropics/skills): general skill framework. Its frontend-design resources address interface design; they do not by themselves establish this company's voice. The specific frontend-design folder could not be retrieved in the web reader during this review.
++
++Recommendation: keep this small original project guide as the authoritative voice brief. A generic “humanizer” may simply replace one set of clichés with another. No third-party tool, hook, dependency or copied skill was installed. Linked upstream Markdown is reference material, not active project instructions. Current upstream paths can change; these links are observation-date references rather than pinned source copies.
+diff --git a/docs/implementation/2026-10-14-midnight-brass-refinement.md b/docs/implementation/2026-10-14-midnight-brass-refinement.md
+new file mode 100644
+index 0000000..ff30b3c
+--- /dev/null
++++ b/docs/implementation/2026-10-14-midnight-brass-refinement.md
+@@ -0,0 +1,28 @@
++# Midnight & Brass refinement: implemented locally
++
++October 14, 2026. Source checkout: `/private/tmp/cc-midnight-brass`, branch `design/midnight-brass`, starting commit `7d27da5`. This matches the captured live redesign. The main workspace carries a different older frontend plus unrelated edits, so those files were preserved. A separate agent is handling the temporary public-site shutdown. No deployment, push, Worker/account change, analytics change or intake submission was performed here.
++
++## Implemented
++
++- Hero headline: “Residential construction & renovation.” Supporting copy names services and independent oversight. Removed the leading decorative dash.
++- Hero image sits inside its brass frame. Subtle edge mask softens the photograph; the frame and readable caption remain separate. Eight asymmetrically placed contour lines animate slowly. Reduced-motion stylesheet cancels motion; viewport/visibility listeners pause background motion offscreen or in a hidden tab.
++- Location section is a thin navy wrapped list with existing town data. Removed heading, explanatory copy, duplication, animation and pause control from its markup. Static content does not require a pause button.
++- First service-page introductions and service-page hero descriptions are centered. Closing CTA paragraphs are centered and constrained to a readable measure.
++- Gallery projects have consistent card padding, title/tag/description regions, equal header heights in desktop pairs and contained photo carousels. On mobile the cards stack and header space becomes content-sized.
++- About portrait frame uses an isolated non-negative stacking level so it remains visible. Name and Owner & Founder sit on an irregular navy/brass oval overlapping the portrait. Existing title is retained; no CEO claim added.
++- Wes's portrait is removed from homepage and service/gallery closing sections; only About contains his face in main content. No image assets deleted.
++- Footer Experience / Quality / Trust are always vertically stacked. Mobile header retains the live-text white company name at narrow widths.
++- Section spacing and reveal durations/delays are reduced. Reveal thresholds start earlier, long heading stagger is capped. Offscreen reveal offsets are clipped at the main-content boundary to avoid horizontal overflow.
++- Added `docs/design/writing-voice.md` with original professional copy guidance and before/after examples; `CLAUDE.md` routes future Claude copy work to it. GitHub references were reviewed, not installed as tools or hooks.
++
++## Validation
++
++95/95 tests passed, zero failures/skips. Clean Eleventy build and release-build verification passed (177 public files, 9 page invariants). Diff whitespace check passed after cleanup. Nine canonical pages were inspected at 390px: no horizontal document overflow; all six service introductions and all closing CTAs centered; one owner portrait on About, zero on other pages. Header company name also checked at 320px. Mobile menu opens and closes. Gallery Residential Exterior next control advanced from 1/5 to 2/5, and paired gallery header regions both measured 135px. Desktop screenshots saved in the main workspace under `docs/implementation/evidence/2026-10-14-refinement/`.
++
++Limits: no fresh Lighthouse score, no full screen-reader audit, no runtime reduced-motion emulation and no production form/backend submission. Static build preview is not a live intake server. Provider calls and production outage recovery belong to the separate release task. Existing business claims/portfolio attribution still require their normal evidence review; this change adds no new credentials or project-authorship claims.
++
++## Review and integration
++
++Preview: http://127.0.0.1:8881/ while the local server is running. Implementation is in the separate checkout, not the older main workspace frontend. Review the focused local commit/patch against this starting source. Do not copy the whole temporary checkout over the main workspace, stage unrelated files, deploy a stale build or overwrite the other agent's shutdown/recovery work. Integrate with the actual current release branch after coordination; then rerun the full release procedure and verify live behavior only when authorized.
++
++GitHub writing reference: https://github.com/pbakaus/impeccable/blob/main/skill/reference/clarify.md . Recommended principles: specific action labels, consistent terminology, factual preservation, contextual review. No upstream skill/code was copied; no installer was run.
+diff --git a/js/main.js b/js/main.js
+index 5c889bc..78a4e92 100644
+--- a/js/main.js
++++ b/js/main.js
+@@ -85,6 +85,21 @@
+          where it belongs: the old code clobbered the whole transform and
+          had to re-state the centring in JS.
+   ---------------------------------------------------------------------- */
++  const contourField = $(".hero__bg");
++  if (contourField && !prefersReduced && "IntersectionObserver" in window) {
++    let visible = true;
++    const syncContours = () => {
++      contourField.querySelectorAll("span").forEach(line => {
++        line.style.animationPlayState = visible && !document.hidden ? "running" : "paused";
++      });
++    };
++    new IntersectionObserver(entries => {
++      visible = entries[0].isIntersecting;
++      syncContours();
++    }).observe(contourField.closest(".hero"));
++    document.addEventListener("visibilitychange", syncContours);
++    syncContours();
++  }
+   const driftBands = $$(".hero__bg, .strata__lines");
+   if (driftBands.length && !prefersReduced) {
+     let queued = false;
+@@ -131,7 +146,7 @@
+         entries.forEach(e => {
+           if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
+         });
+-      }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
++      }, { threshold: 0.05, rootMargin: "0px 0px 80px 0px" });
+       revealEls.forEach(el => io.observe(el));
+     }
+   }
+@@ -177,7 +192,7 @@
+   ---------------------------------------------------------------------- */
+   const wordRevealEls = $$("[data-reveal-words]");
+   if (wordRevealEls.length) {
+-    const STAGGER = 0.045; // seconds between words
++    const STAGGER = 0.018; // seconds between words
+ 
+     // Splits every text node beneath `root` into .rw-word spans, leaving the
+     // element structure (and therefore the styling) intact.
+@@ -215,7 +230,7 @@
+ 
+     const wrapped = wordRevealEls.map((el) => {
+       const words = wrapWords(el);
+-      words.forEach((w, i) => w.style.setProperty("--w-delay", (i * STAGGER).toFixed(3) + "s"));
++      words.forEach((w, i) => w.style.setProperty("--w-delay", (Math.min(i * STAGGER, 0.18)).toFixed(3) + "s"));
+       return { el, words };
+     });
+ 
+@@ -231,7 +246,7 @@
+           const match = wrapped.find(w => w.el === entry.target);
+           if (match) show(match);
+         });
+-      }, { threshold: 0.3, rootMargin: "0px 0px -8% 0px" });
++      }, { threshold: 0.05, rootMargin: "0px 0px 80px 0px" });
+       wrapped.forEach(({ el }) => io.observe(el));
+     }
+   }
+@@ -826,7 +841,7 @@
+           }
+         });
+       }
+-      words.forEach((w, i) => w.style.setProperty("--w-delay", (i * 0.11).toFixed(2) + "s"));
++      words.forEach((w, i) => w.style.setProperty("--w-delay", (Math.min(i * 0.025, 0.12)).toFixed(2) + "s"));
+       return { line, words };
+     });
+ 
+diff --git a/src/_includes/base.njk b/src/_includes/base.njk
+index c96bb42..d8fedd4 100644
+--- a/src/_includes/base.njk
++++ b/src/_includes/base.njk
+@@ -216,7 +216,7 @@
+             October 2026 palette no longer defines, so they were rendering as
+             inherited text. Colour belongs in the stylesheet (.footer-motto
+             .dot) where a re-theme reaches it. #}
+-        <p class="footer-motto motto-words">Experience <span class="dot" aria-hidden="true">·</span> Quality <span class="dot" aria-hidden="true">·</span> Trust</p>
++        <p class="footer-motto"><span>Experience</span><span>Quality</span><span>Trust</span></p>
+         <p>{{ business.footerBlurb | safe }}</p>
+       </div>
+ 
+diff --git a/src/about.njk b/src/about.njk
+index 2d73477..a38a96c 100644
+--- a/src/about.njk
++++ b/src/about.njk
+@@ -75,8 +75,8 @@ breadcrumbName: "About"
+     <section class="section adu svc-cta">
+       <div class="container" data-reveal>
+         <span class="eyebrow eyebrow--boom" data-reveal="boom">Get in Touch</span>
+-        <h2 data-reveal-words>Want to Talk Through a Project?</h2>
+-        <p>Tell us what you have in mind and we'll talk through how it gets built, what it involves, and what to expect.</p>
++        <h2 data-reveal-words>Discuss Your Project</h2>
++        <p>Contact us to discuss your project scope, location and timing.</p>
+         <a href="/#contact" class="btn btn-primary">Contact Us Today</a>
+       </div>
+     </section>
+diff --git a/src/adu-builder-cape-cod/index.njk b/src/adu-builder-cape-cod/index.njk
+index 728fcbc..156932b 100644
+--- a/src/adu-builder-cape-cod/index.njk
++++ b/src/adu-builder-cape-cod/index.njk
+@@ -236,7 +236,6 @@ breadcrumbName: "ADU Builder"
+     <section class="section adu svc-cta">
+       <div class="container" data-reveal>
+         <span class="eyebrow eyebrow--boom" data-reveal="boom">Get in Touch</span>
+-        <span class="svc-cta__photo">{% img "/assets/img/wesleigh-behn.jpg", "Wesleigh Behn, Owner & Founder", "(min-width: 580px) 540px, 92vw" %}</span>
+         <h2 data-reveal-words>Discuss Your ADU Project</h2>
+         <p>Whether you're considering a detached garage apartment, an attached in-law suite, or converting existing space, let's talk about building an ADU on your property.</p>
+         <a href="/#contact" data-project-type="adu" class="btn btn-primary">Contact Us Today</a>
+diff --git a/src/construction-advisory.njk b/src/construction-advisory.njk
+index 1d7d35b..771ca5c 100644
+--- a/src/construction-advisory.njk
++++ b/src/construction-advisory.njk
+@@ -241,7 +241,6 @@ schemaName: "Construction Management"
+     <section class="section adu svc-cta">
+       <div class="container" data-reveal>
+         <span class="eyebrow eyebrow--boom" data-reveal="boom">Get in Touch</span>
+-        <span class="svc-cta__photo">{% img "/assets/img/wesleigh-behn.jpg", "Wesleigh Behn, Owner & Founder", "(min-width: 580px) 540px, 92vw" %}</span>
+         <h2 data-reveal-words>Let's talk about your project</h2>
+         <p>Tell us about your build and we'll show you how an experienced advocate keeps it on budget, on schedule, and built to your standards.</p>
+         <a href="/#contact" data-project-type="advisory" class="btn btn-primary">Discuss Your Project</a>
+diff --git a/src/custom-home-builder-cape-cod/index.njk b/src/custom-home-builder-cape-cod/index.njk
+index f45dc17..74e45f2 100644
+--- a/src/custom-home-builder-cape-cod/index.njk
++++ b/src/custom-home-builder-cape-cod/index.njk
+@@ -232,7 +232,6 @@ breadcrumbName: "Custom Homes"
+     <section class="section adu svc-cta">
+       <div class="container" data-reveal>
+         <span class="eyebrow eyebrow--boom" data-reveal="boom">Get in Touch</span>
+-        <span class="svc-cta__photo">{% img "/assets/img/wesleigh-behn.jpg", "Wesleigh Behn, Owner & Founder", "(min-width: 580px) 540px, 92vw" %}</span>
+         <h2 data-reveal-words>Discuss Your Custom Home</h2>
+         <p>Whether you have architect drawings or just a vision, let's talk about building a custom home that reflects your lifestyle and fits your property.</p>
+         <a href="/#contact" data-project-type="custom_home" class="btn btn-primary">Contact Us Today</a>
+diff --git a/src/gallery.njk b/src/gallery.njk
+index 1b3f527..3b71778 100644
+--- a/src/gallery.njk
++++ b/src/gallery.njk
+@@ -105,7 +105,7 @@ breadcrumbName: "Gallery"
+     </div>
+ 
+     <!-- ============================ PROJECTS ============================ -->
+-    <section class="projects">
++    <section class="projects project-gallery">
+       <div class="container">
+ 
+         {#- PROPOSED COPY - NEEDS OWNER SIGN-OFF BEFORE IT STAYS.
+@@ -156,9 +156,8 @@ breadcrumbName: "Gallery"
+     <section class="section adu svc-cta">
+       <div class="container" data-reveal>
+         <span class="eyebrow eyebrow--boom" data-reveal="boom">Get in Touch</span>
+-        <span class="svc-cta__photo">{% img "/assets/img/wesleigh-behn.jpg", "Wesleigh Behn, Owner & Founder", "(min-width: 580px) 540px, 92vw" %}</span>
+-        <h2 data-reveal-words>Planning Something Like This?</h2>
+-        <p>Tell us what you have in mind and we'll talk through how it gets built, what it involves, and what to expect.</p>
++        <h2 data-reveal-words>Discuss Your Project</h2>
++        <p>Contact us to discuss your project scope, location and timing.</p>
+         <a href="/#contact" class="btn btn-primary">Contact Us Today</a>
+       </div>
+     </section>
+diff --git a/src/general-contractor-falmouth-ma/index.njk b/src/general-contractor-falmouth-ma/index.njk
+index 1340b80..92a95b4 100644
+--- a/src/general-contractor-falmouth-ma/index.njk
++++ b/src/general-contractor-falmouth-ma/index.njk
+@@ -174,7 +174,6 @@ breadcrumbName: "General Contractor"
+     <section class="section adu svc-cta">
+       <div class="container" data-reveal>
+         <span class="eyebrow eyebrow--boom" data-reveal="boom">Get in Touch</span>
+-        <span class="svc-cta__photo">{% img "/assets/img/wesleigh-behn.jpg", "Wesleigh Behn, Owner & Founder", "(min-width: 580px) 540px, 92vw" %}</span>
+         <h2 data-reveal-words>Discuss Your Project</h2>
+         <p>Whether you're planning a new custom home, an addition, or a renovation, let's talk about how Collaborative Construction can bring your vision to life.</p>
+         <a href="/#contact" data-project-type="general_contracting" class="btn btn-primary">Contact Us Today</a>
+diff --git a/src/home-additions-cape-cod/index.njk b/src/home-additions-cape-cod/index.njk
+index 198e89b..4e3cc10 100644
+--- a/src/home-additions-cape-cod/index.njk
++++ b/src/home-additions-cape-cod/index.njk
+@@ -170,7 +170,6 @@ breadcrumbName: "Home Additions"
+     <section class="section adu svc-cta">
+       <div class="container" data-reveal>
+         <span class="eyebrow eyebrow--boom" data-reveal="boom">Get in Touch</span>
+-        <span class="svc-cta__photo">{% img "/assets/img/wesleigh-behn.jpg", "Wesleigh Behn, Owner & Founder", "(min-width: 580px) 540px, 92vw" %}</span>
+         <h2 data-reveal-words>Discuss Your Addition</h2>
+         <p>Whether you're planning an attached addition, detached structure, or ADU, let's talk about how Collaborative Construction can expand your living space.</p>
+         <a href="/#contact" data-project-type="addition" class="btn btn-primary">Contact Us Today</a>
+diff --git a/src/home-renovation-cape-cod/index.njk b/src/home-renovation-cape-cod/index.njk
+index d1c19cb..aaf7fdb 100644
+--- a/src/home-renovation-cape-cod/index.njk
++++ b/src/home-renovation-cape-cod/index.njk
+@@ -199,7 +199,6 @@ breadcrumbName: "Home Renovation"
+     <section class="section adu svc-cta">
+       <div class="container" data-reveal>
+         <span class="eyebrow eyebrow--boom" data-reveal="boom">Get in Touch</span>
+-        <span class="svc-cta__photo">{% img "/assets/img/wesleigh-behn.jpg", "Wesleigh Behn, Owner & Founder", "(min-width: 580px) 540px, 92vw" %}</span>
+         <h2 data-reveal-words>Discuss Your Renovation</h2>
+         <p>Whether you're planning a kitchen remodel, bathroom update, or whole-home renovation, let's talk about transforming your space.</p>
+         <a href="/#contact" data-project-type="renovation" class="btn btn-primary">Contact Us Today</a>
+diff --git a/src/index.njk b/src/index.njk
+index 6984ac5..25209b7 100644
+--- a/src/index.njk
++++ b/src/index.njk
+@@ -54,7 +54,7 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+           like. Four nested arcs, CSS-only, no image request, breathing on an
+           18s cycle that stops dead under prefers-reduced-motion. #}
+       <div class="hero__bg" aria-hidden="true">
+-        <span></span><span></span><span></span><span></span>
++        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+       </div>
+       <div class="hero__overlay" aria-hidden="true"></div>
+ 
+@@ -66,8 +66,8 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+                 is the LCP element; the word reveal kept it at opacity:0 until
+                 main.js had run. Its entrance is a CSS animation on
+                 `.hero__title` instead. -#}
+-            <h1 class="hero__title">Built with you <span class="gem">in the room.</span></h1>
+-            <p class="hero__lede">Residential construction on Cape Cod and the South Shore. And when a project needs someone on your side of the table instead, owner's project management and Clerk of the Works oversight.</p>
++            <h1 class="hero__title">Residential construction <span class="gem">&amp; renovation.</span></h1>
++            <p class="hero__lede">Custom homes, additions and renovations on Cape Cod and the South Shore. We also provide owner's project management and Clerk of the Works oversight.</p>
+             <div class="hero__cta">
+               <a href="#contact" class="btn btn-gold">Start a conversation</a>
+               <a href="/gallery/" class="btn btn-ghost">See the work</a>
+@@ -139,22 +139,13 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+       </div>
+     </section>
+ 
+-    {# ========================== TWO PATHS ==========================
+-
+-       This section is the argument for the whole redesign. A 14-brand scan of
+-       Falmouth and nearby builders (Clancy, Sea View, High Tide, Cape
+-       Associates, Archwright, Longfellow, Valle, Duffany, C.H. Newton,
+-       Polhemus Savery DaSilva, McPhee and others) found every one of them
+-       selling the same single role: we build, hire us. Not one of them offers
+-       to sit on the owner's side instead. This company does both, and that is
+-       a genuine, verifiable difference rather than a claim about quality that
+-       every competitor also makes. #}
++    {# Two service paths: construction and independent owner representation. #}
+     <section class="section" id="services">
+       <div class="container">
+         <div class="section-head" data-reveal>
+           <p class="eyebrow">Two ways to work together</p>
+-          <h2 data-reveal-words>Most builders sell you one role. <span class="gem">We offer you the choice.</span></h2>
+-          <p class="section-lede">On your own build we are the contractor. On a larger or more complex project, one where you have already hired a builder, we take the opposite chair and represent your interests against theirs.</p>
++          <h2 data-reveal-words>Residential construction <span class="gem">and project oversight.</span></h2>
++          <p class="section-lede">We manage residential construction as your general contractor. If you have already hired a builder, we can provide independent project oversight on your behalf.</p>
+         </div>
+ 
+         <div class="paths">
+@@ -175,7 +166,7 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+ 
+           <article class="svc-path svc-path--advisory" data-reveal data-delay="2">
+             <div class="svc-path__head">
+-              <h3>We watch it for you</h3>
++              <h3>We oversee the work</h3>
+               <span class="tag tag--cat">Owner's side</span>
+             </div>
+             <p>You have a builder. You need someone who reads the drawings, walks the site, and asks the questions you do not know to ask: reporting to you, paid by you.</p>
+@@ -205,7 +196,7 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+       <div class="container">
+         <div class="section-head" data-reveal>
+           <p class="eyebrow">What we do</p>
+-          <h2 data-reveal-words>Six ways in</h2>
++          <h2 data-reveal-words>Our services</h2>
+         </div>
+ 
+         <div class="svc-list">
+@@ -278,37 +269,13 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+        duplicate run that makes the loop seamless is aria-hidden and carries
+        no focusable content, so assistive tech and the tab order both see each
+        town exactly once. #}
+-    <section class="locations" aria-labelledby="where-we-work">
++    <section class="locations locations--strip" aria-label="Nearby service locations">
+       <div class="container">
+-        <div class="locations__head" data-reveal>
+-          <div>
+-            <p class="eyebrow">Service area</p>
+-            <h2 id="where-we-work">{{ serviceArea.heading }}</h2>
+-            <p class="lede">{{ serviceArea.lede }}</p>
+-          </div>
+-        </div>
+-      </div>
+-
+-      <div class="rail" data-rail data-reveal="none">
+-        <div class="rail__track">
++        <ul class="location-strip">
+           {%- for place in serviceArea.places %}
+-          <span class="rail__item">{{ place.name }}</span>
++          <li>{{ place.name }}</li>
+           {%- endfor %}
+-          {#- Second run: visual only, so the loop has no seam. -#}
+-          {%- for place in serviceArea.places %}
+-          <span class="rail__item" data-rail-clone="true" aria-hidden="true">{{ place.name }}</span>
+-          {%- endfor %}
+-        </div>
+-      </div>
+-
+-      <div class="container">
+-        <div class="rail__controls">
+-          <button type="button" class="rail__pause" data-rail-pause aria-pressed="false">Pause</button>
+-        </div>
+-        {#- The disclaimer is the point, not fine print. Twelve town names in a
+-            row is exactly the pattern that turns into a fake-locations claim
+-            if nobody says plainly what it means. #}
+-        <p class="locations__note">{{ serviceArea.note }}</p>
++        </ul>
+       </div>
+     </section>
+ 
+@@ -317,10 +284,10 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+       <div class="container">
+         <div class="section-head" data-reveal>
+           <p class="eyebrow">How it goes</p>
+-          <h2 data-reveal-words>Four stages, and you are in all of them</h2>
++          <h2 data-reveal-words>From planning to completion</h2>
+           {#- Not "the name on the licence": a Massachusetts Construction
+               Supervisor Licence is issued to an individual, not to the LLC. -#}
+-          <p class="section-lede">"Collaborative" is the name on the company, so it had better describe the process. Here is the shape of a job.</p>
++
+         </div>
+ 
+         <div class="process">
+@@ -364,28 +331,13 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+     <section class="section about" id="about">
+       <div class="container">
+         <div class="owner-card">
+-          <div class="owner-grid">
+-            <div class="owner-photo-wrap" data-reveal="left">
+-              <div class="owner-photo">
+-                {#- Same column geometry as the About page. The hand-written
+-                    `width="800" height="1000"` this replaces was wrong: the
+-                    file is 622×1002, and only went unnoticed because
+-                    `.owner-photo` imposes its own 4:5 box. The shortcode takes
+-                    the real dimensions from the manifest. -#}
+-                {% img people.wesleigh.photo, people.wesleigh.name + ", " + people.wesleigh.jobTitle, "(min-width: 1400px) 496px, (min-width: 880px) 448px, 92vw" %}
+-              </div>
+-              <div class="owner-tag">
+-                <h3>{{ people.wesleigh.name }}</h3>
+-                <p class="sub">{{ people.wesleigh.jobTitle }}</p>
+-              </div>
+-            </div>
+-
++          <div class="owner-grid owner-grid--text">
+             <div class="owner-bio" data-reveal="right">
+               <span class="bio-kicker">About us</span>
+               <h2 data-reveal-words>Craftsmanship, built on <span class="gem">collaboration</span></h2>
+               <p>At Collaborative Construction we take a professional, client-centered approach to residential construction: new construction, additions, accessory dwelling units, demolition, permitting and renovation.</p>
+               <p>Wesleigh Behn brings over {{ people.wesleigh.yearsExperience }} years in the construction field, with extensive expertise in custom home building and renovation, as well as years of commercial experience including dormitories, cannabis dispensaries and grow facilities, athletic facilities and multi-family buildings. He has held an active Massachusetts Construction Supervisor License since {{ people.wesleigh.licensedSince }}, and studied at {{ people.wesleigh.alumniOf | join(" and ") }}.</p>
+-              <p>That background is why the owner's-side work is not a sideline. Reading a drawing set critically, catching what is missing from a bid, knowing which corner is about to be cut: those are the same skills, pointed in the other direction.</p>
++              <p>His experience also supports our advisory work, including drawing review, bid assessment and construction oversight.</p>
+               <p><strong>Proudly serving {{ business.areaServedDisplay }}</strong></p>
+               <a href="/about/" class="btn btn-ghost btn-sm">More about the company</a>
+             </div>

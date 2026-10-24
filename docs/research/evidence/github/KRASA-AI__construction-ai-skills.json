@@ -1,0 +1,770 @@
+{
+  "requested": "KRASA-AI/construction-ai-skills",
+  "metadata": {
+    "id": 1208241525,
+    "node_id": "R_kgDOSARNdQ",
+    "name": "construction-ai-skills",
+    "full_name": "KRASA-AI/construction-ai-skills",
+    "private": false,
+    "owner": {
+      "login": "KRASA-AI",
+      "id": 275384244,
+      "node_id": "O_kgDOEGoHtA",
+      "avatar_url": "https://avatars.githubusercontent.com/u/275384244?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/KRASA-AI",
+      "html_url": "https://github.com/KRASA-AI",
+      "followers_url": "https://api.github.com/users/KRASA-AI/followers",
+      "following_url": "https://api.github.com/users/KRASA-AI/following{/other_user}",
+      "gists_url": "https://api.github.com/users/KRASA-AI/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/KRASA-AI/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/KRASA-AI/subscriptions",
+      "organizations_url": "https://api.github.com/users/KRASA-AI/orgs",
+      "repos_url": "https://api.github.com/users/KRASA-AI/repos",
+      "events_url": "https://api.github.com/users/KRASA-AI/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/KRASA-AI/received_events",
+      "type": "Organization",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "html_url": "https://github.com/KRASA-AI/construction-ai-skills",
+    "description": null,
+    "fork": false,
+    "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills",
+    "forks_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/forks",
+    "keys_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/keys{/key_id}",
+    "collaborators_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/collaborators{/collaborator}",
+    "teams_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/teams",
+    "hooks_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/hooks",
+    "issue_events_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/issues/events{/number}",
+    "events_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/events",
+    "assignees_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/assignees{/user}",
+    "branches_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/branches{/branch}",
+    "tags_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/tags",
+    "blobs_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/tags{/sha}",
+    "git_refs_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/refs{/sha}",
+    "trees_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/trees{/sha}",
+    "statuses_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/statuses/{sha}",
+    "languages_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/languages",
+    "stargazers_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/stargazers",
+    "contributors_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/contributors",
+    "subscribers_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/subscribers",
+    "subscription_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/subscription",
+    "commits_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/commits{/sha}",
+    "git_commits_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/commits{/sha}",
+    "comments_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/comments{/number}",
+    "issue_comment_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/issues/comments{/number}",
+    "contents_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/contents/{+path}",
+    "compare_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/compare/{base}...{head}",
+    "merges_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/merges",
+    "archive_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/{archive_format}{/ref}",
+    "downloads_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/downloads",
+    "issues_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/issues{/number}",
+    "pulls_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/pulls{/number}",
+    "milestones_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/milestones{/number}",
+    "notifications_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/notifications{?since,all,participating}",
+    "labels_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/labels{/name}",
+    "releases_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/releases{/id}",
+    "deployments_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/deployments",
+    "created_at": "2026-04-12T02:28:32Z",
+    "updated_at": "2026-09-18T04:50:09Z",
+    "pushed_at": "2026-07-31T22:10:50Z",
+    "git_url": "git://github.com/KRASA-AI/construction-ai-skills.git",
+    "ssh_url": "git@github.com:KRASA-AI/construction-ai-skills.git",
+    "clone_url": "https://github.com/KRASA-AI/construction-ai-skills.git",
+    "svn_url": "https://github.com/KRASA-AI/construction-ai-skills",
+    "homepage": null,
+    "size": 739,
+    "stargazers_count": 6,
+    "watchers_count": 6,
+    "language": null,
+    "has_issues": true,
+    "has_projects": true,
+    "has_downloads": false,
+    "has_wiki": true,
+    "has_pages": false,
+    "has_discussions": false,
+    "forks_count": 1,
+    "mirror_url": null,
+    "archived": false,
+    "disabled": false,
+    "open_issues_count": 0,
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "allow_forking": true,
+    "is_template": false,
+    "web_commit_signoff_required": false,
+    "has_pull_requests": true,
+    "pull_request_creation_policy": "all",
+    "topics": [],
+    "visibility": "public",
+    "forks": 1,
+    "open_issues": 0,
+    "watchers": 6,
+    "default_branch": "main",
+    "temp_clone_token": null,
+    "custom_properties": {},
+    "organization": {
+      "login": "KRASA-AI",
+      "id": 275384244,
+      "node_id": "O_kgDOEGoHtA",
+      "avatar_url": "https://avatars.githubusercontent.com/u/275384244?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/KRASA-AI",
+      "html_url": "https://github.com/KRASA-AI",
+      "followers_url": "https://api.github.com/users/KRASA-AI/followers",
+      "following_url": "https://api.github.com/users/KRASA-AI/following{/other_user}",
+      "gists_url": "https://api.github.com/users/KRASA-AI/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/KRASA-AI/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/KRASA-AI/subscriptions",
+      "organizations_url": "https://api.github.com/users/KRASA-AI/orgs",
+      "repos_url": "https://api.github.com/users/KRASA-AI/repos",
+      "events_url": "https://api.github.com/users/KRASA-AI/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/KRASA-AI/received_events",
+      "type": "Organization",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "network_count": 1,
+    "subscribers_count": 1
+  },
+  "commit": {
+    "sha": "21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb",
+    "node_id": "C_kwDOSARNddoAKDIxZjAwNTlkYzM4YmIwZThmZGU0YzJmZWRkMzZlODgxN2Q0OWUyZWI",
+    "commit": {
+      "author": {
+        "name": "Abe Clark",
+        "email": "abeaclark@gmail.com",
+        "date": "2026-07-31T22:10:48Z"
+      },
+      "committer": {
+        "name": "Abe Clark",
+        "email": "abeaclark@gmail.com",
+        "date": "2026-07-31T22:10:48Z"
+      },
+      "message": "Daily sync: regenerate READMEs from skills/",
+      "tree": {
+        "sha": "1bf3de2ef2cbafb0552310c4398bc9404658036b",
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/trees/1bf3de2ef2cbafb0552310c4398bc9404658036b"
+      },
+      "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/commits/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/commits/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb",
+    "html_url": "https://github.com/KRASA-AI/construction-ai-skills/commit/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb",
+    "comments_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/commits/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/comments",
+    "author": {
+      "login": "abeaclark",
+      "id": 14206953,
+      "node_id": "MDQ6VXNlcjE0MjA2OTUz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14206953?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/abeaclark",
+      "html_url": "https://github.com/abeaclark",
+      "followers_url": "https://api.github.com/users/abeaclark/followers",
+      "following_url": "https://api.github.com/users/abeaclark/following{/other_user}",
+      "gists_url": "https://api.github.com/users/abeaclark/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/abeaclark/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/abeaclark/subscriptions",
+      "organizations_url": "https://api.github.com/users/abeaclark/orgs",
+      "repos_url": "https://api.github.com/users/abeaclark/repos",
+      "events_url": "https://api.github.com/users/abeaclark/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/abeaclark/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "abeaclark",
+      "id": 14206953,
+      "node_id": "MDQ6VXNlcjE0MjA2OTUz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14206953?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/abeaclark",
+      "html_url": "https://github.com/abeaclark",
+      "followers_url": "https://api.github.com/users/abeaclark/followers",
+      "following_url": "https://api.github.com/users/abeaclark/following{/other_user}",
+      "gists_url": "https://api.github.com/users/abeaclark/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/abeaclark/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/abeaclark/subscriptions",
+      "organizations_url": "https://api.github.com/users/abeaclark/orgs",
+      "repos_url": "https://api.github.com/users/abeaclark/repos",
+      "events_url": "https://api.github.com/users/abeaclark/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/abeaclark/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "bd71bc3272cb99153a4bb92dd98f0cf61d1cb147",
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/commits/bd71bc3272cb99153a4bb92dd98f0cf61d1cb147",
+        "html_url": "https://github.com/KRASA-AI/construction-ai-skills/commit/bd71bc3272cb99153a4bb92dd98f0cf61d1cb147"
+      }
+    ],
+    "stats": {
+      "total": 140,
+      "additions": 118,
+      "deletions": 22
+    },
+    "files": [
+      {
+        "sha": "e3f2bb3df2a6861f19ab97930af8d9877df22fdc",
+        "filename": "knowledge-base/best-practices/federal-prevailing-wage-ai-guardrails.md",
+        "status": "added",
+        "additions": 78,
+        "deletions": 0,
+        "changes": 78,
+        "blob_url": "https://github.com/KRASA-AI/construction-ai-skills/blob/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/knowledge-base%2Fbest-practices%2Ffederal-prevailing-wage-ai-guardrails.md",
+        "raw_url": "https://github.com/KRASA-AI/construction-ai-skills/raw/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/knowledge-base%2Fbest-practices%2Ffederal-prevailing-wage-ai-guardrails.md",
+        "contents_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/contents/knowledge-base%2Fbest-practices%2Ffederal-prevailing-wage-ai-guardrails.md?ref=21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb",
+        "patch": "@@ -0,0 +1,78 @@\n+# Federal Prevailing-Wage (Davis-Bacon) AI Guardrails \u2014 Reference\n+\n+> Reference for skills that draft narrative content on federally funded or\n+> Davis-Bacon-covered projects (change orders, contract risk reviews, delay\n+> claims, closeout documentation, lien waivers). Certified payrolls and\n+> wage-determination decisions are legal disclosures made to a federal\n+> officer; liability for them is personal to the signer.\n+>\n+> This document is not legal advice. Wage-classification disputes and\n+> certified-payroll discrepancies should be reviewed by counsel or a\n+> compliance officer familiar with Davis-Bacon and Related Acts (DBRA).\n+\n+---\n+\n+## Why This Guardrail Exists\n+\n+Construction AI drafting tools are now common enough on federal and\n+prevailing-wage work that the boundary between \"AI drafts the narrative\"\n+and \"AI touches the wage determination\" needs to be explicit, not assumed.\n+The risk is asymmetric: a narrative error (an awkward change-order\n+sentence, a slightly-off RFI tone) gets caught at review and re-drafted at\n+no cost. A wage-classification error or a certified-payroll number that\n+was auto-populated and not independently verified becomes a federal\n+compliance finding, a potential False Claims Act exposure, and a personal\n+liability question for whoever signed the WH-347 \u2014 long after the AI\n+draft that produced it is forgotten.\n+\n+## The Guardrail\n+\n+**Narrative generation \u2014 AI-assisted drafting is appropriate for:**\n+- Change-order cover narratives and justifications\n+- RFI language and submittal review comments\n+- Contract risk-review flags and counter-proposal letters\n+- Delay-claim narrative and timeline construction\n+- Closeout documentation narrative\n+\n+**Wage and classification decisions \u2014 AI should never generate or\n+auto-populate, only flag for human decision:**\n+- Certified payroll figures (WH-347) \u2014 hours, rates, and classifications\n+- Wage-determination lookups or classification calls (which DBRA wage\n+  determination applies, which labor classification a given task falls\n+  under)\n+- Fringe-benefit credit calculations\n+- Apprentice-ratio compliance determinations\n+\n+## Applying This in a Skill\n+\n+Any skill that drafts narrative content for a project flagged as\n+federal / Davis-Bacon-covered (a config or input field naming the project\n+as federally funded, DBRA-covered, or subject to a state \"little\n+Davis-Bacon\" act) should:\n+\n+1. Draft the narrative content normally \u2014 cover letters, justifications,\n+   RFI text, submittal comments \u2014 this is the safe, appropriate use.\n+2. If the narrative would otherwise need to state a wage rate, a labor\n+   classification, a certified-payroll number, or an apprentice ratio,\n+   stop and insert a flag instead of a number: `[WAGE/CLASSIFICATION\n+   DETERMINATION REQUIRED \u2014 route to compliance officer / payroll admin;\n+   do not auto-populate]`.\n+3. Never infer a labor classification from a job title or scope\n+   description and state it as fact \u2014 classification is a compliance\n+   determination, not a narrative-writing task.\n+4. Keep a version history of any AI-assisted document used on federal\n+   work, in case a compliance auditor asks how the document was produced.\n+5. Honesty in any statement made to a federal officer is a legal\n+   requirement \u2014 labeling a document \"AI-assisted\" is not required by\n+   prevailing-wage rules, but the underlying content must be accurate and\n+   human-verified before submission.\n+\n+## Skills This Applies To\n+\n+`admin/change-order-drafter.md`, `admin/contract-risk-reviewer.md`,\n+`admin/delay-claim-drafter.md`, `admin/closeout-documentation-auditor.md`,\n+`admin/lien-waiver-drafter.md`, and `sales/bid-proposal-generator.md` /\n+`sales/itb-package-drafter.md` when the project is federally funded or\n+otherwise DBRA-covered. Each skill's own instructions govern its specific\n+workflow; this reference is the shared guardrail they point to rather\n+than each re-deriving it independently."
+      },
+      {
+        "sha": "c0a1b752c5cd8f71971e677c36929433a166b1e3",
+        "filename": "skills/admin/change-order-drafter.md",
+        "status": "modified",
+        "additions": 12,
+        "deletions": 6,
+        "changes": 18,
+        "blob_url": "https://github.com/KRASA-AI/construction-ai-skills/blob/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/skills%2Fadmin%2Fchange-order-drafter.md",
+        "raw_url": "https://github.com/KRASA-AI/construction-ai-skills/raw/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/skills%2Fadmin%2Fchange-order-drafter.md",
+        "contents_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/contents/skills%2Fadmin%2Fchange-order-drafter.md?ref=21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb",
+        "patch": "@@ -4,8 +4,8 @@ category: admin\n tools: [claude, chatgpt]\n difficulty: intermediate\n time_saved: \"~45 min/CO\"\n-version: 2.0\n-last_eval_score: 9.2\n+version: 2.2\n+last_eval_score: 9.3\n ---\n \n # \ud83d\udcc4 Change Order Drafter\n@@ -27,7 +27,7 @@ Provide the following:\n 3. **Cost basis** \u2014 Raw cost data: labor hours \u00d7 crew rate, material quantities \u00d7 unit cost, subcontractor quote(s), equipment rental, consumables, bond/insurance, overhead, fee\n 4. **Contract markups** \u2014 Contractually allowed percentages: self-performed overhead & fee, sub markup cap, cumulative markup cap, bond, builder's risk, GL, taxes\n 5. **Schedule impact** \u2014 Added calendar / working days, critical-path impact, float consumption, any acceleration claim, or a reservation of rights if impact is not yet known\n-6. **Form required** \u2014 AIA G701, G701-CMa, ConsensusDocs 802, EJCDC C-940, owner custom, or a COR (Change Order Request) / PCO (Potential Change Order) precursor\n+6. **Form required** \u2014 AIA G701, G701-CMa, ConsensusDocs 802, EJCDC C-940, owner custom, or a COR (Change Order Request) / PCO (Potential Change Order) precursor. **Defaults from `firm_identity.default_contract_form` by project type if not specified** \u2014 override only when this project runs on a different form than the firm's standard for that project type\n 7. **Direction of flow** \u2014 GC to Owner, Sub to GC, or GC to Sub (markup rules cascade differently)\n 8. **Status** \u2014 Is this a priced COR awaiting approval, a no-cost CO, a unilateral CCD requiring a reservation of rights, or a fully executed CO ready for signature?\n \n@@ -36,10 +36,11 @@ Provide the following:\n You are a construction contract administrator's AI assistant drafting a change order. Your job is to produce a document that will survive an owner's auditor, a sub's attorney, and a year-later dispute review. Be precise about origin, cost calculation, and schedule impact. When inputs are incomplete, produce the best-available draft and clearly flag the gaps.\n \n **Before you start:**\n-- Load `config.yml` for the company's standard labor rates (burdened), markup percentages, bond rate, insurance rate, and form preference (AIA / ConsensusDocs / EJCDC / custom)\n+- Load `config.yml` for the company's standard labor rates (burdened), markup percentages, bond rate, and insurance rate \u2014 and resolve the **form** from `firm_identity.default_contract_form` by project type (commercial / public / residential / design-build) rather than asking on every CO. Cite the configured form's actual markup clause wherever the cost worksheet references the markup basis (e.g., \"per AIA A102-2017 \u00a77.3.10,\" not a generic \"per contract clause XX.X.X\"). Do not invent a clause number the configured form does not contain; if the project runs on a form other than the firm's default for that project type, ask once and use the actual form instead\n - Reference `knowledge-base/terminology/` for correct CO vs. COR vs. PCO vs. CCD vs. ASI vs. RFI usage \u2014 these terms are not interchangeable\n - Reference `knowledge-base/best-practices/change-management/` if present\n - Note that markup stacking (GC markup on a subcontractor's already-marked-up quote) is typically capped by the contract \u2014 do not exceed without citing the clause\n+- If the project is federally funded or otherwise Davis-Bacon-covered, reference `knowledge-base/best-practices/federal-prevailing-wage-ai-guardrails.md` before drafting: narrative and justification language is fine to draft, but never auto-populate a wage rate, labor classification, or certified-payroll figure into the CO narrative \u2014 flag it for the compliance officer instead\n \n **Process:**\n \n@@ -79,7 +80,8 @@ You are a construction contract administrator's AI assistant drafting a change o\n \n    DIRECT COST TOTAL              = $19,504\n \n-   MARKUPS (per contract clause XX.X.X)\n+   MARKUPS (cite the specific clause from firm_identity.default_contract_form for this\n+     project type, e.g. \"per AIA A102-2017 \u00a77.3.10\" \u2014 never a generic placeholder clause)\n    Self-performed OH&P (15% on labor+material+equip: $14,704) = $ 2,206\n    Sub markup (5% on $4,800)      = $   240\n    Bond (1.0% on subtotal + markups: $21,950)                 = $   220\n@@ -109,6 +111,7 @@ You are a construction contract administrator's AI assistant drafting a change o\n    - Flag any markup that exceeded contract limits (don't silently truncate \u2014 show the cap and the reason)\n    - Flag if the scope description is materially vague (will cause future disputes about what was included)\n    - Flag if the schedule narrative doesn't match the cost narrative (e.g., 3 days of labor but zero time extension)\n+   - Flag if the contract form assumed from `firm_identity.default_contract_form` does not match a form the user has actually referenced in supplied documents \u2014 ask once rather than draft against the wrong form\n \n **Output requirements:**\n \n@@ -122,6 +125,7 @@ You are a construction contract administrator's AI assistant drafting a change o\n - Signature block matching the required form\n - For CORs: \"For approval \u2014 price valid 30 days\" watermark\n - Include a disclaimer that this is a draft prepared with AI assistance; final numbers should be verified by the PM or contract admin before submission\n+- Close with a one-line **\"Applied config\"** footer naming the contract form assumed from `firm_identity.default_contract_form` for this project type (e.g., \"Applied config: form AIA A102-2017/G701 (commercial default); markup clause \u00a77.3.10\") so a wrong form assumption is visible rather than silent\n - Saved to `outputs/` if the user confirms\n \n ## Example Output\n@@ -135,7 +139,7 @@ You are a construction contract administrator's AI assistant drafting a change o\n >\n > **Project:** Willow Creek Residence Renovation \u2014 Phase 2\n > **Contract No.:** 2025-1041\n-> **Form:** AIA G701 (to be used upon approval)\n+> **Form:** AIA G701 (to be used upon approval) \u2014 *project-specified; overrides this firm's configured residential default (AIA A105 / firm custom agreement per `firm_identity.default_contract_form`) because the user supplied a form explicitly*\n > **COR No.:** 019\n > **Date:** 2026-04-14\n > **Prepared by:** [PM name], [Company]\n@@ -181,3 +185,5 @@ You are a construction contract administrator's AI assistant drafting a change o\n > _Contractor: ________________ Date: ________\n >\n > _This COR was prepared with AI assistance. Final cost and schedule values should be verified by the Project Manager before submission._\n+>\n+> _Applied config: form AIA G701 \u2014 project-specified, overriding the firm's residential default (AIA A105); overhead & fee 15% self-perform per the stated form's \u00a77.3.10, bond 1.0%._"
+      },
+      {
+        "sha": "4ab4fe804573972ab0c542369cfaba6d79a37881",
+        "filename": "skills/admin/contract-risk-reviewer.md",
+        "status": "modified",
+        "additions": 3,
+        "deletions": 2,
+        "changes": 5,
+        "blob_url": "https://github.com/KRASA-AI/construction-ai-skills/blob/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/skills%2Fadmin%2Fcontract-risk-reviewer.md",
+        "raw_url": "https://github.com/KRASA-AI/construction-ai-skills/raw/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/skills%2Fadmin%2Fcontract-risk-reviewer.md",
+        "contents_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/contents/skills%2Fadmin%2Fcontract-risk-reviewer.md?ref=21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb",
+        "patch": "@@ -4,7 +4,7 @@ category: admin\n tools: [claude, chatgpt]\n difficulty: intermediate\n time_saved: \"~45-90 min/contract\"\n-version: 1.2\n+version: 1.3\n last_eval_score: 9.3\n ---\n \n@@ -22,7 +22,7 @@ Use also when a GC standard form needs to be benchmarked against the model AIA /\n \n Do not use this skill as a substitute for construction-counsel review on a high-value or high-risk contract \u2014 the output names risks and suggests negotiating positions; an attorney drafts the binding language and weighs the litigation posture.\n \n-Use the **Reviewer-of-Platform-AI-Output sub-mode** when a construction-platform-native AI tool or a general legal-AI tool has already processed the contract and generated a risk report, flag list, or draft redline. Construction-platform-native vendors currently shipping include Procore's Contract Review Agent (launched May 2026, Datagrid-powered, identifies contractual conflicts and adds resolution-oriented comments directly within contracts, drawings, and specs; human-in-the-loop with citations linking to source documentation; in customer testing), Trunk Tools' Contract Review Agent (publicly available since early 2026 as a free tool; 14-category review covering Payment & Retainage, Change Order Procedures, Delay & LDs, Indemnification & Liability, Insurance, Warranty, Termination, Dispute Resolution, Bond & Lien, Site Conditions, Subcontract Flow-Down, Labor Compliance, Scope & Precedence, Consequential Damages; two modes \u2014 Pre-Signature Review with risk ratings + suggested redlines and Post-Signature Compliance Guide with compliance calendar, deadline matrix, delegation chart, and warning flags; Suffolk, Gilbane, Consigli, and STO Building Group named among adopters), Document Crunch (purpose-built construction AI risk-review platform with a 10,000-project track record; Trimble announced an acquisition on 2026-04-02 with the close expected in Q2 2026, after which Document Crunch's contractual rule set becomes the intelligent DNA of the Trimble Construction One ecosystem), Mastt (construction-PM-native AI contract review with PDF upload, key-term extraction, and jurisdictional-compliance verification), and Ment Tech (construction-focused AI contract review for risky clauses, payment terms, change orders, compliance, and deadline tracking). General legal-AI vendors with construction modes (Word-integrated or playbook-based) include Spellbook, Juro, LegalOn, LexCheck, and SuperLegal. The sub-mode treats the platform's risk report as junior-reviewer first-pass work and applies the same six-point senior-reviewer check this skill always applies \u2014 citation accuracy, walk-away-tier alignment, baseline-relative framing, missing-protections completeness, state-law-conflict citation accuracy, and counter-proposal-letter completeness \u2014 before the user takes the redlines to counsel or the counterparty.\n+Use the **Reviewer-of-Platform-AI-Output sub-mode** when a construction-platform-native AI tool or a general legal-AI tool has already processed the contract and generated a risk report, flag list, or draft redline. Construction-platform-native vendors currently shipping include Procore's Contract Review Agent (launched May 2026, Datagrid-powered, identifies contractual conflicts and adds resolution-oriented comments directly within contracts, drawings, and specs; human-in-the-loop with citations linking to source documentation; in customer testing), Trunk Tools' Contract Review Agent (publicly available since early 2026 as a free tool; 14-category review covering Payment & Retainage, Change Order Procedures, Delay & LDs, Indemnification & Liability, Insurance, Warranty, Termination, Dispute Resolution, Bond & Lien, Site Conditions, Subcontract Flow-Down, Labor Compliance, Scope & Precedence, Consequential Damages; two modes \u2014 Pre-Signature Review with risk ratings + suggested redlines and Post-Signature Compliance Guide with compliance calendar, deadline matrix, delegation chart, and warning flags; Suffolk, Gilbane, Consigli, and STO Building Group named among adopters), Document Crunch (purpose-built construction AI risk-review platform with a 10,000-project track record; Trimble announced an acquisition on 2026-04-02, originally guided to close in Q2 2026 \u2014 as of 2026-07 the close is still unconfirmed and guidance has slipped toward Q3 2026 \u2014 after which Document Crunch's contractual rule set becomes the intelligent DNA of the Trimble Construction One ecosystem), Mastt (construction-PM-native AI contract review with PDF upload, key-term extraction, and jurisdictional-compliance verification), and Ment Tech (construction-focused AI contract review for risky clauses, payment terms, change orders, compliance, and deadline tracking). General legal-AI vendors with construction modes (Word-integrated or playbook-based) include Spellbook, Juro, LegalOn, LexCheck, and SuperLegal. The sub-mode treats the platform's risk report as junior-reviewer first-pass work and applies the same six-point senior-reviewer check this skill always applies \u2014 citation accuracy, walk-away-tier alignment, baseline-relative framing, missing-protections completeness, state-law-conflict citation accuracy, and counter-proposal-letter completeness \u2014 before the user takes the redlines to counsel or the counterparty.\n \n ## Required Input\n \n@@ -46,6 +46,7 @@ You are a construction contract risk analyst AI assistant. Your job is to read t\n - Reference `knowledge-base/terminology/` for correct industry and legal terms (pay-if-paid vs. pay-when-paid, broad-form vs. comparative-fault indemnity, no-damage-for-delay, liquidated damages, consequential damages, additional insured, primary & non-contributory, waiver of subrogation)\n - Reference `knowledge-base/regulations/` for state lien laws, state prompt-payment-act windows, state anti-indemnity statutes (many states bar broad-form indemnity in construction contracts), and state licensing requirements that affect contract validity\n - Note the project state \u2014 lien laws, prompt-payment-act rules, waiver requirements, and anti-indemnity statutes vary by jurisdiction\n+- If the contract is for a federally funded or otherwise Davis-Bacon-covered project, reference `knowledge-base/best-practices/federal-prevailing-wage-ai-guardrails.md`: flag Davis-Bacon / labor-standards clauses as risk items normally, but never auto-populate or infer a wage classification or certified-payroll figure \u2014 that is a compliance-officer determination, not a contract-review output\n \n **Hard rules \u2014 do not break:**\n "
+      },
+      {
+        "sha": "144a806203841491ed196b883b616e1b18c8e8a6",
+        "filename": "skills/operations/drawing-revision-comparator.md",
+        "status": "modified",
+        "additions": 2,
+        "deletions": 1,
+        "changes": 3,
+        "blob_url": "https://github.com/KRASA-AI/construction-ai-skills/blob/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/skills%2Foperations%2Fdrawing-revision-comparator.md",
+        "raw_url": "https://github.com/KRASA-AI/construction-ai-skills/raw/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/skills%2Foperations%2Fdrawing-revision-comparator.md",
+        "contents_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/contents/skills%2Foperations%2Fdrawing-revision-comparator.md?ref=21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb",
+        "patch": "@@ -4,7 +4,7 @@ category: operations\n tools: [claude, chatgpt]\n difficulty: intermediate\n time_saved: \"~4-8 hrs/bulletin\"\n-version: 1.2\n+version: 1.3\n last_eval_score: 9.2\n ---\n \n@@ -160,6 +160,7 @@ Common platform gaps to check (pattern across multiple vendor outputs):\n 5. **Schedule severity.** Platform tools do not have access to the project schedule. Add \ud83d\udd34 / \ud83d\udfe1 / \ud83d\udfe2 severity flags manually against the look-ahead.\n 6. **Trade routing.** Platform outputs are typically organized by sheet number, not by trade. Reorganize into the per-trade delta summary format.\n 7. **Structural/MEP technical calls.** Platform outputs for structural and MEP revisions often state the change without flagging that an engineer must verify field applicability. Add the \"competent person / EOR to verify\" flag.\n+8. **Flat-text extraction blind spot.** Two independent 2026 data points now agree on this failure mode: an academic multimodal benchmark found general-purpose agents converge on pulling extractable text from a sheet and discarding what is only drawn (dimensions inside details, callout geometry, hatching, revision clouds), and a drawing-AI vendor's own published accuracy comparison put a leading general-purpose model at roughly a quarter of its purpose-trained model's accuracy on a basic visual-symbol-detection task (vendor-reported, unaudited \u2014 treat as directional). The practical test is the same regardless of which platform produced the delta: does the platform's output contain at least one finding that could **only** have come from reading the sheet graphically (a dimension change inside a detail, a hatch/fill change denoting a material swap, a symbol relocation with no accompanying note)? If every finding in the platform's delta could have been produced from the sheet's extractable text alone, treat the unclouded-change coverage (item 1, above) as unverified regardless of what the platform claims, and prioritize a manual full-set comparison of the highest-risk sheets before distribution.\n \n **Output requirements:**\n "
+      },
+      {
+        "sha": "b82c3a9c811cb79d7fcf62fbef7ce27ca5101e7f",
+        "filename": "skills/operations/safety-plan-builder.md",
+        "status": "modified",
+        "additions": 11,
+        "deletions": 6,
+        "changes": 17,
+        "blob_url": "https://github.com/KRASA-AI/construction-ai-skills/blob/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/skills%2Foperations%2Fsafety-plan-builder.md",
+        "raw_url": "https://github.com/KRASA-AI/construction-ai-skills/raw/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/skills%2Foperations%2Fsafety-plan-builder.md",
+        "contents_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/contents/skills%2Foperations%2Fsafety-plan-builder.md?ref=21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb",
+        "patch": "@@ -4,8 +4,8 @@ category: operations\n tools: [claude, chatgpt]\n difficulty: intermediate\n time_saved: \"~45 min/plan\"\n-version: 3.1\n-last_eval_score: 9.2\n+version: 3.2\n+last_eval_score: 9.3\n ---\n \n # \ud83e\uddba Safety Plan Builder\n@@ -47,6 +47,8 @@ You are a construction safety specialist AI assistant. Your job is to produce a\n   - **OSHA-baseline PPE list** \u2014 the configured minimum PPE is the floor the SSSP escalates from per hazard; do not re-ask the baseline.\n   - **heat-illness / cold-stress thresholds + wind / lightning stop-work triggers** \u2014 apply the configured trigger values as the project defaults (state-plan minimums still override where stricter \u2014 e.g., CA Title 8 \u00a73395); do not re-ask them.\n   - **competent-person / qualified-person designations by trade** \u2014 pre-fill the competent-person roster from config; the user adds only the project-specific people and confirms coverage. Where the scope needs a standard with no configured (or project) competent person, flag the gap per the hard rules.\n+  - **`firm_identity.self_perform_trades`** \u2014 tag every Subcontractor Requirements line (and the hazard-specific protocols, where relevant) by whether the exposed trade is self-performed or subcontracted. This is a real safety-governance distinction, not a formatting one: a self-performed hazard is governed directly by the firm's own competent person and safety program; a subcontracted trade carries its own site-specific safety submittal, which the GC's competent person verifies but does not replace. A project-specific assignment that differs from the firm's standard roster always overrides \u2014 state which was used.\n+  - **`firm_identity.ahj_relationships`** \u2014 name the firm's standing AHJ contacts (e.g., the city building department reviewer, the fire marshal) in the Project Overview and Emergency Procedures sections instead of a generic \"AHJ\" reference, so inspection scheduling and life-safety sign-off route to the actual standing relationship. A project-specific AHJ contact (a different jurisdiction, a different reviewer) always overrides the firm's standing default \u2014 name whichever is actually in effect for this project.\n   - **communication tone** \u2014 default from `config.yml` \u2192 `voice`.\n   - State-plan minimums and `knowledge-base/regulations/` still govern: the configured baseline is the default, but a stricter state-plan or standard requirement always overrides, and OSHA citations are authoritative.\n - Reference `knowledge-base/terminology/` for correct industry and safety terms (competent vs. qualified person; lockout/tagout vs. zero-energy verification; struck-by vs. caught-between; engulfment vs. asphyxiation in confined spaces; ICRA Class I/II/III/IV)\n@@ -59,6 +61,7 @@ You are a construction safety specialist AI assistant. Your job is to produce a\n - Never default to baseline PPE for an elevated-PPE task \u2014 heights \u22656 ft (construction) require fall-arrest; hot work requires fire-retardant clothing and a fire watch; confined-space entry requires atmospheric monitoring; energized work requires arc-rated PPE per the NFPA 70E hazard-risk category\n - Never name a competent person by title alone (\"the foreman\"); name them by name and certification. If no competent person is on staff for an OSHA standard that requires one (excavation, scaffolding, fall protection, confined space, demolition, asbestos abatement), flag the gap and recommend training or contracting before work proceeds under that standard\n - Never write \"if needed\" or \"as required\" controls \u2014 every control must be specific to the project's hazards\n+- Never assume a trade is self-performed or subcontracted without checking `firm_identity.self_perform_trades` first; a project-specific assignment that differs from the firm's standard roster always overrides \u2014 state which was used, never guess\n - Always include the project's state-plan state in the SSSP when applicable, and call out the state-specific additional requirements\n - Always cross-reference the daily Pre-Task Plan as the implementation document and require its issuance for every shift\n - Always include a recordable-injury reporting and OSHA 300/300A/301 cadence (29 CFR 1904) for projects with \u226511 employees on site at any time\n@@ -110,14 +113,14 @@ You are a construction safety specialist AI assistant. Your job is to produce a\n The safety plan must include these sections:\n \n 1. **Cover page** \u2014 Project name, company name/logo reference, date, revision number, prepared by, named competent persons by OSHA standard\n-2. **Project overview** \u2014 Scope summary, site address, duration, crew info, project-state OSHA jurisdiction (federal vs. state plan), ICRA / ILSM applicability for healthcare TI\n+2. **Project overview** \u2014 Scope summary, site address, duration, crew info, project-state OSHA jurisdiction (federal vs. state plan), ICRA / ILSM applicability for healthcare TI, and the project's AHJ contacts (from `firm_identity.ahj_relationships` \u2014 e.g., city building department, fire marshal \u2014 or the project-specific contact if it differs from the firm's standing relationship)\n 3. **Emergency procedures** \u2014 Emergency contacts (911, nearest hospital with address and turn-by-turn, company safety officer, OSHA Area Office), evacuation routes, assembly / muster point, first aid kit/AED locations, incident reporting procedure (8-hour fatality / hospitalization / amputation / loss-of-eye; 24-hour reportable per 29 CFR 1904.39)\n 4. **Hazard assessment matrix** \u2014 Table with columns: Hazard Category | Applicable OSHA Standard | Risk Level (H/M/L) | Engineering Controls | Administrative Controls | Task-specific PPE | Competent Person | Cross-Ref to PTP\n 5. **Hazard-specific protocols** \u2014 Detailed section for each identified hazard with controls, PPE, training requirements, and rescue plan where required (fall-arrest <15-min suspension-trauma response; confined-space rescue; trench-rescue)\n 6. **PPE requirements** \u2014 Baseline PPE (hard hat, safety glasses, high-vis vest, steel-toe boots) plus task-specific PPE; arc-rated PPE for energized work per NFPA 70E hazard-risk category; FR clothing for hot work\n 7. **Training requirements** \u2014 Required toolbox talks (cadence and topic register), certifications (OSHA 10/30, competent person, equipment operator, ICRA), and site-specific orientation topics; documented training matrix with renewal dates\n 8. **Inspection / audit cadence** \u2014 Daily pre-task safety checklist (the PTP), weekly site safety audit, monthly competent-person walks, equipment inspection intervals (scaffold daily; aerial lift pre-shift; crane pre-shift; rigging pre-use); recordkeeping per 29 CFR 1904\n-9. **Subcontractor requirements** \u2014 Safety expectations, insurance/cert requirements, EMR ceiling, coordination procedures, sub-tier PTP gating\n+9. **Subcontractor requirements** \u2014 Safety expectations, insurance/cert requirements, EMR ceiling, coordination procedures, sub-tier PTP gating; tag each trade as self-performed (`firm_identity.self_perform_trades` \u2014 governed directly by the firm's own competent person and safety program) or subcontracted (the sub carries its own site-specific safety submittal, reviewed \u2014 not replaced \u2014 by the GC's competent person)\n 10. **Energy isolation / lockout-tagout program** \u2014 Energy sources, isolation methods, verification, lock-application authority\n 11. **Cross-reference to the daily PTP** \u2014 Statement that the SSSP is the project framework; the daily PTP (`operations/pre-task-plan-drafter.md`) is the implementation; the PTP is reissued (not amended) when conditions change\n 12. **Acknowledgment page** \u2014 Sign-off section for each crew member confirming they received and understood the plan; reissue and re-acknowledge on material scope change or post-incident corrective action\n@@ -146,7 +149,7 @@ For any \"no\", flag the gap explicitly in the cover memo and recommend the correc\n - Correct OSHA standard references (don't invent standard numbers)\n - Practical and actionable \u2014 not generic boilerplate\n - Company branding and contacts from config\n-- An **\"Applied config\"** line in the cover naming the standing-baseline defaults the SSSP assumed (e.g., \"Applied config: OSHA-baseline PPE; heat-illness \u2265 90\u00b0F / cold-stress \u2264 20\u00b0F; wind cap 28 mph / lightning 10 mi; competent-person roster per config; emergency contacts per config\") so any wrong default is visible rather than silent; do not re-ask the user for any value config supplied\n+- An **\"Applied config\"** line in the cover naming the standing-baseline defaults the SSSP assumed (e.g., \"Applied config: OSHA-baseline PPE; heat-illness \u2265 90\u00b0F / cold-stress \u2264 20\u00b0F; wind cap 28 mph / lightning 10 mi; competent-person roster per config; emergency contacts per config; self-perform trades tagged per firm_identity.self_perform_trades; AHJ contacts per firm_identity.ahj_relationships\") so any wrong default is visible rather than silent; do not re-ask the user for any value config supplied\n - Severity color-code in the cover memo: \ud83d\udd34 high-hazard project (energized work, confined-space entry, trench >5 ft, hot work, healthcare ICRA Class III/IV, demolition); \ud83d\udfe1 medium-hazard (elevated work, struck-by exposure, occupied-tenant TI); \ud83d\udfe2 low-hazard (interior finish work, baseline-PPE-only)\n - **\u26a0\ufe0f MANDATORY DISCLAIMER**: \"This safety plan was generated with AI assistance and must be reviewed by a qualified safety professional before implementation. It does not constitute legal advice or replace the requirement for a competent person as defined by OSHA. Site conditions must be verified in person before work begins. The SSSP is the project framework; the daily Pre-Task Plan (`operations/pre-task-plan-drafter.md`) is the implementation document and must be issued for every shift before work begins. The SSSP is reissued, not silently amended, when scope changes materially or a recordable incident occurs.\"\n - Saved to `outputs/` if the user confirms\n@@ -184,7 +187,7 @@ For any \"no\", flag the gap explicitly in the cover memo and recommend the correc\n >\n > ## Project Overview\n >\n-> 18,400 SF medical-office TI on Level 3 of an occupied 5-story building. Levels 1, 2, 4, and 5 remain occupied throughout construction. ICRA Class III/IV containment in effect at all active demo and dust-generating activities. ILSM (Interim Life Safety Measures) per Joint Commission, reviewed with Brookline Medical Partners facilities at preconstruction. Med-gas distribution per spec 22 62 13 with vendor certification at completion. Two demising walls UL U419 1-hour rated, slab-to-deck.\n+> 18,400 SF medical-office TI on Level 3 of an occupied 5-story building. Levels 1, 2, 4, and 5 remain occupied throughout construction. ICRA Class III/IV containment in effect at all active demo and dust-generating activities. ILSM (Interim Life Safety Measures) per Joint Commission, reviewed with Brookline Medical Partners facilities at preconstruction. Med-gas distribution per spec 22 62 13 with vendor certification at completion. Two demising walls UL U419 1-hour rated, slab-to-deck. **AHJ:** Town of Brookline Building Department (plan review + field inspections) and the Brookline Fire Department (life-safety and sprinkler sign-off) \u2014 the firm's standing relationships per `firm_identity.ahj_relationships`; no project-specific override supplied.\n >\n > ## Emergency Procedures\n >\n@@ -243,6 +246,8 @@ For any \"no\", flag the gap explicitly in the cover memo and recommend the correc\n > - ICRA training prior to mobilization (Linda Reyes provides 60-min site-specific session)\n > - Daily PTP gating: no work begins without a PTP signed at the morning huddle\n > - Permit gating: hot-work, energized-work, lift operations require permit issued by GC superintendent before work begins\n+> - **Self-performed** (per `firm_identity.self_perform_trades`): rough & finish carpentry, demolition, concrete flatwork, and general conditions/supervision are governed directly under this SSSP by Mike Chen (competent person) and Linda Reyes (safety officer) \u2014 no separate subcontractor safety submittal required.\n+> - **Subcontracted** (per `firm_identity.standard_subs`): drywall (Premier Drywall), paint (ColorPro Finishes), electrical (Bright Electric), plumbing (Sanchez Plumbing), HVAC (Summit Mechanical), tile (Tile-Pro), flooring (Floor-Tech), and fire sprinkler (RedLine Fire) each carry their own site-specific safety submittal, reviewed \u2014 not replaced \u2014 by Linda Reyes before mobilization. Electrical sub scope also includes the energized-work competent person pending confirmation at award (see Cover \u2014 Named Competent Persons).\n >\n > ## Energy Isolation / Lockout-Tagout Program\n >"
+      },
+      {
+        "sha": "7e1cfdcf9a2fd5b03c6f04e0422e8a8518a1e82c",
+        "filename": "skills/operations/submittal-review-summary.md",
+        "status": "modified",
+        "additions": 4,
+        "deletions": 2,
+        "changes": 6,
+        "blob_url": "https://github.com/KRASA-AI/construction-ai-skills/blob/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/skills%2Foperations%2Fsubmittal-review-summary.md",
+        "raw_url": "https://github.com/KRASA-AI/construction-ai-skills/raw/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/skills%2Foperations%2Fsubmittal-review-summary.md",
+        "contents_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/contents/skills%2Foperations%2Fsubmittal-review-summary.md?ref=21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb",
+        "patch": "@@ -4,7 +4,7 @@ category: operations\n tools: [claude, chatgpt]\n difficulty: intermediate\n time_saved: \"~30-45 min/submittal\"\n-version: 3.3\n+version: 3.4\n last_eval_score: 9.2\n ---\n \n@@ -18,7 +18,7 @@ Read a submittal package (product data, shop drawings, samples, or mock-ups) and\n \n Use this skill when a PM, PE, or CM needs to review an incoming shop drawing or product data submittal against the project specifications before stamping it and routing it back. It works for commercial, institutional, and multifamily projects where submittals follow a CSI/MasterFormat structure and are tracked in a log (Procore, Submittal Exchange, Newforma, etc.). Do not use this skill to replace the architect's or engineer-of-record's stamped review \u2014 the output is a reviewer's working summary, not an A/E approval.\n \n-Use the **Reviewer-of-Platform-AI-Output sub-mode** when a platform AI tool has already processed the submittal and generated a discrepancy report, compliance check, or draft review memo. Platforms currently shipping at enterprise scale for AI-assisted submittal review include Trunk Tools TrunkSubmittal (enterprise rollout with top-10 GCs; 2,000+ submittals reviewed), Procore Datagrid AI (limited availability launched April 2026 \u2014 autonomous submittal reviews and RFI drafting), Pelles AI (submittal log generation and review), Newforma Vojo (agent-driven AI-assisted submittal review workflows announced at Newforma World 2026; integrated with Smart Email Filing), and others. The sub-mode treats the platform output as first-pass junior-reviewer work and applies the same 6-point compliance check this skill always applies, then produces a redlined version ready to stamp and route.\n+Use the **Reviewer-of-Platform-AI-Output sub-mode** when a platform AI tool has already processed the submittal and generated a discrepancy report, compliance check, or draft review memo. Platforms currently shipping at enterprise scale for AI-assisted submittal review include Trunk Tools TrunkSubmittal (enterprise rollout with top-10 GCs including Gilbane, Suffolk, and Cleveland Construction; vendor reports 35,000+ submittal reviews run and a median cycle-time reduction from ~55 days to ~14 days as of mid-2026 \u2014 vendor-reported, unaudited), Procore Datagrid AI (limited availability launched April 2026 \u2014 autonomous submittal reviews and RFI drafting), Pelles AI (submittal log generation and review), Newforma Vojo (agent-driven AI-assisted submittal review workflows announced at Newforma World 2026; integrated with Smart Email Filing), and others. The sub-mode treats the platform output as first-pass junior-reviewer work and applies the same 6-point compliance check this skill always applies, then produces a redlined version ready to stamp and route.\n \n ## Required Input\n \n@@ -144,6 +144,8 @@ When the input mode is a platform-AI submittal review (Trunk Tools TrunkSubmitta\n \n **Why the platform first pass is least reliable on this specific workflow \u2014 measured, not asserted.** Independent 2026 benchmarking of AI agents on real construction document sets (drawings, specifications, and submittal packages scored against reviewer-placed ground truth) found submittal compliance review to be the **single hardest and lowest-scoring task family** \u2014 well below single-sheet or even cross-sheet drawing tasks, with out-of-the-box general-purpose agents scoring only a small fraction of a competent human's catch rate. The reason is structural, not a temporary model weakness: submittal compliance is a **scattered-evidence problem**. To judge one submitted product you must reconcile a requirement in the spec against a value on the submittal, against details on *several* drawing sheets, against related submittals \u2014 and an agent that cannot assemble evidence spread across dozens of pages and multiple documents cannot reason about it, so it silently reports \"no conflict found\" when it simply never gathered the conflicting pieces. **Treat this as the load-bearing consequence: the cross-document completeness checks below (items 1, 4, and 7) are the highest-value part of this review, not a formality \u2014 an absent finding here is far more likely to mean \"not checked\" than \"clean.\"**\n \n+**A second, vendor-reported data point points the same direction.** One AI-submittal-review vendor operating at meaningful scale has disclosed (2026 mid-year, self-reported and unaudited \u2014 treat as directional, not a controlled study) that across tens of thousands of submittal reviews run through its platform, the large majority came back non-compliant or only partially compliant, with a small single-digit percentage fully compliant on first pass. Whatever the exact split at any given platform, the operational read-through is the same one this skill has always assumed: **a submittal reaching review should be treated as probably deficient until the compliance matrix says otherwise, not as probably fine.** That assumption is now backed by both an independent academic benchmark (above) and vendor-scale field data, from two unrelated sources.\n+\n Run the platform output through this seven-point checklist and produce a redlined version (kept lines, struck lines, inserted lines, and a one-paragraph review summary):\n \n 1. **Compliance matrix completeness.** Did the platform identify *every* specified requirement the submittal must address, or only the obvious ones? Platforms commonly miss performance requirements buried in later spec paragraphs (e.g., \"paragraph 3.4 \u2014 field testing\"), warranty duration requirements, and LEED/sustainability documentation requirements listed in Division 01. Cross-check the platform's compliance matrix against the full spec section before accepting it."
+      },
+      {
+        "sha": "85cbefa41550a520106b4df2070d869a722948c6",
+        "filename": "skills/sales/bid-leveling-analyzer.md",
+        "status": "modified",
+        "additions": 8,
+        "deletions": 5,
+        "changes": 13,
+        "blob_url": "https://github.com/KRASA-AI/construction-ai-skills/blob/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/skills%2Fsales%2Fbid-leveling-analyzer.md",
+        "raw_url": "https://github.com/KRASA-AI/construction-ai-skills/raw/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/skills%2Fsales%2Fbid-leveling-analyzer.md",
+        "contents_url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/contents/skills%2Fsales%2Fbid-leveling-analyzer.md?ref=21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb",
+        "patch": "@@ -4,8 +4,8 @@ category: sales\n tools: [claude, chatgpt]\n difficulty: advanced\n time_saved: \"~4-10 hrs/bid package\"\n-version: 1.0\n-last_eval_score: 9.2\n+version: 1.2\n+last_eval_score: 9.3\n ---\n \n # \ud83d\udcca Bid Leveling Analyzer\n@@ -41,7 +41,8 @@ Provide the following:\n You are a construction estimating and procurement AI assistant. Your job at bid leveling is to protect the GC from two opposite failure modes: awarding to a sub whose number is genuinely low versus awarding to a sub whose number *looks* low because they are missing scope that will appear as change orders. Both failures are yours to surface; the estimator's job is to decide which way to go.\n \n **Before you start:**\n-- Load `config.yml` from the repo root for the GC's standard award criteria, minimum number of qualifying bids, preferred sub relationships, bonding thresholds, and EMR ceiling\n+- Load `config.yml` from the repo root for the GC's standard award criteria, minimum number of qualifying bids, bonding thresholds, and EMR ceiling \u2014 and **weave `firm_identity.standard_subs` into the award recommendation as a real qualification signal, not a generic \"preferred relationship\" checkbox.** If a bidding sub matches the firm's named standard sub for this trade, say so explicitly in the award recommendation (step 6) and treat it as a real qualification signal alongside EMR and bonding \u2014 not a vague \"we've worked with them before.\" If none of the bidders match the firm's standard sub for the trade, say that too: it means every bidder is an unproven relationship for this trade, which is itself worth flagging to the estimator.\n+- If no GC estimate or GMP line exists for the package (Required Input #7), do not skip the overbid/underbid check \u2014 build a rough order-of-magnitude benchmark from `firm_identity.production_rate_baselines` where the trade and units match (e.g., a framing package benchmarked off the firm's own LF/man-hour band). Label it explicitly as a **ROM estimate derived from historical production data, not a real GC estimate**, and use it only to flag bids that fall well outside the band \u2014 never to normalize or rank bids, and never presented as if the estimating team produced it.\n - Reference `knowledge-base/terminology/` for CSI division scope boundaries and the ITB scope-handoff matrix if present\n - Reference `knowledge-base/regulations/lien-waivers-by-state.md` for the project state's lien rights (relevant to sub payment terms and any retainage discussion at award)\n - If the ITB was produced by `sales/itb-package-drafter.md`, reference the scope summary and scope-handoff matrix from that skill's output as the master scope benchmark \u2014 any gap between the ITB scope and the sub's bid return is a potential exclusion\n@@ -58,6 +59,7 @@ You are a construction estimating and procurement AI assistant. Your job at bid\n 8. **Always flag allowance substitutions.** If the ITB specified an allowance of $X and a sub substituted their own number (lower or higher), that is not a compliant bid on that line. Flag it; the estimator must either accept the non-compliant allowance or require the sub to rebid to the ITB allowance.\n 9. **Always produce a pre-award clarification call agenda.** Before the award recommendation is finalized, the top one or two scope-gap items for the apparent low bidder should be confirmed on a call. The skill produces the agenda for that call \u2014 specific questions, with the ITB scope-summary language being confirmed.\n 10. **Never recommend sole-source award at base-bid prices that have not been confirmed on a scope-clarification call.** Rushing award without confirming the top scope gaps is the single most common cause of post-award sub change orders. The call is 15 minutes; the CO is months.\n+11. **Never present a ROM estimate built from `firm_identity.production_rate_baselines` as if it were the GC's actual estimate.** Always label its source and its lower confidence, and never let it silently override an actual GC estimate or GMP line item when one is supplied.\n \n **Process:**\n \n@@ -93,7 +95,7 @@ You are a construction estimating and procurement AI assistant. Your job at bid\n    - Normalized bid amount\n    - Number of unresolved scope gaps (\ud83d\udd34 / \ud83d\udfe1 / \ud83d\udfe2 each)\n    - Qualification risk summary (EMR, bonding, references)\n-   - Whether the GC has worked with this sub before and the performance history\n+   - Whether this sub is the firm's named standard sub for this trade (`firm_identity.standard_subs`) \u2014 resolved automatically from the roster, not asked for on every bid package \u2014 or an unproven relationship, plus any performance history supplied\n    - Whether award can proceed today or a pre-award clarification call is required first\n    - If a pre-award call is required: the specific agenda items (see next step)\n \n@@ -103,7 +105,7 @@ You are a construction estimating and procurement AI assistant. Your job at bid\n \n ### Sub-Mode: Reviewer-of-Platform-AI-Output\n \n-When the input includes a leveling sheet pre-generated by a bid management platform (BuildingConnected AI leveling, Procore Bid Management, SmartBid, constructionbids.ai, Archdesk, or any other AI-powered bid comparison tool), this skill runs a four-point redline check:\n+When the input includes a leveling sheet pre-generated by a bid management platform (BuildingConnected AI leveling, Procore Bid Management, SmartBid, constructionbids.ai, Archdesk, or any other AI-powered bid comparison tool) \u2014 or by a self-run script from an open-source Claude Code / terminal-based construction-skills toolkit that tabulates and scores bids (a growing category as of mid-2026) \u2014 this skill runs a four-point redline check. A script-generated risk score or award recommendation gets the same treatment as a platform's: it is a first pass to check, not a number to adopt, and it carries no more authority for having come from a repo the firm's own team assembled than one from a commercial platform.\n \n 1. **Scope-gap completeness.** Did the platform identify all exclusions and qualifications from the sub's cover letters and schedules of values? Platforms that pull structured bid data miss freeform exclusion language in cover letters and notes. Manually cross-check the cover letters.\n 2. **Normalized vs. base-bid distinction.** Did the platform distinguish between the base bid and the normalized bid? Platforms often rank by base bid, which rewards incomplete scope. Re-rank by normalized total.\n@@ -173,6 +175,7 @@ When the input includes a leveling sheet pre-generated by a bid management platf\n - Scope-gap severity codes (\ud83d\udd34 / \ud83d\udfe1 / \ud83d\udfe2) on every line item in the gap matrix\n - Pre-award call agenda is numbered, specific, and quotable (not generic)\n - Change-order risk items are named explicitly, not as \"scope may be incomplete\"\n+- Close with a one-line **\"Applied config\"** footer naming the identity defaults assumed (e.g., \"Applied config: Northeast Interiors matched to firm's standard sub roster for [trade]; no GC estimate supplied \u2014 ROM benchmark built from production_rate_baselines\") so a wrong or stale default is visible rather than silent\n - Saved to `outputs/` if the user confirms\n \n ## Example Output"
+      }
+    ]
+  },
+  "tree": {
+    "sha": "21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb",
+    "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/trees/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb",
+    "tree": [
+      {
+        "path": ".claude",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "9c04864d1a2bce06dfab015387889341bddd5df7",
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/trees/9c04864d1a2bce06dfab015387889341bddd5df7"
+      },
+      {
+        "path": ".claude/CLAUDE.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "2dc45efe15b5e95241bc4f4c71d503d9ccc42423",
+        "size": 1621,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/2dc45efe15b5e95241bc4f4c71d503d9ccc42423"
+      },
+      {
+        "path": ".gitignore",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "3ed1a939676eff159f2ad96fbfa433452aa8b5cb",
+        "size": 222,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/3ed1a939676eff159f2ad96fbfa433452aa8b5cb"
+      },
+      {
+        "path": "LICENSE",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "f9a06261b5b8a5a8ee94caeff15807d709f15b6d",
+        "size": 1065,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/f9a06261b5b8a5a8ee94caeff15807d709f15b6d"
+      },
+      {
+        "path": "README.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "77f453faba1a6453be8c8e0f59022b8729d074b6",
+        "size": 16790,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/77f453faba1a6453be8c8e0f59022b8729d074b6"
+      },
+      {
+        "path": "knowledge-base",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "ef6c60e6db5f531ecf2f27a6bc177353e89e2616",
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/trees/ef6c60e6db5f531ecf2f27a6bc177353e89e2616"
+      },
+      {
+        "path": "knowledge-base/README.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "afce50cc5e97ce3958a5a23a6ba1fe1570f45faf",
+        "size": 1246,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/afce50cc5e97ce3958a5a23a6ba1fe1570f45faf"
+      },
+      {
+        "path": "knowledge-base/best-practices",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "c2552d68f047cf782d92309a18b0b5eb89095219",
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/trees/c2552d68f047cf782d92309a18b0b5eb89095219"
+      },
+      {
+        "path": "knowledge-base/best-practices/.gitkeep",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "path": "knowledge-base/best-practices/backcharge-management.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "db8ef605e8eb66554c332b41ef58c667d43d5c20",
+        "size": 16321,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/db8ef605e8eb66554c332b41ef58c667d43d5c20"
+      },
+      {
+        "path": "knowledge-base/best-practices/federal-prevailing-wage-ai-guardrails.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "e3f2bb3df2a6861f19ab97930af8d9877df22fdc",
+        "size": 3893,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/e3f2bb3df2a6861f19ab97930af8d9877df22fdc"
+      },
+      {
+        "path": "knowledge-base/best-practices/photo-based-hazard-identification.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "10c37dfecc29a5ec32db1a9e2ab0d8464a4b2047",
+        "size": 26061,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/10c37dfecc29a5ec32db1a9e2ab0d8464a4b2047"
+      },
+      {
+        "path": "knowledge-base/best-practices/scheduling-look-ahead.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "0569283fa50079b023355304e0a38688c7560e7e",
+        "size": 33354,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/0569283fa50079b023355304e0a38688c7560e7e"
+      },
+      {
+        "path": "knowledge-base/best-practices/wip-reporting.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "fe0556e65763960f885f53d6c4a0722fcd1c87ac",
+        "size": 11833,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/fe0556e65763960f885f53d6c4a0722fcd1c87ac"
+      },
+      {
+        "path": "knowledge-base/industry-overview.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "3b1954ee0a9e4d48ad94d9b8a169ae7cd0d04f8b",
+        "size": 1513,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/3b1954ee0a9e4d48ad94d9b8a169ae7cd0d04f8b"
+      },
+      {
+        "path": "knowledge-base/regulations",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "b6c2c96c2dbd90d211770b9b880bbc4c2d116f9b",
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/trees/b6c2c96c2dbd90d211770b9b880bbc4c2d116f9b"
+      },
+      {
+        "path": "knowledge-base/regulations/.gitkeep",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "path": "knowledge-base/regulations/lien-waivers-by-state.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "5e9ef88b05d98fc72ce1c506f25061e4d2667358",
+        "size": 15464,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/5e9ef88b05d98fc72ce1c506f25061e4d2667358"
+      },
+      {
+        "path": "knowledge-base/terminology",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "d564d0bc3dd917926892c55e3706cc116d5b165e",
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/trees/d564d0bc3dd917926892c55e3706cc116d5b165e"
+      },
+      {
+        "path": "knowledge-base/terminology/.gitkeep",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "path": "knowledge-base/tools-ecosystem",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "d564d0bc3dd917926892c55e3706cc116d5b165e",
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/trees/d564d0bc3dd917926892c55e3706cc116d5b165e"
+      },
+      {
+        "path": "knowledge-base/tools-ecosystem/.gitkeep",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size": 0,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      {
+        "path": "skills",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "cb630f09109f69b0c3ad21ef3196c8500db8fee4",
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/trees/cb630f09109f69b0c3ad21ef3196c8500db8fee4"
+      },
+      {
+        "path": "skills/README.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "0a62a798b40efe9969a0931664fbe67ffdbf87c2",
+        "size": 1648,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/0a62a798b40efe9969a0931664fbe67ffdbf87c2"
+      },
+      {
+        "path": "skills/_shared",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "ea126bd6cd33d79957f627fef9c9b976df00fd0d",
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/trees/ea126bd6cd33d79957f627fef9c9b976df00fd0d"
+      },
+      {
+        "path": "skills/_shared/email-drafter.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "142ddc7dbb4962ae214192c56aaa5fce2ef50030",
+        "size": 23329,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/142ddc7dbb4962ae214192c56aaa5fce2ef50030"
+      },
+      {
+        "path": "skills/_shared/meeting-summarizer.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "3c5edcf54f7f6dfe2d5281ee8a0644fc1b8ce249",
+        "size": 15510,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/3c5edcf54f7f6dfe2d5281ee8a0644fc1b8ce249"
+      },
+      {
+        "path": "skills/_shared/review-responder.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "8ba96424cdf2f84060680a3d13d76d57ad9989e4",
+        "size": 14988,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/8ba96424cdf2f84060680a3d13d76d57ad9989e4"
+      },
+      {
+        "path": "skills/admin",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "027002a44674b2f8ed3f0a53bda8cfcf58fe23b3",
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/trees/027002a44674b2f8ed3f0a53bda8cfcf58fe23b3"
+      },
+      {
+        "path": "skills/admin/backcharge-notice-drafter.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "8675fee8d4b0590ab49ba00f51916a0ec627b2ef",
+        "size": 31989,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/8675fee8d4b0590ab49ba00f51916a0ec627b2ef"
+      },
+      {
+        "path": "skills/admin/change-order-drafter.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "c0a1b752c5cd8f71971e677c36929433a166b1e3",
+        "size": 14466,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/c0a1b752c5cd8f71971e677c36929433a166b1e3"
+      },
+      {
+        "path": "skills/admin/closeout-documentation-auditor.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "df7413835b5e3367197eee0bdcf0606665b20e2e",
+        "size": 19675,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/df7413835b5e3367197eee0bdcf0606665b20e2e"
+      },
+      {
+        "path": "skills/admin/contract-risk-reviewer.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "4ab4fe804573972ab0c542369cfaba6d79a37881",
+        "size": 43325,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/4ab4fe804573972ab0c542369cfaba6d79a37881"
+      },
+      {
+        "path": "skills/admin/delay-claim-drafter.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "843499890cdf6e9f706d06514b7460d7f9a7b377",
+        "size": 33342,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/843499890cdf6e9f706d06514b7460d7f9a7b377"
+      },
+      {
+        "path": "skills/admin/lien-waiver-drafter.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "2362178e0b5bbaec1041c9805082d1074034f317",
+        "size": 27028,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/2362178e0b5bbaec1041c9805082d1074034f317"
+      },
+      {
+        "path": "skills/admin/pay-application-reviewer.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "8a7a20d8e4b2eb6dacbb6b666ec5c2e4057002f8",
+        "size": 14703,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/8a7a20d8e4b2eb6dacbb6b666ec5c2e4057002f8"
+      },
+      {
+        "path": "skills/admin/subcontractor-prequal-reviewer.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "8cfe3626431a7cb4a9b2e2dce484aa9dbdb1a111",
+        "size": 35526,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/8cfe3626431a7cb4a9b2e2dce484aa9dbdb1a111"
+      },
+      {
+        "path": "skills/admin/wip-billing-reviewer.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "9218e3dd4bb0277eb5e2e30819b1cda70f00d0c6",
+        "size": 20290,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/9218e3dd4bb0277eb5e2e30819b1cda70f00d0c6"
+      },
+      {
+        "path": "skills/customer-service",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "2244e1fd0577f27ee0e096f9a7644a2ba7246766",
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/trees/2244e1fd0577f27ee0e096f9a7644a2ba7246766"
+      },
+      {
+        "path": "skills/customer-service/homeowner-update-drafter.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "a7185a6de854d410807daaae9396db32eabc2c3f",
+        "size": 26240,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/a7185a6de854d410807daaae9396db32eabc2c3f"
+      },
+      {
+        "path": "skills/operations",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "950797fbd2460b75d7eeaaeed6c6726460ee20ae",
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/trees/950797fbd2460b75d7eeaaeed6c6726460ee20ae"
+      },
+      {
+        "path": "skills/operations/daily-log-generator.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "42f6648059ff1554ee46821649bd796f943323fe",
+        "size": 27799,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/42f6648059ff1554ee46821649bd796f943323fe"
+      },
+      {
+        "path": "skills/operations/drawing-revision-comparator.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "144a806203841491ed196b883b616e1b18c8e8a6",
+        "size": 33580,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/144a806203841491ed196b883b616e1b18c8e8a6"
+      },
+      {
+        "path": "skills/operations/lookahead-schedule-critique.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "521c01bbc71d3e28f88e9142ce3cc909e1a64e19",
+        "size": 30669,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/521c01bbc71d3e28f88e9142ce3cc909e1a64e19"
+      },
+      {
+        "path": "skills/operations/pre-task-plan-drafter.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "6f0826cf559856eecb42fe0a347d348f5952fc5f",
+        "size": 27194,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/6f0826cf559856eecb42fe0a347d348f5952fc5f"
+      },
+      {
+        "path": "skills/operations/preconstruction-drawing-checker.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "9ae4ed4507d52b1dee3d2f26ab75827af81928ef",
+        "size": 29866,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/9ae4ed4507d52b1dee3d2f26ab75827af81928ef"
+      },
+      {
+        "path": "skills/operations/project-qa-assistant.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "9867c2a8e555a02a1a5b5fafbd691e84aa0bfecc",
+        "size": 15308,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/9867c2a8e555a02a1a5b5fafbd691e84aa0bfecc"
+      },
+      {
+        "path": "skills/operations/punch-list-organizer.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "c94289f3e53e22b584c5a3a0eb602f43e7b43a7a",
+        "size": 24627,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/c94289f3e53e22b584c5a3a0eb602f43e7b43a7a"
+      },
+      {
+        "path": "skills/operations/rfi-response-drafter.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "a76247b8a3a7b39797398c0230c9781677ba5809",
+        "size": 28353,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/a76247b8a3a7b39797398c0230c9781677ba5809"
+      },
+      {
+        "path": "skills/operations/safety-plan-builder.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "b82c3a9c811cb79d7fcf62fbef7ce27ca5101e7f",
+        "size": 42017,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/b82c3a9c811cb79d7fcf62fbef7ce27ca5101e7f"
+      },
+      {
+        "path": "skills/operations/submittal-review-summary.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "7e1cfdcf9a2fd5b03c6f04e0422e8a8518a1e82c",
+        "size": 23714,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/7e1cfdcf9a2fd5b03c6f04e0422e8a8518a1e82c"
+      },
+      {
+        "path": "skills/operations/value-engineering-analyzer.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "fffa5cdb92e7ea88d99d350a5f2279b4493253e1",
+        "size": 47401,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/fffa5cdb92e7ea88d99d350a5f2279b4493253e1"
+      },
+      {
+        "path": "skills/sales",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "67674d929c4f883f3d378eb122ea9df4c254f58b",
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/trees/67674d929c4f883f3d378eb122ea9df4c254f58b"
+      },
+      {
+        "path": "skills/sales/bid-leveling-analyzer.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "85cbefa41550a520106b4df2070d869a722948c6",
+        "size": 25314,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/85cbefa41550a520106b4df2070d869a722948c6"
+      },
+      {
+        "path": "skills/sales/bid-proposal-generator.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "15021c4b5c7a99242a46371a2313a85a35698785",
+        "size": 31721,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/15021c4b5c7a99242a46371a2313a85a35698785"
+      },
+      {
+        "path": "skills/sales/estimate-simplifier.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "7fb0ff252fc6e58bf54a035381a05e8ceab6b10b",
+        "size": 27571,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/7fb0ff252fc6e58bf54a035381a05e8ceab6b10b"
+      },
+      {
+        "path": "skills/sales/itb-package-drafter.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "e9f296620518c0d74e566d311bc4e4124af9ba9d",
+        "size": 27106,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/e9f296620518c0d74e566d311bc4e4124af9ba9d"
+      },
+      {
+        "path": "skills/sales/takeoff-review-checker.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "81cf4a15f6427f46a35abf74669a183b8dc18875",
+        "size": 30447,
+        "url": "https://api.github.com/repos/KRASA-AI/construction-ai-skills/git/blobs/81cf4a15f6427f46a35abf74669a183b8dc18875"
+      }
+    ],
+    "truncated": false
+  },
+  "retrieval_date": "2026-10-11"
+}

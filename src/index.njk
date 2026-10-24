@@ -364,13 +364,13 @@ preloadSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
                 </a>
               </li>
               <li>
-                <a class="info-row" href="mailto:collaborativeconstructiongc@gmail.com">
+                <a class="info-row" href="mailto:{{ business.email }}">
                   <span class="ico" aria-hidden="true">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
                   </span>
                   <span>
                     <span class="label">Email</span>
-                    <span class="value value--email">collaborativeconstructiongc@gmail.com</span>
+                    <span class="value value--email">{{ business.email }}</span>
                   </span>
                 </a>
               </li>
@@ -455,7 +455,7 @@ preloadSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
                 data-timeout-callback="ccChallengeTimeout" data-error-callback="ccChallengeError"
                 data-refresh-expired="auto" data-refresh-timeout="auto"></div>
               <p id="challenge-status" role="status" aria-live="polite"></p>
-              <noscript><p>Please call <a href="tel:+15084406981">(508) 440-6981</a> or email <a href="mailto:collaborativeconstructiongc@gmail.com">collaborativeconstructiongc@gmail.com</a> to inquire without JavaScript.</p></noscript>
+              <noscript><p>Please call <a href="tel:+15084406981">(508) 440-6981</a> or email <a href="mailto:{{ business.email }}">{{ business.email }}</a> to inquire without JavaScript.</p></noscript>
               <!-- Honeypot: hidden from people, tempting to bots. Never fill this. -->
               <div class="hp-field" hidden inert aria-hidden="true">
                 <label for="cc-x7q2m9">Leave this field blank</label>
