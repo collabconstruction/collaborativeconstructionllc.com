@@ -4785,6 +4785,11 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
 .service-page--additions .about-page-hero::before,
 .service-page--custom .about-page-hero::before {
   background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png');
+  /* Same gold-crossing-curves.png low-alpha issue as the CTA ribbons below:
+     this asset has far less opaque pixel coverage than the other two header
+     textures, so it needs a higher opacity to read at the same watermark
+     strength as the other five service-page headers. */
+  opacity: 0.2;
 }
 
 .service-page--adu .about-page-hero::before,
@@ -4854,6 +4859,12 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
 .service-page--custom .svc-cta > .container::before,
 .service-page--custom .svc-cta > .container::after {
   background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png');
+  /* gold-crossing-curves.png has far less opaque pixel coverage than the other
+     two ribbon textures (measured mean alpha ~2.4/255 vs ~12/255), so at the
+     shared 0.055 opacity it reads as nearly invisible while the other five
+     pages show a clearly visible ribbon. Boost just this pairing so all seven
+     CTA bands read at the same strength. */
+  opacity: 0.28;
 }
 
 .service-page--adu .svc-cta > .container::before,
