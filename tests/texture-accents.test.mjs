@@ -83,3 +83,40 @@ test('About and Projects hero images continue the section artwork behind each pa
   assert.match(css, /\.page-gallery \.about-page-hero::before\s*\{[^}]*texture-diagonal-streaks\.webp[^}]*background-size:\s*cover[^}]*opacity:\s*0\.26/s);
   assert.match(css, /\.gallery-stage\.project-gallery\s*\{[^}]*linear-gradient\(125deg, rgba\(201, 173, 119/s);
 });
+
+test('the Projects/Gallery "Discuss your project" CTA uses the same restrained ribbon treatment as the service pages, not the brighter generic fallback', () => {
+  const css = readFileSync(join(ROOT, 'css/styles.css'), 'utf8');
+
+  // Scoped (not .service-page, since gallery.njk has no .service-page wrapper) via the
+  // page-gallery class that base.njk applies to <main> from the page's pageClass frontmatter.
+  assert.match(
+    css,
+    /\.page-gallery \.svc-cta > \.container::before,\s*\.page-gallery \.svc-cta > \.container::after\s*\{[^}]*opacity:\s*0\.055[^}]*filter:\s*sepia\(0\.65\) saturate\(0\.72\) hue-rotate\(351deg\) brightness\(1\.04\)[^}]*fine-gold-threads\.webp/s,
+    'gallery CTA ribbons must match the service-page opacity/filter/texture, not the brighter generic .svc-cta fallback'
+  );
+
+  // The same image the gallery's own hero already uses, so the CTA reads as the same
+  // piece of artwork as the rest of the page rather than an unrelated swirl.
+  assert.match(css, /\.page-main:has\(\.project-gallery\) \.about-page-hero::before\s*\{[^}]*fine-gold-threads\.webp/s);
+
+  assert.match(
+    css,
+    /\.page-gallery \.svc-cta > \.container::before\s*\{[^}]*inset:\s*auto auto -38% -9%[^}]*width:\s*58%[^}]*height:\s*168%[^}]*rotate\(-30deg\)/s
+  );
+  assert.match(
+    css,
+    /\.page-gallery \.svc-cta > \.container::after\s*\{[^}]*inset:\s*-24% -10% auto auto[^}]*width:\s*57%[^}]*height:\s*154%[^}]*rotate\(7deg\)/s
+  );
+
+  // Mobile insets must shrink the same way the service-page ribbons do, so the gallery
+  // CTA cannot silently regress to the desktop-sized (clipped/overflowing) ribbons on
+  // small screens in a future merge.
+  assert.match(
+    css,
+    /@media \(max-width: 680px\)\s*\{[\s\S]*\.page-gallery \.svc-cta > \.container::before\s*\{[^}]*inset:\s*auto auto -25% -20%[^}]*width:\s*72%[^}]*height:\s*136%/
+  );
+  assert.match(
+    css,
+    /@media \(max-width: 680px\)\s*\{[\s\S]*\.page-gallery \.svc-cta > \.container::after\s*\{[^}]*inset:\s*-13% -22% auto auto[^}]*width:\s*70%[^}]*height:\s*128%/
+  );
+});
