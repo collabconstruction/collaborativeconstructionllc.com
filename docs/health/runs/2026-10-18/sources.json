@@ -1,0 +1,51 @@
+{
+  "observed_date": "2026-10-18",
+  "ga4": {
+    "property": "558903217",
+    "file": "google-public.json",
+    "production_filter": "exact collaborativeconstructionllc.com"
+  },
+  "gsc": {
+    "property": "sc-domain:collaborativeconstructionllc.com",
+    "timezone": "America/Los_Angeles",
+    "file": "google-public.json"
+  },
+  "inspection": "indexing.json",
+  "metricool": {
+    "brand": "7490851",
+    "files": [
+      "metricool-facebook.json",
+      "metricool-linkedin.json"
+    ],
+    "period": "2026-10-01 through 2026-10-18; launch-day partial",
+    "facebook_requested_fields": [
+      "FBEV17",
+      "FBEV03",
+      "FBEV04",
+      "FBEV34",
+      "FBEV49",
+      "FBEV47",
+      "FBEV48"
+    ],
+    "linkedin_requested_fields": [
+      "LIEV01",
+      "LIEV04",
+      "LIEV22",
+      "LIEV21",
+      "LIEV23",
+      "LIEV08"
+    ],
+    "row_shape": "Values in requested field order, then date; null remains unavailable."
+  },
+  "unavailable": [
+    "D1 aggregate report failed",
+    "GBP current performance unverified",
+    "Cloudflare private traffic not collected"
+  ],
+  "scheduler": {
+    "id": "construction-daily-company-health-and-growth-analysis",
+    "state": "ACTIVE",
+    "first_scheduled_run": "pending",
+    "manual_collector_run": "succeeded"
+  }
+}

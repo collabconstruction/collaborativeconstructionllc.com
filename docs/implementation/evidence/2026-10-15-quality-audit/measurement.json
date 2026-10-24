@@ -1,0 +1,182 @@
+{
+  "observed_at": "2026-10-15T12:33:28.033012+00:00",
+  "period": {
+    "start": "2026-10-01",
+    "end": "2026-10-14"
+  },
+  "sources": {
+    "ga4_metadata": {
+      "name": "properties/558903217",
+      "displayName": "Collaborative Construction LLC",
+      "timeZone": "America/New_York",
+      "currencyCode": "USD",
+      "http": 200
+    },
+    "ga4_report": {
+      "http": 200,
+      "data": {
+        "dimensionHeaders": [
+          {
+            "name": "hostName"
+          }
+        ],
+        "metricHeaders": [
+          {
+            "name": "sessions",
+            "type": "TYPE_INTEGER"
+          },
+          {
+            "name": "totalUsers",
+            "type": "TYPE_INTEGER"
+          },
+          {
+            "name": "eventCount",
+            "type": "TYPE_INTEGER"
+          }
+        ],
+        "rows": [
+          {
+            "dimensionValues": [
+              {
+                "value": "collaborativeconstructionllc.com"
+              }
+            ],
+            "metricValues": [
+              {
+                "value": "6"
+              },
+              {
+                "value": "2"
+              },
+              {
+                "value": "50"
+              }
+            ]
+          },
+          {
+            "dimensionValues": [
+              {
+                "value": "localhost"
+              }
+            ],
+            "metricValues": [
+              {
+                "value": "5"
+              },
+              {
+                "value": "1"
+              },
+              {
+                "value": "35"
+              }
+            ]
+          }
+        ],
+        "rowCount": 2,
+        "metadata": {
+          "currencyCode": "USD",
+          "timeZone": "America/New_York"
+        },
+        "kind": "analyticsData#runReport"
+      }
+    },
+    "ga4_events": {
+      "http": 200,
+      "data": {
+        "dimensionHeaders": [
+          {
+            "name": "eventName"
+          }
+        ],
+        "metricHeaders": [
+          {
+            "name": "eventCount",
+            "type": "TYPE_INTEGER"
+          }
+        ],
+        "rows": [
+          {
+            "dimensionValues": [
+              {
+                "value": "page_view"
+              }
+            ],
+            "metricValues": [
+              {
+                "value": "43"
+              }
+            ]
+          },
+          {
+            "dimensionValues": [
+              {
+                "value": "user_engagement"
+              }
+            ],
+            "metricValues": [
+              {
+                "value": "21"
+              }
+            ]
+          },
+          {
+            "dimensionValues": [
+              {
+                "value": "session_start"
+              }
+            ],
+            "metricValues": [
+              {
+                "value": "10"
+              }
+            ]
+          },
+          {
+            "dimensionValues": [
+              {
+                "value": "scroll"
+              }
+            ],
+            "metricValues": [
+              {
+                "value": "8"
+              }
+            ]
+          },
+          {
+            "dimensionValues": [
+              {
+                "value": "first_visit"
+              }
+            ],
+            "metricValues": [
+              {
+                "value": "3"
+              }
+            ]
+          }
+        ],
+        "rowCount": 5,
+        "metadata": {
+          "currencyCode": "USD",
+          "timeZone": "America/New_York"
+        },
+        "kind": "analyticsData#runReport"
+      }
+    },
+    "gsc": {
+      "http": 200,
+      "data": {
+        "rows": [
+          {
+            "clicks": 9,
+            "impressions": 415,
+            "ctr": 0.021686746987951807,
+            "position": 7.03855421686747
+          }
+        ],
+        "responseAggregationType": "byProperty"
+      }
+    }
+  }
+}

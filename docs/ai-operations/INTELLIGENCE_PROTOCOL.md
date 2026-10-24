@@ -13,13 +13,35 @@
 
 ## Ingestion workflow
 
+### Relationship to existing infrastructure
+
+The AI intelligence system integrates with existing report infrastructure:
+
+```
+Claude Cloud Routines / Local Tasks
+    ↓ (push to GitHub branches)
+sync-reports.mjs (existing)
+    ↓ (pull to local disk)
+docs/health/runs/ and docs/competitive/runs/
+    ↓
+├─→ build-research-index.mjs (existing) → docs/research/22-research-report-index.md (human-readable)
+└─→ ingest-intelligence.mjs (new) → docs/ai-operations/ACTION_QUEUE.md (action queue)
+```
+
+**Key distinction:**
+- `sync-reports.mjs`: Pulls report branches from GitHub to local disk (existing)
+- `build-research-index.mjs`: Generates human-readable research index (existing)
+- `ingest-intelligence.mjs`: Processes reports into actionable work queue (new)
+
+These are complementary, not competing. The new ingestion script does not replace the existing sync or index scripts.
+
 ### Step 1: Discover new reports
 
 ```bash
 # Sync reports from GitHub to local disk
 node scripts/sync-reports.mjs
 
-# Rebuild the research index
+# Rebuild the research index (optional, for human review)
 node scripts/build-research-index.mjs
 
 # Check what's new

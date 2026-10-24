@@ -1,0 +1,365 @@
+{
+  "requested": "hamzaabduljabbar/construction-drawing-analyzer",
+  "metadata": {
+    "id": 1242298179,
+    "node_id": "R_kgDOSgv3Qw",
+    "name": "construction-drawing-analyzer",
+    "full_name": "hamzaabduljabbar/construction-drawing-analyzer",
+    "private": false,
+    "owner": {
+      "login": "hamzaabduljabbar",
+      "id": 285638387,
+      "node_id": "U_kgDOEQZ-8w",
+      "avatar_url": "https://avatars.githubusercontent.com/u/285638387?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/hamzaabduljabbar",
+      "html_url": "https://github.com/hamzaabduljabbar",
+      "followers_url": "https://api.github.com/users/hamzaabduljabbar/followers",
+      "following_url": "https://api.github.com/users/hamzaabduljabbar/following{/other_user}",
+      "gists_url": "https://api.github.com/users/hamzaabduljabbar/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/hamzaabduljabbar/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/hamzaabduljabbar/subscriptions",
+      "organizations_url": "https://api.github.com/users/hamzaabduljabbar/orgs",
+      "repos_url": "https://api.github.com/users/hamzaabduljabbar/repos",
+      "events_url": "https://api.github.com/users/hamzaabduljabbar/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/hamzaabduljabbar/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "html_url": "https://github.com/hamzaabduljabbar/construction-drawing-analyzer",
+    "description": "Claude skill + Python scripts to analyze construction drawings that automates sheet splitting, polygon extraction, and drawing classification for GCs, estimators, and PMs.",
+    "fork": false,
+    "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer",
+    "forks_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/forks",
+    "keys_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/keys{/key_id}",
+    "collaborators_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/collaborators{/collaborator}",
+    "teams_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/teams",
+    "hooks_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/hooks",
+    "issue_events_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/issues/events{/number}",
+    "events_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/events",
+    "assignees_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/assignees{/user}",
+    "branches_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/branches{/branch}",
+    "tags_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/tags",
+    "blobs_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/blobs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/tags{/sha}",
+    "git_refs_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/refs{/sha}",
+    "trees_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/trees{/sha}",
+    "statuses_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/statuses/{sha}",
+    "languages_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/languages",
+    "stargazers_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/stargazers",
+    "contributors_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/contributors",
+    "subscribers_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/subscribers",
+    "subscription_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/subscription",
+    "commits_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/commits{/sha}",
+    "git_commits_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/commits{/sha}",
+    "comments_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/comments{/number}",
+    "issue_comment_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/issues/comments{/number}",
+    "contents_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/contents/{+path}",
+    "compare_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/compare/{base}...{head}",
+    "merges_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/merges",
+    "archive_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/{archive_format}{/ref}",
+    "downloads_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/downloads",
+    "issues_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/issues{/number}",
+    "pulls_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/pulls{/number}",
+    "milestones_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/milestones{/number}",
+    "notifications_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/notifications{?since,all,participating}",
+    "labels_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/labels{/name}",
+    "releases_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/releases{/id}",
+    "deployments_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/deployments",
+    "created_at": "2026-05-18T09:51:14Z",
+    "updated_at": "2026-10-03T13:33:53Z",
+    "pushed_at": "2026-08-25T15:22:06Z",
+    "git_url": "git://github.com/hamzaabduljabbar/construction-drawing-analyzer.git",
+    "ssh_url": "git@github.com:hamzaabduljabbar/construction-drawing-analyzer.git",
+    "clone_url": "https://github.com/hamzaabduljabbar/construction-drawing-analyzer.git",
+    "svn_url": "https://github.com/hamzaabduljabbar/construction-drawing-analyzer",
+    "homepage": "https://hamzajabbar.online/",
+    "size": 40,
+    "stargazers_count": 44,
+    "watchers_count": 44,
+    "language": "Python",
+    "has_issues": true,
+    "has_projects": true,
+    "has_downloads": false,
+    "has_wiki": true,
+    "has_pages": false,
+    "has_discussions": false,
+    "forks_count": 7,
+    "mirror_url": null,
+    "archived": true,
+    "disabled": false,
+    "open_issues_count": 0,
+    "license": {
+      "key": "other",
+      "name": "Other",
+      "spdx_id": "NOASSERTION",
+      "url": null,
+      "node_id": "MDc6TGljZW5zZTA="
+    },
+    "allow_forking": true,
+    "is_template": false,
+    "web_commit_signoff_required": false,
+    "has_pull_requests": true,
+    "pull_request_creation_policy": "all",
+    "topics": [
+      "ai-automation",
+      "ai-automation-construction",
+      "ai-construction",
+      "claude-skills",
+      "construction",
+      "construction-management",
+      "construction-tech",
+      "drawingspecs"
+    ],
+    "visibility": "public",
+    "forks": 7,
+    "open_issues": 0,
+    "watchers": 44,
+    "default_branch": "main",
+    "temp_clone_token": null,
+    "network_count": 7,
+    "subscribers_count": 3
+  },
+  "commit": {
+    "sha": "f0e798532643dc7f008f28b6994ae7feabed47cc",
+    "node_id": "C_kwDOSgv3Q9oAKGYwZTc5ODUzMjY0M2RjN2YwMDhmMjhiNjk5NGFlN2ZlYWJlZDQ3Y2M",
+    "commit": {
+      "author": {
+        "name": "Hamza Abdul Jabbar",
+        "email": "hamzajabbar167@gmail.com",
+        "date": "2026-08-25T15:22:05Z"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com",
+        "date": "2026-08-25T15:22:05Z"
+      },
+      "message": "Update README.md",
+      "tree": {
+        "sha": "f6bbd67e1c405b3ec788aeaa8bdccd76d81d09fb",
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/trees/f6bbd67e1c405b3ec788aeaa8bdccd76d81d09fb"
+      },
+      "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/commits/f0e798532643dc7f008f28b6994ae7feabed47cc",
+      "comment_count": 0,
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqjbMdCRC1aQ7uu5UhlAAAIFUQAJC+qN6Kf8JLJNosfqBHVjK0\nngacBDVw91OLGON5HTfo68zO8Heg7zNXv1TRSoY4JzEUYvnE+VjXaS9cvjSnlqS2\nA510wIsAxRBqLvUhyHyvXvcNZAX1pQ6diFgXiSGlB0Pc0hAJcL3zRqS0Vn1a03lK\n5ApR7mssJ67zDuku60TCDEUdLjzY5YyfjkpgIGSIOxIePQPCThjExqFutXNeUL1x\nuH4V3Txv8kE7YwD8ST8YJL2ALWUxeFEQR7JRaS7UQhaZmHgsn+qJe8ZrczAqDGvP\nEYAhfjVtfRCkcuA8RhQvCFcCwi6cPl+5nrq6BhA9/t5gOkMyEO218eQqY+UFzd+N\nA5ipWJtuVJx2uHvryKM8dhEjWyQKwOaaZS1p60NUmnKuQYGe0hpgu77xSSTcKKno\nKSrv7QljTsAmRnI4b8tS5NEDt3flcHoHIkQNTQzHuOC6dLxwyFUYPAS2Hf9i3mqp\n31+PRB2TxnXkNgrG+CwAxw/RoEhgCfNmlc6ZnJo/E6RRDULwPZYj1Zk5x/YRT/yS\n2LOekwk4G9jeIi3vWP25DxR4whTQpaHfoTfFDmqtSanS0nJkTL/EqN1pQOGN348S\nfTLql75afm+ng5Ckq7v9NjeXOKx1KlXFvUNk+GIjSAFu9CxL4oVcCeg4MomKQl/j\nkSWG+YvI9pglUoDSA6zW\n=eVGs\n-----END PGP SIGNATURE-----\n",
+        "payload": "tree f6bbd67e1c405b3ec788aeaa8bdccd76d81d09fb\nparent b392cb0536253efd353d2955d76e86cc0317dc70\nauthor Hamza Abdul Jabbar <hamzajabbar167@gmail.com> 1787671325 +0500\ncommitter GitHub <noreply@github.com> 1787671325 +0500\n\nUpdate README.md",
+        "verified_at": "2026-08-25T15:22:06Z"
+      }
+    },
+    "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/commits/f0e798532643dc7f008f28b6994ae7feabed47cc",
+    "html_url": "https://github.com/hamzaabduljabbar/construction-drawing-analyzer/commit/f0e798532643dc7f008f28b6994ae7feabed47cc",
+    "comments_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/commits/f0e798532643dc7f008f28b6994ae7feabed47cc/comments",
+    "author": {
+      "login": "hamzaabduljabbar",
+      "id": 285638387,
+      "node_id": "U_kgDOEQZ-8w",
+      "avatar_url": "https://avatars.githubusercontent.com/u/285638387?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/hamzaabduljabbar",
+      "html_url": "https://github.com/hamzaabduljabbar",
+      "followers_url": "https://api.github.com/users/hamzaabduljabbar/followers",
+      "following_url": "https://api.github.com/users/hamzaabduljabbar/following{/other_user}",
+      "gists_url": "https://api.github.com/users/hamzaabduljabbar/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/hamzaabduljabbar/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/hamzaabduljabbar/subscriptions",
+      "organizations_url": "https://api.github.com/users/hamzaabduljabbar/orgs",
+      "repos_url": "https://api.github.com/users/hamzaabduljabbar/repos",
+      "events_url": "https://api.github.com/users/hamzaabduljabbar/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/hamzaabduljabbar/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "web-flow",
+      "id": 19864447,
+      "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/web-flow",
+      "html_url": "https://github.com/web-flow",
+      "followers_url": "https://api.github.com/users/web-flow/followers",
+      "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+      "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+      "organizations_url": "https://api.github.com/users/web-flow/orgs",
+      "repos_url": "https://api.github.com/users/web-flow/repos",
+      "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/web-flow/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "b392cb0536253efd353d2955d76e86cc0317dc70",
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/commits/b392cb0536253efd353d2955d76e86cc0317dc70",
+        "html_url": "https://github.com/hamzaabduljabbar/construction-drawing-analyzer/commit/b392cb0536253efd353d2955d76e86cc0317dc70"
+      }
+    ],
+    "stats": {
+      "total": 2,
+      "additions": 2,
+      "deletions": 0
+    },
+    "files": [
+      {
+        "sha": "72648d287f58510f33222eb278bc197b4050c50b",
+        "filename": "README.md",
+        "status": "modified",
+        "additions": 2,
+        "deletions": 0,
+        "changes": 2,
+        "blob_url": "https://github.com/hamzaabduljabbar/construction-drawing-analyzer/blob/f0e798532643dc7f008f28b6994ae7feabed47cc/README.md",
+        "raw_url": "https://github.com/hamzaabduljabbar/construction-drawing-analyzer/raw/f0e798532643dc7f008f28b6994ae7feabed47cc/README.md",
+        "contents_url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/contents/README.md?ref=f0e798532643dc7f008f28b6994ae7feabed47cc",
+        "patch": "@@ -1,5 +1,7 @@\n # Drawing Analyzer \u2014 Claude AI Skill for Construction Drawings\n \n+THIS SKILL AHS BEEN ARCHIVED> KINDLY USE THE OTHER SKILL THA CONVERTS PDF DRAWING IN TO VECTOR DATABASE\n+\n Pre-process a set of construction drawing PDFs into structured text indexes so Claude can answer questions **faster, cheaper, and more accurately**.\n \n Built by [Hamza Abdul Jabbar](https://hamzajabbar.online) | AutoConst"
+      }
+    ]
+  },
+  "tree": {
+    "sha": "f0e798532643dc7f008f28b6994ae7feabed47cc",
+    "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/trees/f0e798532643dc7f008f28b6994ae7feabed47cc",
+    "tree": [
+      {
+        "path": ".gitignore",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "3ecc81cdd4cc12b49f2735ec7ac7b8626b6ab6c7",
+        "size": 491,
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/blobs/3ecc81cdd4cc12b49f2735ec7ac7b8626b6ab6c7"
+      },
+      {
+        "path": "CONTRIBUTING.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "9bd3cbe11a440901db3bffa535532c43616b76b5",
+        "size": 1896,
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/blobs/9bd3cbe11a440901db3bffa535532c43616b76b5"
+      },
+      {
+        "path": "LICENSE",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "16683ec008281142339c82523042e86fdf45ffb8",
+        "size": 1648,
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/blobs/16683ec008281142339c82523042e86fdf45ffb8"
+      },
+      {
+        "path": "README.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "72648d287f58510f33222eb278bc197b4050c50b",
+        "size": 8709,
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/blobs/72648d287f58510f33222eb278bc197b4050c50b"
+      },
+      {
+        "path": "SKILL.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "af440f7b5320c5921b06ddcc63f96cf28c11b5cb",
+        "size": 6666,
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/blobs/af440f7b5320c5921b06ddcc63f96cf28c11b5cb"
+      },
+      {
+        "path": "construction-drawing-analyzer-additions.zip",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "00eeed12b976c31a8d57169365c83047a0bba86d",
+        "size": 12403,
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/blobs/00eeed12b976c31a8d57169365c83047a0bba86d"
+      },
+      {
+        "path": "indexes",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "335edc99461565877074b06a0d4bf09f6d6172dd",
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/trees/335edc99461565877074b06a0d4bf09f6d6172dd"
+      },
+      {
+        "path": "indexes/.gitkeep",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "212ae58256579b90cce0dbe600cf09d48eeb833c",
+        "size": 425,
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/blobs/212ae58256579b90cce0dbe600cf09d48eeb833c"
+      },
+      {
+        "path": "references",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "c8389190c0ba1c808f8fc0c54f2868a7188ce581",
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/trees/c8389190c0ba1c808f8fc0c54f2868a7188ce581"
+      },
+      {
+        "path": "references/drawing-types.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "1eecf58b420b22af651287a408ea2b5d392f856a",
+        "size": 5822,
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/blobs/1eecf58b420b22af651287a408ea2b5d392f856a"
+      },
+      {
+        "path": "references/takeoff-guide.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "3a186c43d8555b8382a6810d16a3b385cfbdf265",
+        "size": 4162,
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/blobs/3a186c43d8555b8382a6810d16a3b385cfbdf265"
+      },
+      {
+        "path": "requirements.txt",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "844cd2b3f742fa86754f13e7bede862d0797fae7",
+        "size": 29,
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/blobs/844cd2b3f742fa86754f13e7bede862d0797fae7"
+      },
+      {
+        "path": "scripts",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "0fc5c2090641cecc5df34cc9bfc900f850b8aa21",
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/trees/0fc5c2090641cecc5df34cc9bfc900f850b8aa21"
+      },
+      {
+        "path": "scripts/extract_polygons.py",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "59715627eaab277de1d884997cf26a6e40d74a72",
+        "size": 6680,
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/blobs/59715627eaab277de1d884997cf26a6e40d74a72"
+      },
+      {
+        "path": "scripts/split_drawings.py",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "234208afbcbd08aa78aba91e0ba824be037e38a4",
+        "size": 3831,
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/blobs/234208afbcbd08aa78aba91e0ba824be037e38a4"
+      },
+      {
+        "path": "sheets",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "b003df88a6b4e8bbe86de1660f6127cf4684e510",
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/trees/b003df88a6b4e8bbe86de1660f6127cf4684e510"
+      },
+      {
+        "path": "sheets/.gitkeep",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "adc224b3ea6ef0dd5616d6500452a7de4f789200",
+        "size": 330,
+        "url": "https://api.github.com/repos/hamzaabduljabbar/construction-drawing-analyzer/git/blobs/adc224b3ea6ef0dd5616d6500452a7de4f789200"
+      }
+    ],
+    "truncated": false
+  },
+  "retrieval_date": "2026-10-11"
+}

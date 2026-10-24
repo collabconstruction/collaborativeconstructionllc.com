@@ -1,0 +1,1009 @@
+diff --git a/css/styles.css b/css/styles.css
+index f542b91..82d08f7 100644
+--- a/css/styles.css
++++ b/css/styles.css
+@@ -3640,3 +3640,79 @@ figure {
+ }
+ /* Contain offscreen reveal offsets without clipping individual photo frames. */
+ .page-main { overflow-x: clip; }
++
++/* October 14 owner refinement: motion, centered presentation and estimate emphasis. */
++.eyebrow::before, .gold-eye::before, .bio-kicker::before { display: none; }
++.eyebrow, .gold-eye, .bio-kicker { justify-content: center; padding-left: 0; }
++.section-head, .section-head.center { text-align: center; margin-inline: auto; }
++.section-head .section-lede, .section-head .rule, .section-head h2 { margin-inline: auto; }
++.about-page-hero .container { text-align: center; }
++.about-page-hero .motto-words { display: flex; justify-content: center; gap: .7em; flex-wrap: wrap; }
++.about-page-hero .motto-words .dot { display: none; }
++.owner-photo-wrap::after { display: none; }
++.owner-tag .eyebrow { display: block; text-align: center; }
++.owner-tag { text-align: center; }
++.owner-bio { text-align: center; }
++.hero__bg { transform: translate3d(var(--pointer-x, 0px), var(--pointer-y, 0px), 0); transition: transform .65s var(--ease-out); inset: -18px; }
++@media (prefers-reduced-motion: no-preference) {
++  .hero__bg span { animation: contourArrival 1.15s cubic-bezier(.15,.8,.2,1) both, contourBreathe var(--contour-time, 23s) ease-in-out 1.15s infinite; }
++}
++@keyframes contourArrival {
++  from { transform: translateX(-50%) translate3d(20vw, -14vh, 0) scale(1.55) rotate(-17deg); opacity: 0; }
++  to { transform: translateX(-50%) translateY(calc(var(--drift, 0) * 1px)) scale(1); }
++}
++.locations--atlas { padding-block: 25px 32px; overflow: hidden; background: var(--navy); }
++.locations--atlas::before, .locations--atlas::after { content: ""; position: absolute; left: -2%; width: 104%; height: 8px; pointer-events: none; background: repeating-linear-gradient(118deg, var(--brass) 0 28px, var(--navy-200) 28px 49px, var(--brass-300) 49px 83px, var(--navy-400) 83px 116px); clip-path: polygon(0 25%, 8% 70%, 18% 0, 29% 80%, 42% 12%, 55% 90%, 69% 0, 82% 70%, 93% 12%, 100% 50%, 100% 100%, 0 100%); }
++.locations--atlas::before { top: 0; }
++.locations--atlas::after { bottom: 0; transform: rotate(180deg); }
++.location-controls { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 15px; }
++.location-label { color: var(--paper); font-size: .7rem; text-transform: uppercase; letter-spacing: .14em; }
++.location-arrows { display: flex; gap: 8px; }
++.location-arrows button { width: 36px; height: 36px; border: 1px solid var(--brass); color: var(--paper); background: transparent; cursor: pointer; }
++.location-window { overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--brass) var(--navy); padding: 8px 4vw 18px; scroll-snap-type: x proximity; }
++.location-atlas { display: flex; width: max-content; gap: 12px; margin: 0; padding: 0; list-style: none; align-items: center; }
++.location-atlas li { padding: 16px 20px; border: 1px solid var(--brass); border-radius: 28% 8% 24% 6%; color: var(--paper); background: var(--navy-800); white-space: nowrap; scroll-snap-align: start; }
++.location-atlas li:nth-child(3n+2) { border-color: var(--navy-200); border-radius: 5% 28% 6% 24%; transform: translateY(5px); }
++.location-atlas li:nth-child(3n) { border-color: var(--brass-300); transform: translateY(-4px); border-radius: 15% 4% 30% 6%; }
++@media (prefers-reduced-motion: no-preference) {
++ .locations--atlas::before { animation: atlasEdge 12s ease-in-out infinite alternate; }
++ .locations--atlas::after { animation: atlasEdge 16s ease-in-out infinite alternate-reverse; }
++}
++@keyframes atlasEdge { to { translate: 18px 0; } }
++.adu-main { align-items: stretch; }
++.adu-card { display: flex; flex-direction: column; justify-content: space-between; gap: 22px; border: 2px solid var(--brass); background: var(--white); padding: clamp(26px, 3vw, 42px); box-shadow: 0 16px 42px rgba(24,43,73,.16); text-align: center; }
++.adu-card h3 { font-size: clamp(1.8rem, 3vw, 2.7rem); }
++.adu-card .sub, .adu-card .adu-llc { margin: 0; }
++.adu-card .adu-points { text-align: left; margin-inline: auto; }
++.adu-card .btn { margin-top: auto; width: 100%; display: flex; flex-direction: column; gap: 4px; }
++.adu-card .btn span { font-size: .85em; }
++.proj-card, .service-card, .form-card { height: 100%; }
++.service-card { display: flex; flex-direction: column; }
++.service-card .service-card__go { margin-top: auto; }
++.header-cta a, .svc-cta .btn, .hero__cta .btn-gold, .adu-card .btn { position: relative; overflow: hidden; box-shadow: 0 0 15px rgba(189,161,106,.2); }
++.header-cta a::before, .svc-cta .btn::before, .hero__cta .btn-gold::before, .adu-card .btn::before { content: ""; position: absolute; inset: -40% auto -40% -60%; width: 35%; background: linear-gradient(105deg, transparent, rgba(255,255,255,.35), transparent); transform: skewX(-18deg); pointer-events: none; }
++@media (prefers-reduced-motion: no-preference) {
++ .header-cta a::before, .svc-cta .btn::before, .hero__cta .btn-gold::before, .adu-card .btn::before { animation: contactShimmer 11s ease-in-out infinite; }
++}
++@keyframes contactShimmer { 0%, 85% { left: -60%; } 100% { left: 150%; } }
++@media (prefers-reduced-motion: reduce) {
++ .hero__bg { transform: none; transition: none; }
++ .hero__bg span { animation: none; }
++ .locations--atlas::before, .locations--atlas::after { animation: none; }
++}
++
++.values-sequence { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px 24px; margin: 0 auto 22px; color: var(--brass); font-family: var(--font-ui); font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .15em; }
++@media (prefers-reduced-motion: no-preference) {
++ .values-sequence span { animation: valuesArrive .4s var(--ease-out) both; }
++ .values-sequence span:nth-child(2) { animation-delay: .22s; }
++ .values-sequence span:nth-child(3) { animation-delay: .44s; }
++}
++@keyframes valuesArrive { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: none; } }
++@media (prefers-reduced-motion: no-preference) {
++ .locations--atlas::before, .locations--atlas::after,
++ .header-cta a::before, .svc-cta .btn::before, .hero__cta .btn-gold::before, .adu-card .btn::before { animation-play-state: var(--decorative-state, running); }
++}
++.svc-path { height: 100%; }
++.svc-path > .btn { margin-top: auto; align-self: center; }
++.svc-path__head { justify-content: center; text-align: center; }
++.svc-path > p { text-align: center; }
+diff --git a/docs/design/writing-voice.md b/docs/design/writing-voice.md
+index e090f89..bc5c536 100644
+--- a/docs/design/writing-voice.md
++++ b/docs/design/writing-voice.md
+@@ -32,3 +32,7 @@ Reviewed October 14, 2026:
+ - [Anthropic skills](https://github.com/anthropics/skills): general skill framework. Its frontend-design resources address interface design; they do not by themselves establish this company's voice. The specific frontend-design folder could not be retrieved in the web reader during this review.
+ 
+ Recommendation: keep this small original project guide as the authoritative voice brief. A generic “humanizer” may simply replace one set of clichés with another. No third-party tool, hook, dependency or copied skill was installed. Linked upstream Markdown is reference material, not active project instructions. Current upstream paths can change; these links are observation-date references rather than pinned source copies.
++
++## October 14 presentation update
++
++Use construction/service language instead of a Cape-focused marketing identity. Keep geographic details where they explain an actual project, About background, contact address or availability discussion. Preserve canonical URLs and truthful service-area facts. Avoid decorative dashes and intimate/adversarial metaphors. Center section introductions while keeping long technical content readable.
+diff --git a/docs/implementation/2026-10-14-motion-copy-polish.md b/docs/implementation/2026-10-14-motion-copy-polish.md
+new file mode 100644
+index 0000000..65600cb
+--- /dev/null
++++ b/docs/implementation/2026-10-14-motion-copy-polish.md
+@@ -0,0 +1,23 @@
++# Construction-focused copy and motion refinement
++
++Implemented October 14, 2026 in `/private/tmp/cc-midnight-brass`, branch `design/midnight-brass`, following `196b7c2`. Main workspace frontend preserved. Preview: http://127.0.0.1:8883/ . Public maintenance mode remains unchanged; no deployment or push performed.
++
++## Changes
++
++- Hero contour field enters with a 1.15-second swept/rotated movement, then settles into slow continuous contour motion. Fine-pointer movement shifts the background by at most 11px horizontally and 8px vertically; leaving resets it. Text and photo hit targets do not move with the pointer.
++- Replaced Cape-focused presentation with service-focused copy in page headings, service descriptions, metadata and footer. Kept existing canonical URLs, real addresses, About background and project locations. Original business service-area schema remains intact; presentation does not claim statewide coverage. Reworded the ADU statistical qualifier to preserve statewide-versus-local meaning.
++- Nearby communities rail now contains 27 entries within existing regional service areas, including South Shore communities. Native horizontal scrolling, keyboard focus, previous/next controls and snap points replace an autoplay list. Asymmetric rounded borders and a brass/slate/ivory/navy zigzag edge animate slightly. Entries indicate locations to discuss, not offices or completed projects.
++- Free-estimate card is white with a stronger border/shadow, stretch alignment and distributed content. The Call Wes action sits at the bottom. Service-path cards also align bottom actions and fill their row height. No fixed-height clipping is imposed on mobile text.
++- Removed decorative eyebrow dashes and the About portrait's gold rectangular offset frame. Name badge remains. Centered section headings, About biography and relevant service copy.
++- About and six service headers reveal Experience, Quality, Trust with 0/.22/.44-second delays. Gallery's “Our Work” label removed.
++- Contact buttons and header call icon use a low-frequency 11-second shimmer with subdued glow. Reduced-motion disables decorative motion. Contours and shimmer/rail decorations pause when offscreen or the document is hidden; pointer writes are requestAnimationFrame-batched.
++
++## Validation
++
++95 tests pass, zero failures/skips. Clean build and release-build verification pass: 177 public files and nine canonical-page invariants. Diff whitespace check passes. Nine pages inspected at 390px with no document overflow, no em/en dash characters in rendered body text, and Cape text absent from main content except About. Value stagger delays confirmed on About and all six services. Hero pointer variable updated in response to actual pointer input; eight contour lines use separate arrival/breathing animations. Location next control moved the scroll position to 849.5px and all 27 entries are present. Desktop estimate and location-rail screenshots saved in the main workspace `docs/implementation/evidence/2026-10-14-motion-polish/`.
++
++Limits: no full Lighthouse measurement, no runtime OS reduced-motion toggle, no production inquiry submission. Reduced-motion fallbacks were inspected in source. Changing service-page titles may affect search presentation; canonical URLs and structured-data checks remain valid. Existing credentials, project attribution and older legislative claims retain their original evidence requirements; no new business promises were introduced.
++
++## Integration
++
++Use the focused commit on `design/midnight-brass`, not a whole-directory copy over the older main workspace. Coordinate with maintenance/recovery work before any release. Keep the maintenance gate and production settings until restoration is authorized. Run release checks in the integrated release checkout before publishing.
+diff --git a/js/main.js b/js/main.js
+index 78a4e92..db3fd45 100644
+--- a/js/main.js
++++ b/js/main.js
+@@ -85,6 +85,42 @@
+          where it belongs: the old code clobbered the whole transform and
+          had to re-state the centring in JS.
+   ---------------------------------------------------------------------- */
++  const heroSurface = $(".hero");
++  if (heroSurface && !prefersReduced && matchMedia("(pointer: fine)").matches) {
++    let pendingPointer = null;
++    let pointerFrame = 0;
++    const paintPointer = () => {
++      pointerFrame = 0;
++      const point = pendingPointer;
++      heroSurface.style.setProperty("--pointer-x", point ? point.x + "px" : "0px");
++      heroSurface.style.setProperty("--pointer-y", point ? point.y + "px" : "0px");
++    };
++    heroSurface.addEventListener("pointermove", event => {
++      const box = heroSurface.getBoundingClientRect();
++      pendingPointer = { x: ((event.clientX - box.left) / box.width - .5) * 22,
++                         y: ((event.clientY - box.top) / box.height - .5) * 16 };
++      if (!pointerFrame) pointerFrame = requestAnimationFrame(paintPointer);
++    }, { passive: true });
++    heroSurface.addEventListener("pointerleave", () => { pendingPointer = null; if (!pointerFrame) pointerFrame = requestAnimationFrame(paintPointer); });
++    document.addEventListener("visibilitychange", () => { if (document.hidden) { pendingPointer = null; if (pointerFrame) cancelAnimationFrame(pointerFrame); pointerFrame = 0; paintPointer(); } });
++  }
++  if (!prefersReduced && "IntersectionObserver" in window) {
++    const animatedDecorations = $$(".locations--atlas, .header-cta a, .svc-cta .btn, .hero__cta .btn-gold, .adu-card .btn");
++    const visibleDecorations = new Set();
++    const syncDecoration = element => element.style.setProperty("--decorative-state", visibleDecorations.has(element) && !document.hidden ? "running" : "paused");
++    const decorationObserver = new IntersectionObserver(entries => entries.forEach(entry => {
++      if (entry.isIntersecting) visibleDecorations.add(entry.target); else visibleDecorations.delete(entry.target);
++      syncDecoration(entry.target);
++    }));
++    animatedDecorations.forEach(element => { element.style.setProperty("--decorative-state", "paused"); decorationObserver.observe(element); });
++    document.addEventListener("visibilitychange", () => animatedDecorations.forEach(syncDecoration));
++  }
++  const locationWindow = $("[data-location-window]");
++  if (locationWindow) {
++    const moveLocations = direction => locationWindow.scrollBy({ left: direction * locationWindow.clientWidth * .7, behavior: prefersReduced ? "instant" : "smooth" });
++    $("[data-location-back]")?.addEventListener("click", () => moveLocations(-1));
++    $("[data-location-next]")?.addEventListener("click", () => moveLocations(1));
++  }
+   const contourField = $(".hero__bg");
+   if (contourField && !prefersReduced && "IntersectionObserver" in window) {
+     let visible = true;
+@@ -841,7 +877,7 @@
+           }
+         });
+       }
+-      words.forEach((w, i) => w.style.setProperty("--w-delay", (Math.min(i * 0.025, 0.12)).toFixed(2) + "s"));
++      words.forEach((w, i) => w.style.setProperty("--w-delay", (Math.min(i * 0.18, 0.54)).toFixed(2) + "s"));
+       return { line, words };
+     });
+ 
+diff --git a/src/_data/business.json b/src/_data/business.json
+index 40c6d79..e6b6dcb 100644
+--- a/src/_data/business.json
++++ b/src/_data/business.json
+@@ -6,8 +6,8 @@
+   "shortName": "Collaborative Construction",
+   "url": "https://collaborativeconstructionllc.com",
+   "tagline": "Experience, Quality, Trust",
+-  "description": "Residential construction and renovation built on a professional, client-centered approach, serving Cape Cod and the Islands and the South Shore of Massachusetts.",
+-  "footerBlurb": "Residential construction &amp; renovation built on a professional, client-centered approach. Proudly serving Cape Cod &amp; the Islands and the South Shore.",
++  "description": "Residential construction, additions, renovation and independent project oversight.",
++  "footerBlurb": "Residential construction, renovation and independent project oversight. A professional, client-centered approach from planning through completion.",
+ 
+   "email": "collaborativeconstructiongc@gmail.com",
+   "phone": "(508) 440-6981",
+diff --git a/src/_data/serviceArea.json b/src/_data/serviceArea.json
+index 244e8f6..aefffa9 100644
+--- a/src/_data/serviceArea.json
++++ b/src/_data/serviceArea.json
+@@ -1,27 +1,118 @@
+ {
+-  "_comment": "The nearby-locations rail on the homepage. Deliberately SEPARATE from both services.json (what we do) and towns.json (where our portfolio projects are). This file answers a third, narrower question: which nearby places are inside the service area already claimed in business.json.",
+-
+-  "_honestyComment": "Every entry below is a village or town on the Upper Cape, inside the `Cape Cod, Massachusetts` areaServed claim in business.json, and reachable from the East Falmouth business address. None of them asserts an office, a completed project, or a local phone number. That is why these render as plain text, not links: a per-town landing page would be a thin duplicate of the service pages with a place name swapped in, which is the exact pattern Google's helpful-content guidance treats as scaled low-value content. If a town ever earns a page, it should be because there is a real project and real local detail to put on it.",
+-
+-  "_railComment": "Order is geographic, working outward from East Falmouth rather than alphabetical or by search volume, so the list reads as a drive, not a keyword list. Keep it under ~14 entries: past that the marquee stops reading as `nearby` and starts reading as a directory.",
+-
++  "_comment": "Nearby project-location discussion list, expanded at owner request October 14, 2026. Entries do not assert offices, completed work or guaranteed availability. Confirm scope and travel when discussing a project.",
++  "_honestyComment": "Uses locations within the existing regional service areas. Actual project fit and availability require confirmation; no service-area schema expansion is made.",
++  "_railComment": "Native horizontal scrolling, keyboard access and previous/next controls. No automatic looping or duplicated locations.",
+   "heading": "Where we work",
+   "lede": "Based in East Falmouth, working across the Upper Cape and up the South Shore.",
+-
+   "note": "This is our working radius, not a list of offices or of projects in every town. Our business address is in East Falmouth; see the gallery for where the pictured work was actually built.",
+-
+   "places": [
+-    { "name": "East Falmouth", "kind": "village" },
+-    { "name": "Falmouth", "kind": "town" },
+-    { "name": "Woods Hole", "kind": "village" },
+-    { "name": "West Falmouth", "kind": "village" },
+-    { "name": "North Falmouth", "kind": "village" },
+-    { "name": "Cataumet", "kind": "village" },
+-    { "name": "Pocasset", "kind": "village" },
+-    { "name": "Bourne", "kind": "town" },
+-    { "name": "Sandwich", "kind": "town" },
+-    { "name": "Mashpee", "kind": "town" },
+-    { "name": "Cotuit", "kind": "village" },
+-    { "name": "Barnstable", "kind": "town" }
++    {
++      "name": "East Falmouth",
++      "kind": "community"
++    },
++    {
++      "name": "Falmouth",
++      "kind": "community"
++    },
++    {
++      "name": "Woods Hole",
++      "kind": "community"
++    },
++    {
++      "name": "North Falmouth",
++      "kind": "community"
++    },
++    {
++      "name": "Bourne",
++      "kind": "community"
++    },
++    {
++      "name": "Pocasset",
++      "kind": "community"
++    },
++    {
++      "name": "Cataumet",
++      "kind": "community"
++    },
++    {
++      "name": "Sandwich",
++      "kind": "community"
++    },
++    {
++      "name": "Mashpee",
++      "kind": "community"
++    },
++    {
++      "name": "Cotuit",
++      "kind": "community"
++    },
++    {
++      "name": "Barnstable",
++      "kind": "community"
++    },
++    {
++      "name": "Yarmouth",
++      "kind": "community"
++    },
++    {
++      "name": "Dennis",
++      "kind": "community"
++    },
++    {
++      "name": "Harwich",
++      "kind": "community"
++    },
++    {
++      "name": "Brewster",
++      "kind": "community"
++    },
++    {
++      "name": "Chatham",
++      "kind": "community"
++    },
++    {
++      "name": "Orleans",
++      "kind": "community"
++    },
++    {
++      "name": "Plymouth",
++      "kind": "community"
++    },
++    {
++      "name": "Kingston",
++      "kind": "community"
++    },
++    {
++      "name": "Duxbury",
++      "kind": "community"
++    },
++    {
++      "name": "Pembroke",
++      "kind": "community"
++    },
++    {
++      "name": "Marshfield",
++      "kind": "community"
++    },
++    {
++      "name": "Scituate",
++      "kind": "community"
++    },
++    {
++      "name": "Norwell",
++      "kind": "community"
++    },
++    {
++      "name": "Hanover",
++      "kind": "community"
++    },
++    {
++      "name": "Hingham",
++      "kind": "community"
++    },
++    {
++      "name": "Cohasset",
++      "kind": "community"
++    }
+   ]
+ }
+diff --git a/src/about.njk b/src/about.njk
+index a38a96c..e569b96 100644
+--- a/src/about.njk
++++ b/src/about.njk
+@@ -20,7 +20,7 @@ breadcrumbName: "About"
+     <!-- ============================ ABOUT HERO ============================ -->
+     <section class="about-page-hero">
+       <div class="container">
+-        <span class="eyebrow motto-words">Experience <span class="dot">·</span> Quality <span class="dot">·</span> Trust</span>
++        <p class="values-sequence" aria-label="Experience, Quality, Trust"><span>Experience</span><span>Quality</span><span>Trust</span></p>
+         <h1>About Collaborative Construction</h1>
+         <hr class="rule" style="margin:18px auto 0">
+       </div>
+diff --git a/src/adu-builder-cape-cod/index.njk b/src/adu-builder-cape-cod/index.njk
+index 156932b..2bf1c91 100644
+--- a/src/adu-builder-cape-cod/index.njk
++++ b/src/adu-builder-cape-cod/index.njk
+@@ -3,13 +3,13 @@ layout: base.njk
+ permalink: /adu-builder-cape-cod/index.html
+ canonical: /adu-builder-cape-cod/
+ schemaType: service
+-title: "ADU Builder on Cape Cod | Collaborative Construction, LLC"
+-description: "ADU builder on Cape Cod: detached and attached accessory dwelling units for rental income or family living space. Over 30 years of experience."
+-ogTitle: "ADU Builder on Cape Cod | Collaborative Construction, LLC"
+-ogDescription: "Expert ADU construction on Cape Cod. Build detached or attached accessory dwelling units for rental income or family use with experienced contractors."
++title: "ADU Builder | Collaborative Construction, LLC"
++description: "ADU builder: detached and attached accessory dwelling units for rental income or family living space. Over 30 years of experience."
++ogTitle: "ADU Builder | Collaborative Construction, LLC"
++ogDescription: "Expert ADU construction. Build detached or attached accessory dwelling units for rental income or family use with experienced contractors."
+ shareImageAlt: "Cedar-clad modern residence in Belmont, Massachusetts"
+-twitterDescription: "ADU builder on Cape Cod with over 30 years of construction experience."
+-schemaName: "ADU Builder Cape Cod"
++twitterDescription: "ADU builder with over 30 years of construction experience."
++schemaName: "ADU Builder Massachusetts"
+ breadcrumbName: "ADU Builder"
+ ---
+ {% from "faq.njk" import faq %}
+@@ -21,10 +21,10 @@ breadcrumbName: "ADU Builder"
+     <!-- ============================ HERO ============================ -->
+     <section class="about-page-hero">
+       <div class="container">
+-        <span class="eyebrow motto-words">Experience <span class="dot">·</span> Quality <span class="dot">·</span> Trust</span>
+-        <h1>ADU Builder on Cape Cod</h1>
++        <p class="values-sequence" aria-label="Experience, Quality, Trust"><span>Experience</span><span>Quality</span><span>Trust</span></p>
++        <h1>ADU Builder </h1>
+         <hr class="rule" style="margin:18px auto 0">
+-        <p class="hero-lede">Build an accessory dwelling unit to generate rental income or provide living space for family. We construct detached and attached ADUs across Cape Cod.</p>
++        <p class="hero-lede">Build an accessory dwelling unit to generate rental income or provide living space for family. We construct detached and attached ADUs.</p>
+       </div>
+     </section>
+ 
+@@ -163,7 +163,7 @@ breadcrumbName: "ADU Builder"
+     <section class="section">
+       <div class="container">
+         <h2>Explore your property’s options</h2>
+-        <p class="advisory-lede">Share the Cape Cod property town and whether you are considering an attached unit, detached unit or conversion. Feasibility depends on the site, utilities and applicable local requirements. A discussion of those constraints comes before an agreed design, scope, price and construction schedule.</p>
++        <p class="advisory-lede">Share the Massachusetts property town and whether you are considering an attached unit, detached unit or conversion. Feasibility depends on the site, utilities and applicable local requirements. A discussion of those constraints comes before an agreed design, scope, price and construction schedule.</p>
+         <p class="advisory-lede">You can ask about the proposed project team, relevant experience and communication approach when discussing fit. Availability and the specific scope need to be confirmed for your project.</p>
+       </div>
+     </section>
+@@ -182,7 +182,7 @@ breadcrumbName: "ADU Builder"
+       },
+       {
+         "q": "What's the first step to explore an ADU on my property?",
+-        "a": "Share the Cape Cod property town and whether you are considering an attached unit, detached unit, or conversion. Feasibility depends on the site, utilities, and applicable local requirements. See the checklist below before assuming a property qualifies."
++        "a": "Share the Massachusetts property town and whether you are considering an attached unit, detached unit, or conversion. Feasibility depends on the site, utilities, and applicable local requirements. See the checklist below before assuming a property qualifies."
+       },
+       {
+         "q": "Who handles the zoning, code, and utility questions?",
+@@ -204,7 +204,7 @@ breadcrumbName: "ADU Builder"
+             <div class="svc-card__head">
+               <h3>1. State-level status</h3>
+             </div>
+-            <p class="advisory-lede">Massachusetts reported 854 ADU approvals statewide in the first half of 2026, and 2,084 since the start of 2025. Those are statewide figures, not a Falmouth or Cape Cod count. The state's ADU FAQ defines a protected-use size threshold as the lesser of half the principal dwelling's gross floor area or 900 square feet; protected status does not mean exempt from all permitting. <a href="https://www.mass.gov/info-details/accessory-dwelling-units" target="_blank" rel="noopener">State ADU hub</a> and <a href="https://www.mass.gov/info-details/accessory-dwelling-unit-adu-faqs" target="_blank" rel="noopener">state FAQ</a>.</p>
++            <p class="advisory-lede">Massachusetts reported 854 ADU approvals statewide in the first half of 2026, and 2,084 since the start of 2025. Those are statewide figures, not counts for an individual municipality. The state's ADU FAQ defines a protected-use size threshold as the lesser of half the principal dwelling's gross floor area or 900 square feet; protected status does not mean exempt from all permitting. <a href="https://www.mass.gov/info-details/accessory-dwelling-units" target="_blank" rel="noopener">State ADU hub</a> and <a href="https://www.mass.gov/info-details/accessory-dwelling-unit-adu-faqs" target="_blank" rel="noopener">state FAQ</a>.</p>
+           </article>
+ 
+           <article class="svc-card" data-reveal data-delay="2">
+diff --git a/src/construction-advisory.njk b/src/construction-advisory.njk
+index 771ca5c..b38b489 100644
+--- a/src/construction-advisory.njk
++++ b/src/construction-advisory.njk
+@@ -4,18 +4,18 @@ permalink: /construction-advisory/index.html
+ canonical: /construction-advisory/
+ schemaType: services
+ title: "Construction Management | Collaborative Construction, LLC"
+-description: "Construction management on Cape Cod and the South Shore: owner's project management, Clerk of the Works oversight, and advisory for budget and schedule."
++description: "Construction management: owner's project management, Clerk of the Works oversight, and advisory for budget and schedule."
+ ogTitle: "Construction Management | Collaborative Construction, LLC"
+-ogDescription: "Owner's project management, Clerk of the Works oversight, and construction advisory that protect your budget, schedule, and quality from concept to close-out on Cape Cod and the South Shore."
++ogDescription: "Owner's project management, Clerk of the Works oversight, and construction advisory that protect your budget, schedule, and quality from concept to close-out."
+ shareImageAlt: "A Collaborative Construction project under management"
+-twitterDescription: "Owner's project management, Clerk of the Works oversight, and construction advisory on Cape Cod and the South Shore."
++twitterDescription: "Owner's project management, Clerk of the Works oversight, and construction advisory."
+ schemaName: "Construction Management"
+ ---
+ {% from "faq.njk" import faq %}
+     <!-- ============================ HERO ============================ -->
+     <section class="about-page-hero">
+       <div class="container">
+-        <span class="eyebrow motto-words">Experience <span class="dot">·</span> Quality <span class="dot">·</span> Trust</span>
++        <p class="values-sequence" aria-label="Experience, Quality, Trust"><span>Experience</span><span>Quality</span><span>Trust</span></p>
+         <h1>Construction Management</h1>
+         <hr class="rule" style="margin:18px auto 0">
+         <p class="hero-lede">Owner's project management and Clerk of the Works oversight, an experienced advocate protecting your budget, schedule, and quality from concept to close-out.</p>
+@@ -30,11 +30,11 @@ schemaName: "Construction Management"
+     <section class="section advisory-intro">
+       <div class="container">
+         <div class="section-head center" data-reveal>
+-          <span class="eyebrow">Your Advocate At The Table</span>
++          <span class="eyebrow">Independent Project Oversight</span>
+           <h2 data-reveal-words>An owner's advocate from concept to close-out</h2>
+           <hr class="rule">
+         </div>
+-        <p class="advisory-lede" data-reveal data-delay="1">Every project runs smoother with an experienced advocate at the table, someone whose only job is to protect your interests. Through our Construction Advisory services, Collaborative Construction represents the owner from the first budget through move-in, drawing on more than 30 years of building experience. Engage us for full owner's project management across every phase, or for focused, on-site oversight through our Clerk of the Works.</p>
++        <p class="advisory-lede" data-reveal data-delay="1">Independent oversight helps owners evaluate progress, costs and construction decisions. Through our Construction Advisory services, Collaborative Construction represents the owner from the first budget through move-in, drawing on more than 30 years of building experience. Engage us for full owner's project management across every phase, or for focused, on-site oversight through our Clerk of the Works.</p>
+       </div>
+     </section>
+ 
+@@ -152,7 +152,7 @@ schemaName: "Construction Management"
+               <p class="proj-card__meta">20,000 SF facility</p>
+             </article>
+             <article class="proj-card" data-reveal data-delay="3">
+-              <h4 class="proj-card__name">YMCA Cape Cod (Current)</h4>
++              <h4 class="proj-card__name">YMCA Massachusetts (Current)</h4>
+               <span class="proj-card__loc">Falmouth, MA</span>
+               <p class="proj-card__meta">68,000 SF facility</p>
+             </article>
+@@ -213,7 +213,7 @@ schemaName: "Construction Management"
+     <section class="section">
+       <div class="container">
+         <h2>Define the oversight your project needs</h2>
+-        <p class="advisory-lede">For a project on Cape Cod or the South Shore, share the town, project stage, your role and the decisions you need help with. A first conversation can clarify whether owner’s representation, Clerk of the Works support or a focused advisory scope is appropriate.</p>
++        <p class="advisory-lede">For a project  or the South Shore, share the town, project stage, your role and the decisions you need help with. A first conversation can clarify whether owner’s representation, Clerk of the Works support or a focused advisory scope is appropriate.</p>
+         <p class="advisory-lede">Before engagement, confirm relevant experience, availability, reporting frequency, authority and deliverables. Design, permitting and contractor responsibilities should be explicit in the agreed scope.</p>
+       </div>
+     </section>
+diff --git a/src/custom-home-builder-cape-cod/index.njk b/src/custom-home-builder-cape-cod/index.njk
+index 74e45f2..d9d6f57 100644
+--- a/src/custom-home-builder-cape-cod/index.njk
++++ b/src/custom-home-builder-cape-cod/index.njk
+@@ -3,13 +3,13 @@ layout: base.njk
+ permalink: /custom-home-builder-cape-cod/index.html
+ canonical: /custom-home-builder-cape-cod/
+ schemaType: service
+-title: "Custom Home Builder on Cape Cod | Collaborative Construction, LLC"
+-description: "Collaborative Construction, LLC builds custom homes on Cape Cod. Bespoke custom home construction from concept to completion with over 30 years of experience."
+-ogTitle: "Custom Home Builder on Cape Cod | Collaborative Construction, LLC"
+-ogDescription: "Expert custom home building on Cape Cod. Bespoke homes from concept to completion with experienced custom home builders."
++title: "Custom Home Builder | Collaborative Construction, LLC"
++description: "Collaborative Construction, LLC builds custom homes. Bespoke custom home construction from concept to completion with over 30 years of experience."
++ogTitle: "Custom Home Builder | Collaborative Construction, LLC"
++ogDescription: "Expert custom home building. Bespoke homes from concept to completion with experienced custom home builders."
+ shareImageAlt: "Cedar-clad modern residence in Belmont, Massachusetts"
+-twitterDescription: "Custom home builder on Cape Cod with over 30 years of construction experience."
+-schemaName: "Custom Home Builder Cape Cod"
++twitterDescription: "Custom home builder with over 30 years of construction experience."
++schemaName: "Custom Home Builder Massachusetts"
+ breadcrumbName: "Custom Homes"
+ ---
+ {% from "faq.njk" import faq %}
+@@ -21,8 +21,8 @@ breadcrumbName: "Custom Homes"
+     <!-- ============================ HERO ============================ -->
+     <section class="about-page-hero">
+       <div class="container">
+-        <span class="eyebrow motto-words">Experience <span class="dot">·</span> Quality <span class="dot">·</span> Trust</span>
+-        <h1>Custom Home Builder on Cape Cod</h1>
++        <p class="values-sequence" aria-label="Experience, Quality, Trust"><span>Experience</span><span>Quality</span><span>Trust</span></p>
++        <h1>Custom Home Builder </h1>
+         <hr class="rule" style="margin:18px auto 0">
+         <p class="hero-lede">Bespoke custom home construction from concept to completion. We build homes that reflect your vision and fit your lifestyle.</p>
+       </div>
+@@ -40,7 +40,7 @@ breadcrumbName: "Custom Homes"
+           <h2 data-reveal-words>Building Custom Homes for Over 30 Years</h2>
+           <hr class="rule">
+         </div>
+-        <p class="advisory-lede" data-reveal data-delay="1">The owner and founder, Wesleigh Behn, brings over 30 years of experience in the construction field, with extensive expertise in custom home building and renovation projects. From modern cedar-clad residences to traditional Cape Cod homes, we've built custom residences that balance architectural vision with practical livability. Our custom home experience spans single-family residences, from initial design consultation through final walkthrough.</p>
++        <p class="advisory-lede" data-reveal data-delay="1">The owner and founder, Wesleigh Behn, brings over 30 years of experience in the construction field, with extensive expertise in custom home building and renovation projects. From modern cedar-clad residences to traditional existing homes, we've built custom residences that balance architectural vision with practical livability. Our custom home experience spans single-family residences, from initial design consultation through final walkthrough.</p>
+       </div>
+     </section>
+ 
+@@ -96,7 +96,7 @@ breadcrumbName: "Custom Homes"
+         <div class="two-col">
+           <div class="body" data-reveal="left">
+             <p><strong>Custom Home Styles</strong></p>
+-            <p>We build custom homes across a range of architectural styles, from modern designs with extensive glazing to traditional Cape Cod and New England homes. Our experience includes homes with complex features: custom millwork, stone flooring, floating stairs, board-formed concrete, and integrated indoor-outdoor living spaces. We work with the materials and details that matter to you, whether that is cedar siding, custom cabinetry, or specialized mechanical systems.</p>
++            <p>We build custom homes across a range of architectural styles, from modern designs with extensive glazing to traditional Massachusetts and New England homes. Our experience includes homes with complex features: custom millwork, stone flooring, floating stairs, board-formed concrete, and integrated indoor-outdoor living spaces. We work with the materials and details that matter to you, whether that is cedar siding, custom cabinetry, or specialized mechanical systems.</p>
+             <p>Every custom home we build is unique to the homeowner, but they all share our commitment to quality construction, clear communication, and collaborative decision-making throughout the project.</p>
+           </div>
+           <div class="figure" data-reveal="right">
+@@ -204,7 +204,7 @@ breadcrumbName: "Custom Homes"
+     <section class="section">
+       <div class="container">
+         <h2>Begin with your site and goals</h2>
+-        <p class="advisory-lede">Tell us where you plan to build on Cape Cod, whether you have a site and where you are in the design process. Site conditions, approvals, drawings and specifications inform the construction scope. An initial conversation can identify the next review needed before a price or start date can be established.</p>
++        <p class="advisory-lede">Tell us where you plan to build , whether you have a site and where you are in the design process. Site conditions, approvals, drawings and specifications inform the construction scope. An initial conversation can identify the next review needed before a price or start date can be established.</p>
+         <p class="advisory-lede">You can ask about the proposed project team, relevant experience and communication approach when discussing fit. Availability and the specific scope need to be confirmed for your project.</p>
+       </div>
+     </section>
+@@ -220,11 +220,11 @@ breadcrumbName: "Custom Homes"
+       },
+       {
+         "q": "What styles of homes do you build?",
+-        "a": "A range of architectural styles, from modern designs with extensive glazing to traditional Cape Cod and New England homes, including complex features such as custom millwork, stone flooring, floating stairs, and board-formed concrete."
++        "a": "A range of architectural styles, from modern designs with extensive glazing to traditional Massachusetts and New England homes, including complex features such as custom millwork, stone flooring, floating stairs, and board-formed concrete."
+       },
+       {
+         "q": "What do you need from me to start?",
+-        "a": "Where you plan to build on Cape Cod, whether you have a site, and where you are in the design process. Site conditions, approvals, drawings, and specifications inform the construction scope before a price or start date can be established."
++        "a": "Where you plan to build , whether you have a site, and where you are in the design process. Site conditions, approvals, drawings, and specifications inform the construction scope before a price or start date can be established."
+       }
+     ], "Questions About Custom Homes") }}
+ 
+diff --git a/src/gallery.njk b/src/gallery.njk
+index 3b71778..30c50cf 100644
+--- a/src/gallery.njk
++++ b/src/gallery.njk
+@@ -6,9 +6,9 @@ schemaType: gallery
+ title: "Gallery | Collaborative Construction, LLC"
+ description: "Completed projects by Collaborative Construction, LLC: residential construction, kitchen & bath remodels, home renovations, and commercial tenant fit-outs."
+ ogTitle: "Project Gallery | Collaborative Construction, LLC"
+-ogDescription: "Completed residential and commercial projects on Cape Cod and the South Shore: whole-home renovations, kitchens and baths, additions, and tenant fit-outs."
++ogDescription: "Completed residential and commercial projects: whole-home renovations, kitchens and baths, additions, and tenant fit-outs."
+ shareImageAlt: "A completed Collaborative Construction renovation project"
+-twitterDescription: "Completed residential and commercial projects on Cape Cod and the South Shore."
++twitterDescription: "Completed residential and commercial projects."
+ schemaName: "Project Gallery"
+ breadcrumbName: "Gallery"
+ ---
+@@ -67,7 +67,7 @@ breadcrumbName: "Gallery"
+             </div>
+             {#- The "2 / 6" counter is built by main.js, not written here, so
+                 that all eight carousels on the site get it from one place,
+-                and so it never claims the photos are browsable on a page
++               and so it never claims the photos are browsable on a page
+                 where the script failed to load. -#}
+             {%- if p.images | length > 1 %}
+             <button class="carousel__btn prev" type="button" aria-label="Previous photo of {{ p.title }}">
+@@ -93,7 +93,7 @@ breadcrumbName: "Gallery"
+     <!-- ============================ GALLERY INTRO ============================ -->
+     <section class="about-page-hero">
+       <div class="container">
+-        <span class="eyebrow">Our Work</span>
++
+         <h1>Gallery</h1>
+         <hr class="rule" style="margin:18px auto 0">
+         <p class="hero-lede">Showcasing a sample of completed projects ranging from Residential Construction, Kitchen and Bath Remodels, Custom Home Renovations, and Commercial Tenant Fit-outs.</p>
+@@ -118,7 +118,7 @@ breadcrumbName: "Gallery"
+             facility alongside bath remodels.
+ 
+             Rather than guess a role per project, this says roles varied
+-            and offers the real answer on request. If the owner confirms
++           and offers the real answer on request. If the owner confirms
+             attribution, replace this with per-project roles in
+             projects.json and delete the paragraph.
+ 
+@@ -131,7 +131,7 @@ breadcrumbName: "Gallery"
+         </p>
+ 
+         {#- The first project runs full width as the featured one; the rest
+-            pair up in .projects-grid and wrap as more are added. To add a
++            pair up in.projects-grid and wrap as more are added. To add a
+             project, append an entry to src/_data/projects.json - there is no
+             markup to copy any more. -#}
+         {%- for p in projects.items %}{% if loop.first %}{{ project(p, true, sizesFull) }}{% endif %}{% endfor %}
+diff --git a/src/general-contractor-falmouth-ma/index.njk b/src/general-contractor-falmouth-ma/index.njk
+index 92a95b4..18a8915 100644
+--- a/src/general-contractor-falmouth-ma/index.njk
++++ b/src/general-contractor-falmouth-ma/index.njk
+@@ -4,11 +4,11 @@ permalink: /general-contractor-falmouth-ma/index.html
+ canonical: /general-contractor-falmouth-ma/
+ schemaType: service
+ title: "General Contractor in Falmouth, MA | Collaborative Construction, LLC"
+-description: "General contracting in Falmouth, MA and across Cape Cod: residential new builds, additions, and renovations. Over 30 years of experience. Call (508) 440-6981."
++description: "General contracting in Falmouth, MA and: residential new builds, additions, and renovations. Over 30 years of experience. Call (508) 440-6981."
+ ogTitle: "General Contractor in Falmouth, MA | Collaborative Construction, LLC"
+-ogDescription: "Full-service residential general contracting in Falmouth and across Cape Cod. New construction, additions, renovations, and ADUs with over 30 years of experience."
++ogDescription: "Full-service residential general contracting in Falmouth and. New construction, additions, renovations, and ADUs with over 30 years of experience."
+ shareImageAlt: "Cedar-clad modern residence in Belmont, Massachusetts"
+-twitterDescription: "General contracting services in Falmouth, MA and Cape Cod with over 30 years of experience."
++twitterDescription: "General contracting services in Falmouth, MA and Massachusetts with over 30 years of experience."
+ schemaName: "General Contractor Falmouth"
+ breadcrumbName: "General Contractor"
+ ---
+@@ -21,10 +21,10 @@ breadcrumbName: "General Contractor"
+     <!-- ============================ HERO ============================ -->
+     <section class="about-page-hero">
+       <div class="container">
+-        <span class="eyebrow motto-words">Experience <span class="dot">·</span> Quality <span class="dot">·</span> Trust</span>
++        <p class="values-sequence" aria-label="Experience, Quality, Trust"><span>Experience</span><span>Quality</span><span>Trust</span></p>
+         <h1>General Contractor in Falmouth, MA</h1>
+         <hr class="rule" style="margin:18px auto 0">
+-        <p class="hero-lede">Full-service residential construction across Cape Cod and the South Shore, with over 30 years of building experience.</p>
++        <p class="hero-lede">Full-service residential construction , with over 30 years of building experience.</p>
+       </div>
+     </section>
+ 
+@@ -40,7 +40,7 @@ breadcrumbName: "General Contractor"
+           <h2 data-reveal-words>What Collaborative Construction Actually Builds</h2>
+           <hr class="rule">
+         </div>
+-        <p class="advisory-lede" data-reveal data-delay="1">As a fully licensed general contractor serving Falmouth and the broader Cape Cod region, we handle every phase of residential construction. From new custom homes to additions, ADUs, and whole-home renovations, we bring a professional, client-centered approach to every project. Our work spans Cape Cod, the Islands, and the South Shore of Massachusetts.</p>
++        <p class="advisory-lede" data-reveal data-delay="1">As a fully licensed general contractor serving Falmouth and the broader region, we handle every phase of residential construction. From new custom homes to additions, ADUs, and whole-home renovations, we bring a professional, client-centered approach to every project. Our work spans nearby communities.</p>
+       </div>
+     </section>
+ 
+@@ -79,10 +79,10 @@ breadcrumbName: "General Contractor"
+       <div class="container">
+         <div class="section-head center" data-reveal>
+           <span class="eyebrow">Where We Work</span>
+-          <h2 data-reveal-words>Serving Cape Cod and the South Shore</h2>
++          <h2 data-reveal-words>Serving nearby communities</h2>
+           <hr class="rule">
+         </div>
+-        <p class="advisory-lede" data-reveal data-delay="1">Based in East Falmouth, we provide general contracting services throughout Cape Cod, the Islands, and the South Shore of Massachusetts. Our service area includes Falmouth, Mashpee, Barnstable, Sandwich, and surrounding communities.</p>
++        <p class="advisory-lede" data-reveal data-delay="1">Based in East Falmouth, we provide general contracting services throughout nearby communities. Our service area includes Falmouth, Mashpee, Barnstable, Sandwich, and surrounding communities.</p>
+       </div>
+     </section>
+ 
+@@ -142,7 +142,7 @@ breadcrumbName: "General Contractor"
+     <section class="section">
+       <div class="container">
+         <h2>Plan your residential project</h2>
+-        <p class="advisory-lede">Start with the project town, the work you have in mind and any drawings you already have. For work in Falmouth or elsewhere on Cape Cod, a first conversation can establish service-area fit and the next information needed. Before construction, the scope, permitting responsibilities, price and schedule need to be agreed.</p>
++        <p class="advisory-lede">Start with the project town, the work you have in mind and any drawings you already have. For work in Falmouth or elsewhere , a first conversation can establish service-area fit and the next information needed. Before construction, the scope, permitting responsibilities, price and schedule need to be agreed.</p>
+         <p class="advisory-lede">You can ask about the proposed project team, relevant experience and communication approach when discussing fit. Availability and the specific scope need to be confirmed for your project.</p>
+       </div>
+     </section>
+@@ -158,7 +158,7 @@ breadcrumbName: "General Contractor"
+       },
+       {
+         "q": "What areas do you serve?",
+-        "a": "Falmouth, Mashpee, Barnstable, Sandwich, and surrounding communities across Cape Cod, the Islands, and the South Shore."
++        "a": "Falmouth, Mashpee, Barnstable, Sandwich, and surrounding communities , the Islands, and the South Shore."
+       },
+       {
+         "q": "What do you need from me to start?",
+diff --git a/src/home-additions-cape-cod/index.njk b/src/home-additions-cape-cod/index.njk
+index 4e3cc10..7c059a1 100644
+--- a/src/home-additions-cape-cod/index.njk
++++ b/src/home-additions-cape-cod/index.njk
+@@ -3,13 +3,13 @@ layout: base.njk
+ permalink: /home-additions-cape-cod/index.html
+ canonical: /home-additions-cape-cod/
+ schemaType: service
+-title: "Home Additions on Cape Cod | Collaborative Construction, LLC"
+-description: "Home additions and ADUs on Cape Cod, from planning and permitting through construction. Over 30 years of experience. Call (508) 440-6981."
+-ogTitle: "Home Additions on Cape Cod | Collaborative Construction, LLC"
+-ogDescription: "Expert home addition construction on Cape Cod. Planning, permitting, and building seamless additions and ADUs to expand your living space."
++title: "Home Additions | Collaborative Construction, LLC"
++description: "Home additions and ADUs , from planning and permitting through construction. Over 30 years of experience. Call (508) 440-6981."
++ogTitle: "Home Additions | Collaborative Construction, LLC"
++ogDescription: "Expert home addition construction. Planning, permitting, and building seamless additions and ADUs to expand your living space."
+ shareImageAlt: "Cedar-clad modern residence in Belmont, Massachusetts"
+-twitterDescription: "Home additions and ADUs on Cape Cod with over 30 years of construction experience."
+-schemaName: "Home Additions Cape Cod"
++twitterDescription: "Home additions and ADUs with over 30 years of construction experience."
++schemaName: "Home Additions Massachusetts"
+ breadcrumbName: "Home Additions"
+ ---
+ {% from "faq.njk" import faq %}
+@@ -21,10 +21,10 @@ breadcrumbName: "Home Additions"
+     <!-- ============================ HERO ============================ -->
+     <section class="about-page-hero">
+       <div class="container">
+-        <span class="eyebrow motto-words">Experience <span class="dot">·</span> Quality <span class="dot">·</span> Trust</span>
+-        <h1>Home Additions on Cape Cod</h1>
++        <p class="values-sequence" aria-label="Experience, Quality, Trust"><span>Experience</span><span>Quality</span><span>Trust</span></p>
++        <h1>Home Additions </h1>
+         <hr class="rule" style="margin:18px auto 0">
+-        <p class="hero-lede">Expand your living space with seamless additions and ADUs, built by experienced contractors who understand Cape Cod homes.</p>
++        <p class="hero-lede">Expand your living space with seamless additions and ADUs, built by experienced contractors who understand existing homes.</p>
+       </div>
+     </section>
+ 
+@@ -59,7 +59,7 @@ breadcrumbName: "Home Additions"
+         <div class="two-col">
+           <div class="body" data-reveal="left">
+             <p><strong>Planning and Permitting</strong></p>
+-            <p>Building an addition on Cape Cod involves careful planning and coordination with local permitting authorities. We work with you through every step: initial design consultation, zoning review, permit applications, and construction documentation. Our experience with Cape Cod municipalities means we understand local requirements and can help navigate the permitting process efficiently.</p>
++            <p>Building an addition  involves careful planning and coordination with local permitting authorities. We work with you through every step: initial design consultation, zoning review, permit applications, and construction documentation. Our experience with local municipalities means we understand local requirements and can help navigate the permitting process efficiently.</p>
+             <p>For ADUs, we stay current with Massachusetts regulations that affect accessory dwelling units. We can help you understand what is possible on your property and design an addition that meets both your needs and local requirements.</p>
+           </div>
+           <div class="figure" data-reveal="right">
+@@ -142,7 +142,7 @@ breadcrumbName: "Home Additions"
+     <section class="section">
+       <div class="container">
+         <h2>Start with the space you need</h2>
+-        <p class="advisory-lede">Tell us how you want to use the additional space and where the property is on Cape Cod. Existing structure, site access and local requirements can affect the options. The next step may be a site discussion and drawing review before an agreed scope and estimate.</p>
++        <p class="advisory-lede">Tell us how you want to use the additional space and where the property is. Existing structure, site access and local requirements can affect the options. The next step may be a site discussion and drawing review before an agreed scope and estimate.</p>
+         <p class="advisory-lede">You can ask about the proposed project team, relevant experience and communication approach when discussing fit. Availability and the specific scope need to be confirmed for your project.</p>
+       </div>
+     </section>
+@@ -162,7 +162,7 @@ breadcrumbName: "Home Additions"
+       },
+       {
+         "q": "What do you need from me to start?",
+-        "a": "How you want to use the additional space and where the property is on Cape Cod. Existing structure, site access, and local requirements can affect the options; the next step may be a site discussion and drawing review before an agreed scope and estimate."
++        "a": "How you want to use the additional space and where the property is. Existing structure, site access, and local requirements can affect the options; the next step may be a site discussion and drawing review before an agreed scope and estimate."
+       }
+     ], "Questions About Home Additions") }}
+ 
+diff --git a/src/home-renovation-cape-cod/index.njk b/src/home-renovation-cape-cod/index.njk
+index aaf7fdb..c5ce82a 100644
+--- a/src/home-renovation-cape-cod/index.njk
++++ b/src/home-renovation-cape-cod/index.njk
+@@ -3,13 +3,13 @@ layout: base.njk
+ permalink: /home-renovation-cape-cod/index.html
+ canonical: /home-renovation-cape-cod/
+ schemaType: service
+-title: "Home Renovation on Cape Cod | Collaborative Construction, LLC"
+-description: "Home renovation on Cape Cod: kitchen and bath remodeling, whole-home renovations, and interior updates. Over 30 years of experience. Call (508) 440-6981."
+-ogTitle: "Home Renovation on Cape Cod | Collaborative Construction, LLC"
+-ogDescription: "Expert home renovation on Cape Cod. Kitchen and bath remodeling, whole-home renovations, and interior updates with experienced contractors."
++title: "Home Renovation | Collaborative Construction, LLC"
++description: "Home renovation: kitchen and bath remodeling, whole-home renovations, and interior updates. Over 30 years of experience. Call (508) 440-6981."
++ogTitle: "Home Renovation | Collaborative Construction, LLC"
++ogDescription: "Expert home renovation. Kitchen and bath remodeling, whole-home renovations, and interior updates with experienced contractors."
+ shareImageAlt: "Cedar-clad modern residence in Belmont, Massachusetts"
+-twitterDescription: "Home renovation services on Cape Cod with over 30 years of construction experience."
+-schemaName: "Home Renovation Cape Cod"
++twitterDescription: "Home renovation services with over 30 years of construction experience."
++schemaName: "Home Renovati"
+ breadcrumbName: "Home Renovation"
+ ---
+ {% from "faq.njk" import faq %}
+@@ -21,10 +21,10 @@ breadcrumbName: "Home Renovation"
+     <!-- ============================ HERO ============================ -->
+     <section class="about-page-hero">
+       <div class="container">
+-        <span class="eyebrow motto-words">Experience <span class="dot">·</span> Quality <span class="dot">·</span> Trust</span>
+-        <h1>Home Renovation on Cape Cod</h1>
++        <p class="values-sequence" aria-label="Experience, Quality, Trust"><span>Experience</span><span>Quality</span><span>Trust</span></p>
++        <h1>Home Renovation </h1>
+         <hr class="rule" style="margin:18px auto 0">
+-        <p class="hero-lede">Kitchen and bath remodeling, whole-home renovations, and interior updates across Cape Cod and the South Shore.</p>
++        <p class="hero-lede">Kitchen and bath remodeling, whole-home renovations, and interior updates.</p>
+       </div>
+     </section>
+ 
+@@ -40,7 +40,7 @@ breadcrumbName: "Home Renovation"
+           <h2 data-reveal-words>Types of Renovations We Complete</h2>
+           <hr class="rule">
+         </div>
+-        <p class="advisory-lede" data-reveal data-delay="1">We handle residential renovation projects of all sizes, from single-room updates to whole-home transformations. Our work includes kitchen and bathroom remodeling, interior renovations, floor plan changes, and exterior updates. Whether you're modernizing an older Cape Cod home or updating a specific space, we bring the same attention to detail and quality craftsmanship to every renovation project.</p>
++        <p class="advisory-lede" data-reveal data-delay="1">We handle residential renovation projects of all sizes, from single-room updates to whole-home transformations. Our work includes kitchen and bathroom remodeling, interior renovations, floor plan changes, and exterior updates. Whether you're modernizing an older home or updating a specific space, we bring the same attention to detail and quality craftsmanship to every renovation project.</p>
+       </div>
+     </section>
+ 
+@@ -171,7 +171,7 @@ breadcrumbName: "Home Renovation"
+     <section class="section">
+       <div class="container">
+         <h2>Tell us what needs to change</h2>
+-        <p class="advisory-lede">Describe the rooms or systems you want to improve, the Cape Cod property town and whether the home will be occupied during work. Existing conditions and access can affect the scope. Before work begins, agree the responsibilities, selections, estimate and sequence, including how changes will be handled.</p>
++        <p class="advisory-lede">Describe the rooms or systems you want to improve, the Massachusetts property town and whether the home will be occupied during work. Existing conditions and access can affect the scope. Before work begins, agree the responsibilities, selections, estimate and sequence, including how changes will be handled.</p>
+         <p class="advisory-lede">You can ask about the proposed project team, relevant experience and communication approach when discussing fit. Availability and the specific scope need to be confirmed for your project.</p>
+       </div>
+     </section>
+@@ -191,7 +191,7 @@ breadcrumbName: "Home Renovation"
+       },
+       {
+         "q": "What do you need from me to get started?",
+-        "a": "Describe the rooms or systems you want to improve, the Cape Cod property town, and whether the home will be occupied during work. Existing conditions and access can affect the scope."
++        "a": "Describe the rooms or systems you want to improve, the Massachusetts property town, and whether the home will be occupied during work. Existing conditions and access can affect the scope."
+       }
+     ], "Questions About Renovations") }}
+ 
+diff --git a/src/index.njk b/src/index.njk
+index 25209b7..858144c 100644
+--- a/src/index.njk
++++ b/src/index.njk
+@@ -7,12 +7,12 @@ schemaType: home
+ # ("...LLC Residential Construction...") and Google truncated it near 60,
+ # cutting the location entirely while showing "Construction" three times.
+ # Brand first and exact, then place.
+-title: "Collaborative Construction, LLC | Cape Cod & South Shore Builder"
++title: "Collaborative Construction, LLC | Residential Construction & Renovation"
+ # The old description spent its first 32 characters repeating the legal name
+ # already in the title - the most valuable words in the snippet. Leads with
+ # the work and closes with the phone number instead.
+-description: "Collaborative Construction, LLC: home building and renovation on Cape Cod, the Islands, and the South Shore. Additions, ADUs, and remodels. Call (508) 440-6981."
+-ogTitle: "Residential Construction & Renovation | Cape Cod & South Shore"
++description: "Collaborative Construction, LLC: home building and renovation , the Islands, and the South Shore. Additions, ADUs, and remodels. Call (508) 440-6981."
++ogTitle: "Residential Construction & Renovation"
+ ogDescription: "Working together, working collaboratively, to produce the highest quality construction and renovation projects. New construction, additions, ADUs, and remodels."
+ shareImageAlt: "Custom home built by Collaborative Construction"
+ twitterDescription: "Working together, working collaboratively, to produce the highest quality construction and renovation projects."
+@@ -36,7 +36,7 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+        split. The split won on evidence, not taste:
+ 
+        - The photography cannot carry a full-bleed hero honestly. The only
+-         Cape Cod residential set on hand is 1024x768; the highest-resolution
++         Massachusetts residential set on hand is 1024x768; the highest-resolution
+          images in the repo are the commercial dormitory and self-storage
+          shots. A 2560px-wide hero would be upscaling a 1024px photo, and
+          the sharpest available images are of buildings that are not the
+@@ -61,13 +61,13 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+       <div class="container">
+         <div class="hero-grid">
+           <div class="hero__copy">
+-            <p class="eyebrow eyebrow--boom">{{ business.areaServedDisplay }}</p>
++            <p class="eyebrow eyebrow--boom">Residential building &amp; project oversight</p>
+             {#- No `data-reveal-words` here, unlike every other heading. This
+                 is the LCP element; the word reveal kept it at opacity:0 until
+                 main.js had run. Its entrance is a CSS animation on
+                 `.hero__title` instead. -#}
+             <h1 class="hero__title">Residential construction <span class="gem">&amp; renovation.</span></h1>
+-            <p class="hero__lede">Custom homes, additions and renovations on Cape Cod and the South Shore. We also provide owner's project management and Clerk of the Works oversight.</p>
++            <p class="hero__lede">Custom homes, additions and renovations. We also provide owner's project management and Clerk of the Works oversight.</p>
+             <div class="hero__cta">
+               <a href="#contact" class="btn btn-gold">Start a conversation</a>
+               <a href="/gallery/" class="btn btn-ghost">See the work</a>
+@@ -81,7 +81,7 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+               under reduced motion, where the first frame simply stays put. #}
+           {#- No `data-reveal` here, for the same reason the H1 above has no
+               `data-reveal-words`: the first frame inside is the LCP element,
+-              and the reveal held it transparent until main.js ran. The
++             and the reveal held it transparent until main.js ran. The
+               entrance is a CSS animation on `.hero-figure` instead. -#}
+           <figure class="hero-figure" data-hero-figure>
+             {#- Frames 2 and 3 carry `deferSrc`, so they ship as data-srcset and
+@@ -99,7 +99,7 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+             </div>
+             {#- Names the town and the gallery, and stops there. It does not
+                 say "our work": attribution for the portfolio is unconfirmed,
+-                and the caption is not the place to quietly settle that. #}
++               and the caption is not the place to quietly settle that. #}
+             <figcaption class="hero-figure__cap">Falmouth, MA &middot; From the gallery</figcaption>
+           </figure>
+         </div>
+@@ -169,7 +169,7 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+               <h3>We oversee the work</h3>
+               <span class="tag tag--cat">Owner's side</span>
+             </div>
+-            <p>You have a builder. You need someone who reads the drawings, walks the site, and asks the questions you do not know to ask: reporting to you, paid by you.</p>
++            <p>Independent review of drawings, site progress and construction decisions, with reporting directly to the owner.</p>
+             <ul>
+               <li>Owner's Project Management, concept to close-out</li>
+               <li>Clerk of the Works, on-site quality and compliance</li>
+@@ -204,9 +204,9 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+             <span class="svc-row__n">01</span>
+             <div class="svc-row__body">
+               <h3>General contracting</h3>
+-              <p>Running the whole job: trades, schedule, inspections, budget and the one phone number you call when something changes.</p>
++              <p>Coordination of trades, scheduling, inspections and budgets through a single point of contact.</p>
+             </div>
+-            <span class="svc-row__go" aria-hidden="true">Falmouth &amp; Upper Cape</span>
++            <span class="svc-row__go" aria-hidden="true">View service</span>
+           </a>
+ 
+           <a class="svc-row" href="/home-additions-cape-cod/" data-reveal data-delay="2">
+@@ -240,7 +240,7 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+             <span class="svc-row__n">05</span>
+             <div class="svc-row__body">
+               <h3>Custom homes</h3>
+-              <p>New construction from a bare lot, working alongside your architect and designer rather than around them.</p>
++              <p>New construction from a bare lot, coordinated with your architect and designer.</p>
+             </div>
+             <span class="svc-row__go" aria-hidden="true">Custom homes</span>
+           </a>
+@@ -249,7 +249,7 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+             <span class="svc-row__n">06</span>
+             <div class="svc-row__body">
+               <h3>Construction management &amp; advisory</h3>
+-              <p>Owner's project management, Clerk of the Works and advisory: the other side of the table, for owners who need representation.</p>
++              <p>Owner's project management, Clerk of the Works and advisory: independent oversight for property owners.</p>
+             </div>
+             <span class="svc-row__go" aria-hidden="true">Owner's side</span>
+           </a>
+@@ -261,7 +261,7 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+ 
+        A separate section from Services, by request. Reads
+        src/_data/serviceArea.json, which documents why these are plain text
+-       and not twelve thin landing pages.
++      and not twelve thin landing pages.
+ 
+        Accessibility, deliberately: the marquee is one CSS animation, paused
+        by hover, by the explicit button (WCAG 2.2.2 Pause, Stop, Hide) and by
+@@ -269,11 +269,18 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+        duplicate run that makes the loop seamless is aria-hidden and carries
+        no focusable content, so assistive tech and the tab order both see each
+        town exactly once. #}
+-    <section class="locations locations--strip" aria-label="Nearby service locations">
+-      <div class="container">
+-        <ul class="location-strip">
++    <section class="locations locations--atlas" aria-label="Nearby communities">
++      <div class="container location-controls">
++        <span class="location-label">Nearby communities</span>
++        <div class="location-arrows">
++          <button type="button" data-location-back aria-label="Previous locations">&#8592;</button>
++          <button type="button" data-location-next aria-label="More locations">&#8594;</button>
++        </div>
++      </div>
++      <div class="location-window" tabindex="0" role="region" aria-label="Locations, scroll horizontally" data-location-window>
++        <ul class="location-atlas">
+           {%- for place in serviceArea.places %}
+-          <li>{{ place.name }}</li>
++          <li><span>{{ place.name }}</span></li>
+           {%- endfor %}
+         </ul>
+       </div>
+@@ -295,7 +302,7 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+             <span class="process__n">01</span>
+             <div class="process__body">
+               <h3>Conversation</h3>
+-              <p>What you want to build, where, roughly what you want to spend and roughly when. No charge, and no obligation to go further.</p>
++              <p>An initial discussion of your project location, scope, budget and timing.</p>
+             </div>
+           </div>
+           <div class="process__step" data-reveal data-delay="2">
+@@ -316,7 +323,7 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+             <span class="process__n">04</span>
+             <div class="process__body">
+               <h3>Close-out</h3>
+-              <p>Punch list, final inspections, warranties and manuals handed over, and a walkthrough that ends when you are satisfied.</p>
++              <p>Punch list, final inspections, warranties and manuals handed over, and a final walkthrough and documented handover.</p>
+             </div>
+           </div>
+         </div>
+@@ -338,7 +345,7 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+               <p>At Collaborative Construction we take a professional, client-centered approach to residential construction: new construction, additions, accessory dwelling units, demolition, permitting and renovation.</p>
+               <p>Wesleigh Behn brings over {{ people.wesleigh.yearsExperience }} years in the construction field, with extensive expertise in custom home building and renovation, as well as years of commercial experience including dormitories, cannabis dispensaries and grow facilities, athletic facilities and multi-family buildings. He has held an active Massachusetts Construction Supervisor License since {{ people.wesleigh.licensedSince }}, and studied at {{ people.wesleigh.alumniOf | join(" and ") }}.</p>
+               <p>His experience also supports our advisory work, including drawing review, bid assessment and construction oversight.</p>
+-              <p><strong>Proudly serving {{ business.areaServedDisplay }}</strong></p>
++              <p><strong>Contact us to confirm availability for your project location.</strong></p>
+               <a href="/about/" class="btn btn-ghost btn-sm">More about the company</a>
+             </div>
+           </div>
+@@ -369,15 +376,16 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+           </div>
+ 
+           <aside class="adu-card" data-reveal="right">
+-            <h3>Free estimate</h3>
+-            <p class="sub">Call to talk it through. No charge for the conversation.</p>
++            <span class="eyebrow">Plan your project</span>
++            <h3>Request a Free Estimate</h3>
++            <p class="sub">Discuss the scope, timing and next steps for your construction project.</p>
+             <ul class="adu-points">
+               <li>Fully licensed General Contractor</li>
+               <li>Over {{ people.wesleigh.yearsExperience }} years of experience</li>
+               <li>Family owned &amp; run</li>
+             </ul>
+-            <a href="{{ business.phoneHref }}" class="btn btn-primary">Call Wes &middot; {{ business.phone }}</a>
+             <p class="adu-llc">{{ business.name }}</p>
++            <a href="{{ business.phoneHref }}" class="btn btn-primary">Call Wes <span>{{ business.phone }}</span></a>
+           </aside>
+         </div>
+       </div>
+@@ -442,7 +450,7 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+           <div class="form-card" data-reveal="right">
+             <form id="contact-form" action="/api/contact" method="post" enctype="multipart/form-data" novalidate>
+               <p class="form-note">Name, email and a short message are required. Other details are optional.</p>
+-              {#- Each required control carries an empty .field__error that
++              {#- Each required control carries an empty.field__error that
+                   js/main.js fills in, and points at it with aria-describedby
+                   so a screen reader announces the message with the field
+                   rather than only in the shared status line at the bottom. #}
+diff --git a/src/llms.njk b/src/llms.njk
+index 105f72f..008fc10 100644
+--- a/src/llms.njk
++++ b/src/llms.njk
+@@ -44,6 +44,6 @@ eleventyExcludeFromCollections: true
+ 
+ {# "Services" is a menu heading with no page of its own, so emit its children
+    instead; an agent reading this file should see every real URL. -#}
+-{% for item in nav.items %}{% if item.dropdown %}{% for sub in item.dropdown %}- {{ business.url | safe }}{{ sub.url | safe }} : {{ sub.summary | safe }}
+-{% endfor %}{% else %}- {{ business.url | safe }}{{ item.url | safe }} : {{ item.summary | safe }}
++{% for item in nav.items %}{% if item.dropdown %}{% for sub in item.dropdown %}- {{ business.url | safe }}{{ sub.url | safe }}: {{ sub.summary | safe }}
++{% endfor %}{% else %}- {{ business.url | safe }}{{ item.url | safe }}: {{ item.summary | safe }}
+ {% endif %}{% endfor %}

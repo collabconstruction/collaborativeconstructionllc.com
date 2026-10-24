@@ -1,0 +1,47 @@
+[
+  {
+    "route": "/",
+    "overflow": false,
+    "width": 820
+  },
+  {
+    "route": "/general-contractor-falmouth-ma/",
+    "overflow": false,
+    "width": 820
+  },
+  {
+    "route": "/home-additions-cape-cod/",
+    "overflow": false,
+    "width": 820
+  },
+  {
+    "route": "/adu-builder-cape-cod/",
+    "overflow": false,
+    "width": 820
+  },
+  {
+    "route": "/home-renovation-cape-cod/",
+    "overflow": false,
+    "width": 820
+  },
+  {
+    "route": "/custom-home-builder-cape-cod/",
+    "overflow": false,
+    "width": 820
+  },
+  {
+    "route": "/construction-advisory/",
+    "overflow": false,
+    "width": 820
+  },
+  {
+    "route": "/gallery/",
+    "overflow": false,
+    "width": 820
+  },
+  {
+    "route": "/about/",
+    "overflow": false,
+    "width": 820
+  }
+]

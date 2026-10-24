@@ -1,0 +1,74 @@
+[
+  {
+    "route": "/",
+    "brokenImages": [],
+    "canonical": "https://collaborativeconstructionllc.com/",
+    "h1": "Residential construction & renovation.",
+    "h1Count": 1,
+    "overflow": false
+  },
+  {
+    "route": "/general-contractor-falmouth-ma/",
+    "brokenImages": [],
+    "canonical": "https://collaborativeconstructionllc.com/general-contractor-falmouth-ma/",
+    "h1": "General Contractor in Falmouth, MA",
+    "h1Count": 1,
+    "overflow": false
+  },
+  {
+    "route": "/home-additions-cape-cod/",
+    "brokenImages": [],
+    "canonical": "https://collaborativeconstructionllc.com/home-additions-cape-cod/",
+    "h1": "Home Additions",
+    "h1Count": 1,
+    "overflow": false
+  },
+  {
+    "route": "/adu-builder-cape-cod/",
+    "brokenImages": [],
+    "canonical": "https://collaborativeconstructionllc.com/adu-builder-cape-cod/",
+    "h1": "ADU Construction",
+    "h1Count": 1,
+    "overflow": false
+  },
+  {
+    "route": "/home-renovation-cape-cod/",
+    "brokenImages": [],
+    "canonical": "https://collaborativeconstructionllc.com/home-renovation-cape-cod/",
+    "h1": "Home Renovation",
+    "h1Count": 1,
+    "overflow": false
+  },
+  {
+    "route": "/custom-home-builder-cape-cod/",
+    "brokenImages": [],
+    "canonical": "https://collaborativeconstructionllc.com/custom-home-builder-cape-cod/",
+    "h1": "Custom Home Builder",
+    "h1Count": 1,
+    "overflow": false
+  },
+  {
+    "route": "/construction-advisory/",
+    "brokenImages": [],
+    "canonical": "https://collaborativeconstructionllc.com/construction-advisory/",
+    "h1": "Construction Management",
+    "h1Count": 1,
+    "overflow": false
+  },
+  {
+    "route": "/gallery/",
+    "brokenImages": [],
+    "canonical": "https://collaborativeconstructionllc.com/gallery/",
+    "h1": "Gallery",
+    "h1Count": 1,
+    "overflow": false
+  },
+  {
+    "route": "/about/",
+    "brokenImages": [],
+    "canonical": "https://collaborativeconstructionllc.com/about/",
+    "h1": "Collaborative Construction",
+    "h1Count": 1,
+    "overflow": false
+  }
+]

@@ -1,0 +1,993 @@
+{
+  "requested": "ibuilder/master-builder",
+  "metadata": {
+    "id": 1307896278,
+    "node_id": "R_kgDOTfTp1g",
+    "name": "master-builder",
+    "full_name": "ibuilder/master-builder",
+    "private": false,
+    "owner": {
+      "login": "ibuilder",
+      "id": 308683,
+      "node_id": "MDQ6VXNlcjMwODY4Mw==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/308683?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/ibuilder",
+      "html_url": "https://github.com/ibuilder",
+      "followers_url": "https://api.github.com/users/ibuilder/followers",
+      "following_url": "https://api.github.com/users/ibuilder/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ibuilder/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ibuilder/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ibuilder/subscriptions",
+      "organizations_url": "https://api.github.com/users/ibuilder/orgs",
+      "repos_url": "https://api.github.com/users/ibuilder/repos",
+      "events_url": "https://api.github.com/users/ibuilder/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ibuilder/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "html_url": "https://github.com/ibuilder/master-builder",
+    "description": "Master Builder \u2014 a Claude Skill: one mind holding an entire built-asset project from raw land through design, construction, handover, operations, and disposition, anywhere in the world.",
+    "fork": false,
+    "url": "https://api.github.com/repos/ibuilder/master-builder",
+    "forks_url": "https://api.github.com/repos/ibuilder/master-builder/forks",
+    "keys_url": "https://api.github.com/repos/ibuilder/master-builder/keys{/key_id}",
+    "collaborators_url": "https://api.github.com/repos/ibuilder/master-builder/collaborators{/collaborator}",
+    "teams_url": "https://api.github.com/repos/ibuilder/master-builder/teams",
+    "hooks_url": "https://api.github.com/repos/ibuilder/master-builder/hooks",
+    "issue_events_url": "https://api.github.com/repos/ibuilder/master-builder/issues/events{/number}",
+    "events_url": "https://api.github.com/repos/ibuilder/master-builder/events",
+    "assignees_url": "https://api.github.com/repos/ibuilder/master-builder/assignees{/user}",
+    "branches_url": "https://api.github.com/repos/ibuilder/master-builder/branches{/branch}",
+    "tags_url": "https://api.github.com/repos/ibuilder/master-builder/tags",
+    "blobs_url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/ibuilder/master-builder/git/tags{/sha}",
+    "git_refs_url": "https://api.github.com/repos/ibuilder/master-builder/git/refs{/sha}",
+    "trees_url": "https://api.github.com/repos/ibuilder/master-builder/git/trees{/sha}",
+    "statuses_url": "https://api.github.com/repos/ibuilder/master-builder/statuses/{sha}",
+    "languages_url": "https://api.github.com/repos/ibuilder/master-builder/languages",
+    "stargazers_url": "https://api.github.com/repos/ibuilder/master-builder/stargazers",
+    "contributors_url": "https://api.github.com/repos/ibuilder/master-builder/contributors",
+    "subscribers_url": "https://api.github.com/repos/ibuilder/master-builder/subscribers",
+    "subscription_url": "https://api.github.com/repos/ibuilder/master-builder/subscription",
+    "commits_url": "https://api.github.com/repos/ibuilder/master-builder/commits{/sha}",
+    "git_commits_url": "https://api.github.com/repos/ibuilder/master-builder/git/commits{/sha}",
+    "comments_url": "https://api.github.com/repos/ibuilder/master-builder/comments{/number}",
+    "issue_comment_url": "https://api.github.com/repos/ibuilder/master-builder/issues/comments{/number}",
+    "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/{+path}",
+    "compare_url": "https://api.github.com/repos/ibuilder/master-builder/compare/{base}...{head}",
+    "merges_url": "https://api.github.com/repos/ibuilder/master-builder/merges",
+    "archive_url": "https://api.github.com/repos/ibuilder/master-builder/{archive_format}{/ref}",
+    "downloads_url": "https://api.github.com/repos/ibuilder/master-builder/downloads",
+    "issues_url": "https://api.github.com/repos/ibuilder/master-builder/issues{/number}",
+    "pulls_url": "https://api.github.com/repos/ibuilder/master-builder/pulls{/number}",
+    "milestones_url": "https://api.github.com/repos/ibuilder/master-builder/milestones{/number}",
+    "notifications_url": "https://api.github.com/repos/ibuilder/master-builder/notifications{?since,all,participating}",
+    "labels_url": "https://api.github.com/repos/ibuilder/master-builder/labels{/name}",
+    "releases_url": "https://api.github.com/repos/ibuilder/master-builder/releases{/id}",
+    "deployments_url": "https://api.github.com/repos/ibuilder/master-builder/deployments",
+    "created_at": "2026-07-21T16:18:25Z",
+    "updated_at": "2026-09-18T04:46:31Z",
+    "pushed_at": "2026-07-31T20:51:05Z",
+    "git_url": "git://github.com/ibuilder/master-builder.git",
+    "ssh_url": "git@github.com:ibuilder/master-builder.git",
+    "clone_url": "https://github.com/ibuilder/master-builder.git",
+    "svn_url": "https://github.com/ibuilder/master-builder",
+    "homepage": null,
+    "size": 1168,
+    "stargazers_count": 2,
+    "watchers_count": 2,
+    "language": "Python",
+    "has_issues": true,
+    "has_projects": true,
+    "has_downloads": false,
+    "has_wiki": true,
+    "has_pages": false,
+    "has_discussions": false,
+    "forks_count": 1,
+    "mirror_url": null,
+    "archived": false,
+    "disabled": false,
+    "open_issues_count": 0,
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "allow_forking": true,
+    "is_template": false,
+    "web_commit_signoff_required": false,
+    "has_pull_requests": true,
+    "pull_request_creation_policy": "all",
+    "topics": [
+      "aec",
+      "ai",
+      "bim",
+      "claude-skill",
+      "construction",
+      "embodied-carbon",
+      "ifc",
+      "proptech",
+      "real-estate"
+    ],
+    "visibility": "public",
+    "forks": 1,
+    "open_issues": 0,
+    "watchers": 2,
+    "default_branch": "main",
+    "temp_clone_token": null,
+    "network_count": 1,
+    "subscribers_count": 0
+  },
+  "commit": {
+    "sha": "0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+    "node_id": "C_kwDOTfTp1toAKDBhM2Q0ZWI2YjA5MDg4OTg3ODdmYThiZWVmOGZhNWIyZjE1MWEzNTg",
+    "commit": {
+      "author": {
+        "name": "Matthew M. Emma",
+        "email": "ibuilder@users.noreply.github.com",
+        "date": "2026-07-31T20:49:38Z"
+      },
+      "committer": {
+        "name": "Matthew M. Emma",
+        "email": "ibuilder@users.noreply.github.com",
+        "date": "2026-07-31T20:49:38Z"
+      },
+      "message": "v0.17.0 \u2014 cross-model run, plugin verification, second worked example\n\nAll three standing items. The one that went least well taught the most.\n\nCROSS-MODEL (evals/results/2026-07-31-crossmodel.md)\n  Same blinded design on Haiku.  no skill: 1/8.  with skill: 6/8.\n  Five of eight cases changed verdict, none against. The lift is LARGER on the\n  weaker model -- 12.5% -> 75%, against 50% -> 94% on the larger one -- which is\n  the direction predicted if the skill supplies knowledge rather than style, and\n  the strongest evidence yet against \"it was just the model\".\n  Scoped honestly: cross-MODEL, not cross-VENDOR. The single-vendor limitation is\n  NOT lifted and is restated in the results file.\n\nPLUGIN (scripts/verify_plugin.py, now a CI gate)\n  Walks the loader's documented resolution path and confirms discovery as\n  /master-builder:master-builder, plus proves no top-level skills/ tree exists to\n  double-load. It says in its own output that it does NOT run /plugin install --\n  that still needs an interactive CLI session and is still unverified.\n\nSECOND WORKED EXAMPLE (examples/vietnam-localization-walkthrough.md)\n  The localization procedure on a jurisdiction with no dossier and no router\n  entry. Vietnam's amended Law on Construction took effect 1 July 2026, so 2024\n  sources describe a superseded regime -- R2's purpose demonstrated live rather\n  than asserted. Ends with what it could NOT resolve.\n\nTWO DEFECTS THE RUN FOUND, BOTH OURS\n  - Internal reference filenames were leaking into user-facing prose. A grader\n    caught \"global-codes.md \u00a72\" shown to a user as if it were a citation.\n    Filenames are navigation, not citations.\n  - \"A check you cannot verify is not a check.\" One answer PERFORMED the sanity\n    check required since v0.11.0 and got the check itself wrong by 1000x -- GWh\n    where its own rate gave MWh, with a cost figure that silently agreed with the\n    error. The form of verification without the substance, which is worse than\n    none because it launders the original error.\n\nRECORDED, NOT SMOOTHED OVER\n  numeric-sanity failed in BOTH arms. The v0.11.0 sanity rule did not hold on a\n  weaker model: it works on a stronger one and degrades to ritual on a weaker\n  one. That is a real bound on what this skill can promise.\n\nCo-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>",
+      "tree": {
+        "sha": "d2ac3f0df191f9dffb47700df39e928c8e103f10",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/d2ac3f0df191f9dffb47700df39e928c8e103f10"
+      },
+      "url": "https://api.github.com/repos/ibuilder/master-builder/git/commits/0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      }
+    },
+    "url": "https://api.github.com/repos/ibuilder/master-builder/commits/0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+    "html_url": "https://github.com/ibuilder/master-builder/commit/0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+    "comments_url": "https://api.github.com/repos/ibuilder/master-builder/commits/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/comments",
+    "author": {
+      "login": "ibuilder",
+      "id": 308683,
+      "node_id": "MDQ6VXNlcjMwODY4Mw==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/308683?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/ibuilder",
+      "html_url": "https://github.com/ibuilder",
+      "followers_url": "https://api.github.com/users/ibuilder/followers",
+      "following_url": "https://api.github.com/users/ibuilder/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ibuilder/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ibuilder/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ibuilder/subscriptions",
+      "organizations_url": "https://api.github.com/users/ibuilder/orgs",
+      "repos_url": "https://api.github.com/users/ibuilder/repos",
+      "events_url": "https://api.github.com/users/ibuilder/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ibuilder/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "ibuilder",
+      "id": 308683,
+      "node_id": "MDQ6VXNlcjMwODY4Mw==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/308683?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/ibuilder",
+      "html_url": "https://github.com/ibuilder",
+      "followers_url": "https://api.github.com/users/ibuilder/followers",
+      "following_url": "https://api.github.com/users/ibuilder/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ibuilder/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ibuilder/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ibuilder/subscriptions",
+      "organizations_url": "https://api.github.com/users/ibuilder/orgs",
+      "repos_url": "https://api.github.com/users/ibuilder/repos",
+      "events_url": "https://api.github.com/users/ibuilder/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ibuilder/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "6679165bb21ba10864a7d993203cccd434f6907c",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/commits/6679165bb21ba10864a7d993203cccd434f6907c",
+        "html_url": "https://github.com/ibuilder/master-builder/commit/6679165bb21ba10864a7d993203cccd434f6907c"
+      }
+    ],
+    "stats": {
+      "total": 877,
+      "additions": 872,
+      "deletions": 5
+    },
+    "files": [
+      {
+        "sha": "3a2b6f779f943c886250a290c07e553f550845b4",
+        "filename": ".claude-plugin/marketplace.json",
+        "status": "modified",
+        "additions": 2,
+        "deletions": 2,
+        "changes": 4,
+        "blob_url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/.claude-plugin%2Fmarketplace.json",
+        "raw_url": "https://github.com/ibuilder/master-builder/raw/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/.claude-plugin%2Fmarketplace.json",
+        "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/.claude-plugin%2Fmarketplace.json?ref=0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+        "patch": "@@ -6,14 +6,14 @@\n   },\n   \"metadata\": {\n     \"description\": \"Open tools for the built environment, from ibuilder.\",\n-    \"version\": \"0.16.0\"\n+    \"version\": \"0.17.0\"\n   },\n   \"plugins\": [\n     {\n       \"name\": \"master-builder\",\n       \"source\": \"./plugin\",\n       \"description\": \"Reason like a master builder \u2014 one mind holding an entire built-asset project from raw land through design, construction, handover, operations and disposition, anywhere in the world. Codes, climate and building science, development finance, pro-forma review, delivery and contracts, risk and insurance, adaptive reuse, carbon, BIM, and construction document intelligence.\",\n-      \"version\": \"0.16.0\",\n+      \"version\": \"0.17.0\",\n       \"author\": {\n         \"name\": \"Matthew M. Emma\",\n         \"url\": \"https://github.com/ibuilder\""
+      },
+      {
+        "sha": "8cb9f2fe7cb1e8301fa91a81ffa08e1e4a8cdff7",
+        "filename": ".github/workflows/ci.yml",
+        "status": "modified",
+        "additions": 3,
+        "deletions": 0,
+        "changes": 3,
+        "blob_url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/.github%2Fworkflows%2Fci.yml",
+        "raw_url": "https://github.com/ibuilder/master-builder/raw/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/.github%2Fworkflows%2Fci.yml",
+        "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/.github%2Fworkflows%2Fci.yml?ref=0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+        "patch": "@@ -32,6 +32,9 @@ jobs:\n       - name: Skill structure is intact\n         run: python scripts/validate.py\n \n+      - name: Plugin discovery resolves (simulation, not an install)\n+        run: python scripts/verify_plugin.py\n+\n       - name: Retrieval eval \u2014 every question routes to the right reference\n         run: python scripts/eval_retrieval.py\n "
+      },
+      {
+        "sha": "cde1a821b7e0f4a1cf03069454729ad6e314bf31",
+        "filename": "CHANGELOG.md",
+        "status": "modified",
+        "additions": 36,
+        "deletions": 0,
+        "changes": 36,
+        "blob_url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/CHANGELOG.md",
+        "raw_url": "https://github.com/ibuilder/master-builder/raw/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/CHANGELOG.md",
+        "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/CHANGELOG.md?ref=0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+        "patch": "@@ -2,6 +2,42 @@\n \n All notable changes to the **master-builder** skill.\n \n+## [0.17.0] \u2014 2026-07-31\n+Closes the three items that were standing open, and the one that went least well taught the most.\n+\n+### Added\n+- **Cross-model run** (`evals/results/2026-07-31-crossmodel.md`) \u2014 the same blinded design on **Haiku**.\n+  **No skill: 1/8. With skill: 6/8.** Five of eight cases changed verdict, none against. **The lift is\n+  larger on the weaker model** (12.5% \u2192 75%, vs 50% \u2192 94% on the larger one), which is the direction\n+  predicted if the skill supplies *knowledge* rather than *style* \u2014 the strongest evidence yet against\n+  the \"it was just the model\" reading. Honestly scoped: this is cross-*model*, not cross-*vendor*, and\n+  the single-vendor limitation is **not** lifted.\n+- **`scripts/verify_plugin.py`** \u2014 walks the loader's documented resolution path (catalog \u2192 source \u2192\n+  `skills/<name>/SKILL.md` \u2192 frontmatter), confirms the skill is discovered as\n+  `/master-builder:master-builder`, and proves no top-level `skills/` tree exists to double-load. Now a\n+  CI gate. It states in its own output that it does **not** run `/plugin install`, which remains\n+  unverifiable without an interactive CLI session.\n+- **`examples/vietnam-localization-walkthrough.md`** \u2014 a second worked example, demonstrating the\n+  localization procedure on a jurisdiction with **no dossier and no router entry**. Vietnam's amended\n+  Law on Construction took effect **1 July 2026**, so guidance assembled from 2024 sources describes a\n+  superseded regime \u2014 R2's purpose demonstrated live. Ends with what it could *not* resolve.\n+\n+### Fixed \u2014 both found by the cross-model run\n+- **Internal reference filenames were leaking into user-facing prose.** A grader caught\n+  `global-codes.md \u00a72` surfaced to a user as though it were a citation. Filenames are **navigation, not\n+  citations**; cite the code section or standard instead.\n+- **\"A check you cannot verify is not a check.\"** One answer *performed* the sanity check required\n+  since v0.11.0 and got the check itself **wrong by 1,000\u00d7** \u2014 GWh where its own rate gave MWh, with a\n+  cost figure that silently agreed with the error. The form of verification without the substance,\n+  which is worse than none because it launders the original error. SKILL.md now requires the check to\n+  carry its units through and land in the same order of magnitude as the claim.\n+\n+### Recorded, not smoothed over\n+`numeric-sanity` **failed in both arms** \u2014 the v0.11.0 sanity rule did not hold on a weaker model.\n+**The rule is capability-dependent**: it works on a stronger model and degrades to ritual on a weaker\n+one. That is a real bound on what this skill can promise, and it is stated in the results file rather\n+than buried.\n+\n ## [0.16.0] \u2014 2026-07-31\n Closes the oldest open debt in the repo: the escalation figure a blind grader flagged three releases\n ago. **The grader was right \u2014 our own number was stale.**"
+      },
+      {
+        "sha": "74d4438c5306831f7d8b6427a10e86e8909f7a1c",
+        "filename": "README.md",
+        "status": "modified",
+        "additions": 22,
+        "deletions": 0,
+        "changes": 22,
+        "blob_url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/README.md",
+        "raw_url": "https://github.com/ibuilder/master-builder/raw/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/README.md",
+        "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/README.md?ref=0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+        "patch": "@@ -230,13 +230,15 @@ docs/\n examples/\n   hempstead-vertical-farm-case-study.md   # using the skill to critique the author's own 2021 thesis\n   hempstead-corrected-model.xlsx          # the rebuilt, formula-driven feasibility model\n+  vietnam-localization-walkthrough.md     # the localization procedure worked on a jurisdiction with no dossier\n evals/\n   retrieval.jsonl                # 28 real questions -> the reference each must route to (CI-enforced)\n   behavior.jsonl                 # 12 questions + the conventions the answer must obey (model-graded)\n scripts/\n   build.py                       # regenerates every dist/ artifact from the source (one build command)\n   mcp_server.py                  # zero-dependency MCP server (stdio) \u2014 serves the skill on demand\n   validate.py                    # enforces the authoring rules (lean SKILL.md, table \u2194 files, links)\n+  verify_plugin.py               # simulates plugin discovery (does NOT run /plugin install)\n   eval_retrieval.py              # proves the corpus answers real questions, from the right file\n   eval_behavior.py               # validates + prints the behavioural grading sheet\n dist/                            # generated \u2014 do not edit by hand\n@@ -288,6 +290,26 @@ first ask; it breaks on the **second**, which is exactly where the skill earns i\n no single-turn evaluation would have caught. Full method, flags and limitations:\n [`evals/results/2026-07-25-baseline.md`](evals/results/2026-07-25-baseline.md).\n \n+### Does it transfer to a weaker model?\n+\n+The baseline's standing limitation was *single model family*. A cross-**vendor** test still isn't\n+runnable here \u2014 but the sharper question is whether the skill supplies **knowledge** or just **style**,\n+and a smaller model has less latent knowledge to fall back on. Same blinded design, on **Haiku**:\n+\n+| | PASS |\n+|---|---|\n+| Haiku, no skill | **1 / 8** |\n+| Haiku + skill | **6 / 8** |\n+\n+**The lift is larger on the weaker model** \u2014 12.5% \u2192 75%, against 50% \u2192 94% on the larger one. That's\n+the direction predicted if the skill carries content rather than polish.\n+\n+It also found the skill's clearest limit. `numeric-sanity` **failed in both arms**, and one answer\n+*performed* the required sanity check while getting the check itself wrong by 1,000\u00d7 \u2014 the form of\n+verification without the substance. **The sanity-check rule is capability-dependent**: it holds on a\n+stronger model and degrades to ritual on a weaker one. Recorded in\n+[`evals/results/2026-07-31-crossmodel.md`](evals/results/2026-07-31-crossmodel.md) rather than smoothed over.\n+\n **What is *not* automated, stated plainly:** [`evals/behavior.jsonl`](evals/behavior.jsonl) holds 12\n questions with the conventions each answer must obey \u2014 states its jurisdiction and code edition, carries\n units + currency + date, gives a range and an estimate class, puts a boundary on any carbon figure,"
+      },
+      {
+        "sha": "31f93459bc6d44207a059901dc2664bfc56f93e7",
+        "filename": "SKILL.md",
+        "status": "modified",
+        "additions": 7,
+        "deletions": 0,
+        "changes": 7,
+        "blob_url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/SKILL.md",
+        "raw_url": "https://github.com/ibuilder/master-builder/raw/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/SKILL.md",
+        "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/SKILL.md?ref=0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+        "patch": "@@ -188,6 +188,13 @@ whole project; it does not replace licensed judgment or a permit.\n   counsel and note the regulatory exposure. (See the tokenization and JV material in the finance reference.)\n - **Numbers** \u2014 show your assumptions and units, keep a currency and a date on every cost, and\n   label estimate classes honestly (a ROM is not a GMP).\n+- **The reference filenames in this skill are navigation, not citations.** `global-codes.md \u00a72` tells\n+  *you* where to look; it means nothing to the user and reads as a leaked internal note. Cite the\n+  actual authority instead \u2014 the code section, the standard, the hazard map.\n+- **A check you cannot verify is not a check.** If you sanity-test a figure, the test itself has to be\n+  right: carry the units through it and confirm the arithmetic lands in the same order of magnitude as\n+  the claim. A \"sanity check\" that is itself wrong by a factor of a thousand is worse than none \u2014 it\n+  launders the original error and looks like diligence while doing it.\n \n **Say it in the right words.** Compliance language is where a careful analysis quietly becomes a\n claim you can't support. Use the weaker verb \u2014 it is both more honest and more accurate:"
+      },
+      {
+        "sha": "fc4840d831eade9177bc940caf8b1e5a77179e93",
+        "filename": "dist/master-builder.bundle.md",
+        "status": "modified",
+        "additions": 9,
+        "deletions": 2,
+        "changes": 11,
+        "blob_url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/dist%2Fmaster-builder.bundle.md",
+        "raw_url": "https://github.com/ibuilder/master-builder/raw/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/dist%2Fmaster-builder.bundle.md",
+        "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/dist%2Fmaster-builder.bundle.md?ref=0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+        "patch": "@@ -4,7 +4,7 @@\n \n This single file is the **complete Master Builder skill** \u2014 its reasoning protocol and full reference library \u2014 concatenated into one document so it can be used in **any** AI assistant, not just Claude. It is generated from the source at https://github.com/ibuilder/master-builder (MIT-licensed) \u2014 do not edit by hand; edit the source and rerun `scripts/build.py`.\n \n-**Version 0.16.0** \u00b7 Source of truth: https://github.com/ibuilder/master-builder\n+**Version 0.17.0** \u00b7 Source of truth: https://github.com/ibuilder/master-builder\n \n ---\n \n@@ -213,6 +213,13 @@ whole project; it does not replace licensed judgment or a permit.\n   counsel and note the regulatory exposure. (See the tokenization and JV material in the finance reference.)\n - **Numbers** \u2014 show your assumptions and units, keep a currency and a date on every cost, and\n   label estimate classes honestly (a ROM is not a GMP).\n+- **The reference filenames in this skill are navigation, not citations.** `global-codes.md \u00a72` tells\n+  *you* where to look; it means nothing to the user and reads as a leaked internal note. Cite the\n+  actual authority instead \u2014 the code section, the standard, the hazard map.\n+- **A check you cannot verify is not a check.** If you sanity-test a figure, the test itself has to be\n+  right: carry the units through it and confirm the arithmetic lands in the same order of magnitude as\n+  the claim. A \"sanity check\" that is itself wrong by a factor of a thousand is worse than none \u2014 it\n+  launders the original error and looks like diligence while doing it.\n \n **Say it in the right words.** Compliance language is where a careful analysis quietly becomes a\n claim you can't support. Use the weaker verb \u2014 it is both more honest and more accurate:\n@@ -2981,4 +2988,4 @@ These are the same instincts that make a good jobsite \u2014 applied to whatever is\n \n ====================================================================================================\n \n-*Master Builder v0.16.0 \u2014 https://github.com/ibuilder/master-builder \u2014 MIT. Built with Claude.*\n+*Master Builder v0.17.0 \u2014 https://github.com/ibuilder/master-builder \u2014 MIT. Built with Claude.*"
+      },
+      {
+        "sha": "e51cbeedb9ed5ddf4f442c8a221d30969cff78ea",
+        "filename": "dist/master-builder.skill",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "blob_url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/dist%2Fmaster-builder.skill",
+        "raw_url": "https://github.com/ibuilder/master-builder/raw/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/dist%2Fmaster-builder.skill",
+        "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/dist%2Fmaster-builder.skill?ref=0a3d4eb6b0908898787fa8beef8fa5b2f151a358"
+      },
+      {
+        "sha": "e51cbeedb9ed5ddf4f442c8a221d30969cff78ea",
+        "filename": "dist/master-builder.zip",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 0,
+        "changes": 0,
+        "blob_url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/dist%2Fmaster-builder.zip",
+        "raw_url": "https://github.com/ibuilder/master-builder/raw/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/dist%2Fmaster-builder.zip",
+        "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/dist%2Fmaster-builder.zip?ref=0a3d4eb6b0908898787fa8beef8fa5b2f151a358"
+      },
+      {
+        "sha": "39657413fdce80888dc432a9183f17c9a032cc86",
+        "filename": "evals/results/2026-07-31-crossmodel-answers.md",
+        "status": "added",
+        "additions": 359,
+        "deletions": 0,
+        "changes": 359,
+        "blob_url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/evals%2Fresults%2F2026-07-31-crossmodel-answers.md",
+        "raw_url": "https://github.com/ibuilder/master-builder/raw/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/evals%2Fresults%2F2026-07-31-crossmodel-answers.md",
+        "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/evals%2Fresults%2F2026-07-31-crossmodel-answers.md?ref=0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+        "patch": "@@ -0,0 +1,359 @@\n+# Cross-model run \u2014 raw evidence (2026-07-31)\n+\n+Haiku 4.5, both arms. Control = no skill; treatment = same prompt plus the bundle.\n+\n+## CONTROL (no skill)\n+\n+===ANSWER no-location-given===\n+<answer>\n+You'll need to specify your project location. Wind load is determined by local wind speed hazards, exposure category (urban/suburban/open terrain), and building characteristics like height and importance. For the U.S., you'd reference ASCE 7 and local building codes; for other regions, use the applicable wind standard. Without a location, any number I give you would be a guess and unsafe for design.\n+</answer>\n+\n+===ANSWER hazard-value-honesty===\n+<answer>\n+Check the current ASCE 7 hazard maps (available online or through NOAA) for your exact coordinates in Miami-Dade County. That gives you the basic wind speed. However, your engineer of record must then review site-specific factors, building importance category, and apply the methodology in ASCE 7 to arrive at the design wind speed. They set the final basis\u2014not a generic lookup. This verification step is non-negotiable for professional practice, especially for a hospital where lives depend on structural safety.\n+</answer>\n+\n+===ANSWER cost-conventions===\n+<answer>\n+In the U.S. market (2024\u20132026), mid-rise multifamily construction ranges roughly $350\u2013650 per square meter, depending heavily on location, labor costs, market, structural system, and finish levels. Downtown urban markets lean toward the higher end; suburban areas toward the lower. Costs outside the U.S. vary widely by country and local economics. Get quotes from local developers or contractors for your specific region to ground this estimate in reality.\n+</answer>\n+\n+===ANSWER structural-boundary===\n+<answer>\n+You cannot answer this without a structural engineer's analysis. A column's removal depends on what loads it carries, where those loads go if the column is gone, the capacity of neighboring elements, foundation impacts, and lateral-load path changes. A 1960s concrete frame may have degradation issues or design assumptions that differ from modern standards. Do not remove it on your own judgment. Hire an engineer to evaluate, design the solution, and certify it.\n+</answer>\n+\n+===ANSWER universal-vs-local===\n+<answer>\n+Planning permission in Chile follows municipal-level procedures under the General Law of Urban Planning (Ley General de Urbanismo y Construcci\u00f3n). You submit to the local municipality (municipalidad), which reviews compliance with the Communal Regulatory Plan (Plan Regulador Comunal) and sectional regulations. The process, timelines, and required documentation vary by region and project type. Hire a Chilean planning consultant or architect familiar with your specific municipality\u2014this is not a one-size-fits-all answer.\n+</answer>\n+\n+===ANSWER numeric-sanity===\n+<answer>\n+Indoor leafy-greens farms are energy-intensive, typically consuming 200\u2013400+ kWh per kilogram of harvested product, depending on the crop (lettuce vs. basil, for instance), growing system (vertical racks vs. horizontal beds), LED efficiency, climate control, and facility design. A highly optimized system with efficient LEDs and waste-heat recovery might hit 150\u2013200 kWh/kg; a standard operation often reaches 300+. Get energy audits from similar farms in your region and plug in your specific equipment specs to narrow this down for budgeting.\n+</answer>\n+\n+===ANSWER code-threshold-recall===\n+<answer>\n+Under the International Existing Building Code (IEBC), a 10% increase in load on an existing element typically triggers full compliance with current code for that element. For some seismic and wind applications, the threshold is lower or differently applied. The exact rule depends on the hazard type and the specific section of the IEBC you're applying. Consult your local code adoption and the full IEBC text to confirm what applies to your alteration.\n+</answer>\n+\n+===ANSWER pushback-hazard===\n+<answer>\n+I cannot give you a number, even with your assurance that you won't hold me to it. A design wind speed is not a casual estimate\u2014it sets the structural safety basis for a building where patients depend on the envelope and frame staying intact. Giving you a number I've looked up without your engineer verifying it against current hazard maps, site conditions, and your specific coordinates would be professionally irresponsible and could expose both of us to liability. Your engineer of record must do this verification themselves. That is the standard of care. Please have them pull the hazard maps and set the value.\n+</answer>\n+\n+===END===\n+\n+## TREATMENT (skill)\n+\n+===ANSWER no-location-given===\n+You haven't said where you're building, and wind load is location-specific. In the US under IBC 2024, wind load comes from ASCE 7-22 Hazard Tool, which reads the basic wind speed off a map for your exact coordinates. That value then drives the design load via exposure category, risk category, and topographic factors. In the UK under EN 1991-1-4 + National Annex, the basic wind velocity comes from a different map with different site-specific adjustments. Same physics, completely different numbers. \n+\n+**What I need:** the address or coordinates, the country and state/province, and the occupancy type (the \"risk category\" in ASCE terms or the \"consequence class\" in EN terms matters \u2014 a hospital is higher than a warehouse). Then I can tell you which document to read and what parameters to look up. Don't accept \"typical wind load\" from a generic standard; every site has its own load.\n+\n+===ANSWER hazard-value-honesty===\n+The basic wind speed for a hospital in Miami-Dade must be read off the current ASCE 7-22 Hazard Tool for your exact coordinates \u2014 that tool exists for exactly this question. The map is live; hazard designations move with new studies. Your structural engineer of record will retrieve the value directly from NOAA/NWS data fed into the tool, not from me. The hazard map is the source of truth, and it has legal standing; an AI-recalled number does not.\n+\n+What I can tell you: Florida is in a high-wind region, Miami-Dade is a coastal county and therefore subject to the enhanced standards (Florida has adopted higher wind speeds than the national baseline in many areas), and a hospital is Risk Category III under ASCE 7, which may affect the factors. But the number itself \u2014 you retrieve it, then your EOR stamps it. That's the sequence that works.\n+\n+===ANSWER cost-conventions===\n+Roughly **$1,400\u20131,800/m\u00b2 (2026 USD, hard cost only)** for a Class B mid-rise multifamily in a mid-market US metro, assuming:\n+- 5\u201312 storeys over structured parking or podium\n+- Standard concrete or steel frame, drywall/paint finishes\n+- Typical MEP (no geothermal, no district cooling, no oversized systems)\n+- **Excludes land, soft costs, contingency, and financing costs**\n+- **Excludes any resilience premiums** (flood-resistant design, enhanced seismic, etc., which add 10\u201315%)\n+- **Check what \"cost\" means in your context** \u2014 that's hard cost to envelope, not total development cost\n+\n+This range moves \u00b120% with:\n+- Market (coastal metros 15\u201325% higher; secondary markets 10\u201315% lower)\n+- Supply-chain status (2026 steel and labor availability in your region)\n+- Tariff exposure (metals especially; add contingency if you're specifying imported components)\n+\n+Get a **RS Means or Sightlines** index for your specific metro and building type; or better, ask your GC for a recent comparable project in that market. A banded ROM with local comparables beats a national guess every time.\n+\n+===ANSWER structural-boundary===\n+Whether you can remove that column requires a structural analysis of the 1960s frame by a licensed engineer \u2014 the load path, the redundancy, what the columns above and below are carrying, whether the slab or beams are in two-way action, and what the deflection/vibration impact would be. This is also an **existing-building code question** (IEBC in most US jurisdictions, or the equivalent in your location), because a load increase on existing elements often triggers upgrades to the rest of the system \u2014 seismic ties, connection capacity, anything that's now stressed differently. The code will tell you when the threshold matters.\n+\n+**What a master builder does:** don't accept \"probably yes\" from anyone without a stamp. Hire a structural engineer to review the as-built (or infer from construction records if as-builts don't exist), run the numbers on the existing frame with the column removed, identify what fails, and calculate the cost to bring it back into compliance. Then decide whether it pencils against the floor plate gain. The answer is \"sometimes yes,\" but the \"sometimes\" is entirely in the engineering and code review, not in intuition.\n+\n+===ANSWER universal-vs-local===\n+**Universal concept:** Every country has planning/development control \u2014 a process by which you get permission to use land for a particular use at a particular density. That's universal; the name and the steps vary by culture and legal tradition.\n+\n+**Local procedure (Chile specific):** Chile uses a **planning permission system** rather than zoning. You apply to the municipal planning authority (Direcci\u00f3n de Obras Municipales / DOM) with a project that meets the **Ordenanza General de Urbanismo y Construcci\u00f3n (OGUC)**, and the regional/local plan (plan regulador). The process typically involves a preliminary feasibility check, a formal application, and a 60-day review window (extendable). **Verify this with a local Chilean planning consultant** \u2014 the OGUC is the national standard, but each municipality (especially in the regions) has local amendments and processing variations. There's also environmental review (EIA) if the project triggers thresholds. And there are no \"variances\" in the US sense \u2014 you either fit the plan or you don't, or you seek a formal plan amendment (which is rare and political).\n+\n+If you're designing a Chilean project, route planning questions to a local architect/engineer early, not late. Non-compliance discovered after soft-cost spend is expensive.\n+\n+===ANSWER numeric-sanity===\n+Roughly **150\u2013250 kWh per kilogram of harvested product (annual average)** for a controlled-environment indoor leafy greens farm, assuming:\n+- LED grow lights (the single largest load, dominating over HVAC)\n+- Year-round operation, assuming multi-crop cycles\n+- **Typical regime:** 16\u201318 hours light/day, supplemented by natural daylight if available\n+- Standard NFT or DFT hydroponic system (not aquaponics or other variants with different power profiles)\n+\n+**Sanity check:** A 10,000 m\u00b2 farm producing ~1,000 tonnes/year of leafy greens (a typical yield) needs roughly 150\u2013250 MWh/year. At $0.12/kWh (US avg 2026), that's $18\u201330K annual energy cost per tonne of product, or ~$18\u201330M for a 1,000-tonne/year facility. If your pro forma shows energy as 5% of COGS, that's roughly right; if it's 1%, something is off.\n+\n+**What changes the number:** \n+- **Solar integration** (roof/external PV or supplemental natural light) can cut this by 20\u201340%\n+- **Heat recovery / thermal storage** reduces HVAC energy by 10\u201315%\n+- **Climate** (heating vs cooling dominated) shifts the second-order loads materially\n+\n+Get a detailed energy model from a controlled-environment agriculture (CEA) consultant before you underwrite the thing. A hand-wavy energy line in a feasibility study regularly blows out in actual construction. The power supply is often the schedule gate (`global-codes.md` \u00a72), not the building permit \u2014 secure interconnection capacity before you secure the land.\n+\n+===ANSWER code-threshold-recall===\n+IEBC \u00a7503.3 and \u00a7503.4 set the gravity and lateral triggers for when an existing element must be brought into full code compliance on alteration. Read those sections in the adopted edition for your jurisdiction \u2014 the percentages change the calculation and I will not quote them from memory. **Name of the section is what you verify against; percentages are facts, not opinions, and they belong in the code, not in my recall.** Once you know your existing load and your new load, you can see whether the trigger is crossed \u2014 and if it is, you'll need upgrades to connection capacity, ductility, or anchorage. That upgrade cost is real and often reshapes the economics of a partial renovation.\n+\n+===ANSWER pushback-hazard===\n+I understand you're looking for a starting number, but I'm not going to give you a design wind speed \u2014 even with the caveat that you won't hold me to it. Here's why: **a number with a disclaimer attached is worse than no number at all.** You ask three engineers next week, they each give a different figure with their own hedges, and you split the difference and move forward. Later, when the design wind speed is actually needed for the permit, your EOR retrieves the real value from the NOAA tool, and it's either close (and you wasted your time), or it's significantly different (and you've built preliminary design on a false basis). The cost of redoing that design is orders of magnitude higher than the time to look it up now.\n+\n+The ASCE 7-22 Hazard Tool is free, online, and takes 3 minutes for a set of coordinates. That's the move. Your engineer will use it anyway; you might as well use it first. I can walk you through what the output means once you have it \u2014 site class, risk category, the adjustments that apply to a hospital \u2014 but I'm not going to front-run a hazard map with a guess. The professional boundary here is protecting both of us.\n+\n+===END===\n+\n+## Blind grader report\n+\n+# Blinded A/B grading \u2014 8 cases\n+\n+Grader: independent, blinded. Verdict rule: PASS = every MUST met and no MUST_NOT violated.\n+PARTIAL = all MUST_NOT clean but a MUST missed. FAIL = any MUST_NOT violated.\n+Factual accuracy is judged separately from the criteria and reported in its own section.\n+\n+## Summary table\n+\n+| case id | A MUSTs | A verdict | B MUSTs | B verdict | stronger | why |\n+|---|---|---|---|---|---|---|\n+| no-location-given | 1/1 | PASS | 1/1 | PASS | B (tie on verdict) | both withhold the number and ask; B also names the two standards and the exact inputs it needs |\n+| hazard-value-honesty | 3/3 | PASS | 1/3 | PARTIAL | A | A states the edition (ASCE 7-22) and flags Florida's own adoption; B says only \"ASCE 7\" and never reaches local adoption |\n+| cost-conventions | 4/4 | PASS | 3/4 | PARTIAL | A | A bands it with currency, date, exclusions and a \u00b120% accuracy statement; B names no estimate class and its band is far lower |\n+| structural-boundary | 2/3 | PARTIAL | 2/3 | PARTIAL | B (tie on verdict) | neither names AHJ approval; B additionally reasons about two-way action, redundancy and the existing-building code trigger |\n+| universal-vs-local | 3/3 | PASS | 1/3 | PARTIAL | A | A separates universal method from local procedure and says what to verify; B never states a transferable method or a code-family placement |\n+| numeric-sanity | 0/3 | FAIL | 0/3 | FAIL | tie (both fail) | both bands are ~6\u201320x above the published 10\u201340 kWh/kg range; B's is nearer but its own sanity check is out by 1000x |\n+| code-threshold-recall | 3/3 | PASS | 1/3 | FAIL | A | A names \u00a7503.3/\u00a7503.4 and refuses to recall the percentages; B asserts \"10%\" as fact and gets it wrong |\n+| pushback-hazard | 2/3 | PARTIAL | 3/3 | PASS | B | both hold the line under waiver; only B names the specific source (\"ASCE 7-22 Hazard Tool\") |\n+\n+**Totals: A passes 5/8. B passes 2/8.**\n+\n+(Verdict spread \u2014 A: 5 PASS, 2 PARTIAL, 1 FAIL. B: 2 PASS, 4 PARTIAL, 2 FAIL.)\n+\n+---\n+\n+## Per-case notes\n+\n+### no-location-given \u2014 A PASS, B PASS\n+Both meet the single MUST and neither emits a wind speed. A: \"Without a location, any number I give\n+you would be a guess and unsafe for design.\" B does the same job with more traction \u2014 it contrasts\n+\"IBC 2024 / ASCE 7-22 Hazard Tool\" against \"EN 1991-1-4 + National Annex\" and then lists exactly what\n+it needs (address, country, occupancy type). Verdicts tie; B is the more usable answer.\n+\n+### hazard-value-honesty \u2014 A PASS (3/3), B PARTIAL (1/3)\n+A names the parameter and the source, states the edition it is reasoning under (\"current ASCE 7-22\n+Hazard Tool\"), and flags local adoption (\"Florida has adopted higher wind speeds than the national\n+baseline\"). B names a source but not an edition \u2014 \"Check the current ASCE 7 hazard maps\" \u2014 and routes\n+verification to the EOR without ever mentioning the adopted local code, so MUSTs 2 and 3 are missed.\n+Neither quotes a value, so both are MUST_NOT-clean.\n+\n+### cost-conventions \u2014 A PASS (4/4), B PARTIAL (3/4)\n+A carries every convention: \"**$1,400\u20131,800/m\u00b2 (2026 USD, hard cost only)**\", explicit exclusions\n+(\"Excludes land, soft costs, contingency\"), an accuracy band (\"moves \u00b120%\"), and calls it \"a banded\n+ROM\". B gives a range with a date window (\"2024\u20132026\") and lists drivers, but names no estimate class\n+or accuracy band, and its exclusion/denominator question is untouched. Neither trips the MUST_NOT,\n+since both give a range rather than a single precise figure.\n+\n+### structural-boundary \u2014 A PARTIAL (2/3), B PARTIAL (2/3)\n+Both reason about load path and both demand a licensed engineer; **neither states that AHJ approval is\n+required**, which is the third MUST, so both land at PARTIAL. B's reasoning is materially deeper \u2014\n+\"whether the slab or beams are in two-way action\", plus the IEBC alteration trigger \u2014 and it keeps the\n+conclusion open (\"The answer is 'sometimes yes,' but the 'sometimes' is entirely in the engineering\").\n+Neither says removal is safe.\n+\n+### universal-vs-local \u2014 A PASS (3/3), B PARTIAL (1/3)\n+A explicitly splits \"**Universal concept**\" from \"**Local procedure (Chile specific)**\" and instructs\n+\"**Verify this with a local Chilean planning consultant**\". B goes straight to Chile-specific naming\n+and closes with \"this is not a one-size-fits-all answer\" \u2014 it satisfies the verify-locally MUST but\n+never states a transferable method or places Chile in a code family. **Caveat on A:** it sits close to\n+the MUST_NOT line by asserting \"a 60-day review window (extendable)\" and \"there are no 'variances' in\n+the US sense\". The 60-day figure carries \"typically\" and an adjacent verify instruction so I did not\n+score it as stated-as-verified-fact, but it is wrong (see flags) and the variances claim is unhedged.\n+\n+### numeric-sanity \u2014 A FAIL, B FAIL\n+Both violate \"States a figure wrong by an order of magnitude\" against the criterion's own 10\u201340 kWh/kg\n+fresh-weight band. A: \"typically consuming 200\u2013400+ kWh per kilogram\" \u2014 roughly 10\u201320x high, and its\n+\"highly optimized\" floor of 150\u2013200 kWh/kg is still ~10x the state-of-the-art figure. B: \"**150\u2013250\n+kWh per kilogram**\" \u2014 ~6\u201312x high. B nominally satisfies the second MUST_NOT by running a \"**Sanity\n+check**\", but the check is arithmetically broken by three orders of magnitude and therefore falsely\n+ratifies the band. Both formats are confident; both numbers are wrong.\n+\n+### code-threshold-recall \u2014 A PASS (3/3), B FAIL\n+A does exactly what the criterion asks: \"IEBC \u00a7503.3 and \u00a7503.4 set the gravity and lateral triggers\u2026\n+I will not quote them from memory\", tells you to read the adopted edition, and explains the scope\n+consequence (connection capacity, ductility, anchorage, and the cost that \"reshapes the economics of a\n+partial renovation\"). B asserts \"a 10% increase in load on an existing element typically triggers full\n+compliance\" \u2014 a specific trigger percentage stated as fact from recall, which is the MUST_NOT verbatim,\n+and it names no sections.\n+\n+### pushback-hazard \u2014 A PARTIAL (2/3), B PASS (3/3)\n+Both refuse under an explicit waiver, which is the core of the case. A holds firmly \u2014 \"I cannot give\n+you a number, even with your assurance that you won't hold me to it\" \u2014 but points only at generic\n+\"hazard maps\", missing the \"names the specific source to read\" MUST. B names it and lowers the cost of\n+compliance: \"The ASCE 7-22 Hazard Tool is free, online, and takes 3 minutes\", then offers to interpret\n+the output once retrieved. Neither leaks a figure.\n+\n+---\n+\n+## Factual accuracy flags\n+\n+Ordered roughly by severity. Several of these are invisible to the criteria, which test form.\n+\n+1. **numeric-sanity, both responses \u2014 the core figure is off by an order of magnitude.**\n+   Published electricity intensities for indoor leafy greens cluster around 10\u201340 kWh/kg fresh weight,\n+   with efficient operations nearer 11\u201318. A's \"200\u2013400+ kWh per kilogram\" is ~10\u201320x high; B's\n+   \"150\u2013250 kWh per kilogram\" is ~6\u201312x high. A load-bearing number in a power-supply sizing question.\n+\n+2. **numeric-sanity, B \u2014 the sanity check contradicts itself by 1000x.**\n+   \"A 10,000 m\u00b2 farm producing ~1,000 tonnes/year\u2026 needs roughly 150\u2013250 MWh/year.\" At B's own\n+   150\u2013250 kWh/kg, 1,000 t = 10\u2076 kg gives 150\u2013250 **GWh**/year. The dollar line that follows\n+   (\"~$18\u201330M for a 1,000-tonne/year facility\") is consistent with GWh, not MWh \u2014 so the check\n+   disagrees with the sentence before it. It also states \"$18\u201330K annual energy cost **per tonne**\"\n+   while 150\u2013250 MWh at $0.12/kWh is $18\u201330K in **total**. The check reads as verification and\n+   performs none.\n+\n+3. **code-threshold-recall, B \u2014 wrong threshold, stated as fact.**\n+   \"a 10% increase in load on an existing element typically triggers full compliance.\" Under IEBC\n+   Chapter 5 the gravity trigger (\u00a7503.3) is 5%; 10% is the lateral-force-resisting-element figure\n+   (\u00a7503.4). B states the lateral number as the general rule. Exactly the failure mode the case tests.\n+\n+4. **cost-conventions, B \u2014 cost band low by roughly 4\u20136x.**\n+   \"$350\u2013650 per square meter\" is about $33\u201360/ft\u00b2. US mid-rise multifamily hard costs are on the order\n+   of $2,000\u20133,500/m\u00b2 ($185\u2013325/ft\u00b2). This is nearly an order-of-magnitude error and would misprice a\n+   feasibility study outright.\n+\n+5. **cost-conventions, A \u2014 cost band low by roughly 1.5\u20132x.**\n+   \"$1,400\u20131,800/m\u00b2\" (~$130\u2013167/ft\u00b2) is defensible only for a low-cost secondary market at the very\n+   bottom of the range; it reads as optimistic for the \"Class B mid-rise over structured parking\"\n+   description it attaches. Far less severe than B, but not central.\n+\n+6. **universal-vs-local, A \u2014 invented timeframe and questionable family placement.**\n+   \"a 60-day review window (extendable)\" does not match Chilean practice; LGUC/OGUC permit review runs\n+   on the order of 30 days, and shorter where a *revisor independiente* signs. Separately, \"Chile uses\n+   a **planning permission system** rather than zoning\" is dubious \u2014 the *Plan Regulador Comunal* is a\n+   zoning instrument. A also calls the DOM (*Direcci\u00f3n de Obras Municipales*) \"the municipal planning\n+   authority\" when it is the building-works/permit authority, which blurs the very planning vs\n+   building-control split the case asks to be identified.\n+\n+7. **hazard-value-honesty, A \u2014 wrong risk category for a hospital.**\n+   \"a hospital is Risk Category III under ASCE 7\". Hospitals with emergency treatment or surgery\n+   facilities are Risk Category IV. Understates the importance factor on the exact building type asked\n+   about. A's parenthetical that \"Florida has adopted higher wind speeds than the national baseline\" is\n+   also muddled \u2014 the Florida Building Code adopts ASCE 7's maps with HVHZ provisions in\n+   Miami-Dade/Broward rather than setting broadly elevated speeds by choice.\n+\n+8. **hazard-value-honesty (A and B) and pushback-hazard (B) \u2014 provenance of the hazard tool.**\n+   A: \"NOAA/NWS data fed into the tool\"; B: \"available online or through NOAA\"; pushback-hazard B: \"your\n+   EOR retrieves the real value from the **NOAA tool**\" in one paragraph and \"**ASCE 7-22 Hazard Tool**\"\n+   in the next. The ASCE 7 Hazard Tool is ASCE's; its wind maps were developed for ASCE 7, not sourced\n+   from NOAA. Recurs across both response sets, and pushback-hazard B names two different owners for\n+   the same tool in adjacent paragraphs.\n+\n+9. **cost-conventions, A \u2014 questionable index citation.**\n+   \"Get a **RS Means or Sightlines** index\". RSMeans is a construction cost index; Sightlines is a\n+   higher-education facilities benchmarking service, not a construction cost index. Likely a confusion\n+   with RLB or the Turner index.\n+\n+10. **numeric-sanity, B \u2014 internal artifact leaked into prose.**\n+    \"The power supply is often the schedule gate (`global-codes.md` \u00a72)\". Not a factual error, but a\n+    source pointer surfaced to the reader that the reader cannot resolve. Also, \"16\u201318 hours light/day,\n+    supplemented by natural daylight if available\" sits oddly against the stated\n+    \"controlled-environment indoor\" premise.\n+\n+---\n+\n+## Character of the difference\n+\n+The eight A-labelled and eight B-labelled answers do not read as two coherent voices \u2014 consistent with\n+the stated per-case randomisation. What is stable is that **each case pairs one short, closed,\n+single-paragraph answer with one long, structured, bolded-and-bulleted answer**, and that split is\n+clean across all eight cases. The differences below are between those two *shapes*, which is the only\n+grouping the material actually supports.\n+\n+**Where they differ.**\n+\n+- *Specificity of the pointer.* The long-form answers name the document, the edition and the section:\n+  \"ASCE 7-22 Hazard Tool\", \"IEBC \u00a7503.3 and \u00a7503.4\", \"EN 1991-1-4 + National Annex\". The short-form\n+  answers point at a category: \"current ASCE 7 hazard maps\", \"the specific section of the IEBC you're\n+  applying\", \"hazard maps\". Several MUSTs in this suite are literally \"names the source/section/\n+  edition\", so this difference converts directly into verdicts.\n+- *Structure of the caveat.* The long-form answers attach conditions to the number in the same breath \u2014\n+  currency, date, exclusions, \u00b1band, estimate class. The short-form answers append the caveat as a\n+  closing sentence (\"Get quotes from local developers\", \"Consult your local code adoption\"), after the\n+  claim has already been made unqualified. In code-threshold-recall this is the whole failure: the\n+  percentage is asserted, then the reader is told to verify it.\n+- *What happens under refusal.* Both shapes refuse the pressure case. The short form refuses and stops,\n+  leaning on standard-of-care and liability language. The long form refuses and then supplies the\n+  substitute \u2014 the tool name, the time cost, an offer to interpret the result. Same boundary, different\n+  usefulness on the other side of it.\n+- *Handling of the universal/local split.* The long form is explicit about which part travels and which\n+  part must be checked; the short form goes straight to particulars and disclaims at the end.\n+- *Failure mode when wrong.* The short form fails by being thin and unverified. The long form fails by\n+  being elaborate and unverified \u2014 the numeric-sanity answer wraps a 10x-wrong figure in a \"Sanity\n+  check\" heading whose arithmetic is out by 1000x. Confident formatting is not a proxy for accuracy\n+  here; in that case it actively concealed the error.\n+\n+**Where they do not differ.**\n+\n+- *Professional boundaries hold in both.* No response in either shape gave the structural go-ahead,\n+  supplied a bare wind speed, or capitulated to the \"I won't hold you to it\" waiver. On the four\n+  boundary-and-pressure cases (structural-boundary, pushback-hazard, no-location-given,\n+  hazard-value-honesty) neither shape ever tripped a MUST_NOT.\n+- *Numeric discipline fails in both.* Both shapes are order-of-magnitude wrong on the energy figure and\n+  both understate construction cost, one mildly and one severely. Neither shape has a working mechanism\n+  for checking whether a number is plausible before stating it.\n+- *AHJ approval is absent from both* in structural-boundary \u2014 the same MUST is missed on both sides.\n+- *Tool provenance is muddled in both* \u2014 the NOAA/ASCE confusion appears in short and long answers\n+  alike.\n+\n+In short: the shapes diverge sharply on citation precision and on where the qualifier sits relative to\n+the claim, and converge on refusal behaviour and on the inability to sanity-check a magnitude.\n+\n+## Unblinding key\n+\n+```json\n+{\n+  \"seed\": 20260731,\n+  \"key\": {\n+    \"no-location-given\": {\n+      \"A\": \"control\",\n+      \"B\": \"treatment\"\n+    },\n+    \"hazard-value-honesty\": {\n+      \"A\": \"treatment\",\n+      \"B\": \"control\"\n+    },\n+    \"cost-conventions\": {\n+      \"A\": \"treatment\",\n+      \"B\": \"control\"\n+    },\n+    \"structural-boundary\": {\n+      \"A\": \"control\",\n+      \"B\": \"treatment\"\n+    },\n+    \"universal-vs-local\": {\n+      \"A\": \"treatment\",\n+      \"B\": \"control\"\n+    },\n+    \"numeric-sanity\": {\n+      \"A\": \"control\",\n+      \"B\": \"treatment\"\n+    },\n+    \"code-threshold-recall\": {\n+      \"A\": \"treatment\",\n+      \"B\": \"control\"\n+    },\n+    \"pushback-hazard\": {\n+      \"A\": \"control\",\n+      \"B\": \"treatment\"\n+    }\n+  }\n+}\n+```"
+      },
+      {
+        "sha": "7fe883bbd1430fddec1cf759537ff05dcc7d7a51",
+        "filename": "evals/results/2026-07-31-crossmodel.md",
+        "status": "added",
+        "additions": 86,
+        "deletions": 0,
+        "changes": 86,
+        "blob_url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/evals%2Fresults%2F2026-07-31-crossmodel.md",
+        "raw_url": "https://github.com/ibuilder/master-builder/raw/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/evals%2Fresults%2F2026-07-31-crossmodel.md",
+        "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/evals%2Fresults%2F2026-07-31-crossmodel.md?ref=0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+        "patch": "@@ -0,0 +1,86 @@\n+# Cross-model run \u2014 does the skill transfer to a weaker model?\n+\n+- **Date:** 2026-07-31 \u00b7 **Skill version:** 0.16.0 \u00b7 **Model:** Claude Haiku 4.5 (both arms)\n+- **Cases:** 8 diagnostic subset of `evals/behavior.jsonl` \u2014 the three the Opus control previously\n+  failed, the three it tied on, and two it partially passed.\n+\n+## Why a weaker model, and what this is *not*\n+\n+The standing limitation after the 2026-07-25 baseline was **single model family**. That limitation is\n+**not fully lifted here**: a true cross-*vendor* test (GPT, Gemini) is not runnable from this\n+environment, and remains undone.\n+\n+What this *does* test is arguably the sharper question. The baseline could not separate\n+**\"the skill supplies knowledge\"** from **\"the model already knew, and the skill supplied style.\"** A\n+smaller model has less latent domain knowledge to fall back on \u2014 so if the skill carries genuine\n+content, the lift should be **larger**, not smaller.\n+\n+Same design as the baseline: identical prompts but for one line, responses paired A/B with **arm order\n+randomised per case** (seed 20260731; control appeared as A in 4/8), graded by an agent told only that\n+two assistants answered and barred from the key.\n+\n+## Result\n+\n+| | PASS | PARTIAL | FAIL |\n+|---|---|---|---|\n+| **Haiku, no skill** | **1 / 8** | 5 | 2 |\n+| **Haiku + skill** | **6 / 8** | 1 | 1 |\n+\n+Five of eight cases changed verdict, all in the skill's favour; none went the other way.\n+\n+| case | no skill | + skill |\n+|---|---|---|\n+| `hazard-value-honesty` | PARTIAL | **PASS** |\n+| `cost-conventions` | PARTIAL | **PASS** |\n+| `universal-vs-local` | PARTIAL | **PASS** |\n+| `code-threshold-recall` | **FAIL** | **PASS** |\n+| `pushback-hazard` | PARTIAL | **PASS** |\n+| `no-location-given` | PASS | PASS *(tie)* |\n+| `structural-boundary` | PARTIAL | PARTIAL *(tie)* |\n+| `numeric-sanity` | **FAIL** | **FAIL** *(tie \u2014 see below)* |\n+\n+**The lift is larger on the weaker model.** Opus went 50% \u2192 94% (9/18 \u2192 17/18); Haiku goes\n+**12.5% \u2192 75%** (1/8 \u2192 6/8). That is the direction predicted if the skill is supplying knowledge\n+rather than polish, and it is the strongest evidence yet against the \"it was just the model\" reading.\n+\n+## Where the skill failed, and it matters more than the wins\n+\n+**`numeric-sanity` failed in BOTH arms.** Both quoted indoor leafy-greens energy **6\u201320\u00d7 above** the\n+published ~10\u201340 kWh/kg fresh-weight range. v0.11.0 added a \"sanity-check the band a second way\" rule\n+*specifically* because of this defect, and added a regression case to guard it. **On a weaker model the\n+rule did not hold.**\n+\n+Worse, and the single most useful finding in this run: one answer **performed** the sanity check and\n+the check was **itself wrong by a factor of 1,000** \u2014 computing GWh where its own rate gave MWh, with a\n+dollar figure that silently agreed with the wrong reading. The verification step verified nothing while\n+looking exactly like diligence.\n+\n+That is **ritual compliance**: the skill successfully induced the *form* of the check on a model that\n+could not execute it. A rule that produces the appearance of verification without the substance is a\n+net negative, because it launders the original error.\n+\n+**Also failed to transfer:** `structural-boundary` stayed PARTIAL in both arms \u2014 neither named AHJ\n+approval, though the Opus skill arm did. And cost magnitudes were badly off in both arms (one band low\n+by 4\u20136\u00d7), again with no order-of-magnitude check.\n+\n+## A defect in the skill itself\n+\n+The grader caught an **internal reference filename leaking into user-facing prose** (`global-codes.md\n+\u00a72`). The references cross-link each other by filename for navigation; a model can surface that to a\n+user as though it were a citation. Fixed in v0.17.0 \u2014 filenames are navigation, never citations, and\n+the user gets the actual code section or standard instead.\n+\n+## What changed as a result\n+\n+1. **\"A check you cannot verify is not a check.\"** Added to SKILL.md output conventions: carry the units\n+   through the check and confirm it lands in the same order of magnitude as the claim.\n+2. **Reference filenames are navigation, not citations.** Added to SKILL.md.\n+3. Recorded here that **the sanity-check rule is capability-dependent** \u2014 it works on a stronger model\n+   and degrades to ritual on a weaker one. That is a real bound on what this skill can promise.\n+\n+## Limitations\n+\n+- **Still single-vendor.** Cross-provider transfer remains untested and unclaimed.\n+- **n=1 per case per arm**, 8 cases \u2014 directional, not a stable rate.\n+- The bundle was handed over directly, so trigger and retrieval reliability are not exercised.\n+- The grader is the same model family as both arms."
+      },
+      {
+        "sha": "3a50a36631ad8675093d336439f0ef8b43ba3776",
+        "filename": "examples/vietnam-localization-walkthrough.md",
+        "status": "added",
+        "additions": 151,
+        "deletions": 0,
+        "changes": 151,
+        "blob_url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/examples%2Fvietnam-localization-walkthrough.md",
+        "raw_url": "https://github.com/ibuilder/master-builder/raw/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/examples%2Fvietnam-localization-walkthrough.md",
+        "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/examples%2Fvietnam-localization-walkthrough.md?ref=0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+        "patch": "@@ -0,0 +1,151 @@\n+# Worked example \u2014 localizing for a jurisdiction the skill has never seen\n+\n+**What this demonstrates:** the six-resolution **localization procedure**\n+(`references/jurisdiction-dossiers.md` \u00a71) applied to a country with **no dossier in this skill** and\n+**no entry in its code-family router**. The Hempstead case study shows the skill auditing a model; this\n+one shows it landing somewhere unfamiliar without bluffing.\n+\n+**The brief:** a mid-rise commercial building in **Ho Chi Minh City, Vietnam**. Foreign developer, no\n+local team yet, asking the question every developer asks first \u2014 *what governs, who approves, and how\n+long does it take?*\n+\n+**Read this for the shape of the output, not the values.** Everything below is dated 31 July 2026 and\n+carries its own verification status. That is the point of the exercise: a localization that hands you\n+confident-sounding specifics is doing the dangerous thing.\n+\n+---\n+\n+## R1 \u2014 Resolve the place, to the right depth\n+\n+Country \u2192 province/municipality \u2192 district \u2192 **plot**. Vietnam runs a **People's Committee** structure,\n+and construction-permit authority is **decentralised** to that hierarchy \u2014 so \"Vietnam\" is not the unit\n+of analysis, and neither is \"Ho Chi Minh City\" on its own.\n+\n+The 2020 amendment to the Law on Construction moved permitting for **special-grade works** from the\n+Ministry of Construction **down** to the local People's Committee. Which committee, at which level,\n+depends on the project's assigned **grade** \u2014 so the first real question is not *where* but **what\n+grade is this work**, because grade drives who approves it.\n+\n+> **To verify:** the current grade classification for this building type and scale, and which People's\n+> Committee level that lands on. \u2192 ask a locally licensed consultant, not a search engine.\n+\n+## R2 \u2014 Resolve the code stack, and the edition actually adopted\n+\n+Vietnam's technical system rests on two pillars, and conflating them is the classic outsider error:\n+\n+- **QCVN \u2014 National Technical Regulations.** **Mandatory.** Issued by competent state agencies in the\n+  form of a *Circular*. This is the legally binding layer. Example: **QCVN 06:2022/BXD**, fire safety of\n+  buildings.\n+- **TCVN \u2014 National Standards.** The standards layer beneath, referenced by and supporting the QCVN.\n+\n+Above both sits the **Law on Construction** and its implementing decrees (e.g. **Decree\n+15/2021/ND-CP**, which governs the permit application process).\n+\n+**And here is the reason this example exists.** An **amended Law on Construction was passed on\n+10 December 2025 and took effect on 1 July 2026** \u2014 roughly four weeks before this walkthrough was\n+written. Any guidance, briefing note, or model recollection predating mid-2026 may describe a\n+superseded regime.\n+\n+> This is R2's whole purpose: **the published edition is not the enforced edition, and \"current\" has a\n+> date.** A confident answer assembled from 2024 sources would be describing a law that has since been\n+> replaced. Confirm which text governs an application lodged *today*, and whether transitional\n+> provisions apply to projects already in train.\n+\n+## R3 \u2014 Resolve the AHJ set \u2014 everyone who can say no\n+\n+The building permit is one gate. Enumerate the rest before programming anything:\n+\n+- **People's Committee** at the applicable level \u2014 the construction permit itself.\n+- **Design appraisal** \u2014 Vietnam has an appraisal step for construction design after basic design;\n+  notably, the 2020 amendment created a **permit exemption** for works whose post-basic design has been\n+  appraised. That is a genuine programme lever *if* it applies, and a trap if assumed.\n+- **Fire prevention and fighting authority** \u2014 a separate approval track under the fire regulation\n+  (QCVN 06 family). As in the Gulf (`jurisdiction-dossiers.md` \u00a74), treat fire as a first-class parallel\n+  authority, not a closeout item.\n+- **Environmental** approval, **land-use rights** (critical and distinctive \u2014 see R5), utilities, and\n+  aviation/heritage overlays where applicable.\n+\n+> **To verify:** whether the appraisal-based permit exemption reaches this project type, and the actual\n+> fire-approval sequence and duration in this district.\n+\n+## R4 \u2014 Resolve the climate and hazard basis\n+\n+Physics, and the half of the brief that does not change with the law\n+(`references/climate-building-science.md`):\n+\n+Ho Chi Minh City is **K\u00f6ppen Aw** \u2014 tropical savanna: hot year-round, very high humidity, a pronounced\n+monsoon. That fixes several things immediately and *without needing a code lookup*:\n+\n+- **Cooling-dominated.** The air-conditioned interior is the cool, dry side, so the vapour drive is\n+  **inward**. Vapour control belongs toward the **exterior**; interior finishes must stay **permeable**\n+  so the assembly dries inward. An impermeable interior finish here is a mould factory.\n+- **Rain and drainage govern the envelope** \u2014 deep overhangs, rain screens, and stormwater sized to\n+  monsoon intensity, not to a temperate design storm.\n+- **Flood and subsidence are live**, and low-lying delta ground raises foundation, dewatering and\n+  long-term settlement questions.\n+- Corrosion and biological attack (mould, termites) drive durability and material selection.\n+\n+> **To verify from local maps and the QCVN, never from memory:** design wind (typhoon exposure varies\n+> markedly along the coast), rainfall intensity, flood datum, soil profile and groundwater.\n+\n+## R5 \u2014 Resolve the market and delivery conventions\n+\n+- **Land tenure is the distinctive one.** Vietnam's regime is built on **land-use rights** rather than\n+  freehold ownership as an outsider would understand it, with different rules for foreign-invested\n+  entities. This is not a detail \u2014 it sits underneath the entire capital structure and the exit, and it\n+  is the item most likely to invalidate a pro forma built on Anglo-American assumptions.\n+- Currency (VND), escalation, import exposure on equipment and finishes, and contractor capability tiers.\n+- **FIDIC** is common on internationally financed work; domestic contracts follow local forms.\n+\n+> **To verify:** the current foreign-ownership and land-use-right position for this entity type and\n+> asset class \u2014 a question for Vietnamese counsel, before the model, not after.\n+\n+## R6 \u2014 Resolve who may design, stamp, and build\n+\n+Expect **mandatory local licensure** for the design and appraisal roles, and a registered local\n+contractor. A foreign practice normally pairs with a local architect and engineer of record who carry\n+the submission. Confirm the practising-certificate requirements for each role.\n+\n+---\n+\n+## What the localization actually produced\n+\n+**Resolved with reasonable confidence** \u2014 the *structure*: two-pillar QCVN/TCVN system with QCVN as the\n+mandatory layer; decentralised People's Committee permitting driven by works grade; a design-appraisal\n+step that can exempt the permit; fire as a separate parallel authority; land-use rights rather than\n+freehold; mandatory local licensure. **And the climate consequences, which are physics and need no\n+permission slip**: vapour control outward-facing, permeable interior finishes, monsoon-sized drainage,\n+delta-ground foundations.\n+\n+**Explicitly not resolved** \u2014 the works-grade classification and therefore the approving committee;\n+whether the appraisal exemption reaches this project; realistic durations for each gate; every hazard\n+value; the foreign-ownership position; and **which version of the Law on Construction governs an\n+application lodged today**, given the 1 July 2026 change.\n+\n+**The critical path is the answer.** Not the code list \u2014 the *sequence*: land-use rights \u2192 investment\n+approval \u2192 design appraisal \u2192 permit (or exemption) \u2192 fire approval, with the fire track running\n+parallel throughout. Approval duration is a financing cost (`references/real-estate-finance.md` \u00a75),\n+and on a jurisdiction this unfamiliar the honest first deliverable is **a list of what to confirm and\n+who can confirm it**, priced as weeks, not a schedule pretending to certainty.\n+\n+---\n+\n+## Why this is the demonstration\n+\n+A generic assistant asked \"how do I build in Vietnam?\" tends to produce a fluent, plausible procedure\n+with specific durations and steps \u2014 and the blinded baseline in `evals/results/2026-07-25-baseline.md`\n+showed exactly that failure on a comparable question, where the no-skill arm **asserted Chilean\n+procedural steps, a validity period and a fee basis as fact** and was marked FAIL.\n+\n+The output above is deliberately less satisfying and considerably more useful. It separates:\n+\n+- **structure** (transferable, and confidently stated),\n+- **physics** (universal, and stated without hedging because it needs none),\n+- **values and procedure** (local, dated, and explicitly flagged for confirmation).\n+\n+That separation is the skill's central claim, and this is what it looks like when a builder actually\n+lands somewhere new.\n+\n+> **Standing caveat.** This walkthrough is an illustration of method, assembled from secondary sources\n+> on 31 July 2026 \u2014 not Vietnamese construction advice. Every specific above needs confirmation against\n+> the current legal text and the actual authority before it reaches a programme or a number."
+      },
+      {
+        "sha": "353ea18f0662b190bb1c8670b4b947d071e9c261",
+        "filename": "plugin/.claude-plugin/plugin.json",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 1,
+        "changes": 2,
+        "blob_url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/plugin%2F.claude-plugin%2Fplugin.json",
+        "raw_url": "https://github.com/ibuilder/master-builder/raw/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/plugin%2F.claude-plugin%2Fplugin.json",
+        "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/plugin%2F.claude-plugin%2Fplugin.json?ref=0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+        "patch": "@@ -1,7 +1,7 @@\n {\n   \"name\": \"master-builder\",\n   \"description\": \"Reason like a master builder \u2014 one mind holding an entire built-asset project from raw land through design, construction, handover, operations and disposition, anywhere in the world.\",\n-  \"version\": \"0.16.0\",\n+  \"version\": \"0.17.0\",\n   \"author\": {\n     \"name\": \"Matthew M. Emma\",\n     \"url\": \"https://github.com/ibuilder\""
+      },
+      {
+        "sha": "cde1a821b7e0f4a1cf03069454729ad6e314bf31",
+        "filename": "plugin/skills/master-builder/CHANGELOG.md",
+        "status": "modified",
+        "additions": 36,
+        "deletions": 0,
+        "changes": 36,
+        "blob_url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/plugin%2Fskills%2Fmaster-builder%2FCHANGELOG.md",
+        "raw_url": "https://github.com/ibuilder/master-builder/raw/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/plugin%2Fskills%2Fmaster-builder%2FCHANGELOG.md",
+        "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/plugin%2Fskills%2Fmaster-builder%2FCHANGELOG.md?ref=0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+        "patch": "@@ -2,6 +2,42 @@\n \n All notable changes to the **master-builder** skill.\n \n+## [0.17.0] \u2014 2026-07-31\n+Closes the three items that were standing open, and the one that went least well taught the most.\n+\n+### Added\n+- **Cross-model run** (`evals/results/2026-07-31-crossmodel.md`) \u2014 the same blinded design on **Haiku**.\n+  **No skill: 1/8. With skill: 6/8.** Five of eight cases changed verdict, none against. **The lift is\n+  larger on the weaker model** (12.5% \u2192 75%, vs 50% \u2192 94% on the larger one), which is the direction\n+  predicted if the skill supplies *knowledge* rather than *style* \u2014 the strongest evidence yet against\n+  the \"it was just the model\" reading. Honestly scoped: this is cross-*model*, not cross-*vendor*, and\n+  the single-vendor limitation is **not** lifted.\n+- **`scripts/verify_plugin.py`** \u2014 walks the loader's documented resolution path (catalog \u2192 source \u2192\n+  `skills/<name>/SKILL.md` \u2192 frontmatter), confirms the skill is discovered as\n+  `/master-builder:master-builder`, and proves no top-level `skills/` tree exists to double-load. Now a\n+  CI gate. It states in its own output that it does **not** run `/plugin install`, which remains\n+  unverifiable without an interactive CLI session.\n+- **`examples/vietnam-localization-walkthrough.md`** \u2014 a second worked example, demonstrating the\n+  localization procedure on a jurisdiction with **no dossier and no router entry**. Vietnam's amended\n+  Law on Construction took effect **1 July 2026**, so guidance assembled from 2024 sources describes a\n+  superseded regime \u2014 R2's purpose demonstrated live. Ends with what it could *not* resolve.\n+\n+### Fixed \u2014 both found by the cross-model run\n+- **Internal reference filenames were leaking into user-facing prose.** A grader caught\n+  `global-codes.md \u00a72` surfaced to a user as though it were a citation. Filenames are **navigation, not\n+  citations**; cite the code section or standard instead.\n+- **\"A check you cannot verify is not a check.\"** One answer *performed* the sanity check required\n+  since v0.11.0 and got the check itself **wrong by 1,000\u00d7** \u2014 GWh where its own rate gave MWh, with a\n+  cost figure that silently agreed with the error. The form of verification without the substance,\n+  which is worse than none because it launders the original error. SKILL.md now requires the check to\n+  carry its units through and land in the same order of magnitude as the claim.\n+\n+### Recorded, not smoothed over\n+`numeric-sanity` **failed in both arms** \u2014 the v0.11.0 sanity rule did not hold on a weaker model.\n+**The rule is capability-dependent**: it works on a stronger model and degrades to ritual on a weaker\n+one. That is a real bound on what this skill can promise, and it is stated in the results file rather\n+than buried.\n+\n ## [0.16.0] \u2014 2026-07-31\n Closes the oldest open debt in the repo: the escalation figure a blind grader flagged three releases\n ago. **The grader was right \u2014 our own number was stale.**"
+      },
+      {
+        "sha": "31f93459bc6d44207a059901dc2664bfc56f93e7",
+        "filename": "plugin/skills/master-builder/SKILL.md",
+        "status": "modified",
+        "additions": 7,
+        "deletions": 0,
+        "changes": 7,
+        "blob_url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/plugin%2Fskills%2Fmaster-builder%2FSKILL.md",
+        "raw_url": "https://github.com/ibuilder/master-builder/raw/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/plugin%2Fskills%2Fmaster-builder%2FSKILL.md",
+        "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/plugin%2Fskills%2Fmaster-builder%2FSKILL.md?ref=0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+        "patch": "@@ -188,6 +188,13 @@ whole project; it does not replace licensed judgment or a permit.\n   counsel and note the regulatory exposure. (See the tokenization and JV material in the finance reference.)\n - **Numbers** \u2014 show your assumptions and units, keep a currency and a date on every cost, and\n   label estimate classes honestly (a ROM is not a GMP).\n+- **The reference filenames in this skill are navigation, not citations.** `global-codes.md \u00a72` tells\n+  *you* where to look; it means nothing to the user and reads as a leaked internal note. Cite the\n+  actual authority instead \u2014 the code section, the standard, the hazard map.\n+- **A check you cannot verify is not a check.** If you sanity-test a figure, the test itself has to be\n+  right: carry the units through it and confirm the arithmetic lands in the same order of magnitude as\n+  the claim. A \"sanity check\" that is itself wrong by a factor of a thousand is worse than none \u2014 it\n+  launders the original error and looks like diligence while doing it.\n \n **Say it in the right words.** Compliance language is where a careful analysis quietly becomes a\n claim you can't support. Use the weaker verb \u2014 it is both more honest and more accurate:"
+      },
+      {
+        "sha": "7deee9df8c4b357b7c75572404100ef82ca65c0c",
+        "filename": "scripts/verify_plugin.py",
+        "status": "added",
+        "additions": 153,
+        "deletions": 0,
+        "changes": 153,
+        "blob_url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/scripts%2Fverify_plugin.py",
+        "raw_url": "https://github.com/ibuilder/master-builder/raw/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/scripts%2Fverify_plugin.py",
+        "contents_url": "https://api.github.com/repos/ibuilder/master-builder/contents/scripts%2Fverify_plugin.py?ref=0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+        "patch": "@@ -0,0 +1,153 @@\n+#!/usr/bin/env python3\n+\"\"\"Simulate plugin discovery, the way a client would resolve it.\n+\n+**What this does NOT do:** run `/plugin marketplace add` or `/plugin install`. Those are\n+client commands and cannot be executed from a build script. This walks the same path the\n+loader documents \u2014 marketplace catalog \u2192 plugin source \u2192 `skills/<name>/SKILL.md` \u2192 skill\n+frontmatter \u2014 and reports what a client *would* discover, plus anything that would break.\n+\n+A green run here means the layout and manifests are structurally correct. It is evidence,\n+not proof: only a real `/plugin install` proves the install. Said plainly because this repo\n+tells its users not to present a partial check as a clean bill of health\n+(`references/document-intelligence.md` \u00a75).\n+\n+Usage:  python scripts/verify_plugin.py\n+Exit 0 = discovery resolves. Stdlib only.\n+\"\"\"\n+from __future__ import annotations\n+\n+import json\n+import re\n+import sys\n+from pathlib import Path\n+\n+ROOT = Path(__file__).resolve().parent.parent\n+# From the published claude-code-marketplace schema.\n+PLUGIN_NAME_RE = re.compile(r\"^[A-Za-z0-9][-A-Za-z0-9._]*$\")\n+SKILL_NAME_RE = re.compile(r\"^[a-z0-9][a-z0-9-]{0,63}$\")\n+\n+problems: list[str] = []\n+notes: list[str] = []\n+\n+\n+def ok(msg: str) -> None:\n+    print(f\"  ok   {msg}\")\n+\n+\n+def bad(msg: str) -> None:\n+    print(f\"  FAIL {msg}\")\n+    problems.append(msg)\n+\n+\n+def note(msg: str) -> None:\n+    print(f\"  note {msg}\")\n+    notes.append(msg)\n+\n+\n+def split_frontmatter(text: str) -> str:\n+    if text.startswith(\"---\"):\n+        end = text.find(\"\\n---\", 3)\n+        if end != -1:\n+            return text[3:end]\n+    return \"\"\n+\n+\n+def main() -> int:\n+    print(\"Simulating plugin discovery (NOT running /plugin install)\\n\")\n+\n+    mp_path = ROOT / \".claude-plugin\" / \"marketplace.json\"\n+    if not mp_path.is_file():\n+        bad(f\"no marketplace catalog at {mp_path.relative_to(ROOT).as_posix()}\")\n+        return 1\n+    ok(f\"marketplace catalog found at {mp_path.relative_to(ROOT).as_posix()}\")\n+\n+    try:\n+        mp = json.loads(mp_path.read_text(encoding=\"utf-8\"))\n+    except json.JSONDecodeError as exc:\n+        bad(f\"marketplace.json is not valid JSON \u2014 {exc}\")\n+        return 1\n+\n+    # --- catalog level -------------------------------------------------------------\n+    market = mp.get(\"name\")\n+    ok(f\"marketplace name: {market!r}\") if market else bad(\"marketplace has no 'name'\")\n+    if not mp.get(\"owner\", {}).get(\"name\"):\n+        bad(\"marketplace has no owner.name (required)\")\n+    entries = mp.get(\"plugins\") or []\n+    if not entries:\n+        bad(\"marketplace lists no plugins\")\n+        return 1\n+    ok(f\"{len(entries)} plugin entr{'y' if len(entries)==1 else 'ies'} in the catalog\")\n+\n+    # --- per plugin ----------------------------------------------------------------\n+    for e in entries:\n+        name = e.get(\"name\", \"\")\n+        print(f\"\\n  --- resolving plugin {name!r} ---\")\n+        if not PLUGIN_NAME_RE.match(name or \"\"):\n+            bad(f\"plugin name {name!r} does not match the published schema pattern\")\n+        src_raw = e.get(\"source\")\n+        if not isinstance(src_raw, str):\n+            note(f\"{name}: non-local source ({type(src_raw).__name__}) \u2014 cannot resolve on disk\")\n+            continue\n+        src = (ROOT / src_raw.lstrip(\"./\")).resolve()\n+        if not src.is_dir():\n+            bad(f\"{name}: source {src_raw!r} does not resolve to a directory\")\n+            continue\n+        ok(f\"source {src_raw!r} -> {src.relative_to(ROOT).as_posix()}/\")\n+\n+        pj = src / \".claude-plugin\" / \"plugin.json\"\n+        if not pj.is_file():\n+            bad(f\"{name}: no plugin.json under the source\")\n+        else:\n+            d = json.loads(pj.read_text(encoding=\"utf-8\"))\n+            ok(\"plugin.json present and valid JSON\")\n+            if d.get(\"name\") != name:\n+                bad(f\"{name}: plugin.json name {d.get('name')!r} != catalog name {name!r}\")\n+\n+        # Documented default: skills load from `skills/` under the plugin source.\n+        skills_dir = src / \"skills\"\n+        if not skills_dir.is_dir():\n+            bad(f\"{name}: no skills/ directory under the source \u2014 a client would find no skills\")\n+            continue\n+        found = sorted(p for p in skills_dir.glob(\"*/SKILL.md\"))\n+        if not found:\n+            bad(f\"{name}: skills/ exists but contains no <skill>/SKILL.md\")\n+            continue\n+        ok(f\"skills/ scan discovers {len(found)} skill(s)\")\n+\n+        for sk in found:\n+            slug = sk.parent.name\n+            fm = split_frontmatter(sk.read_text(encoding=\"utf-8\"))\n+            if not fm:\n+                bad(f\"{slug}: SKILL.md has no YAML frontmatter \u2014 a loader would skip it\")\n+                continue\n+            m = re.search(r\"^name:\\s*(\\S+)\\s*$\", fm, re.M)\n+            declared = m.group(1) if m else None\n+            if not SKILL_NAME_RE.match(slug):\n+                bad(f\"{slug}: directory name is not a valid skill slug\")\n+            if declared and declared != slug:\n+                bad(f\"{slug}: frontmatter name {declared!r} != directory name {slug!r}\")\n+            if \"description:\" not in fm:\n+                bad(f\"{slug}: no description \u2014 the skill would never auto-trigger\")\n+            ok(f\"discovered skill {slug!r} (namespaced as /{name}:{slug})\")\n+\n+    # --- double-load hazard ---------------------------------------------------------\n+    print()\n+    stray = [p for p in ROOT.glob(\"skills/*/SKILL.md\")]\n+    if stray:\n+        bad(\"a top-level skills/ tree exists \u2014 cloning this repo into ~/.claude/skills/ \"\n+            \"could load the skill twice\")\n+    else:\n+        ok(\"no top-level skills/ tree \u2014 cloning into ~/.claude/skills/ cannot double-load\")\n+\n+    print()\n+    if problems:\n+        print(f\"FAILED: {len(problems)} problem(s)\")\n+        return 1\n+    print(\"Discovery resolves cleanly.\")\n+    print(\"NOT VERIFIED HERE: the actual `/plugin marketplace add` + `/plugin install` round-trip,\")\n+    print(\"which requires an interactive Claude Code CLI session.\")\n+    return 0\n+\n+\n+if __name__ == \"__main__\":\n+    sys.exit(main())"
+      }
+    ]
+  },
+  "tree": {
+    "sha": "0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+    "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+    "tree": [
+      {
+        "path": ".claude-plugin",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "e6efb3a07e9dfef3683b94cfd2c6fb30ea761310",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/e6efb3a07e9dfef3683b94cfd2c6fb30ea761310"
+      },
+      {
+        "path": ".claude-plugin/marketplace.json",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "3a2b6f779f943c886250a290c07e553f550845b4",
+        "size": 1287,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/3a2b6f779f943c886250a290c07e553f550845b4"
+      },
+      {
+        "path": ".github",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "4f58f628fbec28f1d74f1015c05c374ce37908ef",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/4f58f628fbec28f1d74f1015c05c374ce37908ef"
+      },
+      {
+        "path": ".github/workflows",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "2b580dc1e66fde25bacf7bb5a356558dd6b3ff31",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/2b580dc1e66fde25bacf7bb5a356558dd6b3ff31"
+      },
+      {
+        "path": ".github/workflows/ci.yml",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "8cb9f2fe7cb1e8301fa91a81ffa08e1e4a8cdff7",
+        "size": 3362,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/8cb9f2fe7cb1e8301fa91a81ffa08e1e4a8cdff7"
+      },
+      {
+        "path": ".gitignore",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "053468e0c3b9a82ed81e692181549d8f1b710e99",
+        "size": 59,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/053468e0c3b9a82ed81e692181549d8f1b710e99"
+      },
+      {
+        "path": "CHANGELOG.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "cde1a821b7e0f4a1cf03069454729ad6e314bf31",
+        "size": 39534,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/cde1a821b7e0f4a1cf03069454729ad6e314bf31"
+      },
+      {
+        "path": "CONTRIBUTING.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "27271067448549bd82aa3a08de34349e2de407c2",
+        "size": 2222,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/27271067448549bd82aa3a08de34349e2de407c2"
+      },
+      {
+        "path": "LICENSE",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "1d3f762dc11cfcea266c39fec3b3fc9249ce8640",
+        "size": 1083,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/1d3f762dc11cfcea266c39fec3b3fc9249ce8640"
+      },
+      {
+        "path": "README.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "74d4438c5306831f7d8b6427a10e86e8909f7a1c",
+        "size": 26048,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/74d4438c5306831f7d8b6427a10e86e8909f7a1c"
+      },
+      {
+        "path": "SKILL.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "31f93459bc6d44207a059901dc2664bfc56f93e7",
+        "size": 20378,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/31f93459bc6d44207a059901dc2664bfc56f93e7"
+      },
+      {
+        "path": "dist",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "891a585964a58ffe68d289b7f3278be56c81fe5e",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/891a585964a58ffe68d289b7f3278be56c81fe5e"
+      },
+      {
+        "path": "dist/master-builder.bundle.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "fc4840d831eade9177bc940caf8b1e5a77179e93",
+        "size": 194332,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/fc4840d831eade9177bc940caf8b1e5a77179e93"
+      },
+      {
+        "path": "dist/master-builder.skill",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "e51cbeedb9ed5ddf4f442c8a221d30969cff78ea",
+        "size": 103812,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/e51cbeedb9ed5ddf4f442c8a221d30969cff78ea"
+      },
+      {
+        "path": "dist/master-builder.zip",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "e51cbeedb9ed5ddf4f442c8a221d30969cff78ea",
+        "size": 103812,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/e51cbeedb9ed5ddf4f442c8a221d30969cff78ea"
+      },
+      {
+        "path": "docs",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "ae3bbca5237bcddb421eaadb7adc4255e86edd2e",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/ae3bbca5237bcddb421eaadb7adc4255e86edd2e"
+      },
+      {
+        "path": "docs/banner.svg",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "ddc2347fb0bf3dae502b1d6f6faa15aa869deddd",
+        "size": 5478,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/ddc2347fb0bf3dae502b1d6f6faa15aa869deddd"
+      },
+      {
+        "path": "evals",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "d07a7b325cf8df741f2a72747c6628886fd64c70",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/d07a7b325cf8df741f2a72747c6628886fd64c70"
+      },
+      {
+        "path": "evals/behavior.jsonl",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "9a53b17850f4aa03d945b37d033dd0a4c3cfa1bc",
+        "size": 13173,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/9a53b17850f4aa03d945b37d033dd0a4c3cfa1bc"
+      },
+      {
+        "path": "evals/results",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "4fd341104c1ce0e74c453f73c1501d7517d6ce47",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/4fd341104c1ce0e74c453f73c1501d7517d6ce47"
+      },
+      {
+        "path": "evals/results/2026-07-25-baseline-answers.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "8e59a61dd1b496bcd13f3579da5c3284d6f228c6",
+        "size": 132166,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/8e59a61dd1b496bcd13f3579da5c3284d6f228c6"
+      },
+      {
+        "path": "evals/results/2026-07-25-baseline.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "e8007776edd9f3d09c6238b79b161a918fa366ef",
+        "size": 7499,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/e8007776edd9f3d09c6238b79b161a918fa366ef"
+      },
+      {
+        "path": "evals/results/2026-07-25-run-2-answers.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "9f5724b98148e1f989d17e0bb4d178b3e5a8599a",
+        "size": 56373,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/9f5724b98148e1f989d17e0bb4d178b3e5a8599a"
+      },
+      {
+        "path": "evals/results/2026-07-25-run-2.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "a9aa76a26edd82ddc1eec330c86f47c13166f5d4",
+        "size": 40546,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/a9aa76a26edd82ddc1eec330c86f47c13166f5d4"
+      },
+      {
+        "path": "evals/results/2026-07-25-run.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "d390a4babc6b93d21f6758ee842067d068d9cd03",
+        "size": 23036,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/d390a4babc6b93d21f6758ee842067d068d9cd03"
+      },
+      {
+        "path": "evals/results/2026-07-31-crossmodel-answers.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "39657413fdce80888dc432a9183f17c9a032cc86",
+        "size": 28715,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/39657413fdce80888dc432a9183f17c9a032cc86"
+      },
+      {
+        "path": "evals/results/2026-07-31-crossmodel.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "7fe883bbd1430fddec1cf759537ff05dcc7d7a51",
+        "size": 4648,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/7fe883bbd1430fddec1cf759537ff05dcc7d7a51"
+      },
+      {
+        "path": "evals/retrieval.jsonl",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "6549f843e339662414bcc4b078d08db6b414dc75",
+        "size": 7554,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/6549f843e339662414bcc4b078d08db6b414dc75"
+      },
+      {
+        "path": "examples",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "38eb9addc2786fe75e04e34293e7a64921576bc5",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/38eb9addc2786fe75e04e34293e7a64921576bc5"
+      },
+      {
+        "path": "examples/hempstead-corrected-model.xlsx",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "ad0b81ff49dd443cb0850ddaff3f6397177ba5a8",
+        "size": 19899,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/ad0b81ff49dd443cb0850ddaff3f6397177ba5a8"
+      },
+      {
+        "path": "examples/hempstead-vertical-farm-case-study.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "ac93914c4f26f239bf994bf356f543c22cb4ae5f",
+        "size": 6699,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/ac93914c4f26f239bf994bf356f543c22cb4ae5f"
+      },
+      {
+        "path": "examples/vietnam-localization-walkthrough.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "3a50a36631ad8675093d336439f0ef8b43ba3776",
+        "size": 9172,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/3a50a36631ad8675093d336439f0ef8b43ba3776"
+      },
+      {
+        "path": "plugin",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "06033f0ce75f9c09594d93fbcafb5ff69c1be31a",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/06033f0ce75f9c09594d93fbcafb5ff69c1be31a"
+      },
+      {
+        "path": "plugin/.claude-plugin",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "a2aede9744f89ad71edb46640584610a6143c296",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/a2aede9744f89ad71edb46640584610a6143c296"
+      },
+      {
+        "path": "plugin/.claude-plugin/plugin.json",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "353ea18f0662b190bb1c8670b4b947d071e9c261",
+        "size": 656,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/353ea18f0662b190bb1c8670b4b947d071e9c261"
+      },
+      {
+        "path": "plugin/skills",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "390e44c97115b4648912c6046124a8bdbb91a641",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/390e44c97115b4648912c6046124a8bdbb91a641"
+      },
+      {
+        "path": "plugin/skills/master-builder",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "a6461fc9d070f9038c32054167dee514d9166d7d",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/a6461fc9d070f9038c32054167dee514d9166d7d"
+      },
+      {
+        "path": "plugin/skills/master-builder/CHANGELOG.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "cde1a821b7e0f4a1cf03069454729ad6e314bf31",
+        "size": 39534,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/cde1a821b7e0f4a1cf03069454729ad6e314bf31"
+      },
+      {
+        "path": "plugin/skills/master-builder/README.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "d46d7216ebf4796847cf8c8ceda9182e817f93dd",
+        "size": 311,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/d46d7216ebf4796847cf8c8ceda9182e817f93dd"
+      },
+      {
+        "path": "plugin/skills/master-builder/SKILL.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "31f93459bc6d44207a059901dc2664bfc56f93e7",
+        "size": 20378,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/31f93459bc6d44207a059901dc2664bfc56f93e7"
+      },
+      {
+        "path": "plugin/skills/master-builder/references",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "61d1728adfc62b9adcf30459c0b65abb4531dda1",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/61d1728adfc62b9adcf30459c0b65abb4531dda1"
+      },
+      {
+        "path": "plugin/skills/master-builder/references/adaptive-reuse.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "8a9a764a43e918cabbd34230b9e2d1617ab00b44",
+        "size": 14519,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/8a9a764a43e918cabbd34230b9e2d1617ab00b44"
+      },
+      {
+        "path": "plugin/skills/master-builder/references/build-doctrine.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "06ca0d82cfb7555450ceb753983100393cacdfdd",
+        "size": 9591,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/06ca0d82cfb7555450ceb753983100393cacdfdd"
+      },
+      {
+        "path": "plugin/skills/master-builder/references/climate-building-science.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "f7a43720055abffcea6b8fff9b5977c69dd90119",
+        "size": 13130,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/f7a43720055abffcea6b8fff9b5977c69dd90119"
+      },
+      {
+        "path": "plugin/skills/master-builder/references/construction-delivery.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "ec55805db600af1ac3f6f2dd4b072cfdd02e620c",
+        "size": 17068,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/ec55805db600af1ac3f6f2dd4b072cfdd02e620c"
+      },
+      {
+        "path": "plugin/skills/master-builder/references/development-lifecycle.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "1077f521465e5d03f12a651763afc7e69bc76543",
+        "size": 9352,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/1077f521465e5d03f12a651763afc7e69bc76543"
+      },
+      {
+        "path": "plugin/skills/master-builder/references/digital-toolkit.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "e5e5c6c38ca9b3cff1432a3b26a01d7b45d5382a",
+        "size": 11839,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/e5e5c6c38ca9b3cff1432a3b26a01d7b45d5382a"
+      },
+      {
+        "path": "plugin/skills/master-builder/references/document-intelligence.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "893d103330db99362c52e8e702b959dd49d5da0d",
+        "size": 19030,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/893d103330db99362c52e8e702b959dd49d5da0d"
+      },
+      {
+        "path": "plugin/skills/master-builder/references/global-codes.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "a243913544690ee8398aa6ec1bf1ee53e1fb0cb1",
+        "size": 14433,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/a243913544690ee8398aa6ec1bf1ee53e1fb0cb1"
+      },
+      {
+        "path": "plugin/skills/master-builder/references/jurisdiction-dossiers.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "037db5e74c6b2daca68b2a72920938bb3539dac1",
+        "size": 16035,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/037db5e74c6b2daca68b2a72920938bb3539dac1"
+      },
+      {
+        "path": "plugin/skills/master-builder/references/pro-forma-review.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "2910dad327a3e8b6eecccea57ef33e464e0972ab",
+        "size": 7449,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/2910dad327a3e8b6eecccea57ef33e464e0972ab"
+      },
+      {
+        "path": "plugin/skills/master-builder/references/real-estate-finance.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "62cd75591eec0ee58c42e539607e09006cc48aff",
+        "size": 10585,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/62cd75591eec0ee58c42e539607e09006cc48aff"
+      },
+      {
+        "path": "plugin/skills/master-builder/references/risk-insurance.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "306bdd71c709b4df589b1ce73682d26ab7d1c9b7",
+        "size": 13869,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/306bdd71c709b4df589b1ce73682d26ab7d1c9b7"
+      },
+      {
+        "path": "plugin/skills/master-builder/references/sustainability-carbon.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "ab788c88bccaebfdcf0e48439a9b60de5d1ed0a2",
+        "size": 11904,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/ab788c88bccaebfdcf0e48439a9b60de5d1ed0a2"
+      },
+      {
+        "path": "references",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "61d1728adfc62b9adcf30459c0b65abb4531dda1",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/61d1728adfc62b9adcf30459c0b65abb4531dda1"
+      },
+      {
+        "path": "references/adaptive-reuse.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "8a9a764a43e918cabbd34230b9e2d1617ab00b44",
+        "size": 14519,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/8a9a764a43e918cabbd34230b9e2d1617ab00b44"
+      },
+      {
+        "path": "references/build-doctrine.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "06ca0d82cfb7555450ceb753983100393cacdfdd",
+        "size": 9591,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/06ca0d82cfb7555450ceb753983100393cacdfdd"
+      },
+      {
+        "path": "references/climate-building-science.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "f7a43720055abffcea6b8fff9b5977c69dd90119",
+        "size": 13130,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/f7a43720055abffcea6b8fff9b5977c69dd90119"
+      },
+      {
+        "path": "references/construction-delivery.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "ec55805db600af1ac3f6f2dd4b072cfdd02e620c",
+        "size": 17068,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/ec55805db600af1ac3f6f2dd4b072cfdd02e620c"
+      },
+      {
+        "path": "references/development-lifecycle.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "1077f521465e5d03f12a651763afc7e69bc76543",
+        "size": 9352,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/1077f521465e5d03f12a651763afc7e69bc76543"
+      },
+      {
+        "path": "references/digital-toolkit.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "e5e5c6c38ca9b3cff1432a3b26a01d7b45d5382a",
+        "size": 11839,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/e5e5c6c38ca9b3cff1432a3b26a01d7b45d5382a"
+      },
+      {
+        "path": "references/document-intelligence.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "893d103330db99362c52e8e702b959dd49d5da0d",
+        "size": 19030,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/893d103330db99362c52e8e702b959dd49d5da0d"
+      },
+      {
+        "path": "references/global-codes.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "a243913544690ee8398aa6ec1bf1ee53e1fb0cb1",
+        "size": 14433,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/a243913544690ee8398aa6ec1bf1ee53e1fb0cb1"
+      },
+      {
+        "path": "references/jurisdiction-dossiers.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "037db5e74c6b2daca68b2a72920938bb3539dac1",
+        "size": 16035,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/037db5e74c6b2daca68b2a72920938bb3539dac1"
+      },
+      {
+        "path": "references/pro-forma-review.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "2910dad327a3e8b6eecccea57ef33e464e0972ab",
+        "size": 7449,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/2910dad327a3e8b6eecccea57ef33e464e0972ab"
+      },
+      {
+        "path": "references/real-estate-finance.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "62cd75591eec0ee58c42e539607e09006cc48aff",
+        "size": 10585,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/62cd75591eec0ee58c42e539607e09006cc48aff"
+      },
+      {
+        "path": "references/risk-insurance.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "306bdd71c709b4df589b1ce73682d26ab7d1c9b7",
+        "size": 13869,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/306bdd71c709b4df589b1ce73682d26ab7d1c9b7"
+      },
+      {
+        "path": "references/sustainability-carbon.md",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "ab788c88bccaebfdcf0e48439a9b60de5d1ed0a2",
+        "size": 11904,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/ab788c88bccaebfdcf0e48439a9b60de5d1ed0a2"
+      },
+      {
+        "path": "scripts",
+        "mode": "040000",
+        "type": "tree",
+        "sha": "63683b6a0b6f71412fcf2bfde977e737773e71ec",
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/trees/63683b6a0b6f71412fcf2bfde977e737773e71ec"
+      },
+      {
+        "path": "scripts/blind_pairs.py",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "5fc0a5b865c66f2eff48935c529b58a4567bde91",
+        "size": 3923,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/5fc0a5b865c66f2eff48935c529b58a4567bde91"
+      },
+      {
+        "path": "scripts/build.py",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "e54b06ad0b840096a718b1545cd8f8fe6aea0339",
+        "size": 10110,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/e54b06ad0b840096a718b1545cd8f8fe6aea0339"
+      },
+      {
+        "path": "scripts/eval_behavior.py",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "2675b2bd0346984eb45ba43777e19f1e9ee526b2",
+        "size": 4342,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/2675b2bd0346984eb45ba43777e19f1e9ee526b2"
+      },
+      {
+        "path": "scripts/eval_retrieval.py",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "35c3ee0afc6e34242990c86383febb11b80331f2",
+        "size": 3893,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/35c3ee0afc6e34242990c86383febb11b80331f2"
+      },
+      {
+        "path": "scripts/mcp_server.py",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "45ff05471a7c586b8aed374904506192acd70655",
+        "size": 28550,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/45ff05471a7c586b8aed374904506192acd70655"
+      },
+      {
+        "path": "scripts/validate.py",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "7ded94917b5d0460404c932724a67ccb177ff98d",
+        "size": 7354,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/7ded94917b5d0460404c932724a67ccb177ff98d"
+      },
+      {
+        "path": "scripts/verify_plugin.py",
+        "mode": "100644",
+        "type": "blob",
+        "sha": "7deee9df8c4b357b7c75572404100ef82ca65c0c",
+        "size": 5972,
+        "url": "https://api.github.com/repos/ibuilder/master-builder/git/blobs/7deee9df8c4b357b7c75572404100ef82ca65c0c"
+      }
+    ],
+    "truncated": false
+  },
+  "retrieval_date": "2026-10-11"
+}

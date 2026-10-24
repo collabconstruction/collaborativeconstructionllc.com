@@ -1,0 +1,114 @@
+diff --git a/css/styles.css b/css/styles.css
+index 82d08f7..28aa5e0 100644
+--- a/css/styles.css
++++ b/css/styles.css
+@@ -3661,24 +3661,29 @@ figure {
+   from { transform: translateX(-50%) translate3d(20vw, -14vh, 0) scale(1.55) rotate(-17deg); opacity: 0; }
+   to { transform: translateX(-50%) translateY(calc(var(--drift, 0) * 1px)) scale(1); }
+ }
+-.locations--atlas { padding-block: 25px 32px; overflow: hidden; background: var(--navy); }
+-.locations--atlas::before, .locations--atlas::after { content: ""; position: absolute; left: -2%; width: 104%; height: 8px; pointer-events: none; background: repeating-linear-gradient(118deg, var(--brass) 0 28px, var(--navy-200) 28px 49px, var(--brass-300) 49px 83px, var(--navy-400) 83px 116px); clip-path: polygon(0 25%, 8% 70%, 18% 0, 29% 80%, 42% 12%, 55% 90%, 69% 0, 82% 70%, 93% 12%, 100% 50%, 100% 100%, 0 100%); }
++.locations--atlas { padding-block: 14px; overflow: hidden; background: var(--navy); }
++.locations--atlas::before, .locations--atlas::after { content: ""; position: absolute; left: -2%; width: 104%; height: 12px; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='18' viewBox='0 0 1200 18'%3E%3Cpath d='M0 9L93 3 182 12 296 5 423 14 548 4 668 10 803 2 942 11 1065 4 1200 9' fill='none' stroke='%23BDA16A' stroke-width='1.2'/%3E%3Cpath d='M0 14L122 9 235 16 367 8 489 13 634 6 754 15 896 8 1038 14 1200 6' fill='none' stroke='%239DAFC0' stroke-opacity='.55' stroke-width='.8'/%3E%3C/svg%3E"); background-size: 1200px 12px; }
+ .locations--atlas::before { top: 0; }
+ .locations--atlas::after { bottom: 0; transform: rotate(180deg); }
+-.location-controls { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 15px; }
+-.location-label { color: var(--paper); font-size: .7rem; text-transform: uppercase; letter-spacing: .14em; }
+-.location-arrows { display: flex; gap: 8px; }
+-.location-arrows button { width: 36px; height: 36px; border: 1px solid var(--brass); color: var(--paper); background: transparent; cursor: pointer; }
+-.location-window { overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--brass) var(--navy); padding: 8px 4vw 18px; scroll-snap-type: x proximity; }
+-.location-atlas { display: flex; width: max-content; gap: 12px; margin: 0; padding: 0; list-style: none; align-items: center; }
+-.location-atlas li { padding: 16px 20px; border: 1px solid var(--brass); border-radius: 28% 8% 24% 6%; color: var(--paper); background: var(--navy-800); white-space: nowrap; scroll-snap-align: start; }
+-.location-atlas li:nth-child(3n+2) { border-color: var(--navy-200); border-radius: 5% 28% 6% 24%; transform: translateY(5px); }
+-.location-atlas li:nth-child(3n) { border-color: var(--brass-300); transform: translateY(-4px); border-radius: 15% 4% 30% 6%; }
++.location-window { overflow: hidden; padding-block: 8px; -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
++.location-loop { display: flex; width: max-content; animation: communityLoop 110s linear infinite; animation-play-state: var(--decorative-state, running); }
++.location-atlas { display: flex; flex-shrink: 0; gap: 12px; margin: 0; padding: 0 12px 0 0; list-style: none; align-items: center; }
++.location-atlas li { padding: 8px 17px; border: 1px solid rgba(189,161,106,.5); border-radius: 16px 3px 15px 3px; color: var(--paper); background: rgba(255,255,255,.025); font-size: .875rem; white-space: nowrap; }
++.location-atlas li:nth-child(3n+2) { border-color: rgba(157,175,192,.45); border-radius: 3px 15px 3px 16px; }
++.location-atlas li:nth-child(3n) { border-color: rgba(222,200,156,.45); border-radius: 10px 3px 18px 5px; }
++.location-window:hover .location-loop, .location-window:focus-within .location-loop { animation-play-state: paused; }
++@keyframes communityLoop { to { transform: translate3d(-50%, 0, 0); } }
+ @media (prefers-reduced-motion: no-preference) {
+  .locations--atlas::before { animation: atlasEdge 12s ease-in-out infinite alternate; }
+  .locations--atlas::after { animation: atlasEdge 16s ease-in-out infinite alternate-reverse; }
+ }
+ @keyframes atlasEdge { to { translate: 18px 0; } }
++@media (prefers-reduced-motion: reduce) {
++ .location-window { mask-image: none; -webkit-mask-image: none; padding-inline: 20px; }
++ .location-loop { animation: none; width: auto; }
++ .location-atlas { flex-wrap: wrap; justify-content: center; padding: 0; }
++ .location-atlas--clone { display: none; }
++}
+ .adu-main { align-items: stretch; }
+ .adu-card { display: flex; flex-direction: column; justify-content: space-between; gap: 22px; border: 2px solid var(--brass); background: var(--white); padding: clamp(26px, 3vw, 42px); box-shadow: 0 16px 42px rgba(24,43,73,.16); text-align: center; }
+ .adu-card h3 { font-size: clamp(1.8rem, 3vw, 2.7rem); }
+diff --git a/docs/implementation/2026-10-14-community-loop.md b/docs/implementation/2026-10-14-community-loop.md
+new file mode 100644
+index 0000000..1cd8938
+--- /dev/null
++++ b/docs/implementation/2026-10-14-community-loop.md
+@@ -0,0 +1,9 @@
++# Compact endless communities strip
++
++October 14, 2026. Owner requested removal of visible heading/arrows, continuous looping, edge fades and tighter borders.
++
++Implemented in the Midnight & Brass checkout. Two identical 27-community lists form an equal-width seamless track, with only the first exposed to assistive technology. A 110-second linear transform runs continuously while visible, pauses on hover/focus or when hidden/offscreen, and becomes one static wrapped list under reduced motion. Removed obsolete arrow handlers. Compact 93px desktop band uses asymmetric chip corners and fine brass/slate contour borders. No visible heading or controls remain.
++
++Validation: 95 tests pass, clean build and release verifier pass (177 public files). Browser measured both loop halves at 2969.54px; animation resumed after focus left (transform advanced from -8.10px to -16.21px). Focus pause observed. No horizontal document overflow at 390px; edge mask present. Reduced-motion fallback inspected in source, not OS-emulated. Screenshot in main workspace: docs/implementation/evidence/communities-endless-loop.jpg.
++
++Preview: http://127.0.0.1:8884/ . No production deployment or push; maintenance remains unchanged. This is a focused follow-up to bcceec5.
+diff --git a/js/main.js b/js/main.js
+index db3fd45..929f16c 100644
+--- a/js/main.js
++++ b/js/main.js
+@@ -115,12 +115,6 @@
+     animatedDecorations.forEach(element => { element.style.setProperty("--decorative-state", "paused"); decorationObserver.observe(element); });
+     document.addEventListener("visibilitychange", () => animatedDecorations.forEach(syncDecoration));
+   }
+-  const locationWindow = $("[data-location-window]");
+-  if (locationWindow) {
+-    const moveLocations = direction => locationWindow.scrollBy({ left: direction * locationWindow.clientWidth * .7, behavior: prefersReduced ? "instant" : "smooth" });
+-    $("[data-location-back]")?.addEventListener("click", () => moveLocations(-1));
+-    $("[data-location-next]")?.addEventListener("click", () => moveLocations(1));
+-  }
+   const contourField = $(".hero__bg");
+   if (contourField && !prefersReduced && "IntersectionObserver" in window) {
+     let visible = true;
+diff --git a/src/index.njk b/src/index.njk
+index 858144c..c7e9386 100644
+--- a/src/index.njk
++++ b/src/index.njk
+@@ -270,20 +270,20 @@ preloadImageSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
+        no focusable content, so assistive tech and the tab order both see each
+        town exactly once. #}
+     <section class="locations locations--atlas" aria-label="Nearby communities">
+-      <div class="container location-controls">
+-        <span class="location-label">Nearby communities</span>
+-        <div class="location-arrows">
+-          <button type="button" data-location-back aria-label="Previous locations">&#8592;</button>
+-          <button type="button" data-location-next aria-label="More locations">&#8594;</button>
++      <div class="location-window" tabindex="0" role="region" aria-label="Nearby communities. Animation pauses on focus.">
++        <div class="location-loop">
++          <ul class="location-atlas">
++            {%- for place in serviceArea.places %}
++            <li><span>{{ place.name }}</span></li>
++            {%- endfor %}
++          </ul>
++          <ul class="location-atlas location-atlas--clone" aria-hidden="true">
++            {%- for place in serviceArea.places %}
++            <li><span>{{ place.name }}</span></li>
++            {%- endfor %}
++          </ul>
+         </div>
+       </div>
+-      <div class="location-window" tabindex="0" role="region" aria-label="Locations, scroll horizontally" data-location-window>
+-        <ul class="location-atlas">
+-          {%- for place in serviceArea.places %}
+-          <li><span>{{ place.name }}</span></li>
+-          {%- endfor %}
+-        </ul>
+-      </div>
+     </section>
+ 
+     {# =========================== PROCESS =========================== #}

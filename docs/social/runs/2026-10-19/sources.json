@@ -1,0 +1,27 @@
+{
+  "observed_at": "2026-10-19T13:18:42Z",
+  "brand": "7490851",
+  "request_from": "2026-10-17T00:00:00-04:00",
+  "request_to": "2026-10-19T09:18:00-04:00",
+  "metric_order": [
+    "FBEV17",
+    "FBEV04",
+    "FBEV34",
+    "LIEV01",
+    "LIEV04",
+    "LIEV22",
+    "LIEV21",
+    "LIEV23"
+  ],
+  "row_shape": "requested metrics then date; null means missing",
+  "browser_limits": [
+    "Facebook offline notice; possible cached data",
+    "native Mac inventory locked"
+  ],
+  "follows_performed": 0,
+  "public_research": [
+    "https://midcape.com/",
+    "https://midcape.com/locations-and-hours/",
+    "https://www.a3architectsinc.com/firm"
+  ]
+}

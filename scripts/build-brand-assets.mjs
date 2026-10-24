@@ -2,11 +2,18 @@
 /**
  * Regenerate every brand-mark rendition from one master file.
  *
- * The site shows the same circular house mark in four places at four sizes
- * (schema.org logo, header, badge, favicon). Hand-exporting those from a design
- * tool is how they drift apart: one gets re-cropped, another keeps the old
- * colour, and nobody notices until the favicon and the header disagree. This
- * derives all four from `assets/logo.png` so they cannot.
+ * The site shows the same house mark in five places at five sizes (schema.org
+ * logo, header, footer/ADU-watermark badge, browser-tab favicon, iOS
+ * home-screen icon). Hand-exporting those from a design tool is how they
+ * drift apart: one gets re-cropped, another keeps the old colour, and nobody
+ * notices until the favicon and the header disagree. This derives all five
+ * from the one master in `brand/` so they cannot.
+ *
+ * Not every rendition wants the same backdrop. c-icon.png is composited live
+ * (footer, ADU watermark) and must stay transparent so it can sit on whatever
+ * background its container already has. favicon.png and apple-touch-icon.png
+ * are shown by the OS/browser chrome with no page CSS available, so they get
+ * an opaque navy backdrop baked in instead.
  *
  * Every rendition is resampled from the owner-supplied original in `brand/`,
  * never from another rendition. That is what makes re-running safe: resampling
@@ -31,13 +38,25 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ASSETS = path.join(ROOT, "assets");
 const MASTER = path.join(ROOT, "brand", "cc-house-mark.png");
 
+/** Navy backdrop matching --navy in css/styles.css. Standalone system icons
+ *  (browser tab, iOS home screen) have no page CSS to supply a backdrop, so
+ *  they get navy baked in. c-icon.png stays transparent on purpose: it is
+ *  rendered live in two places with no fill of its own — the footer badge
+ *  (.footer-logo .c-badge, which sits on --navy-950 via real page CSS) and
+ *  the .adu::after decorative watermark (css/styles.css:2188), which sits on
+ *  the light --paper-2 section background at 5% opacity. Baking any solid
+ *  colour into c-icon.png would show as a visible box in the ADU section,
+ *  where there is no dark backdrop to hide it the way the footer has. */
+const NAVY = { r: 0x18, g: 0x2b, b: 0x49, alpha: 1 };
+
 /** Every brand surface, and what consumes it. Keep this list in sync with
  *  src/_data/business.json `images` and the <link rel> tags in base.njk. */
 const RENDITIONS = [
   { file: "logo.png", size: 1024, fill: 0.86, used: "schema.org Organization logo (lib/schema.js)" },
   { file: "logo-header.png", size: 512, fill: 0.86, used: "site header brand lockup (base.njk)" },
-  { file: "c-icon.png", size: 256, fill: 0.88, used: "apple-touch-icon, footer badge, gallery mark" },
-  { file: "favicon.png", size: 64, fill: 0.96, used: "browser tab icon" },
+  { file: "c-icon.png", size: 256, fill: 0.88, used: "footer badge, .adu::after decorative watermark" },
+  { file: "favicon.png", size: 64, fill: 0.8, used: "browser tab icon, Google SERP favicon", background: NAVY },
+  { file: "apple-touch-icon.png", size: 180, fill: 0.68, used: "iOS home-screen icon (apple-touch-icon)", background: NAVY },
 ];
 
 /** Alpha bounding box of the mark. sharp's own .trim() thresholds on colour
@@ -71,7 +90,7 @@ console.log(`master: ${path.relative(ROOT, source)}, mark occupies ${box.width}x
 // Crop once; every rendition is a resize of this same trimmed mark.
 const mark = await sharp(source).extract(box).png().toBuffer();
 
-for (const { file, size, fill, used } of RENDITIONS) {
+for (const { file, size, fill, used, background } of RENDITIONS) {
   const scaled = await sharp(mark)
     .resize({ width: Math.round(size * fill), height: Math.round(size * fill), fit: "inside" })
     .png()
@@ -80,7 +99,7 @@ for (const { file, size, fill, used } of RENDITIONS) {
 
   const out = path.join(ASSETS, file);
   await sharp({
-    create: { width: size, height: size, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+    create: { width: size, height: size, channels: 4, background: background ?? { r: 0, g: 0, b: 0, alpha: 0 } },
   })
     .composite([{ input: scaled, left: Math.round((size - width) / 2), top: Math.round((size - height) / 2) }])
     // The mark is flat colour on transparency, so an indexed palette is lossless

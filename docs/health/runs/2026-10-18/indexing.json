@@ -1,0 +1,86 @@
+{
+  "https://collaborativeconstructionllc.com/": {
+    "inspectionResult": {
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:collaborativeconstructionllc.com&id=Q7AYiPgIK0frQhf6dHi-cQ&utm_medium=link&utm_source=api",
+      "indexStatusResult": {
+        "verdict": "PASS",
+        "coverageState": "Submitted and indexed",
+        "robotsTxtState": "ALLOWED",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-10-14T17:54:16Z",
+        "pageFetchState": "SUCCESSFUL",
+        "googleCanonical": "https://collaborativeconstructionllc.com/",
+        "userCanonical": "https://collaborativeconstructionllc.com/",
+        "sitemap": [
+          "https://collaborativeconstructionllc.com/sitemap.xml"
+        ],
+        "referringUrls": [
+          "https://www.wonvision.com/dad7b34b65d23125a1036b444a9846d8-l/",
+          "http://collaborativeconstructionllc.com/"
+        ],
+        "crawledAs": "MOBILE"
+      },
+      "mobileUsabilityResult": {
+        "verdict": "VERDICT_UNSPECIFIED"
+      }
+    }
+  },
+  "https://collaborativeconstructionllc.com/general-contractor-falmouth-ma/": {
+    "inspectionResult": {
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:collaborativeconstructionllc.com&id=uCxQgUtaBbm8bKr-xiUdQw&utm_medium=link&utm_source=api",
+      "indexStatusResult": {
+        "verdict": "PASS",
+        "coverageState": "Submitted and indexed",
+        "robotsTxtState": "ALLOWED",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-10-12T22:08:08Z",
+        "pageFetchState": "SUCCESSFUL",
+        "googleCanonical": "https://collaborativeconstructionllc.com/general-contractor-falmouth-ma/",
+        "userCanonical": "https://collaborativeconstructionllc.com/general-contractor-falmouth-ma/",
+        "sitemap": [
+          "https://collaborativeconstructionllc.com/sitemap.xml"
+        ],
+        "crawledAs": "MOBILE"
+      },
+      "mobileUsabilityResult": {
+        "verdict": "VERDICT_UNSPECIFIED"
+      },
+      "richResultsResult": {
+        "verdict": "PASS",
+        "detectedItems": [
+          {
+            "richResultType": "Breadcrumbs",
+            "items": [
+              {
+                "name": "Unnamed item"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "https://collaborativeconstructionllc.com/adu-builder-cape-cod/": {
+    "inspectionResult": {
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:collaborativeconstructionllc.com&id=Ny4NcGtd273S564oBqg0NA&utm_medium=link&utm_source=api",
+      "indexStatusResult": {
+        "verdict": "NEUTRAL",
+        "coverageState": "Server error (5xx)",
+        "robotsTxtState": "ALLOWED",
+        "indexingState": "INDEXING_STATE_UNSPECIFIED",
+        "lastCrawlTime": "2026-10-18T14:19:41Z",
+        "pageFetchState": "SERVER_ERROR",
+        "sitemap": [
+          "https://collaborativeconstructionllc.com/sitemap.xml"
+        ],
+        "referringUrls": [
+          "https://collaborativeconstructionllc.com/index.html"
+        ],
+        "crawledAs": "MOBILE"
+      },
+      "mobileUsabilityResult": {
+        "verdict": "VERDICT_UNSPECIFIED"
+      }
+    }
+  }
+}
