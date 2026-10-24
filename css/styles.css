@@ -4863,6 +4863,43 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
   background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp');
 }
 
+/* The gallery/projects page has no .service-page wrapper (it isn't one of the
+   six service pages), so it's scoped via the page-gallery body class instead.
+   It gets the same restrained ribbon treatment as the service pages rather
+   than the brighter generic .svc-cta fallback, and reuses fine-gold-threads
+   since that's already the picture used by this page's own hero above. */
+.page-gallery .svc-cta > .container::before,
+.page-gallery .svc-cta > .container::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.055;
+  filter: sepia(0.65) saturate(0.72) hue-rotate(351deg) brightness(1.04);
+  -webkit-mask-image: radial-gradient(ellipse 72% 76% at 50% 50%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 72% 76% at 50% 50%, #000 30%, transparent 100%);
+  background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp');
+}
+
+.page-gallery .svc-cta > .container::before {
+  inset: auto auto -38% -9%;
+  width: 58%;
+  height: 168%;
+  transform: rotate(-30deg);
+  transform-origin: 50% 58%;
+}
+
+.page-gallery .svc-cta > .container::after {
+  inset: -24% -10% auto auto;
+  display: block;
+  width: 57%;
+  height: 154%;
+  transform: rotate(7deg);
+}
+
 /* Keep the image-led editorial sections compact and consistent even when an
    original is portrait-oriented (the ADU hallway is much taller than the
    other service photography). */
@@ -4889,6 +4926,18 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
   }
 
   .service-page .svc-cta > .container::after {
+    inset: -13% -22% auto auto;
+    width: 70%;
+    height: 128%;
+  }
+
+  .page-gallery .svc-cta > .container::before {
+    inset: auto auto -25% -20%;
+    width: 72%;
+    height: 136%;
+  }
+
+  .page-gallery .svc-cta > .container::after {
     inset: -13% -22% auto auto;
     width: 70%;
     height: 128%;
