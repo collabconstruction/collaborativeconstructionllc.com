@@ -84,6 +84,29 @@ test('About and Projects hero images continue the section artwork behind each pa
   assert.match(css, /\.gallery-stage\.project-gallery\s*\{[^}]*linear-gradient\(125deg, rgba\(201, 173, 119/s);
 });
 
+test('gold-crossing-curves.png is boosted to the same visual strength as the other two ribbon textures, on both the header and the CTA', () => {
+  const css = readFileSync(join(ROOT, 'css/styles.css'), 'utf8');
+
+  // gold-crossing-curves.png (used by Home Additions and Custom Home Builder) has far
+  // less opaque pixel coverage than ribbon-wave-sparkle.webp and fine-gold-threads.webp
+  // (measured mean alpha ~2.4/255 vs ~11.5-13/255). At the shared base opacity those two
+  // pages rendered as visibly flat/empty next to the other five service pages and
+  // Projects. Each gold-crossing-curves pairing must carry an explicit higher opacity
+  // than the shared base (0.055 for the CTA ribbons, 0.065 for the header) so all seven
+  // pages read at the same watermark strength.
+  assert.match(
+    css,
+    /\.service-page--additions \.svc-cta > \.container::before,\s*\.service-page--additions \.svc-cta > \.container::after,\s*\.service-page--custom \.svc-cta > \.container::before,\s*\.service-page--custom \.svc-cta > \.container::after\s*\{[^}]*gold-crossing-curves\.png[^}]*opacity:\s*0\.2[2-9]\d*/s,
+    'the Home Additions / Custom Home Builder CTA ribbons must boost opacity well above the shared 0.055 base'
+  );
+
+  assert.match(
+    css,
+    /\.service-page--additions \.about-page-hero::before,\s*\.service-page--custom \.about-page-hero::before\s*\{[^}]*gold-crossing-curves\.png[^}]*opacity:\s*0\.[12]\d*/s,
+    'the Home Additions / Custom Home Builder page headers must boost opacity well above the shared 0.065 base'
+  );
+});
+
 test('the Projects/Gallery "Discuss your project" CTA uses the same restrained ribbon treatment as the service pages, not the brighter generic fallback', () => {
   const css = readFileSync(join(ROOT, 'css/styles.css'), 'utf8');
 
