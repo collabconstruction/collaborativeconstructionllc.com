@@ -1,0 +1,406 @@
+{
+  "retrieved_on": "2026-10-11",
+  "repositories": [
+    {
+      "requested_repository": "KRASA-AI/construction-ai-skills",
+      "canonical_repository": "KRASA-AI/construction-ai-skills",
+      "redirect_observed": false,
+      "canonical_url": "https://github.com/KRASA-AI/construction-ai-skills",
+      "commit_sha": "21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb",
+      "default_branch": "main",
+      "pushed_at": "2026-07-31T22:10:50Z",
+      "archived_api": false,
+      "retrieved_on": "2026-10-11",
+      "api_license_label": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      },
+      "tracked_file_count": 46,
+      "tree_truncated": false,
+      "inspected_or_retained_source_files": [
+        {
+          "path": ".claude/CLAUDE.md",
+          "url": "https://github.com/KRASA-AI/construction-ai-skills/blob/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/.claude/CLAUDE.md",
+          "local_snapshot": "docs/research/evidence/github/KRASA-AI__construction-ai-skills/.claude/CLAUDE.md",
+          "sha256": "8c64ca51653bd1c45fbdbcd26422234f9362a6c2f231ef789faf6e54a8d98cd2"
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/KRASA-AI/construction-ai-skills/blob/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/LICENSE",
+          "local_snapshot": "docs/research/evidence/github/KRASA-AI__construction-ai-skills/LICENSE",
+          "sha256": "2a6212778e5fb35db091f195c780d6b56cf5fba69c28781c6a13863157411b3e"
+        },
+        {
+          "path": "README.md",
+          "url": "https://github.com/KRASA-AI/construction-ai-skills/blob/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/README.md",
+          "local_snapshot": "docs/research/evidence/github/KRASA-AI__construction-ai-skills/README.md",
+          "sha256": "9767e462e276e1e5b07adc706b06b0de452e163e3618475074b8861d8c714230"
+        },
+        {
+          "path": "skills/customer-service/homeowner-update-drafter.md",
+          "url": "https://github.com/KRASA-AI/construction-ai-skills/blob/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/skills/customer-service/homeowner-update-drafter.md",
+          "local_snapshot": "docs/research/evidence/github/KRASA-AI__construction-ai-skills/skills/customer-service/homeowner-update-drafter.md",
+          "sha256": "bf8a6e87ec83b4ef7e6ab9a54bf626412e91844c5297e619420f1ab39e6f6e48"
+        },
+        {
+          "path": "skills/operations/daily-log-generator.md",
+          "url": "https://github.com/KRASA-AI/construction-ai-skills/blob/21f0059dc38bb0e8fde4c2fedd36e8817d49e2eb/skills/operations/daily-log-generator.md",
+          "local_snapshot": "docs/research/evidence/github/KRASA-AI__construction-ai-skills/skills/operations/daily-log-generator.md",
+          "sha256": "abf131a9026f9f8c84ff0fc95088c1c817429ec038e5294594d1fd5924e1d9eb"
+        }
+      ],
+      "scope": "Static selected-source review only. No installation or third-party execution. No transitive dependency/runtime audit."
+    },
+    {
+      "requested_repository": "coreyhaines31/marketingskills",
+      "canonical_repository": "coreyhaines31/marketingskills",
+      "redirect_observed": false,
+      "canonical_url": "https://github.com/coreyhaines31/marketingskills",
+      "commit_sha": "1efedbc5148b54b2f0f6c6c9fe0be62e151c7fff",
+      "default_branch": "main",
+      "pushed_at": "2026-10-08T21:51:51Z",
+      "archived_api": false,
+      "retrieved_on": "2026-10-11",
+      "api_license_label": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      },
+      "tracked_file_count": 653,
+      "tree_truncated": false,
+      "inspected_or_retained_source_files": [
+        {
+          "path": ".claude-plugin/plugin.json",
+          "url": "https://github.com/coreyhaines31/marketingskills/blob/1efedbc5148b54b2f0f6c6c9fe0be62e151c7fff/.claude-plugin/plugin.json",
+          "local_snapshot": "docs/research/evidence/github/coreyhaines31__marketingskills/.claude-plugin/plugin.json",
+          "sha256": "41645b6e952f16bfe386fb1bf32b595d04a486a5714d13829dbee4cb62d8d38a"
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/coreyhaines31/marketingskills/blob/1efedbc5148b54b2f0f6c6c9fe0be62e151c7fff/LICENSE",
+          "local_snapshot": "docs/research/evidence/github/coreyhaines31__marketingskills/LICENSE",
+          "sha256": "b70d71e24e40fce5da8f4b6f9cd862096a048e433db7f3c8cac5e348e6d34591"
+        },
+        {
+          "path": "README.md",
+          "url": "https://github.com/coreyhaines31/marketingskills/blob/1efedbc5148b54b2f0f6c6c9fe0be62e151c7fff/README.md",
+          "local_snapshot": "docs/research/evidence/github/coreyhaines31__marketingskills/README.md",
+          "sha256": "675ee9ece678506ad9515545e8eb71bf235c61cc1a6b72b0caee862ebde0d01d"
+        },
+        {
+          "path": "skills/seo-audit/SKILL.md",
+          "url": "https://github.com/coreyhaines31/marketingskills/blob/1efedbc5148b54b2f0f6c6c9fe0be62e151c7fff/skills/seo-audit/SKILL.md",
+          "local_snapshot": "docs/research/evidence/github/coreyhaines31__marketingskills/skills/seo-audit/SKILL.md",
+          "sha256": "f79aebc633d5fcf53d67fd4d39ea6210577485f2a5e46125b3bd757e03baa634"
+        },
+        {
+          "path": "tools/SETUP.md",
+          "url": "https://github.com/coreyhaines31/marketingskills/blob/1efedbc5148b54b2f0f6c6c9fe0be62e151c7fff/tools/SETUP.md",
+          "local_snapshot": "docs/research/evidence/github/coreyhaines31__marketingskills/tools/SETUP.md",
+          "sha256": "412e39f8dabaaf50b2130d1249823eb22a8f151a39ba953cc61cd9cac78d43b4"
+        },
+        {
+          "path": "tools/clis/ga4.js",
+          "url": "https://github.com/coreyhaines31/marketingskills/blob/1efedbc5148b54b2f0f6c6c9fe0be62e151c7fff/tools/clis/ga4.js",
+          "local_snapshot": "docs/research/evidence/github/coreyhaines31__marketingskills/tools/clis/ga4.js",
+          "sha256": "eaf17d31d27b37dc8c108f542e4654bd7499fb93000fbf9bd10591ad7b568bb9"
+        },
+        {
+          "path": "tools/clis/google-search-console.js",
+          "url": "https://github.com/coreyhaines31/marketingskills/blob/1efedbc5148b54b2f0f6c6c9fe0be62e151c7fff/tools/clis/google-search-console.js",
+          "local_snapshot": "docs/research/evidence/github/coreyhaines31__marketingskills/tools/clis/google-search-console.js",
+          "sha256": "4473c76ac15c2315cfd2c881ccfc128ae983941c57a8655b9ba24b33ceae5c2a"
+        }
+      ],
+      "scope": "Static selected-source review only. No installation or third-party execution. No transitive dependency/runtime audit."
+    },
+    {
+      "requested_repository": "datadrivenconstruction/DDC_Skills_for_AI_Agents_in_Construction",
+      "canonical_repository": "datadrivenconstruction/DDC_Skills_for_AI_Agents_in_Construction",
+      "redirect_observed": false,
+      "canonical_url": "https://github.com/datadrivenconstruction/DDC_Skills_for_AI_Agents_in_Construction",
+      "commit_sha": "ce45bbfbdd63ab7868871061fdf5e83bc17f5020",
+      "default_branch": "main",
+      "pushed_at": "2026-08-22T07:59:18Z",
+      "archived_api": false,
+      "retrieved_on": "2026-10-11",
+      "api_license_label": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      },
+      "tracked_file_count": 733,
+      "tree_truncated": false,
+      "inspected_or_retained_source_files": [
+        {
+          "path": ".claude/settings.local.json",
+          "url": "https://github.com/datadrivenconstruction/DDC_Skills_for_AI_Agents_in_Construction/blob/ce45bbfbdd63ab7868871061fdf5e83bc17f5020/.claude/settings.local.json",
+          "local_snapshot": "docs/research/evidence/github/datadrivenconstruction__DDC_Skills_for_AI_Agents_in_Construction/.claude/settings.local.json",
+          "sha256": "6fd1947dbcb9338a8f24d2e010bb8b8e788ffdb3d42cb7c553d0a3760bfe8d5d"
+        },
+        {
+          "path": "1_DDC_Toolkit/Analytics/daily-progress-report/SKILL.md",
+          "url": "https://github.com/datadrivenconstruction/DDC_Skills_for_AI_Agents_in_Construction/blob/ce45bbfbdd63ab7868871061fdf5e83bc17f5020/1_DDC_Toolkit/Analytics/daily-progress-report/SKILL.md",
+          "local_snapshot": "docs/research/evidence/github/datadrivenconstruction__DDC_Skills_for_AI_Agents_in_Construction/1_DDC_Toolkit/Analytics/daily-progress-report/SKILL.md",
+          "sha256": "5177524190bf7cd6e28b8baf55d756b7ed931cdcac0c7e08f6a36c37ff297192"
+        },
+        {
+          "path": "1_DDC_Toolkit/CWICR-Database/semantic-search-cwicr/SKILL.md",
+          "url": "https://github.com/datadrivenconstruction/DDC_Skills_for_AI_Agents_in_Construction/blob/ce45bbfbdd63ab7868871061fdf5e83bc17f5020/1_DDC_Toolkit/CWICR-Database/semantic-search-cwicr/SKILL.md",
+          "local_snapshot": "docs/research/evidence/github/datadrivenconstruction__DDC_Skills_for_AI_Agents_in_Construction/1_DDC_Toolkit/CWICR-Database/semantic-search-cwicr/SKILL.md",
+          "sha256": "0ec7d70ac68b9b6e4b16d701a03aa1fd305c1242cff76c00e1ffada03fb000bc"
+        },
+        {
+          "path": "1_DDC_Toolkit/Document-Control/rfi-management/SKILL.md",
+          "url": "https://github.com/datadrivenconstruction/DDC_Skills_for_AI_Agents_in_Construction/blob/ce45bbfbdd63ab7868871061fdf5e83bc17f5020/1_DDC_Toolkit/Document-Control/rfi-management/SKILL.md",
+          "local_snapshot": "docs/research/evidence/github/datadrivenconstruction__DDC_Skills_for_AI_Agents_in_Construction/1_DDC_Toolkit/Document-Control/rfi-management/SKILL.md",
+          "sha256": "9a30c70d18ad72e06471bd029bcd8e1f90345faa4a5ff71bc57ba954d44afca2"
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/datadrivenconstruction/DDC_Skills_for_AI_Agents_in_Construction/blob/ce45bbfbdd63ab7868871061fdf5e83bc17f5020/LICENSE",
+          "local_snapshot": "docs/research/evidence/github/datadrivenconstruction__DDC_Skills_for_AI_Agents_in_Construction/LICENSE",
+          "sha256": "b3942ae24f8a53f13fc75541877d4167014f201efd4eb1b62efd083e6352d500"
+        },
+        {
+          "path": "NOTICE.md",
+          "url": "https://github.com/datadrivenconstruction/DDC_Skills_for_AI_Agents_in_Construction/blob/ce45bbfbdd63ab7868871061fdf5e83bc17f5020/NOTICE.md",
+          "local_snapshot": "docs/research/evidence/github/datadrivenconstruction__DDC_Skills_for_AI_Agents_in_Construction/NOTICE.md",
+          "sha256": "5be09965b6c608dc55ce878b2b2ae0f43b3248326f309931fc83faa2b41d517e"
+        },
+        {
+          "path": "README.md",
+          "url": "https://github.com/datadrivenconstruction/DDC_Skills_for_AI_Agents_in_Construction/blob/ce45bbfbdd63ab7868871061fdf5e83bc17f5020/README.md",
+          "local_snapshot": "docs/research/evidence/github/datadrivenconstruction__DDC_Skills_for_AI_Agents_in_Construction/README.md",
+          "sha256": "5b4d642a0e882ab2dcdef44e88644807d1d779f3d2881590922a6a8252a0c1e2"
+        }
+      ],
+      "scope": "Static selected-source review only. No installation or third-party execution. No transitive dependency/runtime audit."
+    },
+    {
+      "requested_repository": "googleanalytics/google-analytics-mcp",
+      "canonical_repository": "googleanalytics/google-analytics-mcp",
+      "redirect_observed": false,
+      "canonical_url": "https://github.com/googleanalytics/google-analytics-mcp",
+      "commit_sha": "75c0e1be8322e5eaa5c2e3ef7e79cf4760060f9a",
+      "default_branch": "main",
+      "pushed_at": "2026-10-02T15:27:10Z",
+      "archived_api": false,
+      "retrieved_on": "2026-10-11",
+      "api_license_label": {
+        "key": "apache-2.0",
+        "name": "Apache License 2.0",
+        "spdx_id": "Apache-2.0",
+        "url": "https://api.github.com/licenses/apache-2.0",
+        "node_id": "MDc6TGljZW5zZTI="
+      },
+      "tracked_file_count": 29,
+      "tree_truncated": false,
+      "inspected_or_retained_source_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/googleanalytics/google-analytics-mcp/blob/75c0e1be8322e5eaa5c2e3ef7e79cf4760060f9a/LICENSE",
+          "local_snapshot": "docs/research/evidence/github/googleanalytics__google-analytics-mcp/LICENSE",
+          "sha256": "c62a1cc62e85e51a18ddd590970e03ffe47017653033cc515781fdb445a7aa5e"
+        },
+        {
+          "path": "README.md",
+          "url": "https://github.com/googleanalytics/google-analytics-mcp/blob/75c0e1be8322e5eaa5c2e3ef7e79cf4760060f9a/README.md",
+          "local_snapshot": "docs/research/evidence/github/googleanalytics__google-analytics-mcp/README.md",
+          "sha256": "7373631c8d6a54dd20f2626166f5a3cc1d4e5f8877776448b7b368051952a65f"
+        },
+        {
+          "path": "analytics_mcp/coordinator.py",
+          "url": "https://github.com/googleanalytics/google-analytics-mcp/blob/75c0e1be8322e5eaa5c2e3ef7e79cf4760060f9a/analytics_mcp/coordinator.py",
+          "local_snapshot": "docs/research/evidence/github/googleanalytics__google-analytics-mcp/analytics_mcp/coordinator.py",
+          "sha256": "ef85c52177b92806d5e9f2cf7b80afe168f6632bd25d9a4b971ae91e1f07e05d"
+        },
+        {
+          "path": "analytics_mcp/tools/admin/info.py",
+          "url": "https://github.com/googleanalytics/google-analytics-mcp/blob/75c0e1be8322e5eaa5c2e3ef7e79cf4760060f9a/analytics_mcp/tools/admin/info.py",
+          "local_snapshot": "docs/research/evidence/github/googleanalytics__google-analytics-mcp/analytics_mcp/tools/admin/info.py",
+          "sha256": "941b19e2407c4bad2f0bf00fa35174732194273c407b8dc6570eadede9a00f7d"
+        },
+        {
+          "path": "analytics_mcp/tools/client.py",
+          "url": "https://github.com/googleanalytics/google-analytics-mcp/blob/75c0e1be8322e5eaa5c2e3ef7e79cf4760060f9a/analytics_mcp/tools/client.py",
+          "local_snapshot": "docs/research/evidence/github/googleanalytics__google-analytics-mcp/analytics_mcp/tools/client.py",
+          "sha256": "eb7348e036ccab4fe50c9d3b3d02eab74f43311f91e95b846d3efcc9df46abc8"
+        },
+        {
+          "path": "analytics_mcp/tools/reporting/core.py",
+          "url": "https://github.com/googleanalytics/google-analytics-mcp/blob/75c0e1be8322e5eaa5c2e3ef7e79cf4760060f9a/analytics_mcp/tools/reporting/core.py",
+          "local_snapshot": "docs/research/evidence/github/googleanalytics__google-analytics-mcp/analytics_mcp/tools/reporting/core.py",
+          "sha256": "f15f090bad36622fb9b8062c2a0e698d98392c767e27b15a847f643e2646f531"
+        },
+        {
+          "path": "pyproject.toml",
+          "url": "https://github.com/googleanalytics/google-analytics-mcp/blob/75c0e1be8322e5eaa5c2e3ef7e79cf4760060f9a/pyproject.toml",
+          "local_snapshot": "docs/research/evidence/github/googleanalytics__google-analytics-mcp/pyproject.toml",
+          "sha256": "95729baf8758d8f58146eecfc8b15a6841945d9e81020bbc143bc4fc127fedec"
+        }
+      ],
+      "scope": "Static selected-source review only. No installation or third-party execution. No transitive dependency/runtime audit."
+    },
+    {
+      "requested_repository": "hamzaabduljabbar/claude-construction-takeoff-skill",
+      "canonical_repository": "hamzaabduljabbar/claude-construction-takeoff-skill",
+      "redirect_observed": false,
+      "canonical_url": "https://github.com/hamzaabduljabbar/claude-construction-takeoff-skill",
+      "commit_sha": "ab3e77bae39497b241aa36ee5a5ad77befbd7430",
+      "default_branch": "main",
+      "pushed_at": "2026-08-02T09:06:12Z",
+      "archived_api": false,
+      "retrieved_on": "2026-10-11",
+      "api_license_label": {
+        "key": "other",
+        "name": "Other",
+        "spdx_id": "NOASSERTION",
+        "url": null,
+        "node_id": "MDc6TGljZW5zZTA="
+      },
+      "tracked_file_count": 7,
+      "tree_truncated": false,
+      "inspected_or_retained_source_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/hamzaabduljabbar/claude-construction-takeoff-skill/blob/ab3e77bae39497b241aa36ee5a5ad77befbd7430/LICENSE",
+          "local_snapshot": "docs/research/evidence/github/hamzaabduljabbar__claude-construction-takeoff-skill/LICENSE",
+          "sha256": "4e589ac4c7ee23810c88a590e24ec8436efcd707a325973d1f2959eef82688cb"
+        },
+        {
+          "path": "README.md",
+          "url": "https://github.com/hamzaabduljabbar/claude-construction-takeoff-skill/blob/ab3e77bae39497b241aa36ee5a5ad77befbd7430/README.md",
+          "local_snapshot": "docs/research/evidence/github/hamzaabduljabbar__claude-construction-takeoff-skill/README.md",
+          "sha256": "bbb6307e99c03ae962f0d3123c76af2dd17920362fdabb6c4cbb1a32ff73508b"
+        },
+        {
+          "path": "SKILL.md",
+          "url": "https://github.com/hamzaabduljabbar/claude-construction-takeoff-skill/blob/ab3e77bae39497b241aa36ee5a5ad77befbd7430/SKILL.md",
+          "local_snapshot": "docs/research/evidence/github/hamzaabduljabbar__claude-construction-takeoff-skill/SKILL.md",
+          "sha256": "19914ee56013060789e6b89db7204fcd52a64b402c6a724fd7c931c909282ec2"
+        }
+      ],
+      "scope": "Static selected-source review only. No installation or third-party execution. No transitive dependency/runtime audit."
+    },
+    {
+      "requested_repository": "hamzaabduljabbar/construction-drawing-analyzer",
+      "canonical_repository": "hamzaabduljabbar/construction-drawing-analyzer",
+      "redirect_observed": false,
+      "canonical_url": "https://github.com/hamzaabduljabbar/construction-drawing-analyzer",
+      "commit_sha": "f0e798532643dc7f008f28b6994ae7feabed47cc",
+      "default_branch": "main",
+      "pushed_at": "2026-08-25T15:22:06Z",
+      "archived_api": true,
+      "retrieved_on": "2026-10-11",
+      "api_license_label": {
+        "key": "other",
+        "name": "Other",
+        "spdx_id": "NOASSERTION",
+        "url": null,
+        "node_id": "MDc6TGljZW5zZTA="
+      },
+      "tracked_file_count": 13,
+      "tree_truncated": false,
+      "inspected_or_retained_source_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/hamzaabduljabbar/construction-drawing-analyzer/blob/f0e798532643dc7f008f28b6994ae7feabed47cc/LICENSE",
+          "local_snapshot": "docs/research/evidence/github/hamzaabduljabbar__construction-drawing-analyzer/LICENSE",
+          "sha256": "4e589ac4c7ee23810c88a590e24ec8436efcd707a325973d1f2959eef82688cb"
+        },
+        {
+          "path": "README.md",
+          "url": "https://github.com/hamzaabduljabbar/construction-drawing-analyzer/blob/f0e798532643dc7f008f28b6994ae7feabed47cc/README.md",
+          "local_snapshot": "docs/research/evidence/github/hamzaabduljabbar__construction-drawing-analyzer/README.md",
+          "sha256": "eef110659d79fec6a38be83edf0c7beda56905282996e9a3fb7d99123852242b"
+        },
+        {
+          "path": "SKILL.md",
+          "url": "https://github.com/hamzaabduljabbar/construction-drawing-analyzer/blob/f0e798532643dc7f008f28b6994ae7feabed47cc/SKILL.md",
+          "local_snapshot": "docs/research/evidence/github/hamzaabduljabbar__construction-drawing-analyzer/SKILL.md",
+          "sha256": "9482e6340c270f46f43e53e17b8c82e3535208ca75fe990ade772fba9950cd18"
+        },
+        {
+          "path": "requirements.txt",
+          "url": "https://github.com/hamzaabduljabbar/construction-drawing-analyzer/blob/f0e798532643dc7f008f28b6994ae7feabed47cc/requirements.txt",
+          "local_snapshot": "docs/research/evidence/github/hamzaabduljabbar__construction-drawing-analyzer/requirements.txt",
+          "sha256": "e4c40d173caa20f25116bde6dc8aece276b17ac4e27c2cf7a55aa56546f62ffc"
+        },
+        {
+          "path": "scripts/extract_polygons.py",
+          "url": "https://github.com/hamzaabduljabbar/construction-drawing-analyzer/blob/f0e798532643dc7f008f28b6994ae7feabed47cc/scripts/extract_polygons.py",
+          "local_snapshot": "docs/research/evidence/github/hamzaabduljabbar__construction-drawing-analyzer/scripts/extract_polygons.py",
+          "sha256": "7edb5f0b050f6ca803a88103bdba793f805ce12b535a265d582a6a436bb7d3cd"
+        },
+        {
+          "path": "scripts/split_drawings.py",
+          "url": "https://github.com/hamzaabduljabbar/construction-drawing-analyzer/blob/f0e798532643dc7f008f28b6994ae7feabed47cc/scripts/split_drawings.py",
+          "local_snapshot": "docs/research/evidence/github/hamzaabduljabbar__construction-drawing-analyzer/scripts/split_drawings.py",
+          "sha256": "a83ffdc5744c1bc67c8aa8ba8950a76f8e4189f88b2b6f76b2d061a38cd867fb"
+        }
+      ],
+      "scope": "Static selected-source review only. No installation or third-party execution. No transitive dependency/runtime audit."
+    },
+    {
+      "requested_repository": "ibuilder/master-builder",
+      "canonical_repository": "ibuilder/master-builder",
+      "redirect_observed": false,
+      "canonical_url": "https://github.com/ibuilder/master-builder",
+      "commit_sha": "0a3d4eb6b0908898787fa8beef8fa5b2f151a358",
+      "default_branch": "main",
+      "pushed_at": "2026-07-31T20:51:05Z",
+      "archived_api": false,
+      "retrieved_on": "2026-10-11",
+      "api_license_label": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      },
+      "tracked_file_count": 61,
+      "tree_truncated": false,
+      "inspected_or_retained_source_files": [
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/LICENSE",
+          "local_snapshot": "docs/research/evidence/github/ibuilder__master-builder/LICENSE",
+          "sha256": "43f45d6a6b0dc899b01428609f9309817f649048d0d29f42fe16617ba25df5a9"
+        },
+        {
+          "path": "SKILL.md",
+          "url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/SKILL.md",
+          "local_snapshot": "docs/research/evidence/github/ibuilder__master-builder/SKILL.md",
+          "sha256": "90b24ed29d4c53eda90702dbeb5f7a9a8824e275f44ea247fe840a995cfade39"
+        },
+        {
+          "path": "references/digital-toolkit.md",
+          "url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/references/digital-toolkit.md",
+          "local_snapshot": "docs/research/evidence/github/ibuilder__master-builder/references/digital-toolkit.md",
+          "sha256": "84bda17292f0658b1c681dfc30b2e43096f1ac9a7c969137a8dc9047069536dd"
+        },
+        {
+          "path": "scripts/eval_behavior.py",
+          "url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/scripts/eval_behavior.py",
+          "local_snapshot": "docs/research/evidence/github/ibuilder__master-builder/scripts/eval_behavior.py",
+          "sha256": "cbd2e20251ae1b8545d2efa697e1962d54127a61b719a2b8503328c0631165b4"
+        },
+        {
+          "path": "scripts/mcp_server.py",
+          "url": "https://github.com/ibuilder/master-builder/blob/0a3d4eb6b0908898787fa8beef8fa5b2f151a358/scripts/mcp_server.py",
+          "local_snapshot": "docs/research/evidence/github/ibuilder__master-builder/scripts/mcp_server.py",
+          "sha256": "239242a6d3b3978ff05836e6a468a6175ed4a521e5ab90e8cee1b6b91a2b4bb9"
+        }
+      ],
+      "scope": "Static selected-source review only. No installation or third-party execution. No transitive dependency/runtime audit."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "_comment": "Live Search Console pull, fetched via the connected google-search-console MCP tool during this session. Not a documented historical figure from docs/research/16-gsc-seo-baseline.md -- those are preserved separately and unreconciled, see scripts/seed_data.py SEARCH_BASELINE_ROWS. Refresh with scripts/fetch-analytics-snapshot.mjs when the MCP session or a service credential is available; see that script's header for the manual fallback.",
+  "status": "ok",
+  "fetched_at": "2026-10-18T00:00:00Z",
+  "property": "sc-domain:collaborativeconstructionllc.com",
+  "window": "28-day",
+  "date_range": { "start": "2026-09-19", "end": "2026-10-16" },
+  "clicks": 15,
+  "impressions": 418,
+  "ctr": 0.0359,
+  "avg_position": 9.4,
+  "caveat": "Site was in deliberate maintenance mode (HTTP 503) for part of this window; do not read this figure as a marketing-performance signal without checking SiteStatus."
+}

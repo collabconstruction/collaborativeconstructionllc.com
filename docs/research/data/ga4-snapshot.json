@@ -1,0 +1,14 @@
+{
+  "_comment": "Identity confirmation, not a traffic pull. Fetched via the connected google-analytics MCP tool during this session. Confirms the business GA4 account has exactly one property and it matches the measurement ID already deployed to production. Session/event counts are not included here: per docs/research/10-scorecard.md the site has not yet accumulated meaningful GA4 traffic, and production is currently in maintenance mode (see SiteStatus), so a session count pulled now would be misleading rather than informative.",
+  "status": "ok",
+  "fetched_at": "2026-10-18T00:00:00Z",
+  "account_id": "411958882",
+  "account_display_name": "Collaborative Construction llc",
+  "property_id": "558903217",
+  "property_display_name": "Collaborative Construction LLC",
+  "stream_id": "16124097872",
+  "measurement_id": "G-PNS7LJP5QB",
+  "legacy_measurement_id_not_in_this_account": "G-13DBV8V3BE",
+  "legacy_id_note": "Confirmed NOT present in this GA4 account. Per docs/research/19-ga4-connection-and-diagnosis.md:53 it belongs to the owner's separate school Google identity and is legacy/historical only. Never merge or treat as equivalent.",
+  "identity_check": "PASS: account_summaries returned exactly one property (558903217), matching the measurement ID live in production per docs/releases/2026-10-14-ga4-measurement-id-activation.md"
+}

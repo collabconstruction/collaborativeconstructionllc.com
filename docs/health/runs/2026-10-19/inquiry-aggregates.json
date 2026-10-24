@@ -1,0 +1,66 @@
+{
+  "generated_at": "2026-10-19T05:57:30.329Z",
+  "environment": "remote",
+  "received_from_inclusive": "2026-10-01T00:00:00.000Z",
+  "received_to_exclusive": "2026-10-19T00:00:00.000Z",
+  "metrics": {
+    "total_inquiries": 1,
+    "new_inquiries": 1,
+    "unassigned": 0,
+    "overdue": 1,
+    "notification_exceptions": 0,
+    "won": 0,
+    "lost": 0,
+    "currently_qualified": 0,
+    "currently_consultation": 0,
+    "currently_estimate_sent": 0,
+    "phone_inquiries": 0,
+    "referral_inquiries": 0,
+    "website_inquiries": 1,
+    "other_source_inquiries": 0,
+    "measured_responses": 0,
+    "mean_response_minutes": null,
+    "unknown_response_count": 1,
+    "unknown_estimated_value_count": 1,
+    "recorded_estimated_value": null,
+    "recorded_estimating_hours": null,
+    "unknown_estimating_hours_count": 1,
+    "recorded_expected_contribution": null,
+    "unknown_expected_contribution_count": 1,
+    "recorded_realized_contribution": null,
+    "unknown_realized_contribution_count": 1,
+    "has_campaign_source": 0,
+    "unknown_project_type_count": 1,
+    "invalid_response_timestamp_count": 0,
+    "missing_follow_up_count": 0
+  },
+  "grouped_source_service_stage_campaign": [
+    {
+      "source": "website",
+      "service": "unknown",
+      "stage": "new",
+      "inquiries": 1,
+      "campaign_id": null
+    }
+  ],
+  "customer_metrics": {
+    "unique_customers": null,
+    "new_customers": null,
+    "repeat_customers": null
+  },
+  "external_metrics": {
+    "acquisition_cost": null,
+    "search_impressions": null,
+    "search_clicks": null,
+    "organic_traffic": null,
+    "capacity": null
+  },
+  "notes": [
+    "Campaign identifiers are hashed to avoid printing untrusted free text; labels can be reconciled privately from exports.",
+    "Group totals and summary are separate snapshots and can differ if an inquiry changes during reporting.",
+    "Null means unknown or no applicable observations.",
+    "Current-stage counts do not measure historical progress.",
+    "Provider accepted does not prove inbox receipt.",
+    "Economics totals include recorded values only; currency and cost basis must be consistent."
+  ]
+}

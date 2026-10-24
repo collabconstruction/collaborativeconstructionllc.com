@@ -1,0 +1,82 @@
+[
+  {
+    "path": "/",
+    "http_ok": true,
+    "matches_build": true
+  },
+  {
+    "path": "/about/",
+    "http_ok": true,
+    "matches_build": true
+  },
+  {
+    "path": "/gallery/",
+    "http_ok": true,
+    "matches_build": true
+  },
+  {
+    "path": "/construction-advisory/",
+    "http_ok": true,
+    "matches_build": true
+  },
+  {
+    "path": "/general-contractor-falmouth-ma/",
+    "http_ok": true,
+    "matches_build": true
+  },
+  {
+    "path": "/home-additions-cape-cod/",
+    "http_ok": true,
+    "matches_build": true
+  },
+  {
+    "path": "/adu-builder-cape-cod/",
+    "http_ok": true,
+    "matches_build": true
+  },
+  {
+    "path": "/home-renovation-cape-cod/",
+    "http_ok": true,
+    "matches_build": true
+  },
+  {
+    "path": "/custom-home-builder-cape-cod/",
+    "http_ok": true,
+    "matches_build": true
+  },
+  {
+    "path": "/assets/logo-header.png",
+    "http_ok": true,
+    "matches_build": true
+  },
+  {
+    "path": "/assets/wordmark-header.png",
+    "http_ok": true,
+    "matches_build": true
+  },
+  {
+    "path": "/assets/c-icon.png",
+    "http_ok": true,
+    "matches_build": true
+  },
+  {
+    "path": "/assets/favicon.png",
+    "http_ok": true,
+    "matches_build": true
+  },
+  {
+    "path": "/js/analytics.js",
+    "http_ok": true,
+    "matches_build": true
+  },
+  {
+    "path": "/robots.txt",
+    "http_ok": true,
+    "matches_build": false
+  },
+  {
+    "path": "/sitemap.xml",
+    "http_ok": true,
+    "matches_build": true
+  }
+]

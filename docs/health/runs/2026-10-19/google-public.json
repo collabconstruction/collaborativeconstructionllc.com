@@ -1,0 +1,1219 @@
+{
+  "ga4": {
+    "property_id": "558903217",
+    "start": "2026-09-21",
+    "end": "2026-10-18",
+    "production_filter": "exact collaborativeconstructionllc.com",
+    "property": {
+      "name": "properties/558903217",
+      "parent": "accounts/411958882",
+      "createTime": "2026-10-14T00:50:25.124Z",
+      "updateTime": "2026-10-14T02:14:55.673Z",
+      "displayName": "Collaborative Construction LLC",
+      "industryCategory": "OTHER",
+      "timeZone": "America/New_York",
+      "currencyCode": "USD",
+      "serviceLevel": "GOOGLE_ANALYTICS_STANDARD",
+      "account": "accounts/411958882",
+      "propertyType": "PROPERTY_TYPE_ORDINARY"
+    },
+    "key_events": {
+      "keyEvents": [
+        {
+          "name": "properties/558903217/keyEvents/16124088555",
+          "eventName": "close_convert_lead",
+          "createTime": "2026-10-14T00:50:25.994331Z",
+          "deletable": true,
+          "custom": true,
+          "countingMethod": "ONCE_PER_EVENT"
+        },
+        {
+          "name": "properties/558903217/keyEvents/16124088556",
+          "eventName": "qualify_lead",
+          "createTime": "2026-10-14T00:50:25.994331Z",
+          "deletable": true,
+          "custom": true,
+          "countingMethod": "ONCE_PER_EVENT"
+        },
+        {
+          "name": "properties/558903217/keyEvents/16124097871",
+          "eventName": "purchase",
+          "createTime": "2026-10-14T00:50:50.819921Z",
+          "countingMethod": "ONCE_PER_EVENT"
+        }
+      ]
+    },
+    "hosts": {
+      "dimensionHeaders": [
+        {
+          "name": "hostName"
+        }
+      ],
+      "metricHeaders": [
+        {
+          "name": "sessions",
+          "type": "TYPE_INTEGER"
+        },
+        {
+          "name": "totalUsers",
+          "type": "TYPE_INTEGER"
+        },
+        {
+          "name": "eventCount",
+          "type": "TYPE_INTEGER"
+        }
+      ],
+      "rows": [
+        {
+          "dimensionValues": [
+            {
+              "value": "collaborativeconstructionllc.com"
+            }
+          ],
+          "metricValues": [
+            {
+              "value": "6"
+            },
+            {
+              "value": "2"
+            },
+            {
+              "value": "57"
+            }
+          ]
+        },
+        {
+          "dimensionValues": [
+            {
+              "value": "localhost"
+            }
+          ],
+          "metricValues": [
+            {
+              "value": "5"
+            },
+            {
+              "value": "1"
+            },
+            {
+              "value": "35"
+            }
+          ]
+        }
+      ],
+      "rowCount": 2,
+      "metadata": {
+        "currencyCode": "USD",
+        "timeZone": "America/New_York"
+      },
+      "kind": "analyticsData#runReport"
+    },
+    "production_totals": {
+      "metricHeaders": [
+        {
+          "name": "sessions",
+          "type": "TYPE_INTEGER"
+        },
+        {
+          "name": "totalUsers",
+          "type": "TYPE_INTEGER"
+        },
+        {
+          "name": "eventCount",
+          "type": "TYPE_INTEGER"
+        }
+      ],
+      "rows": [
+        {
+          "metricValues": [
+            {
+              "value": "6"
+            },
+            {
+              "value": "2"
+            },
+            {
+              "value": "57"
+            }
+          ]
+        }
+      ],
+      "rowCount": 1,
+      "metadata": {
+        "currencyCode": "USD",
+        "timeZone": "America/New_York"
+      },
+      "kind": "analyticsData#runReport"
+    },
+    "production_events": {
+      "dimensionHeaders": [
+        {
+          "name": "eventName"
+        }
+      ],
+      "metricHeaders": [
+        {
+          "name": "eventCount",
+          "type": "TYPE_INTEGER"
+        }
+      ],
+      "rows": [
+        {
+          "dimensionValues": [
+            {
+              "value": "page_view"
+            }
+          ],
+          "metricValues": [
+            {
+              "value": "23"
+            }
+          ]
+        },
+        {
+          "dimensionValues": [
+            {
+              "value": "user_engagement"
+            }
+          ],
+          "metricValues": [
+            {
+              "value": "21"
+            }
+          ]
+        },
+        {
+          "dimensionValues": [
+            {
+              "value": "session_start"
+            }
+          ],
+          "metricValues": [
+            {
+              "value": "6"
+            }
+          ]
+        },
+        {
+          "dimensionValues": [
+            {
+              "value": "scroll"
+            }
+          ],
+          "metricValues": [
+            {
+              "value": "5"
+            }
+          ]
+        },
+        {
+          "dimensionValues": [
+            {
+              "value": "first_visit"
+            }
+          ],
+          "metricValues": [
+            {
+              "value": "2"
+            }
+          ]
+        }
+      ],
+      "rowCount": 5,
+      "metadata": {
+        "currencyCode": "USD",
+        "timeZone": "America/New_York"
+      },
+      "kind": "analyticsData#runReport"
+    },
+    "production_channels": {
+      "dimensionHeaders": [
+        {
+          "name": "sessionDefaultChannelGroup"
+        }
+      ],
+      "metricHeaders": [
+        {
+          "name": "sessions",
+          "type": "TYPE_INTEGER"
+        },
+        {
+          "name": "totalUsers",
+          "type": "TYPE_INTEGER"
+        }
+      ],
+      "rows": [
+        {
+          "dimensionValues": [
+            {
+              "value": "Direct"
+            }
+          ],
+          "metricValues": [
+            {
+              "value": "6"
+            },
+            {
+              "value": "2"
+            }
+          ]
+        }
+      ],
+      "rowCount": 1,
+      "metadata": {
+        "currencyCode": "USD",
+        "timeZone": "America/New_York"
+      },
+      "kind": "analyticsData#runReport"
+    },
+    "production_pages": {
+      "dimensionHeaders": [
+        {
+          "name": "pagePath"
+        }
+      ],
+      "metricHeaders": [
+        {
+          "name": "screenPageViews",
+          "type": "TYPE_INTEGER"
+        }
+      ],
+      "rows": [
+        {
+          "dimensionValues": [
+            {
+              "value": "/"
+            }
+          ],
+          "metricValues": [
+            {
+              "value": "14"
+            }
+          ]
+        },
+        {
+          "dimensionValues": [
+            {
+              "value": "/about/"
+            }
+          ],
+          "metricValues": [
+            {
+              "value": "3"
+            }
+          ]
+        },
+        {
+          "dimensionValues": [
+            {
+              "value": "/gallery/"
+            }
+          ],
+          "metricValues": [
+            {
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "dimensionValues": [
+            {
+              "value": "/general-contractor-falmouth-ma/"
+            }
+          ],
+          "metricValues": [
+            {
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "dimensionValues": [
+            {
+              "value": "/adu-builder-cape-cod/"
+            }
+          ],
+          "metricValues": [
+            {
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "dimensionValues": [
+            {
+              "value": "/home-additions-cape-cod/"
+            }
+          ],
+          "metricValues": [
+            {
+              "value": "1"
+            }
+          ]
+        }
+      ],
+      "rowCount": 6,
+      "metadata": {
+        "currencyCode": "USD",
+        "timeZone": "America/New_York"
+      },
+      "kind": "analyticsData#runReport"
+    }
+  },
+  "gsc": {
+    "property": "sc-domain:collaborativeconstructionllc.com",
+    "timezone": "America/Los_Angeles",
+    "start": "2026-09-19",
+    "end": "2026-10-16",
+    "dimensional_limit": 100,
+    "note": "Top rows are not guaranteed complete; keep totals independent.",
+    "totals": {
+      "rows": [
+        {
+          "clicks": 15,
+          "impressions": 425,
+          "ctr": 0.03529411764705882,
+          "position": 9.783529411764706
+        }
+      ],
+      "responseAggregationType": "byProperty"
+    },
+    "prior_totals": {
+      "rows": [
+        {
+          "clicks": 9,
+          "impressions": 478,
+          "ctr": 0.01882845188284519,
+          "position": 9.217573221757322
+        }
+      ],
+      "responseAggregationType": "byProperty"
+    },
+    "pages": {
+      "rows": [
+        {
+          "keys": [
+            "https://collaborativeconstructionllc.com/"
+          ],
+          "clicks": 13,
+          "impressions": 375,
+          "ctr": 0.034666666666666665,
+          "position": 4.864
+        },
+        {
+          "keys": [
+            "https://collaborativeconstructionllc.com/about"
+          ],
+          "clicks": 1,
+          "impressions": 26,
+          "ctr": 0.038461538461538464,
+          "position": 3.8076923076923075
+        },
+        {
+          "keys": [
+            "https://collaborativeconstructionllc.com/construction-advisory/"
+          ],
+          "clicks": 1,
+          "impressions": 13,
+          "ctr": 0.07692307692307693,
+          "position": 30.692307692307693
+        },
+        {
+          "keys": [
+            "https://collaborativeconstructionllc.com/#contact"
+          ],
+          "clicks": 0,
+          "impressions": 7,
+          "ctr": 0,
+          "position": 3.7142857142857144
+        },
+        {
+          "keys": [
+            "https://collaborativeconstructionllc.com/about/"
+          ],
+          "clicks": 0,
+          "impressions": 10,
+          "ctr": 0,
+          "position": 3.9
+        },
+        {
+          "keys": [
+            "https://collaborativeconstructionllc.com/adu-builder-cape-cod/"
+          ],
+          "clicks": 0,
+          "impressions": 13,
+          "ctr": 0,
+          "position": 31.846153846153847
+        },
+        {
+          "keys": [
+            "https://collaborativeconstructionllc.com/construction-advisory"
+          ],
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 1
+        },
+        {
+          "keys": [
+            "https://collaborativeconstructionllc.com/custom-home-builder-cape-cod/"
+          ],
+          "clicks": 0,
+          "impressions": 9,
+          "ctr": 0,
+          "position": 33.333333333333336
+        },
+        {
+          "keys": [
+            "https://collaborativeconstructionllc.com/gallery"
+          ],
+          "clicks": 0,
+          "impressions": 28,
+          "ctr": 0,
+          "position": 38.57142857142857
+        },
+        {
+          "keys": [
+            "https://collaborativeconstructionllc.com/gallery/"
+          ],
+          "clicks": 0,
+          "impressions": 20,
+          "ctr": 0,
+          "position": 24.25
+        },
+        {
+          "keys": [
+            "https://collaborativeconstructionllc.com/general-contractor-falmouth-ma/"
+          ],
+          "clicks": 0,
+          "impressions": 13,
+          "ctr": 0,
+          "position": 15.538461538461538
+        },
+        {
+          "keys": [
+            "https://collaborativeconstructionllc.com/home-additions-cape-cod/"
+          ],
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 5
+        },
+        {
+          "keys": [
+            "https://collaborativeconstructionllc.com/home-renovation-cape-cod/"
+          ],
+          "clicks": 0,
+          "impressions": 7,
+          "ctr": 0,
+          "position": 7.857142857142857
+        }
+      ],
+      "responseAggregationType": "byPage"
+    },
+    "queries": {
+      "rows": [
+        {
+          "keys": [
+            "collaborative construction"
+          ],
+          "clicks": 2,
+          "impressions": 73,
+          "ctr": 0.0273972602739726,
+          "position": 8.876712328767123
+        },
+        {
+          "keys": [
+            "clerk of the works"
+          ],
+          "clicks": 1,
+          "impressions": 1,
+          "ctr": 1,
+          "position": 1
+        },
+        {
+          "keys": [
+            "construction company"
+          ],
+          "clicks": 1,
+          "impressions": 5,
+          "ctr": 0.2,
+          "position": 6.4
+        },
+        {
+          "keys": [
+            "\"cubesmart\" -stock -earnings -nyse -dividend -jobs -careers"
+          ],
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 31
+        },
+        {
+          "keys": [
+            "adu builders rochester ma"
+          ],
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 91
+        },
+        {
+          "keys": [
+            "adu construction belmont"
+          ],
+          "clicks": 0,
+          "impressions": 4,
+          "ctr": 0,
+          "position": 69
+        },
+        {
+          "keys": [
+            "building construction dispute"
+          ],
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 13
+        },
+        {
+          "keys": [
+            "collaborate construction"
+          ],
+          "clicks": 0,
+          "impressions": 16,
+          "ctr": 0,
+          "position": 43.3125
+        },
+        {
+          "keys": [
+            "collaborative"
+          ],
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 11
+        },
+        {
+          "keys": [
+            "collaborative construction planning"
+          ],
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 10
+        },
+        {
+          "keys": [
+            "collaborative construction solutions"
+          ],
+          "clicks": 0,
+          "impressions": 10,
+          "ctr": 0,
+          "position": 36
+        },
+        {
+          "keys": [
+            "construction"
+          ],
+          "clicks": 0,
+          "impressions": 5,
+          "ctr": 0,
+          "position": 14.4
+        },
+        {
+          "keys": [
+            "construction collaborative"
+          ],
+          "clicks": 0,
+          "impressions": 3,
+          "ctr": 0,
+          "position": 28
+        },
+        {
+          "keys": [
+            "construction in massachusetts"
+          ],
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 1
+        },
+        {
+          "keys": [
+            "construction on sagamore bridge"
+          ],
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 13
+        },
+        {
+          "keys": [
+            "constructions"
+          ],
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 2
+        },
+        {
+          "keys": [
+            "contractor"
+          ],
+          "clicks": 0,
+          "impressions": 3,
+          "ctr": 0,
+          "position": 2
+        },
+        {
+          "keys": [
+            "contractors falmouth ma"
+          ],
+          "clicks": 0,
+          "impressions": 18,
+          "ctr": 0,
+          "position": 1.0555555555555556
+        },
+        {
+          "keys": [
+            "custom commercial projects"
+          ],
+          "clicks": 0,
+          "impressions": 3,
+          "ctr": 0,
+          "position": 21
+        },
+        {
+          "keys": [
+            "custom home builder cape cod"
+          ],
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 43
+        },
+        {
+          "keys": [
+            "general contractor"
+          ],
+          "clicks": 0,
+          "impressions": 22,
+          "ctr": 0,
+          "position": 2.8181818181818183
+        },
+        {
+          "keys": [
+            "general contractor jobs near me"
+          ],
+          "clicks": 0,
+          "impressions": 2,
+          "ctr": 0,
+          "position": 7
+        },
+        {
+          "keys": [
+            "general contractor near me"
+          ],
+          "clicks": 0,
+          "impressions": 32,
+          "ctr": 0,
+          "position": 1
+        },
+        {
+          "keys": [
+            "general contractors falmouth ma"
+          ],
+          "clicks": 0,
+          "impressions": 5,
+          "ctr": 0,
+          "position": 6.6
+        },
+        {
+          "keys": [
+            "government contractor companies"
+          ],
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 3
+        },
+        {
+          "keys": [
+            "patio construction cape cod"
+          ],
+          "clicks": 0,
+          "impressions": 16,
+          "ctr": 0,
+          "position": 1
+        },
+        {
+          "keys": [
+            "remodeler"
+          ],
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 21
+        },
+        {
+          "keys": [
+            "remodeling contractor"
+          ],
+          "clicks": 0,
+          "impressions": 9,
+          "ctr": 0,
+          "position": 1
+        },
+        {
+          "keys": [
+            "remodeling falmouth ma"
+          ],
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 1
+        },
+        {
+          "keys": [
+            "renovations"
+          ],
+          "clicks": 0,
+          "impressions": 1,
+          "ctr": 0,
+          "position": 34
+        }
+      ],
+      "responseAggregationType": "byProperty"
+    },
+    "devices": {
+      "rows": [
+        {
+          "keys": [
+            "MOBILE"
+          ],
+          "clicks": 8,
+          "impressions": 71,
+          "ctr": 0.11267605633802817,
+          "position": 6.76056338028169
+        },
+        {
+          "keys": [
+            "DESKTOP"
+          ],
+          "clicks": 7,
+          "impressions": 348,
+          "ctr": 0.020114942528735632,
+          "position": 10.5
+        },
+        {
+          "keys": [
+            "TABLET"
+          ],
+          "clicks": 0,
+          "impressions": 6,
+          "ctr": 0,
+          "position": 4
+        }
+      ],
+      "responseAggregationType": "byProperty"
+    },
+    "daily": {
+      "rows": [
+        {
+          "keys": [
+            "2026-09-19"
+          ],
+          "clicks": 0,
+          "impressions": 6,
+          "ctr": 0,
+          "position": 4.166666666666666
+        },
+        {
+          "keys": [
+            "2026-09-20"
+          ],
+          "clicks": 0,
+          "impressions": 29,
+          "ctr": 0,
+          "position": 4.275862068965518
+        },
+        {
+          "keys": [
+            "2026-09-21"
+          ],
+          "clicks": 0,
+          "impressions": 18,
+          "ctr": 0,
+          "position": 12.666666666666666
+        },
+        {
+          "keys": [
+            "2026-09-22"
+          ],
+          "clicks": 0,
+          "impressions": 19,
+          "ctr": 0,
+          "position": 15.421052631578947
+        },
+        {
+          "keys": [
+            "2026-09-23"
+          ],
+          "clicks": 1,
+          "impressions": 19,
+          "ctr": 0.05263157894736842,
+          "position": 12.210526315789474
+        },
+        {
+          "keys": [
+            "2026-09-24"
+          ],
+          "clicks": 0,
+          "impressions": 10,
+          "ctr": 0,
+          "position": 4.8
+        },
+        {
+          "keys": [
+            "2026-09-25"
+          ],
+          "clicks": 0,
+          "impressions": 11,
+          "ctr": 0,
+          "position": 2.3636363636363633
+        },
+        {
+          "keys": [
+            "2026-09-26"
+          ],
+          "clicks": 0,
+          "impressions": 5,
+          "ctr": 0,
+          "position": 3
+        },
+        {
+          "keys": [
+            "2026-09-27"
+          ],
+          "clicks": 1,
+          "impressions": 15,
+          "ctr": 0.06666666666666667,
+          "position": 4.133333333333333
+        },
+        {
+          "keys": [
+            "2026-09-28"
+          ],
+          "clicks": 0,
+          "impressions": 11,
+          "ctr": 0,
+          "position": 19.454545454545453
+        },
+        {
+          "keys": [
+            "2026-09-29"
+          ],
+          "clicks": 0,
+          "impressions": 9,
+          "ctr": 0,
+          "position": 2.7777777777777777
+        },
+        {
+          "keys": [
+            "2026-09-30"
+          ],
+          "clicks": 0,
+          "impressions": 7,
+          "ctr": 0,
+          "position": 5.285714285714286
+        },
+        {
+          "keys": [
+            "2026-10-01"
+          ],
+          "clicks": 1,
+          "impressions": 60,
+          "ctr": 0.016666666666666666,
+          "position": 3.216666666666667
+        },
+        {
+          "keys": [
+            "2026-10-02"
+          ],
+          "clicks": 0,
+          "impressions": 10,
+          "ctr": 0,
+          "position": 4.8
+        },
+        {
+          "keys": [
+            "2026-10-03"
+          ],
+          "clicks": 0,
+          "impressions": 8,
+          "ctr": 0,
+          "position": 4.5
+        },
+        {
+          "keys": [
+            "2026-10-04"
+          ],
+          "clicks": 0,
+          "impressions": 4,
+          "ctr": 0,
+          "position": 28.25
+        },
+        {
+          "keys": [
+            "2026-10-05"
+          ],
+          "clicks": 0,
+          "impressions": 17,
+          "ctr": 0,
+          "position": 11.352941176470589
+        },
+        {
+          "keys": [
+            "2026-10-06"
+          ],
+          "clicks": 1,
+          "impressions": 14,
+          "ctr": 0.07142857142857142,
+          "position": 5.928571428571429
+        },
+        {
+          "keys": [
+            "2026-10-07"
+          ],
+          "clicks": 1,
+          "impressions": 10,
+          "ctr": 0.1,
+          "position": 4.3
+        },
+        {
+          "keys": [
+            "2026-10-08"
+          ],
+          "clicks": 1,
+          "impressions": 19,
+          "ctr": 0.05263157894736842,
+          "position": 8.473684210526315
+        },
+        {
+          "keys": [
+            "2026-10-09"
+          ],
+          "clicks": 1,
+          "impressions": 9,
+          "ctr": 0.1111111111111111,
+          "position": 3
+        },
+        {
+          "keys": [
+            "2026-10-10"
+          ],
+          "clicks": 0,
+          "impressions": 13,
+          "ctr": 0,
+          "position": 6.153846153846154
+        },
+        {
+          "keys": [
+            "2026-10-11"
+          ],
+          "clicks": 0,
+          "impressions": 8,
+          "ctr": 0,
+          "position": 14.5
+        },
+        {
+          "keys": [
+            "2026-10-12"
+          ],
+          "clicks": 0,
+          "impressions": 17,
+          "ctr": 0,
+          "position": 10.823529411764707
+        },
+        {
+          "keys": [
+            "2026-10-13"
+          ],
+          "clicks": 3,
+          "impressions": 30,
+          "ctr": 0.1,
+          "position": 14.366666666666667
+        },
+        {
+          "keys": [
+            "2026-10-14"
+          ],
+          "clicks": 4,
+          "impressions": 24,
+          "ctr": 0.16666666666666666,
+          "position": 18.833333333333332
+        },
+        {
+          "keys": [
+            "2026-10-15"
+          ],
+          "clicks": 1,
+          "impressions": 16,
+          "ctr": 0.0625,
+          "position": 27.9375
+        },
+        {
+          "keys": [
+            "2026-10-16"
+          ],
+          "clicks": 0,
+          "impressions": 7,
+          "ctr": 0,
+          "position": 31.714285714285715
+        }
+      ],
+      "responseAggregationType": "byProperty"
+    },
+    "sitemaps": {
+      "sitemap": [
+        {
+          "path": "https://collaborativeconstructionllc.com/sitemap.xml",
+          "lastSubmitted": "2026-10-12T21:12:49.580Z",
+          "isPending": false,
+          "isSitemapsIndex": false,
+          "type": "sitemap",
+          "lastDownloaded": "2026-10-17T17:20:41.571Z",
+          "warnings": "0",
+          "errors": "0",
+          "contents": [
+            {
+              "type": "web",
+              "submitted": "9",
+              "indexed": "0"
+            }
+          ]
+        }
+      ]
+    },
+    "inspection:/": {
+      "inspectionResult": {
+        "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:collaborativeconstructionllc.com&id=ymDqsxqYtqFda792uih9hQ&utm_medium=link&utm_source=api",
+        "indexStatusResult": {
+          "verdict": "PASS",
+          "coverageState": "Submitted and indexed",
+          "robotsTxtState": "ALLOWED",
+          "indexingState": "INDEXING_ALLOWED",
+          "lastCrawlTime": "2026-10-14T17:54:16Z",
+          "pageFetchState": "SUCCESSFUL",
+          "googleCanonical": "https://collaborativeconstructionllc.com/",
+          "userCanonical": "https://collaborativeconstructionllc.com/",
+          "sitemap": [
+            "https://collaborativeconstructionllc.com/sitemap.xml"
+          ],
+          "referringUrls": [
+            "https://www.wonvision.com/dad7b34b65d23125a1036b444a9846d8-l/",
+            "http://collaborativeconstructionllc.com/"
+          ],
+          "crawledAs": "MOBILE"
+        },
+        "mobileUsabilityResult": {
+          "verdict": "VERDICT_UNSPECIFIED"
+        }
+      }
+    },
+    "inspection:/general-contractor-falmouth-ma/": {
+      "inspectionResult": {
+        "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:collaborativeconstructionllc.com&id=gyD6xdqBttkuyCD796sLbg&utm_medium=link&utm_source=api",
+        "indexStatusResult": {
+          "verdict": "PASS",
+          "coverageState": "Submitted and indexed",
+          "robotsTxtState": "ALLOWED",
+          "indexingState": "INDEXING_ALLOWED",
+          "lastCrawlTime": "2026-10-12T22:08:08Z",
+          "pageFetchState": "SUCCESSFUL",
+          "googleCanonical": "https://collaborativeconstructionllc.com/general-contractor-falmouth-ma/",
+          "userCanonical": "https://collaborativeconstructionllc.com/general-contractor-falmouth-ma/",
+          "crawledAs": "MOBILE"
+        },
+        "mobileUsabilityResult": {
+          "verdict": "VERDICT_UNSPECIFIED"
+        },
+        "richResultsResult": {
+          "verdict": "PASS",
+          "detectedItems": [
+            {
+              "richResultType": "Breadcrumbs",
+              "items": [
+                {
+                  "name": "Unnamed item"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "inspection:/adu-builder-cape-cod/": {
+      "inspectionResult": {
+        "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:collaborativeconstructionllc.com&id=o94hOTukVn0fTHWRHKtysQ&utm_medium=link&utm_source=api",
+        "indexStatusResult": {
+          "verdict": "NEUTRAL",
+          "coverageState": "Server error (5xx)",
+          "robotsTxtState": "ALLOWED",
+          "indexingState": "INDEXING_STATE_UNSPECIFIED",
+          "lastCrawlTime": "2026-10-18T14:19:41Z",
+          "pageFetchState": "SERVER_ERROR",
+          "sitemap": [
+            "https://collaborativeconstructionllc.com/sitemap.xml"
+          ],
+          "referringUrls": [
+            "https://collaborativeconstructionllc.com/index.html"
+          ],
+          "crawledAs": "MOBILE"
+        },
+        "mobileUsabilityResult": {
+          "verdict": "VERDICT_UNSPECIFIED"
+        }
+      }
+    }
+  },
+  "public": {
+    "/": {
+      "status": "unavailable",
+      "http_status": 503,
+      "retry_after": "3600"
+    },
+    "/robots.txt": {
+      "status": 200,
+      "bytes": 2778,
+      "retry_after": null
+    },
+    "/sitemap.xml": {
+      "status": 200,
+      "bytes": 1249,
+      "retry_after": null
+    },
+    "/general-contractor-falmouth-ma/": {
+      "status": "unavailable",
+      "http_status": 503,
+      "retry_after": "3600"
+    },
+    "/home-additions-cape-cod/": {
+      "status": "unavailable",
+      "http_status": 503,
+      "retry_after": "3600"
+    },
+    "/adu-builder-cape-cod/": {
+      "status": "unavailable",
+      "http_status": 503,
+      "retry_after": "3600"
+    },
+    "/construction-advisory/": {
+      "status": "unavailable",
+      "http_status": 503,
+      "retry_after": "3600"
+    }
+  },
+  "fetched_at": "2026-10-19T12:34:28.266278+00:00"
+}
