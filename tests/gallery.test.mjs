@@ -8,13 +8,33 @@ const script = fs.readFileSync(new URL('../js/gallery.js', import.meta.url), 'ut
 const groupsBlock = page.match(/set groups = \[([\s\S]*?)\] -%\}/)[1];
 const groupTypes = [...groupsBlock.matchAll(/type: "([a-z-]+)"/g)].map(m => m[1]);
 
-test('one page, grouped by type: residential types first, Decks and railings last among them, Commercial last of all', () => {
-  assert.deepEqual(groupTypes, ['custom-homes', 'kitchen-remodels', 'bath-remodels', 'pool-projects', 'decks-and-railings', 'commercial']);
-  assert.equal(groupTypes.at(-1), 'commercial');
-  assert.equal(groupTypes.at(-2), 'decks-and-railings');
+test('one page, grouped by type: residential types first, Decks and railings last among them, Commercial next-to-last, ADU Concepts last of all', () => {
+  assert.deepEqual(groupTypes, ['custom-homes', 'kitchen-remodels', 'bath-remodels', 'pool-projects', 'decks-and-railings', 'commercial', 'adu-concepts']);
+  assert.equal(groupTypes.at(-1), 'adu-concepts');
+  assert.equal(groupTypes.at(-2), 'commercial');
+  assert.equal(groupTypes.at(-3), 'decks-and-railings');
   for (const p of projects) assert.ok(groupTypes.includes(p.type), `${p.title} has a known type (${p.type})`);
   for (const p of projects.filter(x => x.type === 'commercial')) assert.equal(p.category, 'Commercial', p.title);
-  for (const p of projects.filter(x => x.type !== 'commercial')) assert.equal(p.category, 'Residential', p.title);
+  for (const p of projects.filter(x => x.type === 'adu-concepts')) assert.equal(p.category, 'Concept', p.title);
+  for (const p of projects.filter(x => x.type !== 'commercial' && x.type !== 'adu-concepts')) assert.equal(p.category, 'Residential', p.title);
+});
+
+test('ADU Concepts is a clearly disclosed, separate category: exactly two AI-generated cards, never mixed into completed-project categories', () => {
+  const aduProjects = projects.filter(p => p.type === 'adu-concepts');
+  assert.equal(aduProjects.length, 2, 'exactly two ADU concept projects in the data');
+  for (const p of aduProjects) {
+    assert.equal(p.aiConcept, true, `${p.title} is flagged as an AI concept`);
+    assert.equal(p.category, 'Concept', `${p.title} is not mixed into Residential/Commercial`);
+  }
+  for (const p of projects.filter(p => p.type !== 'adu-concepts')) assert.notEqual(p.aiConcept, true, `${p.title} is a real project, not flagged as an AI concept`);
+
+  const aduGroupBlock = groupsBlock.match(/\{ type: "adu-concepts"[\s\S]*?\}/)[0];
+  assert.match(aduGroupBlock, /title: "ADU Concepts"/);
+  assert.match(aduGroupBlock, /AI-generated/i, 'the group intro discloses these are AI-generated');
+
+  assert.match(page, /aiDisclosure = "AI-Generated Concept: Not a Completed Project"/, 'the exact disclosure string is defined once and reused');
+  assert.match(page, /gallery-group__badge.*tag--ai.*aiDisclosure/, 'the category heading carries the disclosure badge');
+  assert.match(page, /if p\.aiConcept %\}<span class="tag tag--ai gallery-card__badge">\{\{ aiDisclosure \}\}<\/span>/, 'every AI-concept card carries the disclosure badge, not just the category heading');
 });
 
 test('the curated photo reductions are kept and every photo keeps real alt text', () => {
@@ -55,7 +75,7 @@ test('the gallery shows no towns anywhere in its markup or its styles', () => {
 });
 
 test('each card is a photo slot with the project title and the short description below it, and a type with no projects is skipped', () => {
-  assert.match(page, /<figcaption><span class="gallery-card__title">\{\{ p\.title \}\}<\/span>\{% if p\.shows %\}<span class="gallery-card__shows">/);
+  assert.match(page, /<figcaption>(?:\{% if p\.aiConcept %\}<span class="tag tag--ai gallery-card__badge">\{\{ aiDisclosure \}\}<\/span>\{% endif %\})?<span class="gallery-card__title">\{\{ p\.title \}\}<\/span>\{% if p\.shows %\}<span class="gallery-card__shows">/);
   assert.match(page, /\{%- if items %\}/);
   assert.match(page, /groupby\("type"\)/);
   assert.ok(!/gallery-card__town/.test(page));
@@ -76,10 +96,24 @@ test('the built gallery lists the types in order and prints no town names', asyn
     const html = fs.readFileSync(`${out}/gallery/index.html`, 'utf8');
     const main = html.slice(html.indexOf('class="gallery-stage'), html.indexOf('svc-cta'));
     const headings = [...main.matchAll(/<h2 id="[a-z-]+-heading">([^<]+)<\/h2>/g)].map(m => m[1]);
-    assert.deepEqual(headings, ['Custom homes', 'Kitchen remodels', 'Bath remodels', 'Pool projects', 'Decks and railings', 'Commercial projects']);
+    assert.deepEqual(headings, ['Custom homes', 'Kitchen remodels', 'Bath remodels', 'Pool projects', 'Decks and railings', 'Commercial projects', 'ADU Concepts']);
     for (const town of ['Belmont', 'Carlisle', 'Falmouth', 'Rockland', 'Dudley', 'Hingham', 'New Seabury', 'Monomoscoy']) assert.ok(!main.includes(town), `${town} appears in the gallery`);
-    assert.equal((main.match(/<figure class="gallery-card">/g) || []).length, projects.length, 'every project is shown exactly once');
+    assert.equal((main.match(/<figure class="gallery-card[^"]*">/g) || []).length, projects.length, 'every project is shown exactly once');
+    assert.equal((main.match(/AI-Generated Concept: Not a Completed Project/g) || []).length, 3, 'the category heading badge plus one badge per AI-concept card (2) are rendered in the built page');
   } finally { fs.rmSync(out, { recursive: true, force: true }); }
+});
+
+test('both ADU concept images and their responsive webp variants exist on disk', () => {
+  for (const p of projects.filter(p => p.type === 'adu-concepts')) {
+    for (const img of p.images) {
+      assert.ok(fs.existsSync(new URL(`..${img.src}`, import.meta.url)), `${img.src} exists`);
+      for (const w of img.widths) {
+        const base = img.src.replace('/assets/img/', '').replace(/\.jpg$/, '');
+        const webp = `/assets/img/r/${base}-${w}.webp`;
+        assert.ok(fs.existsSync(new URL(`..${webp}`, import.meta.url)), `${webp} exists`);
+      }
+    }
+  }
 });
 
 test('no gallery rule underlines text', () => {
