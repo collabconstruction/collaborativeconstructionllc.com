@@ -4277,7 +4277,7 @@ html { background: var(--bg); }
 }
 .service-page .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'); }
 .page-main:has(.company-overview) .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'); }
-.page-main:has(.project-gallery) .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp'); }
+.page-main:has(.project-gallery) .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'); }
 
 /* Home: a soft ribbon behind the accessory dwelling section and a glow at the
    top of the contact section. Both are centred, smaller than their section and
@@ -4866,7 +4866,7 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
 /* The gallery/projects page has no .service-page wrapper (it isn't one of the
    six service pages), so it's scoped via the page-gallery body class instead.
    It gets the same restrained ribbon treatment as the service pages rather
-   than the brighter generic .svc-cta fallback, and reuses fine-gold-threads
+   than the brighter generic .svc-cta fallback, and reuses gold-crossing-curves
    since that's already the picture used by this page's own hero above. */
 .page-gallery .svc-cta > .container::before,
 .page-gallery .svc-cta > .container::after {
@@ -4877,11 +4877,15 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  opacity: 0.055;
+  /* gold-crossing-curves.png has far less opaque pixel coverage than the other
+     ribbon textures (measured mean alpha ~2.4/255 vs ~12/255), so it needs the
+     same 0.28 boost given to the Home Additions / Custom Home Builder CTA
+     ribbons rather than the shared 0.055 base, or it reads as nearly invisible. */
+  opacity: 0.28;
   filter: sepia(0.65) saturate(0.72) hue-rotate(351deg) brightness(1.04);
   -webkit-mask-image: radial-gradient(ellipse 72% 76% at 50% 50%, #000 30%, transparent 100%);
   mask-image: radial-gradient(ellipse 72% 76% at 50% 50%, #000 30%, transparent 100%);
-  background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp');
+  background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png');
 }
 
 .page-gallery .svc-cta > .container::before {
