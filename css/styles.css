@@ -5100,6 +5100,7 @@ html.lightbox-open { overflow: hidden; }
   align-items: center;
   justify-content: center;
 }
+.lightbox[hidden] { display: none; }
 
 .lightbox__backdrop {
   position: absolute;
@@ -5144,6 +5145,7 @@ html.lightbox-open { overflow: hidden; }
   cursor: pointer;
 }
 
+.lightbox__nav[hidden] { display: none; }
 .lightbox__close:hover, .lightbox__nav:hover { background: rgba(6, 11, 20, .85); }
 .lightbox__close:focus-visible, .lightbox__nav:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
 
