@@ -5076,3 +5076,89 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
     align-self: start;
   }
 }
+
+/* 26 Projects photo viewer ---------------------------------------------------
+   Click (or Enter/Space on) any project photo to open it full size. Pure CSS
+   fade; disabled entirely under reduced motion. The affordance lives on
+   .gallery-slot, not .gallery-media, so it never wraps the real prev/next
+   <button> arrows (siblings of .gallery-slot, not descendants of it). */
+.gallery-slot--zoomable { cursor: zoom-in; }
+.gallery-slot--zoomable:focus-visible { outline: 2px solid var(--brass); outline-offset: -2px; }
+
+html.lightbox-open { overflow: hidden; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 11, 20, .92);
+}
+
+.lightbox__dialog {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(1100px, 94vw);
+  height: min(1100px, 88vh);
+}
+
+.lightbox__img {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  background: var(--navy-800, #162340);
+}
+
+.lightbox__close,
+.lightbox__nav {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid rgba(189, 161, 106, .55);
+  border-radius: 50%;
+  background: rgba(6, 11, 20, .6);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.lightbox__close:hover, .lightbox__nav:hover { background: rgba(6, 11, 20, .85); }
+.lightbox__close:focus-visible, .lightbox__nav:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+
+.lightbox__close { top: -16px; right: -16px; }
+.lightbox__nav--prev { left: -16px; top: 50%; margin-top: -24px; }
+.lightbox__nav--next { right: -16px; top: 50%; margin-top: -24px; }
+
+@media (max-width: 680px) {
+  .lightbox__close { top: 10px; right: 10px; }
+  .lightbox__nav--prev { left: 6px; }
+  .lightbox__nav--next { right: 6px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lightbox__img { animation: lightbox-in .18s var(--ease-out, ease); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes lightbox-in {
+    from { opacity: 0; transform: scale(.98); }
+    to { opacity: 1; transform: scale(1); }
+  }
+}
