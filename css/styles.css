@@ -1054,8 +1054,9 @@ html.enter-left .page-main {
 /* Light gold seam along the bottom edge of every page's top hero (the home
    `.hero` and the shared `.about-page-hero` on all eight inner pages), marking
    where the hero ends and the next section begins. Same inset convention as
-   the gallery group dividers (clamp 14-32px from each side), just brass
-   instead of navy and lighter than the solid `.btn-gold`/`var(--brass)` tone. */
+   the gallery group dividers (clamp 14-32px from each side). Full opacity and
+   2px tall so it still reads clearly on the home hero's photo/gradient
+   background, not just the flat navy of the inner-page heroes. */
 .hero::after,
 .about-page-hero::after {
   content: "";
@@ -1063,9 +1064,9 @@ html.enter-left .page-main {
   left: clamp(14px, 3vw, 32px);
   right: clamp(14px, 3vw, 32px);
   bottom: 0;
-  height: 1px;
+  height: 2px;
   background: var(--brass-300);
-  opacity: 0.6;
+  opacity: 1;
   z-index: 1;
 }
 
@@ -4277,20 +4278,6 @@ html { background: var(--bg); }
 .service-page .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'); }
 .page-main:has(.company-overview) .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'); }
 .page-main:has(.project-gallery) .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp'); }
-
-/* About backdrop: one soft picture, centred and smaller, fading on every side. */
-.page-main:has(.company-overview) { position: relative; isolation: isolate; }
-.page-main:has(.company-overview)::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: url('../assets/img/swirls/glow-ribbons.webp') center 56% / min(1000px, 86%) auto no-repeat;
-  opacity: calc(0.9 * var(--swirl-strength));
-  -webkit-mask-image: radial-gradient(ellipse 50% 44% at 50% 56%, #000 45%, transparent 100%);
-  mask-image: radial-gradient(ellipse 50% 44% at 50% 56%, #000 45%, transparent 100%);
-}
 
 /* Home: a soft ribbon behind the accessory dwelling section and a glow at the
    top of the contact section. Both are centred, smaller than their section and
