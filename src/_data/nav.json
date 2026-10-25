@@ -15,12 +15,6 @@
       "_dropdownComment": "`url` is empty on purpose: there is no combined /services/ index page, so this entry is a menu heading, not a destination. base.njk renders it as a <button> disclosure and the footer/llms.txt expand the children in its place. Do not give it a url without first building a real page there.",
       "dropdown": [
         {
-          "url": "/general-contractor-falmouth-ma/",
-          "label": "General Contracting",
-          "summary": "General contracting in Falmouth and across Cape Cod",
-          "icon": "general"
-        },
-        {
           "url": "/home-additions-cape-cod/",
           "label": "Home Additions",
           "summary": "Home additions, from planning and permitting through construction",

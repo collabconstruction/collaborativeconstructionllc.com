@@ -39,7 +39,6 @@ test('stylesheet uses only the three selected textures as full-section artwork',
   const css = readFileSync(join(ROOT, 'css/styles.css'), 'utf8');
 
   assert.match(css, /\.company-credentials::after/);
-  assert.match(css, /\.company-principles::after/);
   assert.match(css, /\.gallery-stage\.project-gallery::before/);
   assert.doesNotMatch(css, /texture-(?:dot-grid|corner-bubbles|wave-ribbon|wave-network)/);
 
@@ -70,9 +69,8 @@ test('homepage service paths share desktop title, copy, list and action anchors'
 test('About and Projects textures cover their complete sections with one consistent treatment', () => {
   const css = readFileSync(join(ROOT, 'css/styles.css'), 'utf8');
 
-  assert.match(css, /\.company-credentials::after,\s*\.company-principles::after,\s*\.gallery-stage\.project-gallery::before\s*\{[^}]*inset:\s*0[^}]*width:\s*100%[^}]*height:\s*100%[^}]*background-size:\s*cover[^}]*opacity:\s*0\.1[^}]*filter:/s);
+  assert.match(css, /\.company-credentials::after,\s*\.gallery-stage\.project-gallery::before\s*\{[^}]*inset:\s*0[^}]*width:\s*100%[^}]*height:\s*100%[^}]*background-size:\s*cover[^}]*opacity:\s*0\.1[^}]*filter:/s);
   assert.match(css, /\.company-credentials::after\s*\{[^}]*texture-network-frame\.webp/s);
-  assert.match(css, /\.company-principles::after\s*\{[^}]*texture-sweeping-wave\.webp/s);
   assert.match(css, /\.gallery-stage\.project-gallery::before\s*\{[^}]*texture-diagonal-streaks\.webp/s);
 });
 

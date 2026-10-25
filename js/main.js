@@ -164,10 +164,10 @@
     }
   }
   // Give each content type a restrained entrance, shared across all routes.
-  $$(".company-brand, .company-overview__copy, .company-principles article").forEach(el => el.setAttribute("data-reveal", ""));
+  $$(".company-brand, .company-overview__copy").forEach(el => el.setAttribute("data-reveal", ""));
   const revealEls = $$("[data-reveal]");
   revealEls.forEach((el, index) => {
-    el.dataset.motion = el.matches(".project, .service-card, .company-principles article") ? "settle"
+    el.dataset.motion = el.matches(".project, .service-card") ? "settle"
       : el.matches(".company-brand, figure, .figure") ? "soften"
       : index % 2 ? "right" : "left";
   });
@@ -292,7 +292,7 @@
   /* Links are extensionless ("/about"), because Cloudflare serves them that
      way and 307-redirects the ".html" form. The ".html" handling below is
      kept so any old bookmark or stray link still animates correctly. */
-  const NAV_ORDER = ["", "general-contractor-falmouth-ma", "home-additions-cape-cod", "adu-builder-cape-cod", "home-renovation-cape-cod", "custom-home-builder-cape-cod", "construction-advisory", "gallery", "about"];
+  const NAV_ORDER = ["", "home-additions-cape-cod", "adu-builder-cape-cod", "home-renovation-cape-cod", "custom-home-builder-cape-cod", "construction-advisory", "gallery", "about"];
 
   const pageSlug = (pathname) => {
     let s = (pathname || "").split("#")[0].split("?")[0];
