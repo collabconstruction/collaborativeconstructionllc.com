@@ -20,7 +20,8 @@ breadcrumbName: "Projects"
 
 {#
   Projects page (file and URL keep the name gallery): one page, projects grouped by type (src/_data/projects.json, field `type`). Residential types come first, the ones the
-  company wants to promote; Commercial is last. A type with no projects is skipped, so adding a new type only needs projects in the data.
+  company wants to promote; Commercial is next-to-last, and ADU Concepts (AI-generated illustrations, not completed projects) is last of all, set apart by its own
+  divider, intro paragraph and a disclosure badge on the heading and on every card. A type with no projects is skipped, so adding a new type only needs projects in the data.
   No tabs, no towns, no captions inside the photos. A project with more than one photo gets two plain arrows (added by js/gallery.js);
   without JavaScript the first photo of each project shows and the arrows stay hidden. Photos only change when the visitor clicks.
 #}
@@ -35,13 +36,15 @@ breadcrumbName: "Projects"
   {%- endfor %}
 </div>
 {%- endmacro -%}
+{%- set aiDisclosure = "AI-Generated Concept: Not a Completed Project" -%}
 {%- set groups = [
   { type: "custom-homes", title: "Custom homes" },
   { type: "kitchen-remodels", title: "Kitchen remodels" },
   { type: "bath-remodels", title: "Bath remodels" },
   { type: "pool-projects", title: "Pool projects" },
   { type: "decks-and-railings", title: "Decks and railings" },
-  { type: "commercial", title: "Commercial projects" }
+  { type: "commercial", title: "Commercial projects" },
+  { type: "adu-concepts", title: "ADU Concepts", intro: "Illustrative ADU concepts exploring how additional living space can complement a home's architecture. These AI-generated images are design inspiration, not photographs of completed Collaborative Construction projects." }
 ] -%}
 
 <section class="about-page-hero">
@@ -57,11 +60,15 @@ breadcrumbName: "Projects"
   {%- for g in groups %}
   {%- set items = byType[g.type] %}
   {%- if items %}
-  <section class="gallery-group{% if g.type == "commercial" %} gallery-group--commercial{% endif %}" id="{{ g.type }}" aria-labelledby="{{ g.type }}-heading">
+  <section class="gallery-group{% if g.type == "commercial" %} gallery-group--commercial{% endif %}{% if g.type == "adu-concepts" %} gallery-group--concept{% endif %}" id="{{ g.type }}" aria-labelledby="{{ g.type }}-heading">
     <h2 id="{{ g.type }}-heading">{{ g.title }}</h2>
+    {%- if g.intro %}
+    <p class="gallery-group__badge"><span class="tag tag--ai">{{ aiDisclosure }}</span></p>
+    <p class="gallery-group__intro">{{ g.intro }}</p>
+    {%- endif %}
     <div class="gallery-grid">
       {%- for p in items %}
-      <figure class="gallery-card">
+      <figure class="gallery-card{% if p.aiConcept %} gallery-card--concept{% endif %}">
         <div class="gallery-media" data-slides="{{ p.images | length }}">
           {{ slot(p, "(min-width: 1100px) 30vw, (min-width: 640px) 46vw, 92vw", 0) }}
           {%- if p.images | length > 1 %}
@@ -70,7 +77,7 @@ breadcrumbName: "Projects"
           <span class="visually-hidden" role="status" aria-live="polite"></span>
           {%- endif %}
         </div>
-        <figcaption><span class="gallery-card__title">{{ p.title }}</span>{% if p.shows %}<span class="gallery-card__shows">{{ p.shows }}</span>{% endif %}</figcaption>
+        <figcaption>{% if p.aiConcept %}<span class="tag tag--ai gallery-card__badge">{{ aiDisclosure }}</span>{% endif %}<span class="gallery-card__title">{{ p.title }}</span>{% if p.shows %}<span class="gallery-card__shows">{{ p.shows }}</span>{% endif %}</figcaption>
       </figure>
       {%- endfor %}
     </div>
