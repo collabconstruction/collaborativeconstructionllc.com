@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 const serviceHeroSelectors = [
+  '.service-page--gc .about-page-hero::before',
   '.service-page--additions .about-page-hero::before',
   '.service-page--adu .about-page-hero::before',
   '.service-page--renovation .about-page-hero::before',

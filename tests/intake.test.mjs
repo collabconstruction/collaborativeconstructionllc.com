@@ -138,13 +138,9 @@ test('redirects retain tags and API rejects GET without touching data',async t=>
 
 test('every legacy/duplicate URL form redirects 301 directly to its final canonical page, in one hop',async t=>{
  const f=fixture(t),worker=await f.ready;
- // Mirrors the exact 18-entry list in worker/index.js's LEGACY_REDIRECTS and the
+ // Mirrors the exact 17-entry list in worker/index.js's LEGACY_REDIRECTS and the
  // matching run_worker_first entries in wrangler.jsonc. Kept as a literal table here
  // (not re-imported) so this test fails loudly if the two ever drift apart.
- //
- // The General Contracting page was removed 2026-10-24: it's no longer a canonical
- // destination, so all three of its historical URL forms (including its own former
- // canonical trailing-slash path) now redirect straight to the homepage instead.
  const legacy=[
   ['/index.html','/'],
   ['/about','/about/'],['/about.html','/about/'],
@@ -154,9 +150,9 @@ test('every legacy/duplicate URL form redirects 301 directly to its final canoni
   ['/custom-home-builder-cape-cod','/custom-home-builder-cape-cod/'],['/custom-home-builder-cape-cod.html','/custom-home-builder-cape-cod/'],
   ['/home-additions-cape-cod','/home-additions-cape-cod/'],['/home-additions-cape-cod.html','/home-additions-cape-cod/'],
   ['/home-renovation-cape-cod','/home-renovation-cape-cod/'],['/home-renovation-cape-cod.html','/home-renovation-cape-cod/'],
-  ['/general-contractor-falmouth-ma','/'],['/general-contractor-falmouth-ma.html','/'],['/general-contractor-falmouth-ma/','/'],
+  ['/general-contractor-falmouth-ma','/general-contractor-falmouth-ma/'],['/general-contractor-falmouth-ma.html','/general-contractor-falmouth-ma/'],
  ];
- assert.equal(legacy.length,18);
+ assert.equal(legacy.length,17);
  const destinations=new Set(legacy.map(([,to])=>to));
  for(const [from,to] of legacy) {
   // No entry's destination is itself a key elsewhere in the table -- i.e. a redirect can never chain into a second redirect.
@@ -165,7 +161,7 @@ test('every legacy/duplicate URL form redirects 301 directly to its final canoni
   assert.equal(r.status,301,`${from} should redirect 301`);
   assert.equal(r.headers.get('location'),`https://collaborativeconstructionllc.com${to}?x=1`,`${from} should land on its final canonical URL with the query string preserved`);
  }
- assert.equal(destinations.size,8,'the 18 legacy forms should collapse onto exactly the 8 remaining canonical pages');
+ assert.equal(destinations.size,9,'the 17 legacy forms should collapse onto exactly the 9 canonical pages');
 });
 
 test('legacy-redirect logic does not affect unrelated paths or /api/contact',async t=>{

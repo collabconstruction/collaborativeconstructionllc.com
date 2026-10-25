@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 const read = (p) => fs.readFileSync(new URL(`../${p}`, import.meta.url), 'utf8');
-const servicePages = ['adu-builder-cape-cod', 'home-additions-cape-cod', 'home-renovation-cape-cod', 'custom-home-builder-cape-cod'];
+const servicePages = ['adu-builder-cape-cod', 'home-additions-cape-cod', 'home-renovation-cape-cod', 'custom-home-builder-cape-cod', 'general-contractor-falmouth-ma'];
 
-test('every check mark on the four service pages is different, so the pages do not read as copies', () => {
+test('every check mark on the five service pages is different, so the pages do not read as copies', () => {
   const all = [];
   for (const dir of servicePages) {
     const items = [...read(`src/${dir}/index.njk`).match(/<ul class="service-checks">(.*?)<\/ul>/s)[1].matchAll(/<li>(.*?)<\/li>/g)].map((m) => m[1]);

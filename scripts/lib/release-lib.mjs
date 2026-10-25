@@ -22,7 +22,7 @@ export const FACEBOOK_OLD = [
 /** Files that must never be published, by any route (overlay, direct build, preview). */
 export const FORBIDDEN_FILES = ["assets/img/wesleigh-behn.jpg"];
 
-export const PAGES = ["/", "/about/", "/gallery/", "/construction-advisory/", "/adu-builder-cape-cod/", "/custom-home-builder-cape-cod/", "/home-additions-cape-cod/", "/home-renovation-cape-cod/"];
+export const PAGES = ["/", "/about/", "/gallery/", "/construction-advisory/", "/adu-builder-cape-cod/", "/custom-home-builder-cape-cod/", "/home-additions-cape-cod/", "/home-renovation-cape-cod/", "/general-contractor-falmouth-ma/"];
 export const pageFile = (p) => (p.endsWith("/") ? p.slice(1) + "index.html" : p.slice(1));
 
 /** The contact form depends on these files being served. */

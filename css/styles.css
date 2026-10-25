@@ -4561,6 +4561,7 @@ strong {
 }
 
 /* Each service page gets its own header picture, all centered in the exact same spot. */
+.service-page--gc .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'); transform: none; }
 .service-page--additions .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/gold-crossing-curves.png'); transform: none; }
 .service-page--adu .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/fine-gold-threads.webp'); transform: none; }
 .service-page--renovation .about-page-hero::before { background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp'); transform: none; }
@@ -4671,6 +4672,7 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
 
 /* Each service page gives its picture its own shape, so no two look like the same template. */
 .page-main .service-page .figure picture { -webkit-mask-image: none; mask-image: none; overflow: visible; }
+.service-page--gc .figure img { border-radius: 260px 260px 8px 8px; }
 .service-page--additions .figure img { border-radius: 4px; outline: 1px solid var(--brass); outline-offset: 12px; }
 .service-page--adu .figure img { border-radius: 170px 8px 170px 8px; }
 .service-page--renovation .figure img { border-radius: 18px; border: 3px solid var(--brass); }
@@ -4759,6 +4761,7 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
   mask-image: radial-gradient(ellipse 72% 82% at 50% 50%, #000 28%, transparent 100%);
 }
 
+.service-page--gc .about-page-hero::before,
 .service-page--renovation .about-page-hero::before {
   background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp');
 }
@@ -4828,6 +4831,8 @@ p a:not(.btn):hover, li a:not(.btn):hover, dd a:not(.btn):hover { color: var(--b
 
 /* The CTA ribbons use the same picture as that page's own header, so a page
    reads as one consistent piece of artwork instead of two unrelated swirls. */
+.service-page--gc .svc-cta > .container::before,
+.service-page--gc .svc-cta > .container::after,
 .service-page--renovation .svc-cta > .container::before,
 .service-page--renovation .svc-cta > .container::after {
   background-image: url('../assets/img/swirls/on-navy/ribbon-wave-sparkle.webp');
