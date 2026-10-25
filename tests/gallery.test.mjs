@@ -69,10 +69,11 @@ test('each card is a photo slot with the project title and the short description
   assert.ok(!/gallery-card__town/.test(page));
 });
 
-test('groups are compact: tight gaps, short cards, Commercial set apart by space and a hairline', () => {
+test('groups are compact: tight gaps, short cards, Commercial set apart by space, no divider line', () => {
   assert.match(galleryCss, /\.gallery-grid \{[^}]*gap: clamp\(12px, 1\.8vw, 22px\)/);
   assert.match(galleryCss, /\.gallery-media \{[^}]*aspect-ratio: 3 \/ 2/);
-  assert.match(galleryCss, /\.gallery-group--commercial::before \{[^}]*height: 1px/);
+  assert.match(galleryCss, /\.gallery-group--commercial \{[^}]*margin-top: clamp\(26px, 4vw, 48px\)/);
+  assert.ok(!/\.gallery-group--commercial::before/.test(galleryCss), 'no hairline divider above Commercial');
   assert.match(css, /\.page-gallery \.about-page-hero \{ padding-block: 30px 20px; \}/);
 });
 

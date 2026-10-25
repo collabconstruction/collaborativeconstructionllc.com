@@ -112,13 +112,13 @@ test('the Projects/Gallery "Discuss your project" CTA uses the same restrained r
   // page-gallery class that base.njk applies to <main> from the page's pageClass frontmatter.
   assert.match(
     css,
-    /\.page-gallery \.svc-cta > \.container::before,\s*\.page-gallery \.svc-cta > \.container::after\s*\{[^}]*opacity:\s*0\.055[^}]*filter:\s*sepia\(0\.65\) saturate\(0\.72\) hue-rotate\(351deg\) brightness\(1\.04\)[^}]*fine-gold-threads\.webp/s,
-    'gallery CTA ribbons must match the service-page opacity/filter/texture, not the brighter generic .svc-cta fallback'
+    /\.page-gallery \.svc-cta > \.container::before,\s*\.page-gallery \.svc-cta > \.container::after\s*\{[^}]*opacity:\s*0\.28[^}]*filter:\s*sepia\(0\.65\) saturate\(0\.72\) hue-rotate\(351deg\) brightness\(1\.04\)[^}]*gold-crossing-curves\.png/s,
+    'gallery CTA ribbons must match the service-page filter/texture at a boosted opacity (gold-crossing-curves.png needs the same 0.28 boost used on the Home Additions / Custom Home Builder CTAs), not the brighter generic .svc-cta fallback'
   );
 
   // The same image the gallery's own hero already uses, so the CTA reads as the same
   // piece of artwork as the rest of the page rather than an unrelated swirl.
-  assert.match(css, /\.page-main:has\(\.project-gallery\) \.about-page-hero::before\s*\{[^}]*fine-gold-threads\.webp/s);
+  assert.match(css, /\.page-main:has\(\.project-gallery\) \.about-page-hero::before\s*\{[^}]*gold-crossing-curves\.png/s);
 
   assert.match(
     css,
