@@ -32,12 +32,11 @@
     "Some photos were dropped from both at the owner's request. `w`, `h` and `widths` are the jpg size and the responsive webp widths",
     "that exist in assets/img/r; `compact` marks the two projects whose photos are small (under 900px wide), so layouts show them smaller.",
     "",
-    "`type: adu-concepts` (October 2026) is a separate, non-completed-project category: two AI-generated",
-    "architectural concept illustrations, not photographs of a built Collaborative Construction project.",
-    "`category: Concept` and `aiConcept: true` mark them so gallery.njk can render the required 'AI-Generated",
-    "Concept - Not a Completed Project' disclosure on the category and on both cards. These items deliberately",
-    "have no `footerThumb` (must never appear in the footer 'Recent Work' strip) and no `location` (no project",
-    "was performed, so no town is claimed)."
+    "An 'ADU Concepts' category (two AI-generated architectural illustrations, not completed projects) existed",
+    "here from October 2026 to October 2026 and was removed at the owner's request. Do not re-add AI-generated",
+    "or other non-completed-project images to this file without a clear, prominent disclosure that the owner",
+    "has explicitly reviewed and approved - every other entry here is a real, built project and visitors are",
+    "entitled to assume that's true of everything in this gallery."
   ],
   "items": [
     {
@@ -594,42 +593,6 @@
         }
       ],
       "compact": true
-    },
-    {
-      "title": "Coastal Cottage ADU — Concept",
-      "type": "adu-concepts",
-      "category": "Concept",
-      "aiConcept": true,
-      "location": "",
-      "shows": "A detached, Cape Cod-inspired cottage with cedar shingles, a welcoming covered porch and thoughtfully landscaped outdoor space. Designed to illustrate flexible living possibilities for family or guests.",
-      "images": [
-        {
-          "src": "/assets/img/adu-concept-cottage-1.jpg",
-          "alt": "AI-generated architectural concept illustration of a detached, Cape Cod-style coastal cottage ADU with cedar shingle siding, white trim, black-framed windows and a covered porch, not a photograph of a built project",
-          "w": 1448,
-          "h": 1086,
-          "widths": [160, 480, 768, 1024, 1440, 1448]
-        }
-      ],
-      "compact": false
-    },
-    {
-      "title": "Coastal Carriage House ADU — Concept",
-      "type": "adu-concepts",
-      "category": "Concept",
-      "aiConcept": true,
-      "location": "",
-      "shows": "A carriage-house-inspired ADU concept that complements an existing coastal home, featuring traditional shingle siding, coordinated rooflines and a refined private entrance.",
-      "images": [
-        {
-          "src": "/assets/img/adu-concept-carriage-house-1.jpg",
-          "alt": "AI-generated architectural concept illustration of a carriage-house-style ADU attached to a shingle-style coastal home, with a gabled roof, dark garage doors and a landscaped entrance, not a photograph of a built project",
-          "w": 1448,
-          "h": 1086,
-          "widths": [160, 480, 768, 1024, 1440, 1448]
-        }
-      ],
-      "compact": false
     }
   ]
 }
