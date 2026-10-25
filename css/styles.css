@@ -1051,6 +1051,24 @@ html.enter-left .page-main {
   padding-block: clamp(3rem, 2rem + 7vw, 6.5rem);
 }
 
+/* Light gold seam along the bottom edge of every page's top hero (the home
+   `.hero` and the shared `.about-page-hero` on all eight inner pages), marking
+   where the hero ends and the next section begins. Same inset convention as
+   the gallery group dividers (clamp 14-32px from each side), just brass
+   instead of navy and lighter than the solid `.btn-gold`/`var(--brass)` tone. */
+.hero::after,
+.about-page-hero::after {
+  content: "";
+  position: absolute;
+  left: clamp(14px, 3vw, 32px);
+  right: clamp(14px, 3vw, 32px);
+  bottom: 0;
+  height: 1px;
+  background: var(--brass-300);
+  opacity: 0.6;
+  z-index: 1;
+}
+
 .hero__bg {
   position: absolute;
   inset: 0;
