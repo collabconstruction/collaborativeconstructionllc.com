@@ -41,6 +41,11 @@ export default {
     // specifically so they can carry the stronger 301 canonicalization signal. Nothing
     // else is affected: any path not listed here (including every canonical page,
     // every asset, and /api/*) is untouched by this block.
+    //
+    // The General Contracting page was removed 2026-10-24 (it was never a distinct
+    // service, just an umbrella page duplicating the other five). All of its historical
+    // URL forms, including its own former canonical path, now 301 straight to the
+    // homepage rather than 404ing or looping through an intermediate dead page.
     const LEGACY_REDIRECTS = new Map([
       ['/index.html', '/'],
       ['/about', '/about/'], ['/about.html', '/about/'],
@@ -50,7 +55,7 @@ export default {
       ['/custom-home-builder-cape-cod', '/custom-home-builder-cape-cod/'], ['/custom-home-builder-cape-cod.html', '/custom-home-builder-cape-cod/'],
       ['/home-additions-cape-cod', '/home-additions-cape-cod/'], ['/home-additions-cape-cod.html', '/home-additions-cape-cod/'],
       ['/home-renovation-cape-cod', '/home-renovation-cape-cod/'], ['/home-renovation-cape-cod.html', '/home-renovation-cape-cod/'],
-      ['/general-contractor-falmouth-ma', '/general-contractor-falmouth-ma/'], ['/general-contractor-falmouth-ma.html', '/general-contractor-falmouth-ma/'],
+      ['/general-contractor-falmouth-ma', '/'], ['/general-contractor-falmouth-ma.html', '/'], ['/general-contractor-falmouth-ma/', '/'],
     ]);
     if (LEGACY_REDIRECTS.has(url.pathname)) {
       return Response.redirect(`${url.origin}${LEGACY_REDIRECTS.get(url.pathname)}${url.search}`, 301);

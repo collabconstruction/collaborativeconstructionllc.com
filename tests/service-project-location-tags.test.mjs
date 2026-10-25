@@ -7,7 +7,6 @@ const servicePages = [
   'custom-home-builder-cape-cod',
   'home-additions-cape-cod',
   'home-renovation-cape-cod',
-  'general-contractor-falmouth-ma',
 ];
 
 test('service-page related project headings do not include location badges', () => {

@@ -20,7 +20,6 @@ const pages = [
   { url: '/custom-home-builder-cape-cod/', title: 'Custom Home Builder on Cape Cod | Collaborative Construction, LLC', description: 'Custom home building on Cape Cod.', schemaType: 'service', schemaName: 'Custom Home Builder Cape Cod', breadcrumbName: 'Custom Homes' },
   { url: '/home-additions-cape-cod/', title: 'Home Additions on Cape Cod | Collaborative Construction, LLC', description: 'Home additions on Cape Cod.', schemaType: 'service', schemaName: 'Home Additions Cape Cod', breadcrumbName: 'Home Additions' },
   { url: '/home-renovation-cape-cod/', title: 'Home Renovation on Cape Cod | Collaborative Construction, LLC', description: 'Home renovation on Cape Cod.', schemaType: 'service', schemaName: 'Home Renovation Cape Cod', breadcrumbName: 'Home Renovation' },
-  { url: '/general-contractor-falmouth-ma/', title: 'General Contractor in Falmouth, MA | Collaborative Construction, LLC', description: 'General contracting in Falmouth, MA.', schemaType: 'service', schemaName: 'General Contractor Falmouth', breadcrumbName: 'General Contractor' },
 ];
 
 const SERVICE_PAGE_URLS = pages.filter(p => p.schemaType === 'service').map(p => p.url);
@@ -103,13 +102,12 @@ test('the home page emits exactly one business, one website, one webpage node â€
   assert.equal(doc['@graph'].length, 3);
 });
 
-test('SERVICE_PAGE_URLS fixture matches the five dedicated service landing pages (sanity check for this test file itself)', () => {
+test('SERVICE_PAGE_URLS fixture matches the four dedicated service landing pages (sanity check for this test file itself)', () => {
   assert.deepEqual(
     [...SERVICE_PAGE_URLS].sort(),
     [
       '/adu-builder-cape-cod/',
       '/custom-home-builder-cape-cod/',
-      '/general-contractor-falmouth-ma/',
       '/home-additions-cape-cod/',
       '/home-renovation-cape-cod/',
     ].sort()
