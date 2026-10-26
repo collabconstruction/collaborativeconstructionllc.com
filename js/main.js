@@ -795,9 +795,20 @@
     const start = () => { if (!timer) timer = setInterval(advance, HOLD); };
     const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
 
+    // Tracked separately from the timer itself: a backgrounded tab calls
+    // stop() via visibilitychange below, and IntersectionObserver has no
+    // reason to fire again when the tab comes back (the hero's position in
+    // the viewport never changed), so without this the crossfade would stay
+    // frozen on whichever frame was live until the page was reloaded or the
+    // hero scrolled out of and back into view.
+    let isIntersecting = !("IntersectionObserver" in window);
+
     if ("IntersectionObserver" in window) {
       new IntersectionObserver((entries) => {
-        entries.forEach(e => (e.isIntersecting ? start() : stop()));
+        entries.forEach(e => {
+          isIntersecting = e.isIntersecting;
+          e.isIntersecting ? start() : stop();
+        });
       }, { threshold: 0.25 }).observe(figure);
     } else {
       start();
@@ -805,7 +816,7 @@
 
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) stop();
-      else if (!("IntersectionObserver" in window)) start();
+      else if (isIntersecting) start();
     });
   });
 

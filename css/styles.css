@@ -1158,8 +1158,19 @@ html.enter-left .page-main {
 }
 
 @media (min-width: 980px) {
+  /* Widen the hero section specifically (the other 1200px sections are
+     unaffected) and shift the column split toward the photo, so the hero
+     figure's own 728px cap actually has room to matter. At the previous
+     1200px wrap and 1.05/0.95 split the image column rendered at ~496px --
+     smaller than even the figure's old 560px cap -- so the grid column, not
+     the figure, was the real ceiling. 1320px reuses the --wrap value this
+     file already applies at very wide viewports (see the 1600px breakpoint
+     below), just pulled forward for the hero only. */
+  .hero .container {
+    max-width: 1320px;
+  }
   .hero-grid {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
     gap: clamp(var(--s-7), 5vw, 5rem);
   }
 }
@@ -1246,13 +1257,17 @@ html.enter-left .page-main {
 }
 
 /* The framed image. Aspect-ratio box with a flush brass border drawn
-   directly around the photo itself (no offset duplicate rectangle). The
-   best residential photography available is 1024x768, so the frame is
-   deliberately capped to never upscale past native. */
+   directly around the photo itself (no offset duplicate rectangle). Sized
+   30% larger than the original 560px cap at the owner's request; the five
+   rotating photos are all at least 868px wide except the night deck shot
+   (480px native, the only angle available with the railing lights on), which
+   softens slightly at this size on large/retina screens since it is upscaled
+   past native -- acceptable for one frame in a slow background crossfade,
+   but worth reshooting at higher resolution if that photo is prioritized. */
 .hero-figure {
   position: relative;
   aspect-ratio: 4 / 3;
-  max-width: 560px;
+  max-width: 728px;
   margin-inline: auto;
   width: 100%;
   padding: 10px;
@@ -3527,7 +3542,7 @@ figure {
 
 @media (max-width: 880px) {
   .hero-figure {
-    max-width: 480px;
+    max-width: 624px;
   }
   .locations__head {
     display: block;
