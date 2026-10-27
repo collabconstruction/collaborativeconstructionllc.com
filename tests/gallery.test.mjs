@@ -8,13 +8,21 @@ const script = fs.readFileSync(new URL('../js/gallery.js', import.meta.url), 'ut
 const groupsBlock = page.match(/set groups = \[([\s\S]*?)\] -%\}/)[1];
 const groupTypes = [...groupsBlock.matchAll(/type: "([a-z-]+)"/g)].map(m => m[1]);
 
-test('one page, grouped by type: residential types first, Decks then Porches last among them, Commercial last of all', () => {
-  assert.deepEqual(groupTypes, ['custom-homes', 'kitchen-remodels', 'bath-remodels', 'pool-projects', 'exteriors', 'decks-and-railings', 'porches-and-balconies', 'commercial']);
+test('one page, grouped by type: residential types first, Decks and railings last among them, Commercial last of all', () => {
+  assert.deepEqual(groupTypes, ['custom-homes', 'kitchen-remodels', 'bath-remodels', 'pool-projects', 'decks-and-railings', 'commercial']);
   assert.equal(groupTypes.at(-1), 'commercial');
-  assert.deepEqual(groupTypes.slice(-3, -1), ['decks-and-railings', 'porches-and-balconies']);
+  assert.equal(groupTypes.at(-2), 'decks-and-railings');
   for (const p of projects) assert.ok(groupTypes.includes(p.type), `${p.title} has a known type (${p.type})`);
   for (const p of projects.filter(x => x.type === 'commercial')) assert.equal(p.category, 'Commercial', p.title);
   for (const p of projects.filter(x => x.type !== 'commercial')) assert.equal(p.category, 'Residential', p.title);
+});
+
+test('no AI-generated or concept content remains in the gallery: every project is a real, completed job', () => {
+  for (const p of projects) assert.notEqual(p.aiConcept, true, `${p.title} is a real project, not flagged as an AI concept`);
+  assert.ok(!/adu-concepts/.test(page), 'no ADU Concepts group remains in the template');
+  assert.ok(!/aiDisclosure/.test(page), 'no AI disclosure variable remains in the template');
+  assert.ok(!/tag--ai/.test(page), 'no AI disclosure badge markup remains in the template');
+  assert.ok(!projects.some(p => p.type === 'adu-concepts'), 'no ADU concept entries remain in the data');
 });
 
 test('the curated photo reductions are kept and every photo keeps real alt text', () => {
@@ -61,10 +69,11 @@ test('each card is a photo slot with the project title and the short description
   assert.ok(!/gallery-card__town/.test(page));
 });
 
-test('groups are compact: tight gaps, short cards, Commercial set apart by space and a hairline', () => {
+test('groups are compact: tight gaps, short cards, Commercial set apart by space, no divider line', () => {
   assert.match(galleryCss, /\.gallery-grid \{[^}]*gap: clamp\(12px, 1\.8vw, 22px\)/);
   assert.match(galleryCss, /\.gallery-media \{[^}]*aspect-ratio: 3 \/ 2/);
-  assert.match(galleryCss, /\.gallery-group--commercial::before \{[^}]*height: 1px/);
+  assert.match(galleryCss, /\.gallery-group--commercial \{[^}]*margin-top: clamp\(26px, 4vw, 48px\)/);
+  assert.ok(!/\.gallery-group--commercial::before/.test(galleryCss), 'no hairline divider above Commercial');
   assert.match(css, /\.page-gallery \.about-page-hero \{ padding-block: 30px 20px; \}/);
 });
 
@@ -76,9 +85,10 @@ test('the built gallery lists the types in order and prints no town names', asyn
     const html = fs.readFileSync(`${out}/gallery/index.html`, 'utf8');
     const main = html.slice(html.indexOf('class="gallery-stage'), html.indexOf('svc-cta'));
     const headings = [...main.matchAll(/<h2 id="[a-z-]+-heading">([^<]+)<\/h2>/g)].map(m => m[1]);
-    assert.deepEqual(headings, ['Custom homes', 'Kitchen remodels', 'Bath remodels', 'Pool projects', 'Exteriors', 'Decks and railings', 'Porches and balconies', 'Commercial projects']);
+    assert.deepEqual(headings, ['Custom homes', 'Kitchen remodels', 'Bath remodels', 'Pool projects', 'Decks and railings', 'Commercial projects']);
     for (const town of ['Belmont', 'Carlisle', 'Falmouth', 'Rockland', 'Dudley', 'Hingham', 'New Seabury', 'Monomoscoy']) assert.ok(!main.includes(town), `${town} appears in the gallery`);
-    assert.equal((main.match(/<figure class="gallery-card">/g) || []).length, projects.length, 'every project is shown exactly once');
+    assert.equal((main.match(/<figure class="gallery-card[^"]*">/g) || []).length, projects.length, 'every project is shown exactly once');
+    assert.ok(!main.includes('AI-Generated'), 'no AI-generated content badge is rendered in the built page');
   } finally { fs.rmSync(out, { recursive: true, force: true }); }
 });
 

@@ -30,7 +30,13 @@
     "",
     "Deck and Railings and Porches and Upper Balcony were hand written in gallery.njk and moved here (last two on purpose).",
     "Some photos were dropped from both at the owner's request. `w`, `h` and `widths` are the jpg size and the responsive webp widths",
-    "that exist in assets/img/r; `compact` marks the two projects whose photos are small (under 900px wide), so layouts show them smaller."
+    "that exist in assets/img/r; `compact` marks the two projects whose photos are small (under 900px wide), so layouts show them smaller.",
+    "",
+    "An 'ADU Concepts' category (two AI-generated architectural illustrations, not completed projects) existed",
+    "here from October 2026 to October 2026 and was removed at the owner's request. Do not re-add AI-generated",
+    "or other non-completed-project images to this file without a clear, prominent disclosure that the owner",
+    "has explicitly reviewed and approved - every other entry here is a real, built project and visitors are",
+    "entitled to assume that's true of everything in this gallery."
   ],
   "items": [
     {
@@ -132,7 +138,7 @@
     },
     {
       "title": "Residential Exterior",
-      "type": "exteriors",
+      "type": "decks-and-railings",
       "category": "Residential",
       "location": "Falmouth, MA",
       "shows": "Front and side exteriors, entry walkway, deck, and gazebo.",
@@ -176,67 +182,35 @@
       "compact": false
     },
     {
-      "title": "Modern Custom Residence",
-      "type": "custom-homes",
+      "title": "Modern Kitchen",
+      "type": "kitchen-remodels",
       "category": "Residential",
       "location": "Carlisle, MA",
-      "shows": "Exterior, skylit hallway, kitchens, living area, pool deck, bath, and primary bedroom.",
-      "footerThumb": {
-        "src": "/assets/img/modern-home-4.jpg",
-        "alt": "Modern custom residence in Carlisle, MA",
-        "width": 1024,
-        "height": 682,
-        "widths": [160, 480, 768, 1024]
-      },
+      "shows": "Kitchen with island and a river view.",
       "images": [
-        {
-          "src": "/assets/img/modern-home-4.jpg",
-          "alt": "Modern glass-enclosed exterior home design",
-          "w": 1024,
-          "h": 682,
-          "widths": [160, 480, 768, 1024]
-        },
-        {
-          "src": "/assets/img/carlisle-residence-1.jpg",
-          "alt": "Kitchen with island, wood beams and large windows",
-          "w": 868,
-          "h": 596,
-          "widths": [160, 480, 768, 868]
-        },
-        {
-          "src": "/assets/img/carlisle-residence-2.jpg",
-          "alt": "Open living area with stone wall, built-in shelving and wood beams",
-          "w": 868,
-          "h": 579,
-          "widths": [160, 480, 768, 868]
-        },
-        {
-          "src": "/assets/img/carlisle-residence-3.jpg",
-          "alt": "Deck overlooking a pool and open landscape",
-          "w": 868,
-          "h": 579,
-          "widths": [160, 480, 768, 868]
-        },
-        {
-          "src": "/assets/img/carlisle-residence-4.jpg",
-          "alt": "Soaking tub, wood panel wall and glass shower",
-          "w": 868,
-          "h": 654,
-          "widths": [160, 480, 768, 868]
-        },
-        {
-          "src": "/assets/img/modern-interior-1.jpg",
-          "alt": "Modern hallway with skylights and open floor plan",
-          "w": 680,
-          "h": 1024,
-          "widths": [160, 480, 680]
-        },
         {
           "src": "/assets/img/modern-interior-2.jpg",
           "alt": "Modern kitchen with large island overlooking a river view",
           "w": 1024,
           "h": 605,
           "widths": [160, 480, 768, 1024]
+        }
+      ],
+      "compact": true
+    },
+    {
+      "title": "Modern Bath Remodel",
+      "type": "bath-remodels",
+      "category": "Residential",
+      "location": "Carlisle, MA",
+      "shows": "Soaking tub, glass shower, and double vanity.",
+      "images": [
+        {
+          "src": "/assets/img/carlisle-residence-4.jpg",
+          "alt": "Soaking tub, wood panel wall and glass shower",
+          "w": 868,
+          "h": 654,
+          "widths": [160, 480, 768, 868]
         },
         {
           "src": "/assets/img/modern-home-1.jpg",
@@ -265,16 +239,33 @@
           "w": 1762,
           "h": 714,
           "widths": [160, 480, 768, 1024, 1440, 1762]
-        },
-        {
-          "src": "/assets/img/modern-home-6.jpg",
-          "alt": "Primary bedroom with wood accent wall and reading lights",
-          "w": 868,
-          "h": 654,
-          "widths": [160, 480, 768, 868]
         }
       ],
       "compact": false
+    },
+    {
+      "title": "Modern Pool",
+      "type": "pool-projects",
+      "category": "Residential",
+      "location": "Carlisle, MA",
+      "shows": "",
+      "images": [
+        {
+          "src": "/assets/img/carlisle-residence-3.jpg",
+          "alt": "Deck overlooking a pool and open landscape",
+          "w": 868,
+          "h": 579,
+          "widths": [160, 480, 768, 868]
+        },
+        {
+          "src": "/assets/img/pool-deck-1.jpg",
+          "alt": "Covered deck seating area beside the pool",
+          "w": 1803,
+          "h": 716,
+          "widths": [160, 480, 768, 1024, 1440, 1803]
+        }
+      ],
+      "compact": true
     },
     {
       "title": "Lovell Dormitory",
@@ -385,7 +376,7 @@
     },
     {
       "title": "Porches and Upper Balcony",
-      "type": "porches-and-balconies",
+      "type": "decks-and-railings",
       "category": "Residential",
       "location": "Monomoscoy Island, MA",
       "shows": "",
@@ -457,7 +448,7 @@
       "type": "bath-remodels",
       "category": "Residential",
       "location": "",
-      "shows": "Double vanity, walk in shower, and soaking tub.",
+      "shows": "Double vanity and glass shower, pedestal sink and toilet.",
       "images": [
         {
           "src": "/assets/img/coastal-bath-1.jpg",
@@ -472,7 +463,17 @@
           "w": 822,
           "h": 1200,
           "widths": [160, 480, 768, 822]
-        },
+        }
+      ],
+      "compact": false
+    },
+    {
+      "title": "Coastal Primary Bath",
+      "type": "bath-remodels",
+      "category": "Residential",
+      "location": "",
+      "shows": "Soaking tub beneath bay windows, with a glass shower.",
+      "images": [
         {
           "src": "/assets/img/coastal-bath-3.jpg",
           "alt": "Soaking tub beneath bay windows with a ladder towel rack",
@@ -519,7 +520,7 @@
       "type": "kitchen-remodels",
       "category": "Residential",
       "location": "",
-      "shows": "",
+      "shows": "Kitchen island and a built-in window seat, both framed by fieldstone.",
       "images": [
         {
           "src": "/assets/img/fieldstone-kitchen-1.jpg",
@@ -527,17 +528,14 @@
           "w": 533,
           "h": 798,
           "widths": [160, 480, 533]
-        }
-      ],
-      "compact": true
-    },
-    {
-      "title": "Custom Interior Built In",
-      "type": "custom-homes",
-      "category": "Residential",
-      "location": "",
-      "shows": "",
-      "images": [
+        },
+        {
+          "src": "/assets/img/carlisle-residence-1.jpg",
+          "alt": "Kitchen with island, wood beams and large windows",
+          "w": 868,
+          "h": 596,
+          "widths": [160, 480, 768, 868]
+        },
         {
           "src": "/assets/img/custom-interior-built-in-1.jpg",
           "alt": "Built in window seat and bookshelves beside a fieldstone wall",
@@ -546,7 +544,7 @@
           "widths": [160, 480, 768, 868]
         }
       ],
-      "compact": true
+      "compact": false
     },
     {
       "title": "Pool Cabana",
@@ -592,23 +590,6 @@
           "w": 1440,
           "h": 954,
           "widths": [160, 480, 768, 1024, 1440]
-        }
-      ],
-      "compact": true
-    },
-    {
-      "title": "Pool Deck",
-      "type": "pool-projects",
-      "category": "Residential",
-      "location": "",
-      "shows": "",
-      "images": [
-        {
-          "src": "/assets/img/pool-deck-1.jpg",
-          "alt": "Covered deck seating area beside the pool",
-          "w": 1803,
-          "h": 716,
-          "widths": [160, 480, 768, 1024, 1440, 1803]
         }
       ],
       "compact": true

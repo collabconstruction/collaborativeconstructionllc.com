@@ -1,8 +1,30 @@
 # Deploying the public website (runbook)
 
-Last updated October 21, 2026, after the release of PR #12. This is the definitive procedure. Read it before any deployment.
+Last updated October 23, 2026: added an optional owner-approved, cloud-hosted GitHub Actions deployment path. Historical release details below are retained. This is the definitive procedure. Read it before any deployment.
 
-## The short version (next release)
+## Owner-approved cloud deployment (no Mac terminal)
+
+When the owner has explicitly approved a **specific website release** in the current chat or task, an agent with repository workflow-dispatch permission can deploy the exact merged commit through `.github/workflows/approved-production-deploy.yml`. This workflow is **manual-dispatch only**: merging or pushing does not deploy on its own.
+
+**One-time owner setup (no API keys in chat, source files or commands):**
+
+1. In GitHub, open this repository's **Settings → Environments**, create/select the `Pushing Live` environment (the existing owner-configured environment), and restrict deployments to `main`. Add environment secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. The token must be created inside the company Cloudflare account with the smallest Worker deployment permissions/resources that work for this Worker; Cloudflare currently documents the scoped **Edit Cloudflare Workers** token for CI.
+2. If desired, enable GitHub Environment required reviewers. That adds an explicit GitHub UI approval, not a terminal confirmation; it is optional depending on the owner's acceptable risk and repository plan.
+3. Never share the token with an AI, in a message, in `.env`, or in Git history. If these secrets are absent, the workflow **fails before it prepares/deploys**. This setup must be done by the owner using GitHub/Cloudflare account interfaces once.
+
+**Per-release workflow, after explicit owner approval:**
+
+- Agent completes tests and review, merges the specifically approved PR, and obtains the current **40-character** `origin/main` SHA.
+- Agent checks that `main` contains only approved changes for this release, no production data/migrations or unrelated infrastructure changes, and the working tree is clean. A merge of a scheduler/research change to `main` in the interim must not be silently included.
+- Agent runs `gh workflow run approved-production-deploy.yml --ref main -f commit_sha=<full-40-character-sha>` or uses GitHub's **Actions → Approved Production Deploy → Run workflow** UI. Never launch without fresh owner authorization.
+- GitHub verifies that the input SHA equals current `main`, then runs `npm ci`, `release:prepare` and `release:deploy -- --confirm <short-sha> --github-approved`, followed by built-in Cloudflare version and public site verification. All existing rollback, source provenance, complete overlay, binding and tests remain in force.
+- Agent reads the actual completed workflow result and Cloudflare version, checks changed public content, and reports **deployed and verified / failed / unknown**, including rollback target. If the workflow did not execute successfully, do not claim deployment.
+
+The `--github-approved` mode is **not a free bypass**. It only skips the physical terminal text prompt within this exact, manually dispatched GitHub Actions workflow for the exact approved `main` SHA. It refuses ordinary local shells, branch builds, GitHub push/PR events, other workflow files, and GitHub reruns. The normal local path remains interactive.
+
+**If GitHub secrets are not configured, this cloud deployment path is not operational yet.** A Claude Cloud agent may have GitHub access but will still not directly have Wrangler credentials.
+
+## The local Mac method (also remains supported)
 
 On your Mac, in `~/Desktop/Personal/CollaborativeConstruction/collaborativeconstructionllc.com`:
 
@@ -20,7 +42,7 @@ If a step stops, read the message. Every stop says why. Do not work around it.
 ## Rules that never change
 1. **Merged is not deployed.** Merging a pull request changes GitHub only. The live site changes only when `release:deploy` (or the manual steps below) succeeds.
 2. **Never deploy `_site` directly while the overlay is required.** Do not run `npm run deploy`, and do not run `wrangler deploy` with the default assets folder. Use `_deploy`, built by the overlay. See "Why the overlay is still required".
-3. **Production changes need the owner's approval each time.** An agent prepares and verifies. The owner confirms.
+3. **Production changes need the owner's explicit approval each time.** The owner may approve the exact release in an active chat/task. An authorized agent may then run the manually dispatched, SHA-bound GitHub workflow; no separate Mac terminal phrase is required for that route.
 4. **Never claim a deployment worked without checking.** Success means the new version id was printed, the live checks passed and the site was seen working.
 5. **Do not touch** production DNS, secrets, customer records, the D1 database `cc-leads` or the R2 bucket as part of a release.
 
@@ -70,7 +92,7 @@ It refuses unless all of these hold at that moment:
 - the prepared commit is the current commit, the `_deploy` fingerprint is unchanged and the prepare is under two hours old;
 - **production has not changed since prepare**: the current production version must equal the rollback version recorded at prepare. If someone deployed in between, it stops and tells you to run prepare again.
 
-Then it prints the plan, requires `--confirm <7 characters of the commit>` and an interactive typed `deploy production`. It moves the prepare report aside (it authorizes one attempt only), runs `wrangler deploy --assets _deploy`, then asks Cloudflare which version is active. Cloudflare's deployment list can lag a fresh deployment, so it reads the list up to six times, ten seconds apart, and stops as soon as the new version shows. One stale read never decides anything, and a successful upload is never reported as "not deployed". It then runs the live checks and the SEO audit, writes `.release/deploy-<time>.json`, and prints four separate results and the rollback command:
+Then it prints the plan, requires `--confirm <7 characters of the commit>`, and either an interactive typed `deploy production` **locally** or the strictly validated `--github-approved` dispatch context described above. It moves the prepare report aside (it authorizes one attempt only), runs `wrangler deploy --assets _deploy`, then asks Cloudflare which version is active. Cloudflare's deployment list can lag a fresh deployment, so it reads the list up to six times, ten seconds apart, and stops as soon as the new version shows. One stale read never decides anything, and a successful upload is never reported as "not deployed". It then runs the live checks and the SEO audit, writes `.release/deploy-<time>.json`, and prints four separate results and the rollback command:
 
 ```
 Wrangler upload:        succeeded
@@ -79,7 +101,7 @@ Live HTTP checks:       passed
 SEO audit:              passed
 ```
 
-The words "deployed and verified" appear only when all four are good. Each line says whether that check actually ran (`not run` is shown, never assumed to pass). The active version is confirmed only when the version id that **Wrangler printed for this upload** is the one Cloudflare lists. If Wrangler prints no id, a version that appears in Cloudflare's list is never attributed to this release, because another deployment could have run at the same time: the result is "not confirmed" (code 5). The same applies when Wrangler fails but a new version appears: it is reported as unknown (code 4), not as ours. It never runs the rollback itself and cannot run without a terminal.
+The words "deployed and verified" appear only when all four are good. Each line says whether that check actually ran (`not run` is shown, never assumed to pass). The active version is confirmed only when the version id that **Wrangler printed for this upload** is the one Cloudflare lists. If Wrangler prints no id, a version that appears in Cloudflare's list is never attributed to this release, because another deployment could have run at the same time: the result is "not confirmed" (code 5). The same applies when Wrangler fails but a new version appears: it is reported as unknown (code 4), not as ours. It never runs the rollback itself. A local deploy still requires a terminal; an owner-approved GitHub Actions manual dispatch can use its narrowly validated non-interactive route.
 
 Exit codes and what they mean:
 | Code | Meaning |
@@ -105,7 +127,7 @@ The tool deploys only a commit that GitHub reports as the **merge commit of a me
 
 Standard practice: merge release pull requests with "Create a merge commit", pull `main`, and deploy immediately, before anything else lands on `main`. If another commit lands first, open and merge a pull request for the deploy target again (an empty release pull request is acceptable) rather than deploying an unreviewed commit.
 
-**There is no bypass flag, and none will be added to make a hypothetical workflow convenient.** If a real situation ever needs an exception (for example an emergency hotfix while GitHub is unavailable), it is a separate decision for the owner: follow the "Manual steps without the tooling" fallback below yourself with written owner approval recorded in the release notes, or change `checkProvenance` in `scripts/lib/release-lib.mjs` in a pull request the owner reviews, with tests that show what is newly allowed and why. Agents must not do either on their own.
+**There is no bypass for provenance, tests, production-version pinning, the deploy hash, or live verification.** The narrowly scoped `--github-approved` route replaces only terminal typing with validated GitHub workflow dispatch context and a freshly approved SHA. If a real situation ever needs an exception (for example an emergency hotfix while GitHub is unavailable), it is a separate decision for the owner: follow the "Manual steps without the tooling" fallback below yourself with written owner approval recorded in the release notes, or change `checkProvenance` in `scripts/lib/release-lib.mjs` in a pull request the owner reviews, with tests that show what is newly allowed and why. Agents must not do either on their own.
 
 ## Contact form safety
 - The release must not change `worker/`, `wrangler.jsonc`, `migrations/`, `schema.sql`, `js/turnstile-lifecycle.js`, `js/intake-context.js`, `js/analytics.js` or `js/api.js` unless the release is about them. Check: `git diff <last release commit> HEAD --stat -- worker wrangler.jsonc migrations schema.sql js`.
@@ -163,13 +185,13 @@ Use a second Worker with its own name and no production bindings (no `cc-leads`,
 ## Where things run
 | | Local Claude Code on the Mac | Claude Cloud session | GitHub Actions |
 |---|---|---|---|
-| Edit, test, commit, push, open pull requests | Yes | Yes | Tests only (`release-check`) |
-| Wrangler and Cloudflare login | Yes, the owner's own login | **No. The cloud session is not logged in to Wrangler or Cloudflare.** | No Cloudflare secret in this repository |
-| Run `release:prepare` | Yes | Only with `--no-cloudflare` (checks, never deployable) | Not set up |
-| Run `release:deploy` | Yes, with the owner present | No | No |
+| Edit, test, commit, push, open pull requests | Yes | Yes | PR checks in `release-check` |
+| Wrangler and Cloudflare authentication | Owner's Wrangler login | No direct credentials | Scoped GitHub `Pushing Live` environment secrets, after owner setup |
+| Run `release:prepare` | Yes | Only with `--no-cloudflare` for local checks | Yes, during the manual-dispatch deploy workflow |
+| Run `release:deploy` | Yes, owner terminal confirmation | Indirectly dispatches approved workflow, after explicit approval | Yes, only via `--github-approved` exact-SHA workflow context |
 | Reads GitHub pull requests | `gh` | GitHub tools | Yes |
 
-An AI agent must not assume cloud access means deployment access. The cloud session's checks are useful evidence, but only the Mac run counts for a release.
+An AI agent must not assume cloud access means Cloudflare access. The cloud session itself remains credential-free; the restricted workflow performs the release on GitHub's runner. Until the `Pushing Live` environment secrets are set and an end-to-end run is verified, treat this as implemented but **not proven operational**.
 
 ## Current manual Cloudflare configuration (from `wrangler.jsonc`)
 - Worker `collaborativeconstructionllc-com`, entry `worker/index.js`, compatibility date 2025-06-01.

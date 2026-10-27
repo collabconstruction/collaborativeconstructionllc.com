@@ -60,6 +60,6 @@ test('the About heading speaks of experience, and the line below attributes it t
 test('no invented claims: no review, testimonial, rating or concept project wording was added to the pages', () => {
   for (const f of ['index.njk', 'about.njk', 'gallery.njk', ...servicePages.map((d) => `${d}/index.njk`)]) {
     const s = read(`src/${f}`);
-    assert.ok(!/testimonial|five-star|5-star|rated |concept (?:design|visuali)/i.test(s), `${f} contains review or concept wording`);
+    assert.ok(!/testimonial|five-star|5-star|\brated\b|concept (?:design|visuali)/i.test(s), `${f} contains review or concept wording`);
   }
 });

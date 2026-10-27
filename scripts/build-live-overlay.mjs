@@ -36,12 +36,15 @@ const OVERLAY = [
   "css/styles.css",
   "js/main.js",
   "js/gallery.js",
+  "js/lightbox.js",
   "assets/img/swirls",
   "assets/img/backgrounds",
+  "assets/img/textures",
   "assets/logo.png",
   "assets/logo-header.png",
   "assets/c-icon.png",
   "assets/favicon.png",
+  "assets/apple-touch-icon.png",
 ];
 
 const ASSET_EXT = "css|js|png|jpe?g|webp|avif|gif|svg|woff2?|ico|json|txt|xml|webmanifest|mp4|pdf";
@@ -199,6 +202,11 @@ async function main() {
   const overlaid = [];
   for (const rel of OVERLAY) {
     const src = join(ROOT, rel);
+    // This curated directory is replaced as a unit so a retired texture that
+    // was harvested from the live stylesheet cannot survive the next deploy.
+    if (rel === "assets/img/textures") {
+      await rm(join(OUT, rel), { recursive: true, force: true });
+    }
     await cp(src, join(OUT, rel), { recursive: true });
     overlaid.push(rel);
   }

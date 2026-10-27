@@ -20,7 +20,7 @@ breadcrumbName: "Projects"
 
 {#
   Projects page (file and URL keep the name gallery): one page, projects grouped by type (src/_data/projects.json, field `type`). Residential types come first, the ones the
-  company wants to promote; Commercial is last. A type with no projects is skipped, so adding a new type only needs projects in the data.
+  company wants to promote; Commercial is last, set apart by its own divider. A type with no projects is skipped, so adding a new type only needs projects in the data.
   No tabs, no towns, no captions inside the photos. A project with more than one photo gets two plain arrows (added by js/gallery.js);
   without JavaScript the first photo of each project shows and the arrows stay hidden. Photos only change when the visitor clicks.
 #}
@@ -40,9 +40,7 @@ breadcrumbName: "Projects"
   { type: "kitchen-remodels", title: "Kitchen remodels" },
   { type: "bath-remodels", title: "Bath remodels" },
   { type: "pool-projects", title: "Pool projects" },
-  { type: "exteriors", title: "Exteriors" },
   { type: "decks-and-railings", title: "Decks and railings" },
-  { type: "porches-and-balconies", title: "Porches and balconies" },
   { type: "commercial", title: "Commercial projects" }
 ] -%}
 

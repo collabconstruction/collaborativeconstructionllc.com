@@ -16,6 +16,7 @@
  * Every check fails closed. See docs/DEPLOY-LIVE.md.
  */
 import { spawnSync } from "node:child_process";
+import { validateGithubDeployApproval } from "./lib/production-approval.mjs";
 import { readFile, writeFile, readdir } from "node:fs/promises";
 import { createInterface } from "node:readline/promises";
 import { dirname, join } from "node:path";
@@ -208,11 +209,20 @@ async function deploy() {
   say(`  account       ${EXPECTED.accountId}, Worker ${EXPECTED.worker}`);
   say(`  rollback to   version ${before}`);
   if (flagValue("confirm") !== st.head.slice(0, 7)) stop(`add --confirm ${st.head.slice(0, 7)} to proceed`);
-  if (!process.stdin.isTTY) stop("an interactive terminal is required: type the confirmation yourself");
-  const rl = createInterface({ input: process.stdin, output: process.stdout });
-  const typed = (await rl.question('\nType "deploy production" to continue: ')).trim();
-  rl.close();
-  if (typed !== "deploy production") stop("confirmation did not match; nothing was deployed");
+  // The default local path still requires the owner to type "deploy production".
+  // A separate, SHA-pinned GitHub Actions workflow may deploy non-interactively
+  // only after a fresh owner approval and a manually dispatched, one-shot run.
+  if (flag("github-approved")) {
+    const approval = validateGithubDeployApproval({ env: process.env, commit: st.head, expectedRepo: EXPECTED.repo });
+    if (!approval.ok) stop("GitHub production approval rejected: " + approval.why);
+    ok(approval.why);
+  } else {
+    if (!process.stdin.isTTY) stop("an interactive terminal is required: type the confirmation yourself");
+    const rl = createInterface({ input: process.stdin, output: process.stdout });
+    const typed = (await rl.question('\nType "deploy production" to continue: ')).trim();
+    rl.close();
+    if (typed !== "deploy production") stop("confirmation did not match; nothing was deployed");
+  }
 
   // A prepare report is single use: from here on it cannot authorize another deploy.
   await consumePrepareReport(REL);
