@@ -108,6 +108,36 @@
     }
   }
 
+  /* ---------------------------------------------------------------------
+     Where the visit came from, as an origin only (no path, no query), taken
+     from the value intake-context.js already reduced to an origin. Our own
+     site is left out so moving between pages is not counted as a referral.
+     ------------------------------------------------------------------- */
+  function referrerOrigin() {
+    var ctx = window.ccIntakeContext;
+    var r = ctx && typeof ctx.get === "function" ? ctx.get().referrer : "";
+    return r && r !== location.origin ? r : "";
+  }
+
+  /* ---------------------------------------------------------------------
+     The page path, plus only the three campaign tags (utm_source,
+     utm_medium, utm_campaign) that this very page address carries, and only
+     when each one passes the same strict pattern intake-context.js uses.
+     Tags remembered from an earlier page are not added to later pages, so a
+     page never looks like it was tagged when it was not. GA4 keeps the
+     first tags for the whole visit.
+     ------------------------------------------------------------------- */
+  function pageLocation() {
+    var ctx = window.ccIntakeContext;
+    var url = location.origin + (ctx ? ctx.currentPage() : "/");
+    var qs = new URLSearchParams(location.search), parts = [];
+    ["utm_source", "utm_medium", "utm_campaign"].forEach(function (k) {
+      var v = qs.get(k);
+      if (v && /^[a-zA-Z][a-zA-Z0-9_-]{0,79}$/.test(v)) parts.push(k + "=" + encodeURIComponent(v));
+    });
+    return parts.length ? url + "?" + parts.join("&") : url;
+  }
+
   function grant() {
     granted = true;
     if (loaded) return;
@@ -119,8 +149,8 @@
     window.gtag("config", CFG.measurementId, {
       send_page_view: false, allow_google_signals: false,
       allow_ad_personalization_signals: false,
-      page_location: location.origin + (window.ccIntakeContext ? window.ccIntakeContext.currentPage() : "/"),
-      page_referrer: ""
+      page_location: pageLocation(),
+      page_referrer: referrerOrigin()
     });
     window.gtag("event", "page_view");
     var script = document.createElement("script");
