@@ -45,6 +45,9 @@ const OVERLAY = [
   "assets/c-icon.png",
   "assets/favicon.png",
   "assets/apple-touch-icon.png",
+  "assets/img/r/mashpee-siding-1-160.webp",
+  "assets/img/r/mashpee-siding-1-480.webp",
+  "assets/img/r/mashpee-siding-1-640.webp",
 ];
 
 const ASSET_EXT = "css|js|png|jpe?g|webp|avif|gif|svg|woff2?|ico|json|txt|xml|webmanifest|mp4|pdf";
