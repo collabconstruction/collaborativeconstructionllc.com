@@ -715,22 +715,32 @@ html.enter-left .page-main {
 
 /* Wordmark is live text, not pixels: selectable, searchable, sharp at every
    breakpoint. It replaced a 1762x552 PNG with the name baked in. */
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .brand-wm {
   font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 500;
+  font-size: 1.85rem;
+  font-weight: 600;
   line-height: 1.08;
   letter-spacing: 0.005em;
   color: var(--paper);
   white-space: nowrap;
-  /* Newsreader reserves descender space this text never uses (no
-     descenders in "Collaborative Construction"), so the glyphs sit in the
-     top two-thirds of their own line box. `.brand` centers that whole box
-     against the icon, which visually puts the icon's center at the
-     *bottom* of the letters instead of their middle. Measured via
-     canvas actualBoundingBoxAscent/Descent: the ink's true center sits
-     ~0.137em above the line-box center, so nudge down by that amount. */
-  transform: translateY(0.137em);
+}
+
+/* "Experience · Quality · Trust", the tagline that used to be baked into
+   the header PNG below the name. Same text and reasoning as .footer-motto. */
+.brand-tag {
+  font-family: var(--font-ui);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass);
+  white-space: nowrap;
 }
 
 .header-right {
@@ -3000,7 +3010,13 @@ figure {
   font-weight: 500;
   line-height: 1.1;
   color: var(--paper);
-  /* Same ink-vs-line-box offset as .brand-wm; see the comment there. */
+  /* Newsreader reserves descender space this text never uses (no
+     descenders in "Collaborative Construction"), so the glyphs sit in the
+     top two-thirds of their own line box. `.footer-logo` centers that box
+     against the badge icon, which visually puts the icon's center at the
+     *bottom* of the letters instead of their middle. Measured via canvas
+     actualBoundingBoxAscent/Descent: the ink's true center sits ~0.137em
+     above the line-box center, so nudge down by that amount. */
   transform: translateY(0.137em);
 }
 
@@ -3503,7 +3519,11 @@ figure {
   }
 
   .brand-wm {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
+  }
+
+  .brand-tag {
+    font-size: 0.56rem;
   }
 }
 
@@ -3556,7 +3576,8 @@ figure {
 @media (max-width: 380px) {
   /* Mark alone. The company name is already in <title>, the H1, and the
      footer lockup, so nothing is lost. */
-  .brand-wm {
+  .brand-wm,
+  .brand-tag {
     display: none;
   }
 
@@ -3659,7 +3680,8 @@ figure {
 .footer-motto { display: grid; gap: 5px; }
 .footer-motto span { display: block; }
 @media (max-width: 600px) {
-  .brand-wm { display: block; color: var(--white); font-size: 1.3rem; }
+  .brand-wm { color: var(--white); font-size: 1.45rem; }
+  .brand-tag { font-size: 0.52rem; letter-spacing: 0.1em; }
   .brand { gap: 8px; }
   .header-right { gap: 10px; }
   .brand .logo { width: 34px; height: 34px; }
@@ -3935,7 +3957,7 @@ figure {
  .house-copy h2 { max-width: 18ch; }
  .house-section { padding-block: 38px; }
  .founder-brief .container { grid-template-columns: 1fr; gap: 14px; text-align: center; }
- .brand-wm { display: block; color: var(--white); }
+ .brand-wm { color: var(--white); }
  .house-annotation { padding-inline: 14px; font-size: .55rem; }
  .house-controls { padding-inline: 14px; }
 }
