@@ -31,11 +31,14 @@ test('buttons and closing headings use sentence case, including the Gallery clos
   assert.match(read('src/gallery.njk'), /Contact us today<\/a>/);
 });
 
-test('credentials are bold on the About page, the owner is not named, and the brand tagline is kept', () => {
+test('credentials are bold on the About page, the owner is not named, and the brand tagline appears once in the header rather than duplicated in the homepage hero', () => {
   const about = read('src/about.njk');
   for (const strong of ['<strong>30 years</strong>', '<strong>Construction Supervisor License (CSL)</strong>', "<strong>Bachelor's degree, Boston University.</strong>", '<strong>Massachusetts licensed construction supervisor</strong>']) assert.ok(about.includes(strong), strong);
   for (const f of ['index.njk', 'about.njk', 'gallery.njk', ...servicePages.map((d) => `${d}/index.njk`)]) assert.ok(!/Wesleigh|Behn/.test(read(`src/${f}`)), `${f} names the owner`);
-  assert.match(read('src/index.njk'), /Experience, Quality, Trust/);
+  const business = JSON.parse(read('src/_data/business.json'));
+  assert.equal(business.tagline, 'Experience, Quality, Trust');
+  assert.match(read('src/_includes/base.njk'), /class="brand-tag">\{\{ business\.tagline \}\}/);
+  assert.ok(!/Experience, Quality, Trust/.test(read('src/index.njk')), 'index.njk duplicates the brand tagline in the hero');
 });
 
 test('credential wording matches the stated CSL and does not imply an unconfirmed HIC or builder registration', () => {

@@ -795,9 +795,18 @@
     const start = () => { if (!timer) timer = setInterval(advance, HOLD); };
     const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
 
+    // Tracks viewport presence independently of tab visibility, so a
+    // returning tab knows whether it should restart the timer. Switching
+    // tabs and back doesn't change the hero's intersection ratio, so the
+    // observer alone never fires again on return — without this flag the
+    // crossfade would stay stopped forever after the first tab switch.
+    let inView = true;
     if ("IntersectionObserver" in window) {
       new IntersectionObserver((entries) => {
-        entries.forEach(e => (e.isIntersecting ? start() : stop()));
+        entries.forEach(e => {
+          inView = e.isIntersecting;
+          e.isIntersecting ? start() : stop();
+        });
       }, { threshold: 0.25 }).observe(figure);
     } else {
       start();
@@ -805,7 +814,7 @@
 
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) stop();
-      else if (!("IntersectionObserver" in window)) start();
+      else if (inView) start();
     });
   });
 
