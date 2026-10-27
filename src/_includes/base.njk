@@ -124,10 +124,15 @@
           the name is set in real type here, the same mark-beside-wordmark
           lockup the footer already uses (.footer-logo). The name is written
           out rather than pulled from business.shortName because the line
-          break is a layout decision, not data; the footer does the same. #}
+          break is a layout decision, not data; the footer does the same.
+          The tagline stacks underneath, restoring what the PNG used to carry
+          (the footer's .footer-motto is the same text, same reasoning). #}
       <a class="brand" href="/" aria-label="{{ business.shortName }} home">
         <img class="logo" src="{{ business.images.logoHeader }}" alt="" width="512" height="512">
-        <span class="brand-wm">Collaborative Construction</span>
+        <span class="brand-text">
+          <span class="brand-wm">Collaborative Construction</span>
+          <span class="brand-tag">{{ business.tagline }}</span>
+        </span>
       </a>
       <div class="header-right">
         {#- `Services` carries a `dropdown` array in src/_data/nav.json but no
