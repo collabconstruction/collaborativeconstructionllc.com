@@ -183,11 +183,10 @@ preloadSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
 
     <section class="house-section" id="house-explorer" aria-labelledby="house-heading">
   <div class="container house-layout">
-    <div class="house-art">
-      <div class="house-viewport house-viewport--elevation">
-        <img class="house-poster" src="/assets/models/multi-gable-elevation.svg" alt="Illustrative residential elevation with twin front gables, central dormer, covered porch and garage" width="1200" height="720" loading="lazy">
-      </div>
-    </div>
+    <figure class="house-art house-art--elevation" data-reveal>
+      {% include "house-elevation.svg" %}
+      <figcaption class="house-elevation-caption"><span>Residential elevation study</span><span>Original concept illustration</span></figcaption>
+    </figure>
     <div class="house-copy">
       <p class="eyebrow">Residential construction</p>
       <h2 id="house-heading">Find the right starting point.</h2>
