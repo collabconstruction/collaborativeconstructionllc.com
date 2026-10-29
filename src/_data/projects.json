@@ -23,10 +23,10 @@
     "published and is preserved verbatim. It has not been independently",
     "verified here.",
     "",
-    "`footerThumb` marks the two projects shown in the 'Recent Work' strip in",
-    "every page footer (see src/_includes/base.njk). Those two images and",
-    "alt texts were hardcoded there before and are kept verbatim. The alts",
-    "name the town because a footer thumbnail has no caption beside it.",
+    "`footerThumb` marks projects shown in the 'Recent Work' strip in",
+    "every page footer (see src/_includes/base.njk). On October 28, 2026,",
+    "the owner selected Fieldstone Kitchen in Concord as the featured work. The alts",
+    "describe the image; the project title and town render beside the thumbnail.",
     "",
     "Deck and Railings and Porches and Upper Balcony were hand written in gallery.njk and moved here (last two on purpose).",
     "Some photos were dropped from both at the owner's request. `w`, `h` and `widths` are the jpg size and the responsive webp widths",
@@ -45,13 +45,6 @@
       "category": "Residential",
       "location": "Belmont, MA",
       "shows": "Exterior and site, living room, hallway, bath, stair, and kitchen.",
-      "footerThumb": {
-        "src": "/assets/img/belmont-hero.jpg",
-        "alt": "Custom cedar-clad modern home in Belmont, MA",
-        "width": 1280,
-        "height": 837,
-        "widths": [160, 480, 768, 1024, 1280]
-      },
       "images": [
         {
           "src": "/assets/img/belmont-hero.jpg",
@@ -244,10 +237,10 @@
       "compact": false
     },
     {
-      "title": "Modern Pool",
+      "title": "Custom Deck and Pool",
       "type": "pool-projects",
       "category": "Residential",
-      "location": "Carlisle, MA",
+      "location": "Concord, MA",
       "shows": "",
       "images": [
         {
@@ -519,7 +512,14 @@
       "title": "Fieldstone Kitchen",
       "type": "kitchen-remodels",
       "category": "Residential",
-      "location": "",
+      "location": "Concord, MA",
+      "footerThumb": {
+        "src": "/assets/img/carlisle-residence-1.jpg",
+        "alt": "Fieldstone kitchen with island, wood beams and large windows",
+        "width": 868,
+        "height": 596,
+        "widths": [160, 480]
+      },
       "shows": "Kitchen island and a built-in window seat, both framed by fieldstone.",
       "images": [
         {
