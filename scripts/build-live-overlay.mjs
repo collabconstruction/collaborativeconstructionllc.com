@@ -37,6 +37,7 @@ const OVERLAY = [
   "js/main.js",
   "js/gallery.js",
   "js/lightbox.js",
+  "js/analytics.js",
   "assets/img/swirls",
   "assets/img/backgrounds",
   "assets/img/textures",
