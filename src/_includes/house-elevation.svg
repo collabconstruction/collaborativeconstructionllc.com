@@ -1,0 +1,172 @@
+{# Original artwork drawn for Collaborative Construction. No external image or traced plan.
+   Decorative concept elevation, deliberately separate from completed-project photography. #}
+<svg class="house-elevation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="elevation-title elevation-desc">
+<title id="elevation-title">An original multi-gable home elevation</title>
+<desc id="elevation-desc">A custom residential concept with two prominent front gables, a central dormer, shingle detailing, a covered front porch and an attached garage. An illustration, not a completed project or construction plan.</desc>
+<defs>
+  <pattern id="elevation-siding" width="12" height="10" patternUnits="userSpaceOnUse"><path d="M0 10H12" class="elevation-detail"/></pattern>
+  <pattern id="elevation-shingles" width="24" height="16" patternUnits="userSpaceOnUse"><path d="M0 8H24M0 16H24M12 0V8M0 8V16M24 8V16" class="elevation-detail"/></pattern>
+  <pattern id="elevation-roof" width="24" height="12" patternUnits="userSpaceOnUse"><path d="M0 12H24M12 0V12" class="elevation-detail"/></pattern>
+  <pattern id="elevation-stone" width="40" height="18" patternUnits="userSpaceOnUse"><path d="M0 18H40M20 0V18" class="elevation-detail"/></pattern>
+</defs>
+<g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-linecap="round">
+  <g class="elevation-guides"><path d="M64 592H1155M105 611V647M1120 611V647M105 632H1120M99 638L111 626M1114 638L1126 626M72 110V590M66 116H85M66 590H85"/></g>
+  <!-- Rear mass and roof, behind the projecting front gables. -->
+  <path class="elevation-surface" d="M165 298H920V580H165Z"/>
+  <path fill="url(#elevation-siding)" d="M165 298H920V580H165Z"/>
+  <path class="elevation-surface" d="M133 308L219 160H826L938 308Z"/>
+  <path fill="url(#elevation-roof)" d="M133 308L219 160H826L938 308Z"/>
+  <path class="elevation-outline" d="M133 308L219 160H826L938 308M143 313H930"/>
+  <!-- Chimney and flashing. -->
+  <path class="elevation-surface" d="M851 232V145H883V275"/>
+  <path class="elevation-outline" d="M847 145H888V136H847Z"/>
+  <path class="elevation-detail" d="M851 163H883M851 180H883M851 197H883M851 214H883M867 146V163M860 163V180M874 180V197"/>
+  <!-- Attached garage. -->
+  <path class="elevation-surface" d="M893 410H1120V580H893Z"/>
+  <path fill="url(#elevation-siding)" d="M893 410H1120V580H893Z"/>
+  <path class="elevation-surface" d="M878 410L1008 271L1138 410Z"/>
+  <path fill="url(#elevation-shingles)" d="M878 410L1008 271L1138 410Z"/>
+  <path class="elevation-outline" d="M865 413L1008 258L1151 413M878 416L1008 276L1138 416"/>
+  <!-- Left and right projecting volumes with shingled gables. -->
+  <path class="elevation-surface" d="M155 420V262L285 112L415 262V420Z"/>
+  <path fill="url(#elevation-shingles)" d="M155 262L285 112L415 262V284H155Z"/>
+  <path fill="url(#elevation-siding)" d="M155 284H415V420H155Z"/>
+  <path class="elevation-outline" d="M138 268L285 94L432 268M148 273L285 110L422 273"/>
+  <path class="elevation-trim" d="M162 290H408M162 295H408"/>
+  <path class="elevation-accent" d="M269 182H301M265 188H305M261 194H309"/>
+  <path class="elevation-surface" d="M645 420V262L775 96L905 262V420Z"/>
+  <path fill="url(#elevation-shingles)" d="M645 262L775 96L905 262V284H645Z"/>
+  <path fill="url(#elevation-siding)" d="M645 284H905V420H645Z"/>
+  <path class="elevation-outline" d="M628 268L775 78L922 268M638 273L775 94L912 273"/>
+  <path class="elevation-trim" d="M652 290H898M652 295H898"/>
+  <path class="elevation-accent" d="M759 166H791M755 172H795M751 178H799"/>
+  <path class="elevation-surface" d="M469 301V244L530 182L591 244V301Z"/>
+  <path fill="url(#elevation-shingles)" d="M469 301V244L530 182L591 244V301Z"/>
+  <path class="elevation-outline" d="M458 247L530 173L602 247M464 251L530 184L596 251"/>
+  <g class="elevation-window">
+    <rect class="elevation-surface" x="220" y="309" width="58" height="86"/>
+    <rect x="225" y="314" width="48" height="76"/>
+    <path class="elevation-glass" d="M228 317H270V387H228Z"/>
+    <path class="elevation-mullion" d="M249.0 314V390M225 352.0H273M225 333.0H273"/>
+    <path class="elevation-trim" d="M217 396H281"/>
+  </g>
+  <g class="elevation-window">
+    <rect class="elevation-surface" x="286" y="309" width="58" height="86"/>
+    <rect x="291" y="314" width="48" height="76"/>
+    <path class="elevation-glass" d="M294 317H336V387H294Z"/>
+    <path class="elevation-mullion" d="M315.0 314V390M291 352.0H339M291 333.0H339"/>
+    <path class="elevation-trim" d="M283 396H347"/>
+  </g>
+  <g class="elevation-window">
+    <rect class="elevation-surface" x="710" y="309" width="58" height="86"/>
+    <rect x="715" y="314" width="48" height="76"/>
+    <path class="elevation-glass" d="M718 317H760V387H718Z"/>
+    <path class="elevation-mullion" d="M739.0 314V390M715 352.0H763M715 333.0H763"/>
+    <path class="elevation-trim" d="M707 396H771"/>
+  </g>
+  <g class="elevation-window">
+    <rect class="elevation-surface" x="776" y="309" width="58" height="86"/>
+    <rect x="781" y="314" width="48" height="76"/>
+    <path class="elevation-glass" d="M784 317H826V387H784Z"/>
+    <path class="elevation-mullion" d="M805.0 314V390M781 352.0H829M781 333.0H829"/>
+    <path class="elevation-trim" d="M773 396H837"/>
+  </g>
+  <g class="elevation-window">
+    <rect class="elevation-surface" x="487" y="245" width="45" height="53"/>
+    <rect x="492" y="250" width="35" height="43"/>
+    <path class="elevation-glass" d="M495 253H524V290H495Z"/>
+    <path class="elevation-mullion" d="M509.5 250V293M492 271.5H527M492 260.75H527"/>
+    <path class="elevation-trim" d="M484 299H535"/>
+  </g>
+  <g class="elevation-window">
+    <rect class="elevation-surface" x="528" y="245" width="45" height="53"/>
+    <rect x="533" y="250" width="35" height="43"/>
+    <path class="elevation-glass" d="M536 253H565V290H536Z"/>
+    <path class="elevation-mullion" d="M550.5 250V293M533 271.5H568M533 260.75H568"/>
+    <path class="elevation-trim" d="M525 299H576"/>
+  </g>
+  <path class="elevation-surface" d="M126 448L168 409H902L944 448Z"/>
+  <path class="elevation-roof-fill" d="M126 448L168 409H902L944 448Z"/>
+  <path class="elevation-detail" d="M187 409L157 448M291 409L275 448M397 409L391 448M506 409V448M615 409L621 448M724 409L738 448M833 409L858 448"/>
+  <path class="elevation-surface elevation-outline" d="M126 448H944V459H126Z"/>
+  <path class="elevation-surface" d="M151 573H914V586H151Z"/>
+  <path fill="url(#elevation-stone)" d="M151 573H914V586H151Z"/>
+  <g class="elevation-window">
+    <rect class="elevation-surface" x="207" y="472" width="60" height="88"/>
+    <rect x="212" y="477" width="50" height="78"/>
+    <path class="elevation-glass" d="M215 480H259V552H215Z"/>
+    <path class="elevation-mullion" d="M237.0 477V555M212 516.0H262M212 496.5H262"/>
+    <path class="elevation-trim" d="M204 561H270"/>
+  </g>
+  <g class="elevation-window">
+    <rect class="elevation-surface" x="322" y="472" width="60" height="88"/>
+    <rect x="327" y="477" width="50" height="78"/>
+    <path class="elevation-glass" d="M330 480H374V552H330Z"/>
+    <path class="elevation-mullion" d="M352.0 477V555M327 516.0H377M327 496.5H377"/>
+    <path class="elevation-trim" d="M319 561H385"/>
+  </g>
+  <g class="elevation-window">
+    <rect class="elevation-surface" x="676" y="472" width="60" height="88"/>
+    <rect x="681" y="477" width="50" height="78"/>
+    <path class="elevation-glass" d="M684 480H728V552H684Z"/>
+    <path class="elevation-mullion" d="M706.0 477V555M681 516.0H731M681 496.5H731"/>
+    <path class="elevation-trim" d="M673 561H739"/>
+  </g>
+  <g class="elevation-window">
+    <rect class="elevation-surface" x="791" y="472" width="60" height="88"/>
+    <rect x="796" y="477" width="50" height="78"/>
+    <path class="elevation-glass" d="M799 480H843V552H799Z"/>
+    <path class="elevation-mullion" d="M821.0 477V555M796 516.0H846M796 496.5H846"/>
+    <path class="elevation-trim" d="M788 561H854"/>
+  </g>
+  <path class="elevation-surface" d="M492 573V472H568V573Z"/>
+  <path class="elevation-outline" d="M508 573V479H552V573"/>
+  <path class="elevation-glass" d="M514 485H546V532H514Z"/>
+  <path class="elevation-mullion" d="M530 485V532M514 509H546M514 548H546V565H514Z"/>
+  <circle class="elevation-accent" cx="545" cy="541" r="2"/>
+  <path class="elevation-outline" d="M493 479V563M567 479V563"/>
+  <path class="elevation-surface" d="M477 577H583V586H477ZM467 586H593V595H467ZM457 595H603V604H457Z"/>
+  <!-- Porch posts and balusters. -->
+  <path class="elevation-surface" d="M166 459H178V570H166Z"/><path class="elevation-outline" d="M163 459H181V466H163ZM162 566H182V574H162Z"/>
+  <path class="elevation-surface" d="M414 459H426V570H414Z"/><path class="elevation-outline" d="M411 459H429V466H411ZM410 566H430V574H410Z"/>
+  <path class="elevation-surface" d="M634 459H646V570H634Z"/><path class="elevation-outline" d="M631 459H649V466H631ZM630 566H650V574H630Z"/>
+  <path class="elevation-surface" d="M882 459H894V570H882Z"/><path class="elevation-outline" d="M879 459H897V466H879ZM878 566H898V574H878Z"/>
+  <path class="elevation-trim" d="M182 534H410M182 541H410M182 568H410"/>
+  <path class="elevation-detail" d="M191 541V568"/>
+  <path class="elevation-detail" d="M207 541V568"/>
+  <path class="elevation-detail" d="M223 541V568"/>
+  <path class="elevation-detail" d="M239 541V568"/>
+  <path class="elevation-detail" d="M255 541V568"/>
+  <path class="elevation-detail" d="M271 541V568"/>
+  <path class="elevation-detail" d="M287 541V568"/>
+  <path class="elevation-detail" d="M303 541V568"/>
+  <path class="elevation-detail" d="M319 541V568"/>
+  <path class="elevation-detail" d="M335 541V568"/>
+  <path class="elevation-detail" d="M351 541V568"/>
+  <path class="elevation-detail" d="M367 541V568"/>
+  <path class="elevation-detail" d="M383 541V568"/>
+  <path class="elevation-detail" d="M399 541V568"/>
+  <path class="elevation-trim" d="M650 534H878M650 541H878M650 568H878"/>
+  <path class="elevation-detail" d="M659 541V568"/>
+  <path class="elevation-detail" d="M675 541V568"/>
+  <path class="elevation-detail" d="M691 541V568"/>
+  <path class="elevation-detail" d="M707 541V568"/>
+  <path class="elevation-detail" d="M723 541V568"/>
+  <path class="elevation-detail" d="M739 541V568"/>
+  <path class="elevation-detail" d="M755 541V568"/>
+  <path class="elevation-detail" d="M771 541V568"/>
+  <path class="elevation-detail" d="M787 541V568"/>
+  <path class="elevation-detail" d="M803 541V568"/>
+  <path class="elevation-detail" d="M819 541V568"/>
+  <path class="elevation-detail" d="M835 541V568"/>
+  <path class="elevation-detail" d="M851 541V568"/>
+  <path class="elevation-detail" d="M867 541V568"/>
+  <path class="elevation-surface elevation-outline" d="M944 465H1098V579H944Z"/>
+  <path class="elevation-trim" d="M952 473H1090V579M952 501H1090M952 528H1090M952 555H1090M997 502V579M1045 502V579"/>
+  <path class="elevation-glass" d="M958 479H995V494H958Z"/>
+  <path class="elevation-glass" d="M1002 479H1039V494H1002Z"/>
+  <path class="elevation-glass" d="M1046 479H1083V494H1046Z"/>
+  <path class="elevation-accent" d="M998 352H1018M994 359H1022M991 366H1025"/>
+  <g class="elevation-landscape"><path d="M98 586Q72 557 98 544Q87 518 109 512Q137 511 129 539Q152 551 131 580M107 586V542M1156 588Q1135 570 1146 558Q1138 539 1153 532Q1174 528 1179 546Q1196 556 1181 577M1163 588V552"/></g>
+</g>
+</svg>

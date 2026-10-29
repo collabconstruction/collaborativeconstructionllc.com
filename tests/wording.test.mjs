@@ -41,7 +41,7 @@ test('credentials are bold on the About page, the owner is not named, and the br
   assert.ok(!/Experience, Quality, Trust/.test(read('src/index.njk')), 'index.njk duplicates the brand tagline in the hero');
 });
 
-test('credential wording matches the stated CSL and does not imply an unconfirmed HIC or builder registration', () => {
+test('owner-approved general contractor wording retains CSL detail and does not invent registration numbers', () => {
   const business = JSON.parse(read('src/_data/business.json'));
   const pages = ['index.njk', 'about.njk', 'gallery.njk', 'construction-advisory.njk', ...servicePages.map((d) => `${d}/index.njk`)];
   for (const f of pages) {
@@ -50,7 +50,8 @@ test('credential wording matches the stated CSL and does not imply an unconfirme
     if (!business.hicNumber) assert.ok(!/\bHIC\b|Home Improvement Contractor|registered contractor/i.test(s), `${f} mentions an HIC registration that has no confirmed number`);
   }
   assert.match(read('src/about.njk'), /<strong>Construction Supervisor License \(CSL\)<\/strong>/);
-  assert.match(read('src/index.njk'), /Massachusetts licensed construction supervisor/);
+  // Owner-supplied website feedback dated October 28, 2026 approves this wording.
+  assert.match(read('src/index.njk'), /Collaborative Construction is a <strong>licensed General contractor<\/strong> with <strong>over 30 years<\/strong>/);
   assert.match(read('src/about.njk'), /Massachusetts licensed construction supervisor/);
 });
 
