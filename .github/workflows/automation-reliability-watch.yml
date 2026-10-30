@@ -1,0 +1,35 @@
+name: Automation Reliability Watch
+on:
+  workflow_dispatch:
+  schedule:
+    # Twice daily, away from the beginning of the hour; default branch only.
+    - cron: "43 4,16 * * *"
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: automation-reliability-watch
+  cancel-in-progress: false
+jobs:
+  reliability:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate reliability logic offline
+        run: python -m unittest discover -s tests -p test_automation_reliability_watch.py -v
+      - name: Check GitHub Actions schedules, conclusions and artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/automation_reliability_watch.py
+      - name: Save inspection evidence even if a check failed
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reliability-watch-${{ github.run_id }}
+          path: monitoring-output/reliability/
+          retention-days: 30
+          if-no-files-found: warn
