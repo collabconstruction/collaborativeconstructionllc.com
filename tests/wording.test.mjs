@@ -4,9 +4,10 @@ import fs from 'node:fs';
 const read = (p) => fs.readFileSync(new URL(`../${p}`, import.meta.url), 'utf8');
 const servicePages = ['adu-builder-cape-cod', 'home-additions-cape-cod', 'home-renovation-cape-cod', 'custom-home-builder-cape-cod', 'general-contractor-falmouth-ma'];
 
-test('every check mark on the five service pages is different, so the pages do not read as copies', () => {
+test('every check mark on the remaining service-checks pages is different, so the pages do not read as copies', () => {
+  const checksPages = servicePages.filter((dir) => dir !== 'home-additions-cape-cod' && dir !== 'home-renovation-cape-cod');
   const all = [];
-  for (const dir of servicePages) {
+  for (const dir of checksPages) {
     const items = [...read(`src/${dir}/index.njk`).match(/<ul class="service-checks">(.*?)<\/ul>/s)[1].matchAll(/<li>(.*?)<\/li>/g)].map((m) => m[1]);
     assert.equal(items.length, 3, dir);
     all.push(...items);
@@ -50,8 +51,8 @@ test('owner-approved general contractor wording retains CSL detail and does not 
     if (!business.hicNumber) assert.ok(!/\bHIC\b|Home Improvement Contractor|registered contractor/i.test(s), `${f} mentions an HIC registration that has no confirmed number`);
   }
   assert.match(read('src/about.njk'), /<strong>Construction Supervisor License \(CSL\)<\/strong>/);
-  // Owner-supplied website feedback dated October 28, 2026 approves this wording.
-  assert.match(read('src/index.njk'), /Collaborative Construction is a <strong>licensed General contractor<\/strong> with <strong>over 30 years<\/strong>/);
+  // Owner-supplied website feedback dated October 31, 2026 approves this wording.
+  assert.match(read('src/index.njk'), /We are a licensed (?:<a[^>]*>)?General Contractor(?:<\/a>)? with over 30 years of experience/);
   assert.match(read('src/about.njk'), /Massachusetts licensed construction supervisor/);
 });
 

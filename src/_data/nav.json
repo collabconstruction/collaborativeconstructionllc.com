@@ -9,7 +9,7 @@
     },
     {
       "url": "",
-      "label": "Services",
+      "label": "Coordination",
       "key": "services",
       "summary": "Our construction and renovation services",
       "_dropdownComment": "`url` is empty on purpose: there is no combined /services/ index page, so this entry is a menu heading, not a destination. base.njk renders it as a <button> disclosure and the footer/llms.txt expand the children in its place. Do not give it a url without first building a real page there.",
@@ -21,28 +21,10 @@
           "icon": "additions"
         },
         {
-          "url": "/adu-builder-cape-cod/",
-          "label": "ADU Construction",
-          "summary": "Detached and attached accessory dwelling units",
-          "icon": "adu"
-        },
-        {
           "url": "/home-renovation-cape-cod/",
           "label": "Home Renovation",
           "summary": "Kitchen and bath remodeling, whole-home renovations, interior updates",
           "icon": "renovation"
-        },
-        {
-          "url": "/custom-home-builder-cape-cod/",
-          "label": "Custom Homes",
-          "summary": "Custom home construction from concept to completion",
-          "icon": "custom"
-        },
-        {
-          "url": "/construction-advisory/",
-          "label": "Construction Advisory",
-          "summary": "Owner's project management, Clerk of the Works oversight, and construction advisory",
-          "icon": "advisory"
         }
       ]
     },
@@ -59,6 +41,10 @@
       "summary": "About Collaborative Construction"
     }
   ],
-  "footerExtra": [],
+  "footerExtra": [
+    { "url": "/adu-builder-cape-cod/", "label": "ADU Construction" },
+    { "url": "/custom-home-builder-cape-cod/", "label": "Custom Homes" },
+    { "url": "/construction-advisory/", "label": "Construction Advisory" }
+  ],
   "_summaryComment": "`summary` is used only by llms.txt, to tell an agent what each page is for. The nav itself renders `label`."
 }

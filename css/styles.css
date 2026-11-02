@@ -397,6 +397,10 @@ em {
   width: 44px;
 }
 
+.eyebrow--lg {
+  font-size: calc(var(--fs-label) * 1.3);
+}
+
 .lede,
 .hero-lede,
 .section-lede,
@@ -4012,6 +4016,9 @@ figure {
 .house-art { border: 0; background: transparent; }
 .house-viewport { aspect-ratio: 1.2; }
 @media (max-width: 759px) { .house-viewport { aspect-ratio: 1.5; } }
+
+.house-layout--art-only { grid-template-columns: 1fr; justify-items: center; }
+.house-layout--art-only .house-art { width: min(100%, 720px); }
 
 /* Restore the continuous community band with full-width contour borders. */
 .locations--atlas { padding-block: 14px; }
