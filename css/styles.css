@@ -3847,6 +3847,7 @@ figure {
 .service-page .section-head .rule { display: none; }
 .service-introduction { background: var(--white); }
 .scope-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.scope-grid--2 { grid-template-columns: repeat(2, minmax(0, 280px)); justify-content: center; }
 .scope-tile { padding: 26px; border-top: 2px solid var(--brass); background: var(--paper); text-align: center; }
 .scope-tile__number { display: block; color: var(--navy-400); font-size: .75rem; letter-spacing: .12em; margin-bottom: 20px; }
 .scope-tile h3 { font-size: clamp(1.25rem, 2vw, 1.6rem); margin: 0 0 12px; }
