@@ -28,7 +28,7 @@ preloadSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
       <div class="container">
         <div class="hero-grid">
           <div class="hero__copy">
-            <p class="eyebrow eyebrow--boom">Residential builder</p><h1 class="hero__title">General Contracting <span class="gem">&amp; Custom Builder</span></h1>
+            <p class="eyebrow eyebrow--boom">Residential building</p><h1 class="hero__title">General Contracting <span class="gem">&amp; Custom Builder</span></h1>
             <p class="hero__lede">We're a residential general contractor serving Cape Cod, handling new construction, renovations, ADUs and additions from permitting through final walkthrough.</p>
             <div class="hero__cta">
               <a href="#contact" class="btn btn-gold">Discuss your project</a>
@@ -51,11 +51,56 @@ preloadSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
 
     <section class="section" id="services">
       <div class="container">
+        <div class="two-col two-col--whatwedo">
+          <div class="body" data-reveal="left">
+            <p class="eyebrow eyebrow--lg">What we do</p>
+            <h2 data-reveal-words>Residential construction, <span class="gem">as well as owner's-side oversight.</span></h2>
+            <p class="section-lede">We are a licensed <a href="/general-contractor-falmouth-ma/">General Contractor</a> with over 30 years of experience in residential and commercial construction priding ourselves on the highest quality client centered approach. We handle new construction, renovation, ADU's and additions serving Cape Cod.</p>
+            <p class="section-lede">Additionally, we offer independent project oversight for owners on commercial projects as Owners Project Manager and Clerk of the Works.</p>
+          </div>
+          <figure class="figure home-cad-figure" data-reveal="right">
+            {% include "house-elevation.svg" %}
+            <figcaption class="house-elevation-caption"><span>Residential elevation study</span><span>Original concept illustration</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section process-section">
+      <div class="container">
         <div class="section-head" data-reveal>
-          <p class="eyebrow eyebrow--lg">What we do</p>
-          <h2 data-reveal-words>Residential construction, <span class="gem">as well as owner's-side oversight.</span></h2>
-          <p class="section-lede">We are a licensed <a href="/general-contractor-falmouth-ma/">General Contractor</a> with over 30 years of experience in residential and commercial construction priding ourselves on the highest quality client centered approach. We handle new construction, renovation, ADU's and additions serving Cape Cod.</p>
-          <p class="section-lede">Additionally, we offer independent project oversight for owners on commercial projects as Owners Project Manager and Clerk of the Works.</p>
+          <p class="eyebrow">Project process</p>
+          <h2 data-reveal-words>From planning to completion</h2></div>
+
+        <div class="process" data-process>
+          <div class="process__step" style="--stage:0">
+            <span class="process__n">01</span>
+            <div class="process__body">
+              <h3>Conversation</h3>
+              <p>A first conversation about your project: location, scope, budget and timing.</p>
+            </div>
+          </div>
+          <div class="process__step" style="--stage:1">
+            <span class="process__n">02</span>
+            <div class="process__body">
+              <h3>Drawings &amp; permits</h3>
+              <p>We work with your architect or designer on scope, selections, approvals and a schedule based on real lead times.</p>
+            </div>
+          </div>
+          <div class="process__step" style="--stage:2">
+            <span class="process__n">03</span>
+            <div class="process__body">
+              <h3>Build</h3>
+              <p>Trades sequenced, inspections booked, progress documented. <strong>One point of contact</strong>, the same person who walked the site with you.</p>
+            </div>
+          </div>
+          <div class="process__step" style="--stage:3">
+            <span class="process__n">04</span>
+            <div class="process__body">
+              <h3>Close-out</h3>
+              <p>Final inspections, punch-list review, warranties and manuals, followed by a final walkthrough and handover.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -64,7 +109,7 @@ preloadSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
       <span class="line"></span><span class="gem"></span><span class="line r"></span>
     </div>
 
-    
+
     <section class="section" id="our-services">
       <div class="container">
         <div class="section-head" data-reveal>
@@ -117,17 +162,6 @@ preloadSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
       </div>
     </section>
 
-    <section class="house-section house-section--art-only" id="house-explorer" aria-label="Residential elevation illustration">
-  <div class="container house-layout house-layout--art-only">
-    <figure class="house-art house-art--elevation" data-reveal>
-      {% include "house-elevation.svg" %}
-      <figcaption class="house-elevation-caption"><span>Residential elevation study</span><span>Original concept illustration</span></figcaption>
-    </figure>
-  </div>
-</section>
-
-
-    
     <section class="locations locations--atlas" aria-label="Nearby communities">
       <div class="location-window" tabindex="0" role="region" aria-label="Nearby communities. Animation pauses on hover or focus.">
         <div class="location-loop">
@@ -163,46 +197,6 @@ preloadSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
           </ul>
           <ul class="location-atlas location-atlas--clone" aria-hidden="true"><li><span>East Falmouth</span></li><li><span>Falmouth</span></li><li><span>Woods Hole</span></li><li><span>North Falmouth</span></li><li><span>West Falmouth</span></li><li><span>Bourne</span></li><li><span>Pocasset</span></li><li><span>Cataumet</span></li><li><span>Sandwich</span></li><li><span>Mashpee</span></li><li><span>Cotuit</span></li><li><span>Barnstable</span></li><li><span>Yarmouth</span></li><li><span>Dennis</span></li><li><span>Harwich</span></li><li><span>Brewster</span></li><li><span>Chatham</span></li><li><span>Orleans</span></li><li><span>Plymouth</span></li><li><span>Kingston</span></li><li><span>Duxbury</span></li><li><span>Pembroke</span></li><li><span>Marshfield</span></li><li><span>Scituate</span></li><li><span>Norwell</span></li><li><span>Hanover</span></li><li><span>Hingham</span></li><li><span>Cohasset</span></li>
           </ul>
-        </div>
-      </div>
-    </section>
-
-    
-    <section class="section process-section">
-      <div class="container">
-        <div class="section-head" data-reveal>
-          <p class="eyebrow">Project process</p>
-          <h2 data-reveal-words>From planning to completion</h2></div>
-
-        <div class="process" data-process>
-          <div class="process__step" style="--stage:0">
-            <span class="process__n">01</span>
-            <div class="process__body">
-              <h3>Conversation</h3>
-              <p>A first conversation about your project: location, scope, budget and timing.</p>
-            </div>
-          </div>
-          <div class="process__step" style="--stage:1">
-            <span class="process__n">02</span>
-            <div class="process__body">
-              <h3>Drawings &amp; permits</h3>
-              <p>We work with your architect or designer on scope, selections, approvals and a schedule based on real lead times.</p>
-            </div>
-          </div>
-          <div class="process__step" style="--stage:2">
-            <span class="process__n">03</span>
-            <div class="process__body">
-              <h3>Build</h3>
-              <p>Trades sequenced, inspections booked, progress documented. <strong>One point of contact</strong>, the same person who walked the site with you.</p>
-            </div>
-          </div>
-          <div class="process__step" style="--stage:3">
-            <span class="process__n">04</span>
-            <div class="process__body">
-              <h3>Close-out</h3>
-              <p>Final inspections, punch-list review, warranties and manuals, followed by a final walkthrough and handover.</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -295,37 +289,11 @@ preloadSizes: "(min-width: 980px) 560px, (max-width: 600px) 92vw, 480px"
                 </div>
               </div>
               <div class="field">
-                <label for="cc-project-type">Project type (optional)</label>
-                <select id="cc-project-type" name="project_type">
-                  <option value="">Please select if known</option>
-                  <option value="addition">Home addition</option>
-                  <option value="renovation">Renovation</option>
-                  <option value="other">Other / not sure yet</option>
-                </select>
-              </div>
-              <div class="field-row">
-                <div class="field">
-                  <label for="cc-budget">Budget range (optional)</label>
-                  <input id="cc-budget" name="budget_range" type="text" maxlength="100" placeholder="A range or “not sure yet”">
-                </div>
-                <div class="field">
-                  <label for="cc-timeline">Timing (optional)</label>
-                  <input id="cc-timeline" name="desired_timeline" type="text" maxlength="150" placeholder="e.g. next spring, no fixed date">
-                </div>
-              </div>
-              <div class="field">
                 <label for="cc-message">Message</label>
                 <textarea id="cc-message" name="message" placeholder="What would you like to build or improve? Include your town and timing if known." maxlength="5000" required aria-describedby="cc-message-error"></textarea>
                 <p class="field__error" id="cc-message-error"></p>
               </div>
-              <div class="field">
-                <label for="cc-files">Photos or plans (optional)</label>
-                <input id="cc-files" name="attachments" type="file" multiple aria-describedby="cc-files-help"
-                       accept="image/jpeg,image/png,image/webp,image/heic,image/heif,application/pdf">
-                <p id="cc-files-help" class="form-note">Up to 6 images or PDFs, 10 MB each and 25 MB total. Please omit financial records and sensitive personal information.</p>
-                <ul class="file-list" aria-live="polite"></ul>
-              </div>
-              
+
               <script src="/js/turnstile-lifecycle.js"></script>
               <div id="cc-turnstile" class="cf-turnstile" data-sitekey="0x4AAAAAAFT7_DoQM-wX5k4h" data-action="contact"
                 data-callback="ccChallengeSuccess" data-expired-callback="ccChallengeExpired"
