@@ -9,7 +9,7 @@
     },
     {
       "url": "",
-      "label": "Coordination",
+      "label": "Services",
       "key": "services",
       "summary": "Our construction and renovation services",
       "_dropdownComment": "`url` is empty on purpose: there is no combined /services/ index page, so this entry is a menu heading, not a destination. base.njk renders it as a <button> disclosure and the footer/llms.txt expand the children in its place. Do not give it a url without first building a real page there.",
@@ -25,6 +25,12 @@
           "label": "Home Renovation",
           "summary": "Kitchen and bath remodeling, whole-home renovations, interior updates",
           "icon": "renovation"
+        },
+        {
+          "url": "/custom-home-builder-cape-cod/",
+          "label": "Custom Homes",
+          "summary": "New construction and custom home building, from concept to completion",
+          "icon": "custom"
         }
       ]
     },
@@ -33,16 +39,8 @@
       "label": "Projects",
       "key": "gallery",
       "summary": "Completed residential and commercial projects"
-    },
-    {
-      "url": "/about/",
-      "label": "About",
-      "key": "about",
-      "summary": "About Collaborative Construction"
     }
   ],
-  "footerExtra": [
-    { "url": "/custom-home-builder-cape-cod/", "label": "Custom Homes" }
-  ],
+  "footerExtra": [],
   "_summaryComment": "`summary` is used only by llms.txt, to tell an agent what each page is for. The nav itself renders `label`."
 }
