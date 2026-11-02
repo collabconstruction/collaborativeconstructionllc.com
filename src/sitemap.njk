@@ -6,11 +6,14 @@ eleventyExcludeFromCollections: true
 {#
   Generated from the page collection so a new page can never be forgotten here.
   Pages opt in by having a `canonical` in their front matter.
+  A page can opt back out with `excludeFromSitemap: true` once it has no
+  server-rendered link anywhere on the site (see scripts/verify-release-build.mjs,
+  which requires every sitemap URL to be linked from the homepage).
   Google ignores <priority> and <changefreq>, so we only include <loc> and <lastmod>.
 #}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {%- for item in collections.all %}
-{%- if item.data.canonical %}
+{%- if item.data.canonical and not item.data.excludeFromSitemap %}
   <url>
     <loc>{{ business.url }}{{ item.data.canonical }}</loc>
     <lastmod>{{ item.inputPath | gitLastModified }}</lastmod>
