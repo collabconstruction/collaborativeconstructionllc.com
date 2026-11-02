@@ -42,9 +42,7 @@
     }
   ],
   "footerExtra": [
-    { "url": "/adu-builder-cape-cod/", "label": "ADU Construction" },
-    { "url": "/custom-home-builder-cape-cod/", "label": "Custom Homes" },
-    { "url": "/construction-advisory/", "label": "Construction Advisory" }
+    { "url": "/custom-home-builder-cape-cod/", "label": "Custom Homes" }
   ],
   "_summaryComment": "`summary` is used only by llms.txt, to tell an agent what each page is for. The nav itself renders `label`."
 }
