@@ -292,7 +292,7 @@
   /* Links are extensionless ("/about"), because Cloudflare serves them that
      way and 307-redirects the ".html" form. The ".html" handling below is
      kept so any old bookmark or stray link still animates correctly. */
-  const NAV_ORDER = ["", "home-additions-cape-cod", "adu-builder-cape-cod", "home-renovation-cape-cod", "custom-home-builder-cape-cod", "construction-advisory", "gallery", "about"];
+  const NAV_ORDER = ["", "home-additions-cape-cod", "adu-builder-cape-cod", "home-renovation-cape-cod", "custom-home-builder-cape-cod", "construction-advisory", "gallery", "about", "general-contractor-falmouth-ma"];
 
   const pageSlug = (pathname) => {
     let s = (pathname || "").split("#")[0].split("?")[0];
