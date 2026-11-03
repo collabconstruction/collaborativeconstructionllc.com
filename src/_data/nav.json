@@ -41,6 +41,12 @@
       "summary": "Completed residential and commercial projects"
     }
   ],
-  "footerExtra": [],
+  "footerExtra": [
+    {
+      "url": "/general-contractor-falmouth-ma/",
+      "label": "General Contractor Falmouth",
+      "summary": "General contracting services in Falmouth, MA and surrounding towns"
+    }
+  ],
   "_summaryComment": "`summary` is used only by llms.txt, to tell an agent what each page is for. The nav itself renders `label`."
 }
