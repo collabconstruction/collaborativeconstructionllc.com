@@ -189,8 +189,18 @@ async function main() {
     };
     await walk(OUT);
     const home = await readFile(join(OUT, "index.html"), "utf8");
-    if (!home.includes("belmont-hero-1280.webp")) {
-      console.error("NOT READY: the approved Belmont hero photos are not in the home page. Fix src/_includes/hero-figure.html, not the copy.");
+    const hero = home.match(/<figure class="hero-figure"[\s\S]*?<\/figure>/)?.[0];
+    const heroImages = hero?.match(/(?:src|data-src)="\/assets\/img\/([^\"]+\.jpg)"/g)
+      ?.map((match) => match.match(/\/assets\/img\/([^\"]+\.jpg)/)?.[1]) ?? [];
+    const approvedHeroImages = [
+      "shingle-home-1.jpg",
+      "carlisle-residence-1.jpg",
+      "carlisle-residence-4.jpg",
+      "pool-cabana-3.jpg",
+      "new-seabury-deck-5.jpg",
+    ];
+    if (!hero || JSON.stringify(heroImages) !== JSON.stringify(approvedHeroImages)) {
+      console.error("NOT READY: the homepage hero must contain exactly the five owner-approved photos in order. Fix src/_includes/hero-figure.html, not the copy.");
       process.exit(1);
     }
     for (const file of htmlFiles) {
@@ -198,7 +208,7 @@ async function main() {
       if (!text.includes(FACEBOOK_NOW)) { console.error(`NOT READY: the current Facebook link is missing from ${file}. Fix the template.`); process.exit(1); }
       for (const old of FACEBOOK_OLD) if (text.includes(old)) { console.error(`NOT READY: ${file} contains an old Facebook link. Fix the template.`); process.exit(1); }
     }
-    console.log(`Verified without editing: Belmont hero photos present, current Facebook link on all ${htmlFiles.length} pages, no old links.`);
+    console.log(`Verified without editing: exactly five owner-approved hero photos in order, current Facebook link on all ${htmlFiles.length} pages, no old links.`);
   }
 
   // Overlay the changed files.

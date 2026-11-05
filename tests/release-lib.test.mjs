@@ -398,6 +398,24 @@ test("the overlay script no longer edits live files in place, and it checks inst
   assert.match(src, /FACEBOOK_OLD/);
 });
 
+test("the protected overlay requires exactly the five owner-approved homepage hero photos in order", async () => {
+  const overlay = await readFile(new URL("../scripts/build-live-overlay.mjs", import.meta.url), "utf8");
+  const hero = await readFile(new URL("../src/_includes/hero-figure.html", import.meta.url), "utf8");
+  const heroImages = hero.match(/(?:src|data-src)="\/assets\/img\/([^\"]+\.jpg)"/g)
+    ?.map((match) => match.match(/\/assets\/img\/([^\"]+\.jpg)/)?.[1]) ?? [];
+  const approved = overlay.match(/const approvedHeroImages = \[([\s\S]*?)\];/)?.[1]
+    ?.match(/"([^\"]+\.jpg)"/g)
+    ?.map((match) => match.slice(1, -1)) ?? [];
+  assert.deepEqual(heroImages, [
+    "shingle-home-1.jpg",
+    "carlisle-residence-1.jpg",
+    "carlisle-residence-4.jpg",
+    "pool-cabana-3.jpg",
+    "new-seabury-deck-5.jpg",
+  ]);
+  assert.deepEqual(approved, heroImages, "production overlay guard must track the checked-in hero exactly");
+});
+
 test("the owner photo is excluded from a direct Eleventy build, while the repository still holds it", async () => {
   const out = await mkdtemp(join(tmpdir(), "build-"));
   try {
