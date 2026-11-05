@@ -496,7 +496,7 @@ blockquote {
 }
 
 .home-cad-figure {
-  max-width: 420px;
+  max-width: 480px;
   margin-inline: auto;
 }
 
@@ -723,8 +723,8 @@ html.enter-left .page-main {
 }
 
 .brand .logo {
-  width: 46px;
-  height: 46px;
+  width: 50px;
+  height: 50px;
   flex: none;
 }
 
@@ -1064,9 +1064,9 @@ html.enter-left .page-main {
 }
 
 /* 09. Hero ================================================================= */
-/* Direction chosen: editorial split. Type carries the page; a single framed
-   image crossfades beside it. Not a slideshow: one frame, slow dissolve,
-   no controls competing with the headline, paused off-screen and under
+/* Direction chosen: editorial split. Type carries the page beside a larger
+   framed rotation of five owner-selected residential photos. The rotation has no
+   controls competing with the headline, pauses off-screen and under
    reduced-motion. */
 
 .hero {
@@ -1186,8 +1186,11 @@ html.enter-left .page-main {
 
 @media (min-width: 980px) {
   .hero-grid {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    gap: clamp(var(--s-7), 5vw, 5rem);
+    grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr);
+    gap: clamp(var(--s-6), 3.5vw, 3.5rem);
+  }
+  .hero__copy {
+    transform: translateY(0.6rem);
   }
 }
 
@@ -1279,7 +1282,7 @@ html.enter-left .page-main {
 .hero-figure {
   position: relative;
   aspect-ratio: 4 / 3;
-  max-width: 560px;
+  max-width: 620px;
   margin-inline: auto;
   width: 100%;
   padding: 10px;
@@ -3549,8 +3552,8 @@ figure {
   }
 
   .brand .logo {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
   }
 
   .brand-wm {
