@@ -23,6 +23,7 @@ export const FACEBOOK_OLD = [
 export const FORBIDDEN_FILES = ["assets/img/wesleigh-behn.jpg"];
 
 export const PAGES = ["/", "/about/", "/gallery/", "/schedule-consultation/", "/construction-advisory/", "/adu-builder-cape-cod/", "/custom-home-builder-cape-cod/", "/home-additions-cape-cod/", "/home-renovation-cape-cod/", "/general-contractor-falmouth-ma/"];
+export const SITEMAP_EXCLUDED_PAGES = ["/schedule-consultation/"];
 export const pageFile = (p) => (p.endsWith("/") ? p.slice(1) + "index.html" : p.slice(1));
 
 /** The contact form depends on these files being served. */
@@ -171,7 +172,7 @@ export async function checkDeployFolder(dir) {
   if (!/^Disallow:\s*\/api\//im.test(robots)) problems.push("robots.txt must disallow /api/");
 
   const sitemap = (await exists(join(dir, "sitemap.xml"))) ? await readFile(join(dir, "sitemap.xml"), "utf8") : "";
-  for (const p of PAGES) if (!sitemap.includes(`${EXPECTED.site}${p}`)) problems.push(`sitemap does not list ${p}`);
+  for (const p of PAGES) if (!SITEMAP_EXCLUDED_PAGES.includes(p) && !sitemap.includes(`${EXPECTED.site}${p}`)) problems.push(`sitemap does not list ${p}`);
 
   const home = (await exists(join(dir, "index.html"))) ? await readFile(join(dir, "index.html"), "utf8") : "";
   if (!/cf-turnstile/.test(home)) problems.push("home page has no Turnstile widget");

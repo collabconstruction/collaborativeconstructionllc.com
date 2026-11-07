@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { execFileSync } from "node:child_process";
 import {
-  EXPECTED, PAGES, extractJsonAll, FACEBOOK_NOW, FACEBOOK_OLD, FORBIDDEN_FILES, pageFile, repoFromRemote, parseWhoami, extractJson, pickRollbackVersion,
+  EXPECTED, PAGES, SITEMAP_EXCLUDED_PAGES, extractJsonAll, FACEBOOK_NOW, FACEBOOK_OLD, FORBIDDEN_FILES, pageFile, repoFromRemote, parseWhoami, extractJson, pickRollbackVersion,
   checkProvenance, classifyOutcome, judgeDeployment, pollForVersion, parseVersionId, checkBindings, hashDir, localRefs, checkDeployFolder, checkDeployReadiness,
   rollbackCommand, clearPrepareState, writeReportAtomic, consumePrepareReport,
 } from "../scripts/lib/release-lib.mjs";
@@ -17,6 +17,7 @@ const ID2 = "d44368c2-a776-4c21-a387-2bbba3a5d830";
 
 test("the consultation page is a protected release and live-health destination", async () => {
   assert.ok(PAGES.includes("/schedule-consultation/"));
+  assert.deepEqual(SITEMAP_EXCLUDED_PAGES, ["/schedule-consultation/"]);
   const overlay = await readFile(new URL("../scripts/build-live-overlay.mjs", import.meta.url), "utf8");
   assert.match(overlay, /"schedule-consultation\/index\.html"/);
   assert.match(overlay, /"sitemap\.xml"/);
@@ -304,6 +305,15 @@ async function goodFolder() {
 test("a complete deploy folder passes", async () => {
   const d = await goodFolder();
   try { assert.deepEqual(await checkDeployFolder(d), []); } finally { await rm(d, { recursive: true, force: true }); }
+});
+
+test("the noindex consultation page is live-checked but intentionally absent from the sitemap", async () => {
+  const d = await goodFolder();
+  try {
+    const sitemap = PAGES.filter((p) => !SITEMAP_EXCLUDED_PAGES.includes(p)).map((p) => `<loc>${EXPECTED.site}${p}</loc>`).join("");
+    await writeFile(join(d, "sitemap.xml"), sitemap);
+    assert.deepEqual(await checkDeployFolder(d), []);
+  } finally { await rm(d, { recursive: true, force: true }); }
 });
 
 test("each missing piece of the folder is reported", async () => {
