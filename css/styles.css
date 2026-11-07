@@ -496,11 +496,15 @@ blockquote {
 }
 
 .home-cad-figure {
-  max-width: 520px;
+  width: 100%;
+  max-width: 640px;
   margin-inline: auto;
 }
 
 @media (min-width: 880px) {
+  .two-col--whatwedo {
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  }
   .two-col--whatwedo .home-cad-figure {
     margin-left: auto;
     margin-right: 0;
@@ -1186,7 +1190,7 @@ html.enter-left .page-main {
 
 @media (min-width: 980px) {
   .hero-grid {
-    grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr);
+    grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
     gap: clamp(var(--s-6), 3.5vw, 3.5rem);
   }
   .hero__copy {
@@ -1282,7 +1286,7 @@ html.enter-left .page-main {
 .hero-figure {
   position: relative;
   aspect-ratio: 4 / 3;
-  max-width: 620px;
+  max-width: 720px;
   margin-inline: auto;
   width: 100%;
   padding: 10px;
@@ -3567,7 +3571,7 @@ figure {
 
 @media (max-width: 880px) {
   .hero-figure {
-    max-width: 480px;
+    max-width: 720px;
   }
   .locations__head {
     display: block;
@@ -5261,7 +5265,7 @@ html.lightbox-open { overflow: hidden; }
 
 /* November owner review: give the house mark more presence and settle the
    two-line wordmark slightly lower beside it. Preserve the narrow-phone guard. */
-.site-header .brand .logo { width: 54px; height: 54px; }
+.site-header .brand .logo { width: 60px; height: 60px; object-fit: contain; flex-shrink: 0; }
 .site-header .brand-text { transform: translateY(3px); }
 @media (max-width: 600px) {
   .site-header .brand .logo { width: 42px; height: 42px; }

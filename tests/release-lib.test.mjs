@@ -422,10 +422,10 @@ test("the protected overlay requires exactly the seven owner-approved homepage h
     "shingle-home-1.jpg",
     "carlisle-residence-1.jpg",
     "carlisle-residence-4.jpg",
-    "pool-cabana-3.jpg",
-    "new-seabury-deck-5.jpg",
+    "pool-cabana-1.jpg",
+    "carlisle-residence-3.jpg",
     "traditional-kitchen-1.jpg",
-    "coastal-bath-4.jpg",
+    "coastal-bath-3.jpg",
   ]);
   assert.deepEqual(approved, heroImages, "production overlay guard must track the checked-in hero exactly");
 });
