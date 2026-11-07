@@ -65,10 +65,17 @@ const seenLdIds = new Map(); // @id -> first file that defined it, to spot accid
 for (const file of htmlFiles) {
   const pageHtml = read(path.join('_site', file));
 
-  // 1. robots: nothing in this build may ship a page-level noindex. If one is
-  //    ever intentionally needed, this assertion must be updated deliberately,
-  //    not bypassed by accident.
-  assert.doesNotMatch(pageHtml, /<meta[^>]+name="robots"[^>]+content="[^"]*noindex/i, `unexpected noindex on ${file}`);
+  // 1. Only the GBP-specific consultation landing page may opt out of organic
+  //    indexing. Keep every other page indexable to guard against accidental
+  //    noindex flags elsewhere in the production build.
+  const noindex = /<meta[^>]+name="robots"[^>]+content="[^"]*noindex/i;
+  if (file === 'schedule-consultation/index.html') {
+    assert.match(pageHtml, noindex, 'GBP consultation landing page must remain noindex');
+    assert.ok(!sitemapLocs.includes('https://collaborativeconstructionllc.com/schedule-consultation/'),
+      'GBP consultation landing page must not appear in public sitemap');
+  } else {
+    assert.doesNotMatch(pageHtml, noindex, `unexpected noindex on ${file}`);
+  }
 
   // 2. canonical tag must exist, be absolute, and point at the production
   //    domain with no query string/fragment.
