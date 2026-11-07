@@ -220,6 +220,7 @@ async function sendNotification(env, lead, attachments, failedUploads = []) {
     ["Phone", lead.phone || "(not provided)"],
     ["Project type", lead.project_type || "(not provided)"],
     ["Town", lead.project_town || "(not provided)"],
+    ["Preferred consultation times", lead.desired_timeline || "(not provided)"],
     ["Responder", "Wesleigh Behn, review the private queue and record next action"],
     ["Page", lead.source_page || "(unknown)"],
     ["Referrer", lead.referrer || "(direct)"],
