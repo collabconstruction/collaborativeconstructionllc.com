@@ -2,6 +2,9 @@
 layout: base.njk
 permalink: /schedule-consultation/index.html
 canonical: /schedule-consultation/
+consultationLanding: true
+noindex: true
+excludeFromSitemap: true
 schemaType: service
 title: "Request a Construction Consultation | Collaborative Construction, Cape Cod"
 description: "Request an initial construction consultation in Falmouth or Cape Cod. Tell us about your renovation, home addition, custom home or owner’s project management needs. We confirm appointments personally."
@@ -11,7 +14,7 @@ ogDescription: "Tell us about your Cape Cod construction project and propose a c
 twitterDescription: "Request a construction consultation in Falmouth and Cape Cod."
 breadcrumbName: "Request a Consultation"
 ---
-<section class="about-page-hero">
+<section class="about-page-hero consultation-hero">
   <div class="container">
     <p class="eyebrow">Start a conversation</p>
     <h1>Request a Construction Consultation</h1>
@@ -21,10 +24,10 @@ breadcrumbName: "Request a Consultation"
   </div>
 </section>
 
-<section class="section contact" id="consultation-request">
+<section class="section consultation-section" id="consultation-request">
   <div class="container">
-    <div class="contact-grid">
-      <div class="contact-info">
+    <div class="consultation-grid">
+      <div class="consultation-summary">
         <p class="eyebrow">What happens next</p>
         <h2>One conversation. A clear starting point.</h2>
         <p class="lede">Share the scope, town and timeframe for your project. Initial consultations are arranged individually so we can determine the appropriate next step.</p>
@@ -38,10 +41,10 @@ breadcrumbName: "Request a Consultation"
           <p>For urgent matters or to speak directly, call <a href="tel:+15084406981">(508) 440-6981</a>.</p>
         </div>
         <p><strong>Serving:</strong> Falmouth and surrounding Cape Cod communities.</p>
-        <p><a href="/" class="btn btn-ghost">Return to home page</a></p>
+        <p><a href="/" class="btn btn-ghost">Explore our construction services</a></p>
       </div>
 
-      <div class="form-card">
+      <div class="form-card consultation-form-card">
         <form id="contact-form" action="/api/contact" method="post" enctype="multipart/form-data" novalidate>
           <h2>Request your consultation</h2>
           <p class="form-note">Name, email and project details are required. Preferred times are requests only, not confirmed appointments.</p>
