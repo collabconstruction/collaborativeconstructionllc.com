@@ -33,7 +33,7 @@ USER_AGENT = "CollaborativeConstructionHealthMonitor/2.0"
 SLOW_MS = 4000
 
 PAGES = [
-    "/", "/about/", "/gallery/", "/construction-advisory/", "/general-contractor-falmouth-ma/",
+    "/", "/about/", "/gallery/", "/schedule-consultation/", "/construction-advisory/", "/general-contractor-falmouth-ma/",
     "/home-additions-cape-cod/", "/adu-builder-cape-cod/", "/home-renovation-cape-cod/",
     "/custom-home-builder-cape-cod/",
 ]

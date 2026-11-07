@@ -70,7 +70,7 @@ def gsc():
     return {'property':'sc-domain:collaborativeconstructionllc.com','timezone':'America/Los_Angeles','start':start.isoformat(),'end':end.isoformat(),'dimensional_limit':100,'note':'Top rows are not guaranteed complete; keep totals independent.',**results}
 
 def public():
-    paths=['/','/robots.txt','/sitemap.xml','/general-contractor-falmouth-ma/','/home-additions-cape-cod/','/adu-builder-cape-cod/','/construction-advisory/']
+    paths=['/','/robots.txt','/sitemap.xml','/schedule-consultation/','/general-contractor-falmouth-ma/','/home-additions-cape-cod/','/adu-builder-cape-cod/','/construction-advisory/']
     with concurrent.futures.ThreadPoolExecutor(max_workers=7) as pool:return dict(zip(paths,pool.map(lambda p:request('https://collaborativeconstructionllc.com'+p),paths)))
 
 if __name__=='__main__':
