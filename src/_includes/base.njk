@@ -68,7 +68,7 @@
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/newsreader-italic-latin.woff2" crossorigin>
 {%- endif %}
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-normal-latin.woff2" crossorigin>
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css?v=20261107-polish">
   {%- if consultationLanding %}
   <link rel="stylesheet" href="/css/consultation.css">
   {%- endif %}
@@ -134,7 +134,7 @@
           The tagline stacks underneath, restoring what the PNG used to carry
           (the footer's .footer-motto is the same text, same reasoning). #}
       <a class="brand" href="/" aria-label="{{ business.shortName }} home">
-        <img class="logo" src="{{ business.images.badge }}" alt="" width="237" height="232">
+        <img class="logo" src="{{ business.images.badge }}?v=20261107-polish" alt="" width="237" height="232">
         <span class="brand-text">
           <span class="brand-wm">Collaborative Construction</span>
           <span class="brand-tag">{{ business.tagline }}</span>
