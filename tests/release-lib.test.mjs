@@ -294,7 +294,7 @@ async function goodFolder() {
   }
   for (const f of ["js/turnstile-lifecycle.js", "js/intake-context.js", "js/analytics.js", "js/main.js", "css/styles.css", "llms.txt"]) { await mkdir(join(d, f, ".."), { recursive: true }); await writeFile(join(d, f), "x"); }
   await writeFile(join(d, "robots.txt"), `User-agent: *\nDisallow: /api/\nSitemap: ${EXPECTED.site}/sitemap.xml\n`);
-  await writeFile(join(d, "sitemap.xml"), PAGES.map((p) => `<loc>${EXPECTED.site}${p}</loc>`).join(""));
+  await writeFile(join(d, "sitemap.xml"), PAGES.filter((p) => p !== "/schedule-consultation/").map((p) => `<loc>${EXPECTED.site}${p}</loc>`).join(""));
   await mkdir(join(d, "assets/img"), { recursive: true });
   for (let i = 0; i < 160; i++) await writeFile(join(d, `assets/img/img${i}.webp`), "x");
   await writeFile(join(d, "assets/img/a.jpg"), "x");
@@ -314,6 +314,7 @@ test("each missing piece of the folder is reported", async () => {
     ["managed robots", (d) => writeFile(join(d, "robots.txt"), `# BEGIN Cloudflare Managed content\nDisallow: /api/\nSitemap: ${EXPECTED.site}/sitemap.xml`), /managed block/],
     ["two sitemap lines", (d) => writeFile(join(d, "robots.txt"), `Disallow: /api/\nSitemap: a\nSitemap: b`), /exactly one Sitemap/],
     ["sitemap", (d) => writeFile(join(d, "sitemap.xml"), "<loc></loc>"), /sitemap does not list/],
+    ["GBP landing mistakenly indexed", async (d) => { const f = join(d, "sitemap.xml"); await writeFile(f, (await readFile(f, "utf8")) + `<loc>${EXPECTED.site}/schedule-consultation/</loc>`); }, /landing page should not be in sitemap/],
     ["broken image", (d) => rm(join(d, "assets/img/a.jpg")), /referenced file is not in the folder: \/assets\/img\/a\.jpg/],
     ["two h1", (d) => writeFile(join(d, "about/index.html"), `<link rel="canonical" href="x"><h1>a</h1><h1>b</h1>`), /about\/index\.html: needs exactly one H1/],
     ["no canonical", (d) => writeFile(join(d, "about/index.html"), `<h1>a</h1>`), /canonical/],
