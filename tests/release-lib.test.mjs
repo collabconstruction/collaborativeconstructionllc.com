@@ -22,6 +22,8 @@ test("the consultation page is a protected release and live-health destination",
   assert.match(overlay, /"sitemap\.xml"/);
   assert.match(overlay, /const unresolvedProblems = problems\.filter/);
   assert.match(overlay, /problems: unresolvedProblems\.map/);
+  const verifier = await readFile(new URL("../scripts/verify-release-build.mjs", import.meta.url), "utf8");
+  assert.match(verifier, /legacySitemapOnly = new Set\(\['\/about\/', '\/construction-advisory\/', '\/adu-builder-cape-cod\/'\]\)/);
 });
 
 test("repository is read from https and ssh remotes", () => {

@@ -139,9 +139,13 @@ for (const file of htmlFiles) {
 //    distinction GSC's URL Inspection does not test).
 const homeHtml = read('_site/index.html');
 const homeHrefs = new Set([...homeHtml.matchAll(/href="(\/[^"?#]*)"/g)].map(m => m[1].replace(/\/?$/, '/')));
+// These three canonical pages are already present in the production sitemap but were deliberately
+// removed from homepage navigation. Preserve that established crawl surface without allowing any
+// future sitemap page to become silently orphaned.
+const legacySitemapOnly = new Set(['/about/', '/construction-advisory/', '/adu-builder-cape-cod/']);
 for (const loc of sitemapLocs) {
   const sitePath = loc.replace('https://collaborativeconstructionllc.com', '').replace(/\/?$/, '/');
-  if (sitePath === '/') continue;
+  if (sitePath === '/' || legacySitemapOnly.has(sitePath)) continue;
   assert.ok(homeHrefs.has(sitePath), `sitemap URL not server-rendered-linked from the homepage: ${sitePath}`);
 }
 
