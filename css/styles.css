@@ -5270,3 +5270,10 @@ html.lightbox-open { overflow: hidden; }
 @media (max-width: 340px) {
   .site-header .brand .logo { width: 38px; height: 38px; }
 }
+
+/* Homepage: direct consultation booking alongside the existing inquiry form. */
+#contact .contact-booking-option { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px 18px; margin: 22px auto 0; }
+#contact .contact-booking-option .btn { flex-shrink: 0; }
+#contact .contact-booking-note { margin: 0; max-width: 410px; font-size: 0.875rem; line-height: 1.55; text-align: left; color: var(--muted); }
+#contact .contact-booking-option .btn:focus-visible { outline: 3px solid var(--brass); outline-offset: 4px; }
+@media (max-width: 600px) { #contact .contact-booking-option { flex-direction: column; gap: 10px; } #contact .contact-booking-note { text-align: center; } }
