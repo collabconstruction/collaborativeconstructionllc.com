@@ -199,10 +199,10 @@ async function main() {
       "shingle-home-1.jpg",
       "carlisle-residence-1.jpg",
       "carlisle-residence-4.jpg",
-      "pool-cabana-3.jpg",
-      "new-seabury-deck-5.jpg",
+      "pool-cabana-1.jpg",
+      "carlisle-residence-3.jpg",
       "traditional-kitchen-1.jpg",
-      "coastal-bath-4.jpg",
+      "coastal-bath-3.jpg",
     ];
     if (!hero || JSON.stringify(heroImages) !== JSON.stringify(approvedHeroImages)) {
       console.error("NOT READY: the homepage hero must contain exactly the seven owner-approved photos in order. Fix src/_includes/hero-figure.html, not the copy.");

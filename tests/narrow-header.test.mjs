@@ -11,7 +11,7 @@ test('very narrow phones get a smaller header wordmark and gaps so no page scrol
 });
 
 test('the owner-reviewed header enlarges the mark and lowers the text without breaking narrow phones', () => {
-  assert.match(css, /\.site-header \.brand \.logo \{ width: 54px; height: 54px; \}/);
+  assert.match(css, /\.site-header \.brand \.logo \{ width: 60px; height: 60px; object-fit: contain; flex-shrink: 0; \}/);
   assert.match(css, /\.site-header \.brand-text \{ transform: translateY\(3px\); \}/);
   assert.match(css, /@media \(max-width: 340px\) \{\s*\.site-header \.brand \.logo \{ width: 38px; height: 38px; \}\s*\}/);
 });
