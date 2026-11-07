@@ -5258,3 +5258,15 @@ html.lightbox-open { overflow: hidden; }
   .site-header .brand .logo { width: 38px; height: 38px; }
   .site-header .header-right { flex-shrink: 0; gap: 6px; }
 }
+
+/* November owner review: give the house mark more presence and settle the
+   two-line wordmark slightly lower beside it. Preserve the narrow-phone guard. */
+.site-header .brand .logo { width: 54px; height: 54px; }
+.site-header .brand-text { transform: translateY(3px); }
+@media (max-width: 600px) {
+  .site-header .brand .logo { width: 42px; height: 42px; }
+  .site-header .brand-text { transform: translateY(2px); }
+}
+@media (max-width: 340px) {
+  .site-header .brand .logo { width: 38px; height: 38px; }
+}

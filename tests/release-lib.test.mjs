@@ -404,7 +404,7 @@ test("the overlay script no longer edits live files in place, and it checks inst
   assert.match(src, /FACEBOOK_OLD/);
 });
 
-test("the protected overlay requires exactly the five owner-approved homepage hero photos in order", async () => {
+test("the protected overlay requires exactly the seven owner-approved homepage hero photos in order", async () => {
   const overlay = await readFile(new URL("../scripts/build-live-overlay.mjs", import.meta.url), "utf8");
   const hero = await readFile(new URL("../src/_includes/hero-figure.html", import.meta.url), "utf8");
   const heroImages = hero.match(/(?:src|data-src)="\/assets\/img\/([^\"]+\.jpg)"/g)
@@ -418,6 +418,8 @@ test("the protected overlay requires exactly the five owner-approved homepage he
     "carlisle-residence-4.jpg",
     "pool-cabana-3.jpg",
     "new-seabury-deck-5.jpg",
+    "traditional-kitchen-1.jpg",
+    "coastal-bath-4.jpg",
   ]);
   assert.deepEqual(approved, heroImages, "production overlay guard must track the checked-in hero exactly");
 });
