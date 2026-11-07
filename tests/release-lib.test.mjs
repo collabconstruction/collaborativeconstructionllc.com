@@ -19,6 +19,7 @@ test("the consultation page is a protected release and live-health destination",
   assert.ok(PAGES.includes("/schedule-consultation/"));
   const overlay = await readFile(new URL("../scripts/build-live-overlay.mjs", import.meta.url), "utf8");
   assert.match(overlay, /"schedule-consultation\/index\.html"/);
+  assert.match(overlay, /"sitemap\.xml"/);
   assert.match(overlay, /const unresolvedProblems = problems\.filter/);
   assert.match(overlay, /problems: unresolvedProblems\.map/);
 });
