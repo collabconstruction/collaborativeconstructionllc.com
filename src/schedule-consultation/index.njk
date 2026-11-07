@@ -1,0 +1,109 @@
+---
+layout: base.njk
+permalink: /schedule-consultation/index.html
+canonical: /schedule-consultation/
+schemaType: service
+title: "Request a Construction Consultation | Collaborative Construction, Cape Cod"
+description: "Request an initial construction consultation in Falmouth or Cape Cod. Tell us about your renovation, home addition, custom home or owner’s project management needs. We confirm appointments personally."
+ogType: "website"
+ogTitle: "Request a Construction Consultation | Collaborative Construction"
+ogDescription: "Tell us about your Cape Cod construction project and propose a convenient time. Appointments are confirmed personally."
+twitterDescription: "Request a construction consultation in Falmouth and Cape Cod."
+breadcrumbName: "Request a Consultation"
+---
+<section class="about-page-hero">
+  <div class="container">
+    <p class="eyebrow">Start a conversation</p>
+    <h1>Request a Construction Consultation</h1>
+    <hr class="rule" style="margin:18px auto 0">
+    <p class="hero-lede">Planning a renovation, home addition, custom home or independent construction oversight? Tell us a little about your project and a convenient time to talk.</p>
+    <p class="hero-lede"><strong>This is an appointment request, not an instant booking.</strong> We will review your request and contact you to confirm a mutually convenient time.</p>
+  </div>
+</section>
+
+<section class="section contact" id="consultation-request">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p class="eyebrow">What happens next</p>
+        <h2>One conversation. A clear starting point.</h2>
+        <p class="lede">Share the scope, town and timeframe for your project. Initial consultations are arranged individually so we can determine the appropriate next step.</p>
+        <div class="contact-preparation">
+          <h3>How it works</h3>
+          <ol>
+            <li>Send your contact information and a brief description of the work.</li>
+            <li>Tell us your preferred day or time for an initial phone conversation.</li>
+            <li>We review your inquiry and contact you to confirm an appointment. No time is reserved until we confirm.</li>
+          </ol>
+          <p>For urgent matters or to speak directly, call <a href="tel:+15084406981">(508) 440-6981</a>.</p>
+        </div>
+        <p><strong>Serving:</strong> Falmouth and surrounding Cape Cod communities.</p>
+        <p><a href="/" class="btn btn-ghost">Return to home page</a></p>
+      </div>
+
+      <div class="form-card">
+        <form id="contact-form" action="/api/contact" method="post" enctype="multipart/form-data" novalidate>
+          <h2>Request your consultation</h2>
+          <p class="form-note">Name, email and project details are required. Preferred times are requests only, not confirmed appointments.</p>
+          <div class="field">
+            <label for="cc-name">Name</label>
+            <input id="cc-name" name="name" type="text" autocomplete="name" maxlength="120" required aria-describedby="cc-name-error">
+            <p class="field__error" id="cc-name-error"></p>
+          </div>
+          <div class="field">
+            <label for="cc-email">Email</label>
+            <input id="cc-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="cc-email-error">
+            <p class="field__error" id="cc-email-error"></p>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="cc-phone">Phone (optional)</label>
+              <input id="cc-phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
+            </div>
+            <div class="field">
+              <label for="cc-town">Project town</label>
+              <input id="cc-town" name="project_town" type="text" maxlength="100" autocomplete="address-level2" placeholder="e.g. Falmouth">
+            </div>
+          </div>
+          <div class="field">
+            <label for="cc-type">Type of project</label>
+            <select id="cc-type" name="project_type">
+              <option value="">Select a service (optional)</option>
+              <option value="renovation">Home renovation or remodeling</option>
+              <option value="addition">Home addition</option>
+              <option value="custom_home">Custom home or new construction</option>
+              <option value="adu">Accessory dwelling unit (ADU)</option>
+              <option value="general_contracting">General contracting</option>
+              <option value="advisory">Owner's project management or construction advisory</option>
+              <option value="other">Other construction project</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="cc-time">Preferred days and times to talk (optional)</label>
+            <input id="cc-time" name="desired_timeline" type="text" maxlength="150" placeholder="e.g. Weekday afternoons, or Tuesday after 2 PM">
+            <p class="form-note">Please include your time zone if you're outside Eastern Time. We will contact you to confirm.</p>
+          </div>
+          <div class="field">
+            <label for="cc-message">Tell us about your project</label>
+            <textarea id="cc-message" name="message" maxlength="5000" required aria-describedby="cc-message-error" placeholder="What would you like to build or improve? Include the approximate project timeframe and any specific questions."></textarea>
+            <p class="field__error" id="cc-message-error"></p>
+          </div>
+          <script src="/js/turnstile-lifecycle.js"></script>
+          <div id="cc-turnstile" class="cf-turnstile" data-sitekey="0x4AAAAAAFT7_DoQM-wX5k4h" data-action="contact"
+            data-callback="ccChallengeSuccess" data-expired-callback="ccChallengeExpired"
+            data-timeout-callback="ccChallengeTimeout" data-error-callback="ccChallengeError"
+            data-refresh-expired="auto" data-refresh-timeout="auto"></div>
+          <p id="challenge-status" role="status" aria-live="polite"></p>
+          <noscript><p>Please call <a href="tel:+15084406981">(508) 440-6981</a> or email <a href="mailto:{{ business.email }}">{{ business.email }}</a> to request a consultation without JavaScript.</p></noscript>
+          <div class="hp-field" hidden inert aria-hidden="true">
+            <label for="cc-x7q2m9">Leave this field blank</label>
+            <input id="cc-x7q2m9" name="cc_x7q2m9" type="text" tabindex="-1" autocomplete="off" autocapitalize="off" spellcheck="false" data-1p-ignore data-lpignore="true" data-bwignore>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Request a consultation</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+          <p class="form-note">Submitting this form does not create or guarantee an appointment. We will follow up to confirm availability.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
