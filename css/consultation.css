@@ -1,0 +1,100 @@
+/*
+  Google Business Profile consultation landing page only.
+  Deliberately isolated from the compact homepage contact dashboard.
+  The shared #contact-form JS and Cloudflare Turnstile integration remain unchanged.
+*/
+.consultation-hero {
+  padding: clamp(112px, 10vw, 160px) 0 clamp(36px, 4vw, 60px);
+}
+.consultation-hero .container { max-width: 900px; text-align: center; }
+.consultation-hero h1 { margin: 12px auto 18px; max-width: 24ch; line-height: 1.12; }
+.consultation-hero .hero-lede { max-width: 720px; margin: 14px auto 0; line-height: 1.65; }
+.consultation-hero .eyebrow { justify-content: center; }
+.consultation-section { padding: clamp(32px, 5vw, 72px) 0 clamp(48px, 6vw, 96px); background: var(--paper-2); }
+.consultation-section .container { max-width: 1200px; }
+.consultation-grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(20px, 3vw, 36px); align-items: start; }
+.consultation-grid > * { min-width: 0; }
+.consultation-summary {
+  background: var(--navy);
+  color: var(--paper);
+  border: 1px solid var(--brass);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 3vw, 42px);
+}
+.consultation-summary h2 { color: var(--paper); font-size: clamp(1.7rem, 2.6vw, 2.45rem); margin: 8px 0 18px; line-height: 1.2; }
+.consultation-summary .eyebrow { color: var(--brass); }
+.consultation-summary p, .consultation-summary li { color: var(--paper); line-height: 1.65; }
+.consultation-summary .lede { margin-bottom: 16px; }
+.consultation-summary .contact-preparation { margin: 20px 0; padding: 20px 0; }
+.consultation-summary .contact-preparation h3 { color: var(--paper); font-size: 1.15rem; margin-bottom: 10px; }
+.consultation-summary .contact-preparation ol { padding-left: 1.4rem; margin: 0; }
+.consultation-summary .contact-preparation li { padding-left: .25rem; margin-bottom: 12px; }
+.consultation-summary .contact-preparation p { color: var(--paper); }
+.consultation-summary a:not(.btn) { color: var(--brass-300); text-decoration: underline; }
+.consultation-summary .btn-ghost { color: var(--paper); border-color: var(--brass); margin-top: 8px; }
+#consultation-request .consultation-form-card { height: auto; min-width: 0; padding: clamp(24px, 3vw, 42px); }
+#consultation-request #contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: stretch;
+}
+#consultation-request #contact-form > * {
+  order: initial;
+  grid-column: auto;
+  grid-row: auto;
+  min-width: 0;
+}
+#consultation-request #contact-form h2 { font-size: clamp(1.6rem, 2.4vw, 2.1rem); margin-bottom: 12px; line-height: 1.2; }
+#consultation-request #contact-form .form-note { font-size: .875rem; line-height: 1.5; margin: 0 0 18px; }
+#consultation-request #contact-form .field {
+  display: grid;
+  grid-column: auto;
+  grid-row: auto;
+  gap: 7px;
+  margin-bottom: 19px;
+  min-width: 0;
+}
+#consultation-request #contact-form .field-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+#consultation-request #contact-form .field-row .field { min-width: 0; }
+#consultation-request #contact-form .field input,
+#consultation-request #contact-form .field select,
+#consultation-request #contact-form .field textarea {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+#consultation-request #contact-form .field:has(#cc-message) textarea {
+  display: block;
+  height: auto;
+  min-height: 150px;
+  flex: initial;
+  resize: vertical;
+}
+#consultation-request #contact-form .field .form-note {
+  font-size: .82rem;
+  line-height: 1.45;
+  margin: 4px 0 0;
+}
+#consultation-request #contact-form .cf-turnstile { margin: 4px 0 14px; max-width: 100%; }
+#consultation-request #contact-form #challenge-status { margin: 0 0 12px; }
+#consultation-request #contact-form > .btn-block { width: 100%; margin: 6px 0 14px; align-self: auto; }
+#consultation-request #contact-form .form-status { margin-bottom: 10px; }
+#consultation-request #contact-form > .form-note:last-child { margin: 0; }
+@media (max-width: 900px) {
+  .consultation-grid { grid-template-columns: minmax(0, 1fr); }
+  .consultation-summary { padding: 26px; }
+}
+@media (max-width: 600px) {
+  .consultation-hero { padding-top: 100px; }
+  .consultation-grid { gap: 18px; }
+  #consultation-request #contact-form .field-row { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  #consultation-request .consultation-form-card { padding: 22px 18px; }
+  .consultation-summary { padding: 24px 20px; }
+}
