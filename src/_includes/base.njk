@@ -33,6 +33,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title }}</title>
   <meta name="description" content="{{ description }}">
+  {%- if noindex %}
+  <meta name="robots" content="noindex, follow">
+  {%- endif %}
   <meta name="theme-color" content="#121d33">
   <link rel="canonical" href="{{ business.url }}{{ canonical }}">
 
@@ -66,6 +69,9 @@
 {%- endif %}
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-normal-latin.woff2" crossorigin>
   <link rel="stylesheet" href="/css/styles.css">
+  {%- if consultationLanding %}
+  <link rel="stylesheet" href="/css/consultation.css">
+  {%- endif %}
   {#- Every [data-reveal] block starts at opacity:0 and is only un-hidden by
       main.js, and .motto-word/.rw-word start hidden too. With JavaScript
       disabled that renders the whole page blank, including the no-JS contact
