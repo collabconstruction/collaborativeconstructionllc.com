@@ -133,7 +133,7 @@ async function main() {
   // Pages and photos this branch changed. The pages come from the repo build (_site), so run
   // `npm run build` first. Each page already carries the current Facebook link.
   {
-    const built = ["index.html", "about/index.html", "gallery/index.html", "construction-advisory/index.html", "general-contractor-falmouth-ma/index.html", "home-additions-cape-cod/index.html", "adu-builder-cape-cod/index.html", "home-renovation-cape-cod/index.html", "custom-home-builder-cape-cod/index.html", "llms.txt", "robots.txt"];
+    const built = ["index.html", "about/index.html", "gallery/index.html", "construction-advisory/index.html", "schedule-consultation/index.html", "general-contractor-falmouth-ma/index.html", "home-additions-cape-cod/index.html", "adu-builder-cape-cod/index.html", "home-renovation-cape-cod/index.html", "custom-home-builder-cape-cod/index.html", "llms.txt", "robots.txt"];
     for (const rel of built) {
       try { await stat(join(ROOT, "_site", rel)); } catch { console.error(`NOT READY: _site/${rel} is missing. Run npm run build first.`); process.exit(1); }
       await cp(join(ROOT, "_site", rel), join(OUT, rel));
@@ -246,7 +246,7 @@ async function main() {
   }, null, 2));
 
   // Sanity gates. A deploy replaces the whole site, so refuse to call this ready if it looks incomplete.
-  const must = ["index.html", "about/index.html", "gallery/index.html", "construction-advisory/index.html",
+  const must = ["index.html", "about/index.html", "gallery/index.html", "construction-advisory/index.html", "schedule-consultation/index.html",
     "css/styles.css", "js/main.js", "robots.txt", "sitemap.xml"];
   const missing = [];
   for (const f of must) { try { await stat(join(OUT, f)); } catch { missing.push(f); } }
@@ -255,7 +255,7 @@ async function main() {
   if (webp.length < 100) { console.error(`\nNOT READY: only ${webp.length} responsive photos found (expected ~148)`); process.exit(1); }
   const hardFail = problems.filter((p) => !/\.(?:json|map)\s/.test(p) && /HTTP (5\d\d|network)/.test(p));
   if (hardFail.length) { console.error("\nNOT READY: server errors while copying the live site."); process.exit(1); }
-  console.log(`\nREADY: _deploy/ has ${ok + 0} live files plus the overlay. Pages: index, about, gallery, construction-advisory and the service pages.`);
+  console.log(`\nREADY: _deploy/ has ${ok + 0} live files plus the overlay. Pages: index, about, gallery, consultation, construction-advisory and the service pages.`);
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });

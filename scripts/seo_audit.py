@@ -19,7 +19,7 @@ import urllib.request
 from html.parser import HTMLParser
 
 APEX = "https://collaborativeconstructionllc.com"
-PAGES = ["/", "/about/", "/gallery/", "/construction-advisory/", "/general-contractor-falmouth-ma/",
+PAGES = ["/", "/about/", "/gallery/", "/schedule-consultation/", "/construction-advisory/", "/general-contractor-falmouth-ma/",
          "/home-additions-cape-cod/", "/adu-builder-cape-cod/", "/home-renovation-cape-cod/",
          "/custom-home-builder-cape-cod/"]
 

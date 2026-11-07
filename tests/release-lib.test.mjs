@@ -15,6 +15,12 @@ const fixture = (n) => readFile(new URL(`./fixtures/wrangler/${n}`, import.meta.
 const ID1 = "308583ee-8c69-4207-9336-982cc82f3555";
 const ID2 = "d44368c2-a776-4c21-a387-2bbba3a5d830";
 
+test("the consultation page is a protected release and live-health destination", async () => {
+  assert.ok(PAGES.includes("/schedule-consultation/"));
+  const overlay = await readFile(new URL("../scripts/build-live-overlay.mjs", import.meta.url), "utf8");
+  assert.match(overlay, /"schedule-consultation\/index\.html"/);
+});
+
 test("repository is read from https and ssh remotes", () => {
   assert.equal(repoFromRemote("https://github.com/collabconstruction/collaborativeconstructionllc.com.git"), EXPECTED.repo);
   assert.equal(repoFromRemote("git@github.com:collabconstruction/collaborativeconstructionllc.com.git"), EXPECTED.repo);
