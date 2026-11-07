@@ -27,6 +27,7 @@ import { FACEBOOK_NOW, FACEBOOK_OLD, FORBIDDEN_FILES } from "./lib/release-lib.m
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "_deploy");
+const BUILT_FILES = ["index.html", "about/index.html", "gallery/index.html", "construction-advisory/index.html", "schedule-consultation/index.html", "general-contractor-falmouth-ma/index.html", "home-additions-cape-cod/index.html", "adu-builder-cape-cod/index.html", "home-renovation-cape-cod/index.html", "custom-home-builder-cape-cod/index.html", "llms.txt", "robots.txt", "sitemap.xml"];
 const siteArg = process.argv.indexOf("--site");
 const SITE = (siteArg > -1 ? process.argv[siteArg + 1] : "https://collaborativeconstructionllc.com").replace(/\/$/, "");
 const HOST = new URL(SITE).host;
@@ -133,8 +134,7 @@ async function main() {
   // Pages and photos this branch changed. The pages come from the repo build (_site), so run
   // `npm run build` first. Each page already carries the current Facebook link.
   {
-    const built = ["index.html", "about/index.html", "gallery/index.html", "construction-advisory/index.html", "schedule-consultation/index.html", "general-contractor-falmouth-ma/index.html", "home-additions-cape-cod/index.html", "adu-builder-cape-cod/index.html", "home-renovation-cape-cod/index.html", "custom-home-builder-cape-cod/index.html", "llms.txt", "robots.txt"];
-    for (const rel of built) {
+    for (const rel of BUILT_FILES) {
       try { await stat(join(ROOT, "_site", rel)); } catch { console.error(`NOT READY: _site/${rel} is missing. Run npm run build first.`); process.exit(1); }
       await cp(join(ROOT, "_site", rel), join(OUT, rel));
     }
@@ -230,9 +230,16 @@ async function main() {
   const ok = [...seen.values()].filter((v) => v === "ok").length;
   console.log(`Copied ${ok} live files from ${SITE} (${fetched} requests).`);
   console.log(`Overlaid from this branch: ${overlaid.join(", ")}`);
-  if (problems.length) {
-    console.log(`\nReferenced by the live site but not retrievable (${problems.length}):`);
-    problems.forEach((p) => console.log("  " + p));
+  // A route supplied by the verified repository build is allowed to be absent from the old live
+  // deployment. Its built file is checked below and the post-deploy live checks still require 200.
+  const builtRoutes = new Set(BUILT_FILES.map((rel) => rel === "index.html" ? "/" : rel.endsWith("/index.html") ? `/${rel.slice(0, -"index.html".length)}` : `/${rel}`));
+  const unresolvedProblems = problems.filter((problem) => {
+    const path = problem.split(/\s+/)[0];
+    return !(builtRoutes.has(path) && /\sHTTP 404$/.test(problem));
+  });
+  if (unresolvedProblems.length) {
+    console.log(`\nReferenced by the live site but not retrievable (${unresolvedProblems.length}):`);
+    unresolvedProblems.forEach((p) => console.log("  " + p));
   }
 
   // Files that must never be published, whatever copied them.
@@ -244,7 +251,7 @@ async function main() {
   await mkdir(join(ROOT, ".release"), { recursive: true });
   await writeFile(join(ROOT, ".release", "overlay-manifest.json"), JSON.stringify({
     site: SITE, generatedAt: new Date().toISOString(), requests: fetched, copied: ok, overlaid, kept,
-    problems: problems.map((x) => x.trim()),
+    problems: unresolvedProblems.map((x) => x.trim()),
   }, null, 2));
 
   // Sanity gates. A deploy replaces the whole site, so refuse to call this ready if it looks incomplete.
@@ -255,7 +262,7 @@ async function main() {
   const webp = await readdir(join(OUT, "assets/img/r")).catch(() => []);
   if (missing.length) { console.error(`\nNOT READY: missing ${missing.join(", ")}`); process.exit(1); }
   if (webp.length < 100) { console.error(`\nNOT READY: only ${webp.length} responsive photos found (expected ~148)`); process.exit(1); }
-  const hardFail = problems.filter((p) => !/\.(?:json|map)\s/.test(p) && /HTTP (5\d\d|network)/.test(p));
+  const hardFail = unresolvedProblems.filter((p) => !/\.(?:json|map)\s/.test(p) && /HTTP (5\d\d|network)/.test(p));
   if (hardFail.length) { console.error("\nNOT READY: server errors while copying the live site."); process.exit(1); }
   console.log(`\nREADY: _deploy/ has ${ok + 0} live files plus the overlay. Pages: index, about, gallery, consultation, construction-advisory and the service pages.`);
 }
