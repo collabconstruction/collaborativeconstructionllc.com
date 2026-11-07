@@ -35,6 +35,9 @@ const HOST = new URL(SITE).host;
 /** Files this branch changed, copied over the live copy. Edit this list when more files change. */
 const OVERLAY = [
   "css/styles.css",
+  // The GBP consultation landing page has its own scoped responsive CSS. This
+  // file is new to the repo, so it cannot be recovered from the live crawl.
+  "css/consultation.css",
   "js/main.js",
   "js/gallery.js",
   "js/lightbox.js",
