@@ -171,7 +171,15 @@ export async function checkDeployFolder(dir) {
   if (!/^Disallow:\s*\/api\//im.test(robots)) problems.push("robots.txt must disallow /api/");
 
   const sitemap = (await exists(join(dir, "sitemap.xml"))) ? await readFile(join(dir, "sitemap.xml"), "utf8") : "";
-  for (const p of PAGES) if (!sitemap.includes(`${EXPECTED.site}${p}`)) problems.push(`sitemap does not list ${p}`);
+  // Every organic page remains listed. The dedicated GBP consultation landing
+  // page is intentionally accessible by direct link but excluded from indexing.
+  const nonIndexedLandingPages = new Set(["/schedule-consultation/"]);
+  for (const p of PAGES) {
+    const listed = sitemap.includes(`${EXPECTED.site}${p}`);
+    if (nonIndexedLandingPages.has(p)) {
+      if (listed) problems.push(`private-to-navigation landing page should not be in sitemap: ${p}`);
+    } else if (!listed) problems.push(`sitemap does not list ${p}`);
+  }
 
   const home = (await exists(join(dir, "index.html"))) ? await readFile(join(dir, "index.html"), "utf8") : "";
   if (!/cf-turnstile/.test(home)) problems.push("home page has no Turnstile widget");
