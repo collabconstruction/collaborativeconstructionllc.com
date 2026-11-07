@@ -3,8 +3,10 @@
   Deliberately isolated from the compact homepage contact dashboard.
   The shared #contact-form JS and Cloudflare Turnstile integration remain unchanged.
 */
+/* Landing page has a sticky site header already; do not repeat a full header
+   height in the hero. Keep the title visible without an empty first screen. */
 .consultation-hero {
-  padding: clamp(112px, 10vw, 160px) 0 clamp(36px, 4vw, 60px);
+  padding: clamp(40px, 4.5vw, 66px) 0 clamp(28px, 3.5vw, 48px);
 }
 .consultation-hero .container { max-width: 900px; text-align: center; }
 .consultation-hero h1 { margin: 12px auto 18px; max-width: 24ch; line-height: 1.12; }
@@ -25,6 +27,7 @@
 .consultation-summary .eyebrow { color: var(--brass); }
 .consultation-summary p, .consultation-summary li { color: var(--paper); line-height: 1.65; }
 .consultation-summary .lede { margin-bottom: 16px; }
+.consultation-summary strong { color: inherit; }
 .consultation-summary .contact-preparation { margin: 20px 0; padding: 20px 0; }
 .consultation-summary .contact-preparation h3 { color: var(--paper); font-size: 1.15rem; margin-bottom: 10px; }
 .consultation-summary .contact-preparation ol { padding-left: 1.4rem; margin: 0; }
@@ -87,12 +90,24 @@
 #consultation-request #contact-form > .btn-block { width: 100%; margin: 6px 0 14px; align-self: auto; }
 #consultation-request #contact-form .form-status { margin-bottom: 10px; }
 #consultation-request #contact-form > .form-note:last-child { margin: 0; }
+/* The dedicated form must keep an obvious keyboard focus indicator as visitors
+   Tab between inputs, select menus and the submission button. */
+#consultation-request input:focus-visible,
+#consultation-request select:focus-visible,
+#consultation-request textarea:focus-visible,
+#consultation-request button:focus-visible,
+.consultation-summary a:focus-visible {
+  outline: 3px solid var(--brass);
+  outline-offset: 3px;
+}
+#consultation-request .field__error:not(:empty) { margin: 4px 0 0; }
+
 @media (max-width: 900px) {
   .consultation-grid { grid-template-columns: minmax(0, 1fr); }
   .consultation-summary { padding: 26px; }
 }
 @media (max-width: 600px) {
-  .consultation-hero { padding-top: 100px; }
+  .consultation-hero { padding-top: 38px; }
   .consultation-grid { gap: 18px; }
   #consultation-request #contact-form .field-row { grid-template-columns: minmax(0, 1fr); gap: 0; }
   #consultation-request .consultation-form-card { padding: 22px 18px; }
