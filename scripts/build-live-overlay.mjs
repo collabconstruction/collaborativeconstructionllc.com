@@ -27,7 +27,7 @@ import { FACEBOOK_NOW, FACEBOOK_OLD, FORBIDDEN_FILES } from "./lib/release-lib.m
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "_deploy");
-const BUILT_FILES = ["index.html", "about/index.html", "gallery/index.html", "construction-advisory/index.html", "schedule-consultation/index.html", "general-contractor-falmouth-ma/index.html", "home-additions-cape-cod/index.html", "adu-builder-cape-cod/index.html", "home-renovation-cape-cod/index.html", "custom-home-builder-cape-cod/index.html", "llms.txt", "robots.txt", "sitemap.xml"];
+const BUILT_FILES = ["index.html", "about/index.html", "gallery/index.html", "construction-advisory/index.html", "schedule-consultation/index.html", "general-contractor-falmouth-ma/index.html", "home-additions-cape-cod/index.html", "adu-builder-cape-cod/index.html", "home-renovation-cape-cod/index.html", "custom-home-builder-cape-cod/index.html", "css/consultation.css", "llms.txt", "robots.txt", "sitemap.xml"];
 const siteArg = process.argv.indexOf("--site");
 const SITE = (siteArg > -1 ? process.argv[siteArg + 1] : "https://collaborativeconstructionllc.com").replace(/\/$/, "");
 const HOST = new URL(SITE).host;
