@@ -28,6 +28,9 @@
   "assets": {
     "directory": "./_site",
     "binding": "ASSETS",
+    // Serve the Eleventy-built /404.html (src/404.njk) with a real 404 status
+    // instead of Cloudflare's bare default, so bad URLs get the branded page.
+    "not_found_handling": "404-page",
     // "/api/*" needs the Worker for the intake endpoint. The remaining 17 exact paths
     // are legacy/duplicate URL forms (old .html filenames and no-trailing-slash pages)
     // that need the Worker's own 301 redirect logic in worker/index.js instead of
