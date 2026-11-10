@@ -58,7 +58,10 @@ for (const block of sitemapXml.matchAll(/<url>([\s\S]*?)<\/url>/g)) {
   assert.ok(lastmod && /^\d{4}-\d{2}-\d{2}/.test(lastmod), `sitemap entry missing/invalid <lastmod>: ${block[0]}`);
 }
 
-const htmlFiles = files.filter(f => f.endsWith('.html'));
+// 404.html is Cloudflare's not_found_handling page: served only with a 404
+// status for unmatched URLs, never indexed or canonicalized, so the per-page
+// canonical/OG/H1 invariants below do not apply to it.
+const htmlFiles = files.filter(f => f.endsWith('.html') && f !== '404.html');
 assert.ok(htmlFiles.length > 0, 'build produced no HTML pages');
 
 const seenLdIds = new Map(); // @id -> first file that defined it, to spot accidental divergence
