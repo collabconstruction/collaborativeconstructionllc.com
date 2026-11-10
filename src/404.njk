@@ -9,14 +9,16 @@ eleventyExcludeFromCollections: true
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Page not found | Collaborative Construction, LLC</title>
   <meta name="description" content="The page you were looking for could not be found.">
-  <link rel="icon" href="/assets/logo.png">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
   <style>
     :root { --navy-950:#060b14; --navy-900:#0a1120; --brass:#bda16a; --brass-300:#d4be91; --ivory:#f4efe4; }
+    @font-face { font-family:"Newsreader"; src:url("/assets/fonts/newsreader-normal-latin.woff2") format("woff2"); font-weight:200 800; font-display:swap; }
+    @font-face { font-family:"Inter"; src:url("/assets/fonts/inter-normal-latin.woff2") format("woff2"); font-weight:100 900; font-display:swap; }
     * { box-sizing:border-box; margin:0; }
-    body { background:var(--navy-950); color:var(--ivory); font-family:Georgia,'Times New Roman',serif; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:2rem; }
+    body { background:var(--navy-950); color:var(--ivory); font-family:"Inter",system-ui,sans-serif; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:2rem; }
     main { max-width:34rem; text-align:center; }
     .brand { color:var(--brass); letter-spacing:.35em; text-transform:uppercase; font-size:.8rem; }
-    h1 { font-size:2.4rem; font-weight:normal; margin:1.2rem 0 .8rem; }
+    h1 { font-family:"Newsreader",Georgia,serif; font-size:2.6rem; font-weight:normal; margin:1.2rem 0 .8rem; }
     p { color:var(--brass-300); line-height:1.6; }
     nav { margin-top:2rem; display:flex; gap:1.4rem; justify-content:center; flex-wrap:wrap; }
     a { color:var(--brass); text-decoration:none; border-bottom:1px solid var(--brass); padding-bottom:.15rem; }
@@ -33,6 +35,7 @@ eleventyExcludeFromCollections: true
       <a href="/gallery/">Projects</a>
       <a href="/about/">About</a>
       <a href="/#contact">Contact</a>
+      <a href="{{ business.phoneHref }}">{{ business.phone }}</a>
     </nav>
   </main>
 </body>
